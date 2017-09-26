@@ -1,12 +1,10 @@
 package kosien.procon.application;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-import su.heartlove.matatabi.RecordFragment;
+import su.heartlove.matatabi.R;
 
 /**
  * Created by procon-kyougi on 2017/09/24.

@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import su.heartlove.matatabi.R;
+
 class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private String[] mDataset = new String[20];
