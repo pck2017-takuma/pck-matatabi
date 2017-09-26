@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--      レイアウト     -->
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent"
+	android:fitsSystemWindows="true" >
+	<RelativeLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		tools:context="su.heartlove.matatabi.MainActivity">
+		
+		
+		<!--      フレーム      -->
+		<FrameLayout
+			android:id="@+id/frame_layout"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_above="@+id/MainNavView"
+			android:animateLayoutChanges="true" />
+		<!--      フレーム終     -->
+		
+		<!--      ヘッダのフレーム       -->
+		<FrameLayout
+			android:id="@+id/appbar_container"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			<!--      ActionBar実装     -->
+			<android.support.v7.widget.Toolbar
+				xmlns:android="http://schemas.android.com/apk/res/android"
+				xmlns:app="http://schemas.android.com/apk/res-auto"
+				android:id="@+id/appbar"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:elevation="4dp"
+				android:background="@color/colorPrimary"
+				android:titleTextColor="@android:color/white"
+				android:title="@string/app_name"
+				android:paddingTop="0dp" />
+			<!--      ActionBar実装終   -->
+			
+			<!--      検索キー実装    -->
+			<com.miguelcatalan.materialsearchview.MaterialSearchView
+				xmlns:app="http://schemas.android.com/apk/res-auto"
+				android:id="@+id/SearchKey"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:visibility="visible" />
+			<!--      検索キー実装終   -->
+		</FrameLayout>
+		
+		<!--      BottomNavigationView実装部   -->
+			<android.support.design.widget.BottomNavigationView
+				android:id="@+id/MainNavView"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_alignParentBottom="true"
+				android:background="@color/colorPrimary"
+				app:itemIconTint="@android:color/white"
+				app:itemTextColor="@android:color/white"
+				app:menu="@menu/navitems" />
+			<FrameLayout
+				android:id="@+id/NavContainer"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_above="@id/MainNavView" >
+			</FrameLayout>
+		<!--      BottomNavigationView実装部終  -->
+		
+
+		
+	</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
+<!--      レイアウト終     -->
