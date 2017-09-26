@@ -19,9 +19,21 @@ public class stationInfoDBOpenHelper extends SQLiteOpenHelper{
 
     //駅情報データベース用サンプルデータ
     private String[][] datas = new String[][]{
-            {"田所", "デバックエキ","Debug_Station" ,"114514", "DEBUG99", "114-514", "香川県三豊市下北沢551", "81.05897", "174.514", "0", "", "", "", "", "", "", "", "", "", "114514"},
-            {"下北沢", "デバックエキ", "Debug_Station","114514", "DEBUG98", "114-514", "香川県三豊市下北沢551", "52.04322", "164.514", "0", "", "", "", "", "", "", "", "", "", "114514"},
-};
+            {"田所fdfsa", "デバックエキ","Debug_Station" ,"114514", "DEBUG99", "114-514", "香川県三豊市下北沢551", "81.05897", "174.514", "0", "114514"},
+            {"田所dsf23432", "デバックエキ","Debug_Station" ,"114514", "DEBUG99", "114-514", "香川県三豊市下北沢551", "81.05897", "174.514", "0", "114514"},
+            {"田所あああああ", "デバックエキ","Debug_Station" ,"114514", "DEBUG99", "114-514", "香川県三豊市下北沢551", "81.05897", "174.514", "0", "114514"},
+            {"田所", "デバックエキ","Debug_Station" ,"114514", "DEBUG99", "114-514", "香川県三豊市下北沢551", "81.05897", "174.514", "0", "114514"},
+            {"田所", "デバックエキ","Debug_Station" ,"114514", "DEBUG99", "114-514", "香川県三豊市下北沢551", "81.05897", "174.514", "0", "114514"},
+            {"田所", "デバックエキ","Debug_Station" ,"114514", "DEBUG99", "114-514", "香川県三豊市下北沢551", "81.05897", "174.514", "0", "114514"},
+            {"田所", "デバックエキ","Debug_Station" ,"114514", "DEBUG99", "114-514", "香川県三豊市下北沢551", "81.05897", "174.514", "0", "114514"},
+            {"田所", "デバックエキ","Debug_Station" ,"114514", "DEBUG99", "114-514", "香川県三豊市下北沢551", "81.05897", "174.514", "0", "114514"},
+            {"遠野", "デバックエキ", "Debug_Station","114514", "DEBUG98", "114-514", "香川県三豊市下北沢551", "52.04322", "164.514", "0","114514"},
+            {"KMR", "デバックエキ", "Debug_Station","114514", "DEBUG98", "114-514", "香川県三豊市下北沢551", "52.04322", "164.514", "0","114514"},
+            {"MUR", "デバックエキ", "Debug_Station","114514", "DEBUG98", "114-514", "香川県三豊市下北沢551", "52.04322", "164.514", "0","114514"},
+            {"TNOK", "デバックエキ", "Debug_Station","114514", "DEBUG98", "114-514", "香川県三豊市下北沢551", "52.04322", "164.514", "0","114514"},
+            {"TDN", "デバックエキ", "Debug_Station","114514", "DEBUG98", "114-514", "香川県三豊市下北沢551", "52.04322", "164.514", "0","114514"}
+
+    };
 
     //データベースのバージョン
     static final int DB_VERSION = 1;
@@ -58,16 +70,7 @@ public class stationInfoDBOpenHelper extends SQLiteOpenHelper{
                 values.put(Station_Infomation.STATION_LATITUDE, Double.parseDouble(data[7]));
                 values.put(Station_Infomation.STATION_LONGITUDE, Double.parseDouble(data[8]));
                 values.put(Station_Infomation.TOURIST_FLAG, data[9]);
-                values.put(Station_Infomation.STATION_PICTURE1, data[10]);
-                values.put(Station_Infomation.STATION_PICTURE2, data[11]);
-                values.put(Station_Infomation.STATION_PICTURE3, data[12]);
-                values.put(Station_Infomation.STATION_PICTURE4, data[13]);
-                values.put(Station_Infomation.STATION_PICTURE5, data[14]);
-                values.put(Station_Infomation.STATION_PICTURE6, data[15]);
-                values.put(Station_Infomation.STATION_PICTURE7, data[16]);
-                values.put(Station_Infomation.STATION_PICTURE8, data[17]);
-                values.put(Station_Infomation.STATION_PICTURE9, data[18]);
-                values.put(Station_Infomation.CITY_EVA_VALUE, data[19]);
+                values.put(Station_Infomation.CITY_EVA_VALUE, data[10]);
                 db.insert(Station_Infomation.TABLE_NAME, null, values);
             }
             db.setTransactionSuccessful();

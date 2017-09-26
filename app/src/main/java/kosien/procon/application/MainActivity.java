@@ -26,15 +26,13 @@ public class MainActivity extends Activity implements OnClickListener {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
-
-
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         //RecyclerViewの中身
         for(int i=0; i<myDataset.length; i++) {
-            myDataset[i] = "   Data_0"+String.valueOf(i);
+            myDataset[i] = "Data_0"+String.valueOf(i);
         }
 
         mAdapter = new MyAdapter(myDataset);
@@ -45,7 +43,7 @@ public class MainActivity extends Activity implements OnClickListener {
         a_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), Sub_2.class);
+                Intent intent = new Intent(getApplication(), Sub_1.class);
                 startActivity(intent);
             }
         });

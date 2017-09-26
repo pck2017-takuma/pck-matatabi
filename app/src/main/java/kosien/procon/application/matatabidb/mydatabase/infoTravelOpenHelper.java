@@ -35,11 +35,6 @@ public class infoTravelOpenHelper extends SQLiteOpenHelper {
 
             //テーブル作成用SQL生成
             StringBuilder createsql = MAKE_SQL.createtravelInfo();
-            if(createsql.toString() == null){
-                System.out.println("null");
-            }else {
-                System.out.println(createsql.toString());
-            }
 
             db.execSQL(createsql.toString());
             db.setTransactionSuccessful();
@@ -49,7 +44,6 @@ public class infoTravelOpenHelper extends SQLiteOpenHelper {
     }
 
     @Override
-
     //データベース更新（空実装）
     public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion){
 

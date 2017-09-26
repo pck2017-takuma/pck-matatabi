@@ -98,9 +98,11 @@ public class infoTravelDao {
         ArrayList<infoTravel>returnData = new ArrayList<infoTravel>();
         SQLiteDatabase db = helper.getReadableDatabase();
         infoTravel number = null;
+
+
         try{
         //テーブル名、検索カラム、検索番号
-            String query = "select * from "+infoTravel.TABLE_NAME + ";";
+            String query = "select * from "+ infoTravel.TABLE_NAME + ";";
             Cursor cursor = db.rawQuery(query,null);
             boolean next = cursor.moveToFirst();
             //存在数だけループする

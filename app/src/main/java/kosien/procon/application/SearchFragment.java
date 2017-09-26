@@ -1,6 +1,8 @@
 package kosien.procon.application;
 
 import android.app.Fragment;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
@@ -12,13 +14,20 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
 
+import kosien.procon.application.matatabidb.SetRecordListAdapter;
 import kosien.procon.application.matatabidb.mydatabase.StationInfoDao;
 import kosien.procon.application.matatabidb.mydatabase.Station_Infomation;
+import kosien.procon.application.matatabidb.mydatabase.infoTravel;
+import kosien.procon.application.matatabidb.mydatabase.infoTravelDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfoDao;
 
 import su.heartlove.matatabi.R;
@@ -29,93 +38,75 @@ import su.heartlove.matatabi.R;
 
 public class SearchFragment extends Fragment {
 
-    private final SearchFragment self = this;
-
-    private SearchView searchView;
-    private String searchWord;
-
-    StationInfoDao stationHelper = new StationInfoDao(this.getActivity());
-    placeInfoDao placeHelper = new placeInfoDao(this.getActivity());
+    //フラグメントで表示する内容
+    private TextView mTextView;
+    private StationInfoDao stationHelper;
+    private String searchWord = new String();
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        this.setHasOptionsMenu(true);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
+        super.onCreateView(inflater,container,saveInstanceState);
+        stationHelper = new StationInfoDao(getContext());
+        return inflater.inflate(R.layout.fragment_record,container,false);
+
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,@Nullable Bundle saveInstanceState){
-        return inflater.inflate(R.layout.fragment_search,null);
-    }
-
-
+    //ビューを生成し終わった後に呼ばれるメソッド
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-        super.onCreateOptionsMenu(menu,inflater);
+    public void onViewCreated(View view,Bundle saveInstanceState) {
 
-        inflater.inflate(R.menu.menu_search,menu);
-        MenuItem menuItem = menu.findItem(R.id.search_menu_search_view);
-        this.searchView = (SearchView)MenuItemCompat.getActionView(menuItem);
+        // super.onViewCreated(view,saveInstanceState);
+        //データベースからデータを取得する
+        Bundle bundle = getArguments();
+        searchWord = bundle.getString("NAME");
 
+        ArrayList<Station_Infomation> stationData = new ArrayList<Station_Infomation>();
 
-
-        //ActionViewの取得
-        this.searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-
-        //虫眼鏡表示するか
-        this.searchView.setIconifiedByDefault(true);
-
-        //submitボタンを表示するかどうか
-        this.searchView.setSubmitButtonEnabled(false);
-
-        if(this.searchWord.equals("")){
-            this.searchView.setQuery(this.searchWord,false);
-        }else{
-            String queryHint = self.getResources().getString(R.string.search_hint);
-            this.searchView.setQueryHint(queryHint);
-        }
-        this.searchView.setOnQueryTextListener(self.onQueryTextListener);
-    }
-
-    private SearchView.OnQueryTextListener onQueryTextListener = new SearchView.OnQueryTextListener(){
-        @Override
-        public boolean onQueryTextSubmit(String searchWord){
-            //submitボタン
-            return self.setSearchWord(searchWord);
+        if(stationHelper.findStationInfo(searchWord,Station_Infomation.STATION_NAME)){
+            stationData = stationHelper.getSearchResult();
         }
 
-        @Override
-        public boolean onQueryTextChange(String searchWord){
-            //入力される度
-            return false;
+        ListView listView = (ListView)view.findViewById(R.id.sample_listview);
+        ArrayList<SampleListItem> listItems = new ArrayList<>();
+
+        if(stationData.size() == 0){
+            Toast.makeText(getContext(),"データが存在しません",Toast.LENGTH_SHORT).show();
+        }else {
+           // for (int i = 0; i < stationData.size(); i++) {
+             for(Station_Infomation x:stationData){
+                Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);  // 今回はサンプルなのでデフォルトのAndroid Iconを利用
+                SampleListItem item = new SampleListItem(bmp, x.getStationname(), x.getBetname());
+                listItems.add(item);
+            }
+            // 出力結果をリストビューに表示
+            SetRecordListAdapter adapter = new SetRecordListAdapter(getContext(), R.layout.samplelist_item, listItems);
+            listView.setAdapter(adapter);
+
+
+            // アイテムクリック時ののイベントを追加
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent,
+                                        View view, int pos, long id) {
+
+                    // 選択アイテムを取得
+                    ListView listView2 = (ListView)parent;
+                    String item = (String)listView2.getItemAtPosition(pos);
+
+                    // 通知ダイアログを表示
+                    Toast.makeText(getContext(),
+                            item, Toast.LENGTH_LONG
+                    ).show();
+                }
+
+
+
+
+            });
         }
-    };
 
-    private boolean setSearchWord(String searchWord){
-        ActionBar actionBar = ((AppCompatActivity)this.getActivity()).getSupportActionBar();
-        actionBar.setTitle(searchWord);
-        actionBar.setTitle(searchWord);
-        actionBar.setDisplayShowTitleEnabled(true);
-
-        if(searchWord != null && !searchWord.equals("")){
-            //nullチェックとスペースチェック
-            this.searchWord = searchWord;
-        }
-
-        this.searchView.setIconified(false);
-        this.searchView.onActionViewCollapsed();
-
-        //こ↑こ↓からデータベース照会
-        //駅データの該当データを取得する
-        ArrayList<Station_Infomation> stationResult = stationHelper.findStationInfo(searchWord, Station_Infomation.STATION_NAME);
-
-
-
-
-
-        return false;
 
     }
 
