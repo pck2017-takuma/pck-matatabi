@@ -1,5 +1,6 @@
 package kosien.procon.application;
 
+import su.heartlove.matatabi.R;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
@@ -14,8 +15,11 @@ public class TwitterUtils {
     private static final String PREF_NAME = "twitter_access_token";
 
     public static Twitter getTwitterInstance(Context context) {
-        String consumerKey = context.getString(R.string.twitter_consumer_key);
-        String consumerSecret = context.getString(R.string.twitter_consumer_secret);
+//        String consumerKey = context.getString(R.string.twitter_consumer_key);
+//        String consumerSecret = context.getString(R.string.twitter_consumer_secret);
+
+        String consumerKey = "test";
+        String consumerSecret = "test";
 
         TwitterFactory factory = new TwitterFactory();
         Twitter twitter = factory.getInstance();

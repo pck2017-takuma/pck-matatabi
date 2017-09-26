@@ -1,13 +1,19 @@
 package kosien.procon.application;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.app.Activity;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 
-public class Sub_1 extends Activity implements OnClickListener {
+import su.heartlove.matatabi.R;
+
+
+public class Sub_1 extends AppCompatActivity implements OnClickListener {
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -40,6 +46,10 @@ public class Sub_1 extends Activity implements OnClickListener {
                 startActivity(intent);
             }
         });
+
+        ////検索ボタンのフラグメント呼び出し
+
+
     }
 
     public void onClick(View v) {

@@ -25,10 +25,9 @@ import android.widget.Toast;
 import java.util.Calendar;
 import java.util.List;
 
-import su.heartlove.matatabi.DiaryEdit;
-import su.heartlove.matatabi.DiaryView;
-import su.heartlove.matatabi.matatabidb.mydatabase.RecordDaoItem;
-import su.heartlove.matatabi.matatabidb.mydatabase.RecordItem;
+import kosien.procon.application.matatabidb.mydatabase.RecordDaoItem;
+import kosien.procon.application.matatabidb.mydatabase.RecordItem;
+import su.heartlove.matatabi.R;
 
 
 /**
@@ -167,12 +166,8 @@ public class DiaryTop extends Activity {
             @Override
             public void onClick(View v) {
                 /* 追加クラスのインテントを生成して呼び出し */
-<<<<<<< HEAD
                 Toast.makeText(DiaryTop.this,"button clicked",Toast.LENGTH_SHORT).show();
                 Intent addIntent = new Intent(DiaryTop.this, DiaryEdit.class);
-=======
-                Intent addIntent = new Intent(getApplication(), DiaryEdit.class);
->>>>>>> f55ca4808ffc37f8514df98068c980363a7363a3
                 startActivity(addIntent);
             }
 

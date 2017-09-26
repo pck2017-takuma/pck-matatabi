@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/LinearLayout_all"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -62,7 +63,6 @@
             android:textStyle="bold"
             android:typeface="serif" />
     </LinearLayout>
-
     <ListView
         android:id="@+id/ListView_searchlist"
         android:layout_height="fill_parent"

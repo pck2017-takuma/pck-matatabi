@@ -9,6 +9,8 @@ import android.widget.ImageButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import su.heartlove.matatabi.R;
+
 public class MainActivity extends Activity implements OnClickListener {
 
     private RecyclerView mRecyclerView;
@@ -23,6 +25,9 @@ public class MainActivity extends Activity implements OnClickListener {
         setContentView(R.layout.activity_main);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+
+
+
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
