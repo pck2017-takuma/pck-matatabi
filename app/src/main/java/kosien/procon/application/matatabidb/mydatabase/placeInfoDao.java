@@ -1,4 +1,4 @@
-package su.heartlove.matatabi.matatabidb.mydatabase;
+package kosien.procon.application.matatabidb.mydatabase;
 
 
 import android.content.ContentValues;
@@ -42,8 +42,6 @@ public class placeInfoDao {
             values.put(placeInfomation.OPEN_TIME,item.getPlaceOpenTime());
             values.put(placeInfomation.CLOSE_TIME,item.getCloseTime());
             values.put(placeInfomation.PLACE_VALUE,item.getPlaceValue());
-
-
             //行番号を取得
             int rowId = item.getRowId();
 

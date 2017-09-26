@@ -1,4 +1,4 @@
-package su.heartlove.matatabi.matatabidb.mydatabase;
+package kosien.procon.application.matatabidb.mydatabase;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

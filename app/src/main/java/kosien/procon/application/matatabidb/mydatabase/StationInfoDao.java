@@ -2,16 +2,16 @@ package kosien.procon.application.matatabidb.mydatabase;
 
 
 import android.widget.ArrayAdapter;
-import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.ArrayAdapter;;
+;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 
 import kosien.procon.application.matatabidb.Matatabi;
 
@@ -130,44 +130,74 @@ public class StationInfoDao{
     }*/
 
     //指定条件のデータを文字列として返す
-    public ArrayAdapter<String> findStationInfo(String search_data,String column_name) {
-        String sql = "SELECT " + column_name + " FROM " + Station_Infomation.TABLE_NAME + " WHERE " + column_name + " == " +search_data;
-        SQLiteDatabase db = helper.getReadableDatabase();
-        ArrayAdapter<String> bizCardList = null;
-        Cursor cursor = null;
 
-        //アダプター初期化
-        bizCardList.clear();
-        try {
-            cursor = db.rawQuery(sql,null);
+//    public ArrayList<String> findStationInfo(String search_data, String column_name) {
+//        String sql = "SELECT " + column_name + " FROM " + Station_Infomation.TABLE_NAME + " WHERE " + column_name + " == " +search_data;
+//        SQLiteDatabase db = helper.getReadableDatabase();
+//        ArrayList<String> bizCardList = null;
+//        Cursor cursor = null;
+//
+//        //アダプター初期化
+//        bizCardList.clear();
+//        try {
+//            cursor = db.rawQuery(sql,null);
+//            int count = cursor.getCount();
+//            //カーソルの行数だけループ
+//            for(int i = 0; i < count;i++){
+//                //データベースから取得した情報がカーソルに入っている
+//                String data = cursor.getString(0) + "\n";
+//                //アダプターにこの情報を追加
+//                bizCardList.add(data);
+//                //カーソルを次に移動
+//                cursor.moveToNext();
+//            }
+//        }catch(Exception e){
+//            Log.e("SQL Error",e.toString());
+//            Toast.makeText(Matatabi.getInstance(),"もうこれわかんねぇな",Toast.LENGTH_LONG).show();
+//        }finally{
+//            //カーソルを閉じる
+//            if(cursor != null){
+//                cursor.close();
+//            }
+//        }
+//
+//        return bizCardList;
+//    }
+
+
+
+
+    public ArrayList<Station_Infomation> findStationInfo(String search_data, String column_name){
+        SQLiteDatabase db = helper.getReadableDatabase();
+        ArrayList<Station_Infomation> number = null;
+
+        try{
+            String query = "SELECT " + column_name + " FROM " + Station_Infomation.TABLE_NAME + " WHERE " + column_name + " == " +search_data;
+            Cursor cursor = db.rawQuery(query,null);
             int count = cursor.getCount();
             //カーソルの行数だけループ
             for(int i = 0; i < count;i++){
-                //データベースから取得した情報がカーソルに入っている
-                String data = cursor.getString(0) + "\n";
-                //アダプターにこの情報を追加
-                bizCardList.add(data);
+                number.add(getStationInfo(cursor));
                 //カーソルを次に移動
                 cursor.moveToNext();
             }
-        }catch(Exception e){
-            Log.e("SQL Error",e.toString());
-            Toast.makeText(Matatabi.getInstance(),"もうこれわかんねぇな",Toast.LENGTH_LONG).show();
         }finally{
-            //カーソルを閉じる
-            if(cursor != null){
-                cursor.close();
-            }
+            //処理が終わったらデータベースを閉じる
+            db.close();
         }
 
-        return bizCardList;
+        return number;
     }
 
- //指定条件のデータに検索SQLをかけて条件に合うやつを返す(第２引数・・・要素数)
-    public ArrayAdapter<String> findStationInfo(String sql,int num) {
+
+
+
+
+    //指定条件のデータに検索SQLをかけて条件に合うやつを返す(第２引数・・・要素数)
+    public ArrayList<String> findStationInfo(String sql,int num) {
       //  String sql = "select " + column_name + "from " + Station_Infomation.TABLE_NAME + "while " + column_name + " == " +search_data;
         SQLiteDatabase db = helper.getReadableDatabase();
-        ArrayAdapter<String> bizCardList = null;
+        ArrayList<String> bizCardList = null;
         Cursor cursor = null;
 
         //アダプター初期化

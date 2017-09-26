@@ -1,4 +1,4 @@
-package su.heartlove.matatabi.matatabidb;
+package kosien.procon.application.matatabidb.mydatabase;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLEncoder;

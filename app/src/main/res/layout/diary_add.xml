@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    android:gravity="top"
-    android:background="#f6ffcc">
+    android:gravity="top">
 
     <LinearLayout
         android:id="@+id/LinearLayout_add_title"
@@ -20,14 +19,9 @@
             android:id="@+id/TextView_add_title"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_marginLeft="4dp"
             android:textStyle="bold"
-            android:textSize="25dp"
             android:text="@string/txt_add_desc"
-            android:textColor="#ffff33"
-            android:typeface="serif"
-            android:gravity="center"
-            android:background="#00000000">
+            android:gravity="center">
         </TextView>
 
         <Button
@@ -35,7 +29,6 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="@string/btn_add_voice"
-            android:textSize="15dp"
             android:minWidth="100dp">
         </Button>
     </LinearLayout>
@@ -55,6 +48,7 @@
             android:layout_height="fill_parent"
             android:layout_width="fill_parent"
             android:inputType="textMultiLine"
+             android:textColor="@android:color/primary_text_light"
             android:gravity="top|left">
         </EditText>
     </ScrollView>
@@ -64,15 +58,13 @@
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:orientation="horizontal"
-        android:gravity="center"
-        android:background="#00ff33">
+        android:gravity="center" >
 
         <Button
             android:id="@+id/Button_add_save"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_margin="3dp"
-            android:textSize="18dp"
             android:text="@string/btn_add_save"
             android:minWidth="120dp">
         </Button>
@@ -82,7 +74,6 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_marginLeft="20dp"
-            android:textSize="18dp"
             android:text="@string/btn_add_cancel"
             android:minWidth="120dp">
         </Button>

@@ -1,4 +1,4 @@
-package kosien.procon.application.matatabidb;
+package kosien.procon.application;
 
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;

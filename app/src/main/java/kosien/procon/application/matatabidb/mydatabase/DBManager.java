@@ -1,4 +1,4 @@
-package kosien.procon.application.matatabidb;
+package kosien.procon.application.matatabidb.mydatabase;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

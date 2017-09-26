@@ -5,14 +5,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import kosien.procon.application.matatabidb.Matatabi;
 
 /**
  * Created by Owner on 2017/09/15.

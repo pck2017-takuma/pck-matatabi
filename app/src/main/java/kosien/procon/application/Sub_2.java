@@ -1,18 +1,33 @@
 package kosien.procon.application;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.app.Activity;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 
-public class Sub_2 extends Activity implements OnClickListener {
+import su.heartlove.matatabi.R;
+
+public class Sub_2 extends AppCompatActivity implements OnClickListener {
 
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        setContentView(R.layout.sub_2);
+        setContentView(R.layout.activity_search);
+
+        //フラグメントマネージャーを指定
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        //サーチフラグメントを作成
+        SearchFragment searchFragment = new SearchFragment();
+        //フラグメントを組み込む
+        transaction.replace(R.id.menu_search,searchFragment);
+        //バックスタックに追加
+        transaction.addToBackStack(null);
 
         ImageButton a_button = (ImageButton) findViewById(R.id.option_button);
         a_button.setOnClickListener(new OnClickListener() {
@@ -40,7 +55,14 @@ public class Sub_2 extends Activity implements OnClickListener {
                 startActivity(intent);
             }
         });
+
+
+        //コミットする
+        transaction.commit();
+
+
     }
+
 
     public void onClick(View v) {
 

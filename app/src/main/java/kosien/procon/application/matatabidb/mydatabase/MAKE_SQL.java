@@ -1,6 +1,7 @@
 package kosien.procon.application.matatabidb.mydatabase;
 
 
+
 /**
  * Created by procon-kyougi on 2017/09/14.
  */

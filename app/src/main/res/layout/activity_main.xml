@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-</LinearLayout>
+<!--      レイアウト     -->
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:theme="@android:style/Theme.Material.NoActionBar"
+	tools:context="su.heartlove.matatabi.MainActivity" >
+	
+	<!--      タイトルバー    -->
+	
+	<!--      フレーム      -->
+	<FrameLayout
+		android:id="@+id/frame_layout"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_above="@+id/MainNavView"
+		android:animateLayoutChanges="true"
+		android:background="@android:color/background_light">
+		
+		<Toolbar
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="#fafafa"
+			android:elevation="4dp"
+			android:textAlignment="center"
+			android:title="@string/app_name"
+			android:titleTextColor="@android:color/holo_blue_dark" />
+	</FrameLayout>
+	<!--      フレーム終     -->
+	
+	<!--      BottomNavigationView実装部   -->
+	<android.support.design.widget.BottomNavigationView
+		android:id="@+id/MainNavView"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:background="@android:color/background_light"
+		android:elevation="4dp"
+		app:itemBackground="@android:color/background_light"
+		app:itemIconTint="@android:color/holo_blue_dark"
+		app:itemTextColor="@android:color/holo_blue_dark"
+		app:menu="@menu/navitems" />
+	<!--      BottomNavigationView実装部終  -->
+	
+</RelativeLayout>
+<!--      レイアウト終     -->

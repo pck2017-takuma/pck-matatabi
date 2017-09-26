@@ -6,12 +6,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import android.widget.ArrayAdapter;
-import java.util.List;
-
-import kosien.procon.application.matatabidb.mydatabase.BUS_TABLE;
-import kosien.procon.application.matatabidb.mydatabase.busDBOpenHelper;
-
 /**
  * Created by procon-kyougi on 2017/09/13.
  */

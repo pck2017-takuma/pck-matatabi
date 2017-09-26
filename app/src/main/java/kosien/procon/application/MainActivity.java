@@ -25,17 +25,21 @@ public class MainActivity extends Activity implements OnClickListener {
         setContentView(R.layout.activity_main);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
 
-        //RecyclerViewの中身
-        for(int i=0; i<myDataset.length; i++) {
-            myDataset[i] = "   Data_0"+String.valueOf(i);
-        }
 
-        mAdapter = new MyAdapter(myDataset);
-        mRecyclerView.setAdapter(mAdapter);
+
+
+//        mRecyclerView.setHasFixedSize(true);
+//        mLayoutManager = new LinearLayoutManager(this);
+//        mRecyclerView.setLayoutManager(mLayoutManager);
+
+//        //RecyclerViewの中身
+//        for(int i=0; i<myDataset.length; i++) {
+//            myDataset[i] = "   Data_0"+String.valueOf(i);
+//        }
+//
+//        mAdapter = new MyAdapter(myDataset);
+//        mRecyclerView.setAdapter(mAdapter);
 
         //こ↑こ↓画面遷移
         ImageButton a_button = (ImageButton) findViewById(R.id.search_button);

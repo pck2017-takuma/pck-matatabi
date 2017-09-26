@@ -1,4 +1,4 @@
-package su.heartlove.matatabi.matatabidb.mydatabase;
+package kosien.procon.application.matatabidb;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -6,9 +6,8 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import android.widget.ArrayAdapter;;
 import android.widget.Toast;
-
-
-import su.heartlove.matatabi.matatabidb.Matatabi;
+import kosien.procon.application.matatabidb.Matatabi;
+import kosien.procon.application.matatabidb.mydatabase.stationInfoDBOpenHelper;
 
 /**
  * Created by procon-kyougi on 2017/09/14.

@@ -24,6 +24,13 @@ public class Record extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.record_main_fragment,mainFragment);
         transaction.commit();
+
+
+
+
+
+
+
     }
 
 

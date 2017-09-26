@@ -4,14 +4,14 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
-	tools:context="su.heartlove.matatabi.SearchUIFragment">
+	tools:context="su.heartlove.matatabi.HomeUIFragment">
 	
 	<TextView
-		android:id="@+id/textView2"
+		android:id="@+id/textView1"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_centerHorizontal="true"
 		android:layout_centerVertical="true"
-		android:text="@string/hello_search" />
-	
+		android:text="@string/hello_home" />
+
 </RelativeLayout>

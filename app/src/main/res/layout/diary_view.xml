@@ -4,32 +4,14 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:gravity="top"
-    android:background="#f0fcfc">
+    android:gravity="top">
 
     <LinearLayout
         android:id="@+id/LinearLayout_add_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
-        android:background="#33ccff">
-
-        <TextView
-            android:id="@+id/TextView_view_date"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_margin="3dp"
-            android:textStyle="bold"
-            android:typeface="serif"
-            android:text="Year / Month / day"
-            android:textColor="#339900"
-            android:textSize="30dp"
-            android:gravity="center"
-            android:background="#00000000">
-        </TextView>
-
-
+        android:gravity="center">
     </LinearLayout>
 
     <ScrollView
@@ -45,10 +27,7 @@
         <TextView
             android:id="@+id/TextView_view_diary"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:textSize="20dp"
-            android:text="text"
-            android:textColor="#333399">
+            android:layout_height="fill_parent">
         </TextView>
     </ScrollView>
 
@@ -57,17 +36,14 @@
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:orientation="horizontal"
-        android:gravity="center"
-        android:background="#33ccff">
+        android:gravity="center">
 
         <Button
             android:id="@+id/Button_view_cancel"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_margin="3dp"
-            android:textSize="18dp"
-            android:text="@string/btn_add_cancel"
-            android:minWidth="120dp">
+            android:layout_margin="4dp"
+            android:text="@string/btn_add_cancel">
         </Button>
     </LinearLayout>
 
