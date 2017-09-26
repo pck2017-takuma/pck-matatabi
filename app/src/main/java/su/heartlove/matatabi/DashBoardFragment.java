@@ -31,20 +31,5 @@ public class DashBoardFragment extends Fragment {
         //お勧めの場所
 
 
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
 }

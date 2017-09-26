@@ -5,7 +5,7 @@
 	
 	<fragment
 		android:id="@+id/fragment_homeui"
-		android:name="su.heartlove.matatabi.homeui"
+		android:name="su.heartlove.matatabi.DashBoardFragment"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		/>
