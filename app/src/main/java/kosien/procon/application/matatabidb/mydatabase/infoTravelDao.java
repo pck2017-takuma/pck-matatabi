@@ -1,9 +1,11 @@
-package su.heartlove.matatabi.matatabidb.mydatabase;
+package kosien.procon.application.matatabidb.mydatabase;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
 
 /**
  * Created by procon-kyougi on 2017/09/23.
@@ -78,7 +80,7 @@ public class infoTravelDao {
         SQLiteDatabase db = helper.getReadableDatabase();
         infoTravel number = null;
         try{
-            //テーブル名、検索カラム、検索番号
+        //テーブル名、検索カラム、検索番号
             String query = MAKE_SQL.query_load(infoTravel.TABLE_NAME,infoTravel.TRAVEL_NUM,itemId);
             Cursor cursor = db.rawQuery(query,null);
             cursor.moveToFirst();
@@ -91,6 +93,34 @@ public class infoTravelDao {
         return number;
     }
 
+    //とりあえず全件取得
+    public ArrayList<infoTravel> load_item(){
+        ArrayList<infoTravel>returnData = new ArrayList<infoTravel>();
+        SQLiteDatabase db = helper.getReadableDatabase();
+        infoTravel number = null;
+
+
+        try{
+        //テーブル名、検索カラム、検索番号
+            String query = "select * from "+ infoTravel.TABLE_NAME + ";";
+            Cursor cursor = db.rawQuery(query,null);
+            boolean next = cursor.moveToFirst();
+            //存在数だけループする
+            while(next){
+                returnData.add(getItem(cursor));
+                next = cursor.moveToNext();
+            }
+
+        }finally{
+            //処理が終わったらデータベースを閉じる
+            db.close();
+        }
+
+        return returnData;
+    }
+
+
+
 
     //カーソルからオブジェクトに変換
     private infoTravel getItem(Cursor cursor){
@@ -98,7 +128,7 @@ public class infoTravelDao {
 
         item.setRowid((int)cursor.getLong(0));
         item.setTravelNum((int)cursor.getLong(1));
+        item.setTravelTitle(cursor.getString(2));
         return item;
-
     }
 }

@@ -1,8 +1,11 @@
-package su.heartlove.matatabi.matatabidb.mydatabase;
+package kosien.procon.application.matatabidb.mydatabase;
 
+import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Created by procon-kyougi on 2017/09/23.
@@ -32,6 +35,7 @@ public class infoTravelOpenHelper extends SQLiteOpenHelper {
 
             //テーブル作成用SQL生成
             StringBuilder createsql = MAKE_SQL.createtravelInfo();
+
             db.execSQL(createsql.toString());
             db.setTransactionSuccessful();
         }finally {
@@ -40,7 +44,6 @@ public class infoTravelOpenHelper extends SQLiteOpenHelper {
     }
 
     @Override
-
     //データベース更新（空実装）
     public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion){
 

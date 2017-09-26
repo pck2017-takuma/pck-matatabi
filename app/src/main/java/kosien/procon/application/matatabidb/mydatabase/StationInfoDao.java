@@ -2,16 +2,16 @@ package kosien.procon.application.matatabidb.mydatabase;
 
 
 import android.widget.ArrayAdapter;
-import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.ArrayAdapter;;
+;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 
 import kosien.procon.application.matatabidb.Matatabi;
 
@@ -24,12 +24,13 @@ import kosien.procon.application.matatabidb.Matatabi;
 public class StationInfoDao{
 
     private stationInfoDBOpenHelper helper = null;
-
+    private ArrayList<Station_Infomation>returnData = new ArrayList<Station_Infomation>();
     public StationInfoDao(Context context) {
         helper = new stationInfoDBOpenHelper(context);
     }
 
     public Station_Infomation save(Station_Infomation stationInfo) {
+
         SQLiteDatabase db = helper.getWritableDatabase();
         Station_Infomation result = null;
         try {
@@ -44,15 +45,6 @@ public class StationInfoDao{
             values.put(Station_Infomation.STATION_LATITUDE, stationInfo.getStationlatitude());
             values.put(Station_Infomation.STATION_LONGITUDE, stationInfo.getStationlongitude());
             values.put(Station_Infomation.TOURIST_FLAG, stationInfo.gettouristFlag());
-            values.put(Station_Infomation.STATION_PICTURE1, stationInfo.getstationPicture1());
-            values.put(Station_Infomation.STATION_PICTURE2, stationInfo.getstationPicture2());
-            values.put(Station_Infomation.STATION_PICTURE3, stationInfo.getstationPicture3());
-            values.put(Station_Infomation.STATION_PICTURE4, stationInfo.getstationPicture4());
-            values.put(Station_Infomation.STATION_PICTURE5, stationInfo.getstationPicture5());
-            values.put(Station_Infomation.STATION_PICTURE6, stationInfo.getstationPicture6());
-            values.put(Station_Infomation.STATION_PICTURE7, stationInfo.getstationPicture7());
-            values.put(Station_Infomation.STATION_PICTURE8, stationInfo.getstationPicture8());
-            values.put(Station_Infomation.STATION_PICTURE9, stationInfo.getstationPicture9());
             values.put(Station_Infomation.CITY_EVA_VALUE, stationInfo.getCityEva());
             Long rowId = stationInfo.getRowid();
 
@@ -130,44 +122,85 @@ public class StationInfoDao{
     }*/
 
     //指定条件のデータを文字列として返す
-    public ArrayAdapter<String> findStationInfo(String search_data,String column_name) {
-        String sql = "SELECT " + column_name + " FROM " + Station_Infomation.TABLE_NAME + " WHERE " + column_name + " == " +search_data;
-        SQLiteDatabase db = helper.getReadableDatabase();
-        ArrayAdapter<String> bizCardList = null;
-        Cursor cursor = null;
 
-        //アダプター初期化
-        bizCardList.clear();
-        try {
-            cursor = db.rawQuery(sql,null);
+//    public ArrayList<String> findStationInfo(String search_data, String column_name) {
+//        String sql = "SELECT " + column_name + " FROM " + Station_Infomation.TABLE_NAME + " WHERE " + column_name + " == " +search_data;
+//        SQLiteDatabase db = helper.getReadableDatabase();
+//        ArrayList<String> bizCardList = null;
+//        Cursor cursor = null;
+//
+//        //アダプター初期化
+//        bizCardList.clear();
+//        try {
+//            cursor = db.rawQuery(sql,null);
+//            int count = cursor.getCount();
+//            //カーソルの行数だけループ
+//            for(int i = 0; i < count;i++){
+//                //データベースから取得した情報がカーソルに入っている
+//                String data = cursor.getString(0) + "\n";
+//                //アダプターにこの情報を追加
+//                bizCardList.add(data);
+//                //カーソルを次に移動
+//                cursor.moveToNext();
+//            }
+//        }catch(Exception e){
+//            Log.e("SQL Error",e.toString());
+//            Toast.makeText(Matatabi.getInstance(),"もうこれわかんねぇな",Toast.LENGTH_LONG).show();
+//        }finally{
+//            //カーソルを閉じる
+//            if(cursor != null){
+//                cursor.close();
+//            }
+//        }
+//
+//        return bizCardList;
+//    }
+
+
+    public boolean findStationInfo(String search_data, String column_name){
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        //データを空にする。
+        if(!returnData.isEmpty()) {
+            returnData.clear();
+        }
+
+        try{
+            String query = "select * from " + Station_Infomation.TABLE_NAME + " where " + column_name + " == " + "'" + search_data + "'" + ";";
+            Cursor cursor = db.rawQuery(query,null);
             int count = cursor.getCount();
             //カーソルの行数だけループ
             for(int i = 0; i < count;i++){
-                //データベースから取得した情報がカーソルに入っている
-                String data = cursor.getString(0) + "\n";
-                //アダプターにこの情報を追加
-                bizCardList.add(data);
+                returnData.add(getStationInfo(cursor));
                 //カーソルを次に移動
                 cursor.moveToNext();
             }
-        }catch(Exception e){
-            Log.e("SQL Error",e.toString());
-            Toast.makeText(Matatabi.getInstance(),"もうこれわかんねぇな",Toast.LENGTH_LONG).show();
         }finally{
-            //カーソルを閉じる
-            if(cursor != null){
-                cursor.close();
-            }
+            //処理が終わったらデータベースを閉じる
+            db.close();
         }
 
-        return bizCardList;
+        if(returnData.size() == 0){
+            return false;
+        }else{
+            return true;
+        }
+
     }
 
- //指定条件のデータに検索SQLをかけて条件に合うやつを返す(第２引数・・・要素数)
-    public ArrayAdapter<String> findStationInfo(String sql,int num) {
+    public ArrayList<Station_Infomation>getSearchResult(){
+        return returnData;
+    }
+
+
+
+
+
+    //指定条件のデータに検索SQLをかけて条件に合うやつを返す(第２引数・・・要素数)
+    public ArrayList<String> findStationInfo(String sql,int num) {
       //  String sql = "select " + column_name + "from " + Station_Infomation.TABLE_NAME + "while " + column_name + " == " +search_data;
         SQLiteDatabase db = helper.getReadableDatabase();
-        ArrayAdapter<String> bizCardList = null;
+        ArrayList<String> bizCardList = null;
         Cursor cursor = null;
 
         //アダプター初期化
@@ -218,16 +251,7 @@ public class StationInfoDao{
         staInfo.setStationLatitude(cursor.getDouble(8));
         staInfo.setStationLongitude(cursor.getDouble(9));
         staInfo.setTouristFlag(cursor.getString(10));
-        staInfo.setStationPicture1(cursor.getString(11));
-        staInfo.setStationPicture2(cursor.getString(12));
-        staInfo.setStationPicture3(cursor.getString(13));
-        staInfo.setStationPicture4(cursor.getString(14));
-        staInfo.setStationPicture5(cursor.getString(15));
-        staInfo.setStationPicture6(cursor.getString(16));
-        staInfo.setStationPicture7(cursor.getString(17));
-        staInfo.setStationPicture8(cursor.getString(18));
-        staInfo.setStationPicture9(cursor.getString(19));
-        staInfo.setCITY_EVA(cursor.getString(20));
+        staInfo.setCITY_EVA(cursor.getString(11));
         return staInfo;
     }
 }

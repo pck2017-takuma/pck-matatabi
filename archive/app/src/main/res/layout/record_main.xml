@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+tools:context="kosien.procon.application.MainActivity"
+android:id="@+id/schedule"
+android:background="#F0F0F0">
+
+<LinearLayout
+    android:id="@+id/record_main"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:layout_marginBottom="80dp"
+    android:layout_marginTop="40dp"
+    app:layout_constraintRight_toLeftOf="parent"
+    app:layout_constraintTop_toBottomOf="parent"
+    tools:context=".MainActivity">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
+
+</LinearLayout>
+
+
+    <ListView
+        android:id="@+id/sample_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+<TextView
+    android:id="@+id/textView2"
+    android:layout_width="fill_parent"
+    android:layout_height="80dp"
+    android:background="@drawable/frame_2"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/activity_main"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent" />
+
+<ImageButton
+    android:id="@+id/schedule_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/schedule_nuvi_icon"
+    android:background="@null"
+    app:layout_constraintRight_toLeftOf="@+id/search_button"
+    android:layout_marginRight="8dp"
+    android:layout_marginLeft="8dp"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintHorizontal_bias="0.505"
+    android:layout_marginBottom="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp" />
+
+<ImageButton
+    android:id="@+id/search_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/search_nuvi_icon_b"
+    android:background="@null"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:layout_marginBottom="8dp"
+    app:layout_constraintRight_toLeftOf="@+id/option_button"
+    android:layout_marginRight="8dp"
+    android:layout_marginLeft="8dp"
+    app:layout_constraintLeft_toLeftOf="parent"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp" />
+
+<ImageButton
+    android:id="@+id/album_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/album_nuvi_icon_b"
+    android:background="@null"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:layout_marginBottom="8dp"
+    app:layout_constraintLeft_toRightOf="@+id/schedule_button"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    app:layout_constraintRight_toRightOf="parent"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp" />
+
+<ImageButton
+    android:id="@+id/option_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/option_nuvi_icon_b"
+    android:background="@null"
+    app:layout_constraintLeft_toRightOf="@+id/album_button"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:layout_marginBottom="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp" />
+
+<TextView
+    android:id="@+id/schedule_text"
+    android:layout_width="fill_parent"
+    android:layout_height="40dp"
+    android:text="Schedule"
+    android:textSize="25sp"
+    android:gravity="center_horizontal|center_vertical"
+    android:background="@drawable/frame"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toTopOf="@+id/activity_main"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent" />
+
+
+
+</android.support.constraint.ConstraintLayout>

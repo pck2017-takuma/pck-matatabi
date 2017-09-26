@@ -1,4 +1,4 @@
-package su.heartlove.matatabi.matatabidb.mydatabase;
+package kosien.procon.application.matatabidb.mydatabase;
 
 import java.io.Serializable;
 
@@ -20,20 +20,24 @@ public class infoTravel implements Serializable{
     private int rowid = 0;
     //旅番号
     private int travelNum = 0;
+    //日記タイトル
+    private String travelTitle = null;
 
     //ゲッター
     public int getRowid(){
         return rowid;
     }
     public int gettravelNum(){return travelNum;}
-
-
+    public String getTravelTitle(){return travelTitle;}
     public void setRowid(int _rowId){
         this.rowid = _rowId;
     }
-
     public void setTravelNum(int _travelnum){
         this.travelNum = _travelnum;
+    }
+
+    public void setTravelTitle(String _travelTitle){
+        this.travelTitle = _travelTitle;
     }
 
 
