@@ -15,11 +15,8 @@ public class TwitterUtils {
     private static final String PREF_NAME = "twitter_access_token";
 
     public static Twitter getTwitterInstance(Context context) {
-//        String consumerKey = context.getString(R.string.twitter_consumer_key);
-//        String consumerSecret = context.getString(R.string.twitter_consumer_secret);
-
-        String consumerKey = "test";
-        String consumerSecret = "test";
+        String consumerKey = context.getString(R.string.twitter_consumer_key);
+        String consumerSecret = context.getString(R.string.twitter_consumer_secret);
 
         TwitterFactory factory = new TwitterFactory();
         Twitter twitter = factory.getInstance();

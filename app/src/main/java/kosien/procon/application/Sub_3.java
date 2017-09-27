@@ -18,7 +18,7 @@ import twitter4j.TwitterException;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 
-public class Sub_3 extends Activity implements OnClickListener {
+public class Sub_3 extends Activity {
 
     private String mCallbackIRL;
     private Twitter mTwitter;
@@ -74,14 +74,10 @@ public class Sub_3 extends Activity implements OnClickListener {
         c_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), Sub_2.class);
+                Intent intent = new Intent(getApplication(), Record.class);
                 startActivity(intent);
             }
         });
-    }
-
-    public void onClick(View v) {
-
     }
 
     private void startAuthorise() {
@@ -150,7 +146,6 @@ public class Sub_3 extends Activity implements OnClickListener {
         TwitterUtils.storeAccessToken(this, accessToken);
         Intent intent = new Intent(this, Sub_3.class);
         startActivity(intent);
-        finish();
     }
 
     private void showToast(String text) {

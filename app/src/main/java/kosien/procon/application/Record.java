@@ -1,5 +1,6 @@
 package kosien.procon.application;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,7 +28,7 @@ import su.heartlove.matatabi.R;
  * Created by procon-kyougi on 2017/09/24.
  */
 
-public class Record extends AppCompatActivity {
+public class Record extends Activity {
 
 
     /**
@@ -68,7 +69,7 @@ public class Record extends AppCompatActivity {
             }
         });
 
-        ImageButton c_button = (ImageButton) findViewById(R.id.schedule_button);
+        ImageButton c_button = (ImageButton) findViewById(R.id.search_button);
         c_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,10 +77,10 @@ public class Record extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         // ボタンを生成
         Button btn = (Button)findViewById(R.id.edit_button);
         // レイアウトにボタンを追加
-
         btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){

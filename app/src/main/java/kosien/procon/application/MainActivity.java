@@ -61,7 +61,7 @@ public class MainActivity extends Activity implements OnClickListener {
         c_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), TwitterUtils.class);
+                Intent intent = new Intent(getApplication(), Sub_3.class);
                 startActivity(intent);
             }
         });

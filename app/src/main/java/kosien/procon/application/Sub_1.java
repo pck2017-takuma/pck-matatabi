@@ -1,8 +1,5 @@
 package kosien.procon.application;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -19,18 +16,18 @@ import android.widget.ImageButton;
 import su.heartlove.matatabi.R;
 
 
-public class Sub_1 extends AppCompatActivity implements OnClickListener {
+public class Sub_1 extends Activity {
     private SearchView mSearchView;
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.sub);
 
-        ImageButton a_button = (ImageButton) findViewById(R.id.search_button);
+        ImageButton a_button = (ImageButton) findViewById(R.id.album_button);
         a_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), Sub_2.class);
+                Intent intent = new Intent(getApplication(), Record.class);
                 startActivity(intent);
             }
         });
@@ -97,9 +94,4 @@ public class Sub_1 extends AppCompatActivity implements OnClickListener {
        return super.onCreateOptionsMenu(menu);
     }
 
-
-
-    public void onClick(View v) {
-
-    }
 }

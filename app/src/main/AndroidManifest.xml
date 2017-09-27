@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-package="su.heartlove.matatabi">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="su.heartlove.matatabi">
     <uses-permission android:name="android.permission.INTERNET" />
 <application
     android:allowBackup="true"
@@ -33,6 +34,20 @@ package="su.heartlove.matatabi">
     <activity android:name="kosien.procon.application.DiaryTop"
         android:label="Matatabi">
 
+    </activity>
+    <activity
+        android:name="kosien.procon.application.Sub_3"
+        android:launchMode="singleTask">
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+
+            <data
+                android:host="twitter"
+                android:scheme="twittercallback" />
+        </intent-filter>
     </activity>
 
 </application>

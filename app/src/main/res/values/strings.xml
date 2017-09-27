@@ -30,11 +30,14 @@
 	<string name="voice_ng">VOICE_NG</string>
 	<string name="loading">LOADING</string>
 	<string name="search_non">SEARCH_NON</string>
-	<string name="search_text">search</string>
-	<string name="album_text">search</string>
-	<string name="option_text">search</string>
-	<string name="twitter_callback_url">twitter_callback_url</string>
-	<string name="oauth_text">oauth_text</string>
-	<string name="tweet_text">test</string>
+	<string name="twitter_consumer_key">ve50Thi9yYiYDYGaj7ygQUqBT</string>
+	<string name="twitter_consumer_secret">s475qlXPJwzjIgttrpichxfRUonit7gIT0zAMJZHQKBakbjpJ0</string>
+	<string name="schedule">予定表</string>
+	<string name="option_text">設定</string>
+	<string name="search_text">検索</string>
+	<string name="album_text">アルバム</string>
+	<string name="oauth_text">twitterと連携します</string>
+	<string name="tweet_text">tweetします</string>
+	<string name="twitter_callback_url">twittercallback://twitter</string>
 	
 </resources>
