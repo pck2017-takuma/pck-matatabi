@@ -31,7 +31,6 @@ public class RecordOpenHelper extends SQLiteOpenHelper {
         db.beginTransaction();
 
         try{
-
             //テーブル作成用SQL生成
             StringBuilder createsql = MAKE_SQL.createDiary();
             db.execSQL(createsql.toString());

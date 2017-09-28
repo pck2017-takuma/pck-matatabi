@@ -24,7 +24,8 @@ import kosien.procon.application.matatabidb.Matatabi;
 public class StationInfoDao{
 
     private stationInfoDBOpenHelper helper = null;
-    private ArrayList<Station_Infomation>returnData = new ArrayList<Station_Infomation>();
+    private ArrayList<Station_Infomation>returnData = new ArrayList<>();
+
     public StationInfoDao(Context context) {
         helper = new stationInfoDBOpenHelper(context);
     }
@@ -169,6 +170,7 @@ public class StationInfoDao{
             String query = "select * from " + Station_Infomation.TABLE_NAME + " where " + column_name + " == " + "'" + search_data + "'" + ";";
             Cursor cursor = db.rawQuery(query,null);
             int count = cursor.getCount();
+            cursor.moveToFirst();
             //カーソルの行数だけループ
             for(int i = 0; i < count;i++){
                 returnData.add(getStationInfo(cursor));
@@ -194,42 +196,42 @@ public class StationInfoDao{
 
 
 
-
-
-    //指定条件のデータに検索SQLをかけて条件に合うやつを返す(第２引数・・・要素数)
-    public ArrayList<String> findStationInfo(String sql,int num) {
-      //  String sql = "select " + column_name + "from " + Station_Infomation.TABLE_NAME + "while " + column_name + " == " +search_data;
-        SQLiteDatabase db = helper.getReadableDatabase();
-        ArrayList<String> bizCardList = null;
-        Cursor cursor = null;
-
-        //アダプター初期化
-        bizCardList.clear();
-        try {
-            cursor = db.rawQuery(sql,null);
-            int count = cursor.getCount();
-            //カーソルの行数だけループ
-            for(int i = 0; i < count;i++){
-                //データベースから取得した情報がカーソルに入っている
-                
-                String data = cursor.getString(0) + "\n";
-                //アダプターにこの情報を追加
-                bizCardList.add(data);
-                //カーソルを次に移動
-                cursor.moveToNext();
-            }
-        }catch(Exception e){
-            Log.e("SQL Error",e.toString());
-            Toast.makeText(Matatabi.getInstance(),"もうこれわかんねぇな",Toast.LENGTH_LONG).show();
-        }finally{
-            //カーソルを閉じる
-            if(cursor != null){
-                cursor.close();
-            }
-        }
-
-        return bizCardList;
-    }
+//
+//
+//    //指定条件のデータに検索SQLをかけて条件に合うやつを返す(第２引数・・・要素数)
+//    public ArrayList<String> findStationInfo(String sql,int num) {
+//      //  String sql = "select " + column_name + "from " + Station_Infomation.TABLE_NAME + "while " + column_name + " == " +search_data;
+//        SQLiteDatabase db = helper.getReadableDatabase();
+//        ArrayList<String> bizCardList = null;
+//        Cursor cursor = null;
+//
+//        //アダプター初期化
+//        bizCardList.clear();
+//        try {
+//            cursor = db.rawQuery(sql,null);
+//            int count = cursor.getCount();
+//            //カーソルの行数だけループ
+//            for(int i = 0; i < count;i++){
+//                //データベースから取得した情報がカーソルに入っている
+//
+//                String data = cursor.getString(0) + "\n";
+//                //アダプターにこの情報を追加
+//                bizCardList.add(data);
+//                //カーソルを次に移動
+//                cursor.moveToNext();
+//            }
+//        }catch(Exception e){
+//            Log.e("SQL Error",e.toString());
+//            Toast.makeText(Matatabi.getInstance(),"もうこれわかんねぇな",Toast.LENGTH_LONG).show();
+//        }finally{
+//            //カーソルを閉じる
+//            if(cursor != null){
+//                cursor.close();
+//            }
+//        }
+//
+//        return bizCardList;
+//    }
 
     /**
      * カーソルからオブジェクトへの変換

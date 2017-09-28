@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
     package="su.heartlove.matatabi">
     <uses-permission android:name="android.permission.INTERNET" />
 <application
@@ -27,14 +27,7 @@
         android:name="kosien.procon.application.Sub_1"
         android:label="@string/app_name">
     </activity>
-    <activity android:name="kosien.procon.application.DiaryEdit"
-        android:label="Matatabi">
 
-    </activity>
-    <activity android:name="kosien.procon.application.DiaryTop"
-        android:label="Matatabi">
-
-    </activity>
     <activity
         android:name="kosien.procon.application.Sub_3"
         android:launchMode="singleTask">

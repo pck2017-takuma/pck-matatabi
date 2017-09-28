@@ -3,6 +3,7 @@ package kosien.procon.application;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -11,11 +12,14 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,7 +37,7 @@ import su.heartlove.matatabi.R;
  * Created by i15317 on 2017/09/22.
  */
 
-public class DiaryEdit extends Activity {
+public class DiaryEdit extends Fragment {
 
     private RecordItem Record = null;
 
@@ -50,17 +54,21 @@ public class DiaryEdit extends Activity {
     final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
     private static final int VOICE_WORD = 1;
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
-    public void onCreate(Bundle saveInstanceState){
-        super.onCreate(saveInstanceState);
-        setContentView(R.layout.diary_add);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,@Nullable Bundle savedInstanceState){
+
+        View layout = inflater.inflate(R.layout.diary_add,container);
         //リソース割り当て
-        diary = (EditText)findViewById(R.id.EditText_diary);
-        btn_voice = (Button)findViewById(R.id.Button_add_voice);
-        btn_save = (Button)findViewById(R.id.Buttonadd_save);
-        btn_cancel = (Button)findViewById(R.id.Button_add_cancel);
-        all = (LinearLayout)findViewById(R.id.LinearLayout_add_all);
+        diary = (EditText)layout.findViewById(R.id.EditText_diary);
+        btn_voice = (Button)layout.findViewById(R.id.Button_add_voice);
+        btn_save = (Button)layout.findViewById(R.id.Buttonadd_save);
+        btn_cancel = (Button)layout.findViewById(R.id.Button_add_cancel);
+        all = (LinearLayout)layout.findViewById(R.id.LinearLayout_add_all);
 
         //日記の本文をタップした時
         diary.setOnTouchListener(new View.OnTouchListener() {
@@ -117,7 +125,7 @@ public class DiaryEdit extends Activity {
         //saveボタンを押したとき
         btn_save.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                Toast.makeText(DiaryEdit.this,"114514",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"114514",Toast.LENGTH_SHORT).show();
 
                 Record = new RecordItem();
                 Record.setDiaryRecord(diary.getText().toString());
@@ -131,17 +139,17 @@ public class DiaryEdit extends Activity {
             }
         });
 
-
-        //戻るボタンをクリック
-        btn_cancel.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                if(diary.getText().length() > 0){
-                    showDialog(0);
-                }else{
-                    finish();
-                }
-            }
-        });
+//
+//        //戻るボタンをクリック
+//        btn_cancel.setOnClickListener(new View.OnClickListener(){
+////            public void onClick(View v){
+////                if(diary.getText().length() > 0){
+////                    showDialog(0);
+////                }else{
+////                    finish();
+////                }
+////            }
+////        });
 
 
         //何も書かないとセーブさせないようにする
@@ -149,43 +157,46 @@ public class DiaryEdit extends Activity {
         //初期起動時にはフォーカスを当てないようにする
         diary.setFocusable(false);
 
+        return layout;
 
     }//OnCreateここまで
 
     //削除確認ダイアログ
-    @Override
-    protected Dialog onCreateDialog(int id){
-        Dialog dialog = super.onCreateDialog(id);
-        //複数のダイアログをIDで判定
-        switch(id){
-            case 0:
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                dialogBuilder.setTitle(R.string.cancel_check_title);
-                dialogBuilder.setMessage(R.string.cancel_check_main);
-
-                dialogBuilder.setPositiveButton(
-                        "Yes",
-                        new DialogInterface.OnClickListener(){
-                            public void onClick(DialogInterface dialog,int whichButton){
-                                finish();
-                            }
-                        }
-                );
-                dialogBuilder.setNegativeButton(
-                        "No",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int whichbutton) {
-                                //何もしない
-                            }
-                        }
-                );
-                //ダイアログ起動
-                dialog = dialogBuilder.create();
-                break;
-        }
-        return dialog;
-    }
+//    @Override
+//    protected Dialog onCreateDialog(int id){
+//
+//
+//        Dialog dialog = super.onCreateDialog(id);
+//        //複数のダイアログをIDで判定
+//        switch(id){
+//            case 0:
+//                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+//                dialogBuilder.setTitle(R.string.cancel_check_title);
+//                dialogBuilder.setMessage(R.string.cancel_check_main);
+//
+//                dialogBuilder.setPositiveButton(
+//                        "Yes",
+//                        new DialogInterface.OnClickListener(){
+//                            public void onClick(DialogInterface dialog,int whichButton){
+//                                finish();
+//                            }
+//                        }
+//                );
+//                dialogBuilder.setNegativeButton(
+//                        "No",
+//                        new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int whichbutton) {
+//                                //何もしない
+//                            }
+//                        }
+//                );
+//                //ダイアログ起動
+//                dialog = dialogBuilder.create();
+//                break;
+//        }
+//        return dialog;
+//    }
 
 
     //保存処理
@@ -196,7 +207,7 @@ public class DiaryEdit extends Activity {
         @Override
         protected void onPreExecute(){
             //処理中ダイアログ表示
-            progressDialog = new ProgressDialog(DiaryEdit.this);
+            progressDialog = new ProgressDialog(getContext());
             progressDialog.setMessage(getResources().getText(R.string.loading));
             progressDialog.setIndeterminate(true);
             progressDialog.show();
@@ -206,7 +217,7 @@ public class DiaryEdit extends Activity {
         @Override
         protected RecordItem doInBackground(Object... params){
             //保存処理
-            RecordDaoItem dao = new RecordDaoItem(DiaryEdit.this);
+            RecordDaoItem dao = new RecordDaoItem(getContext());
 
             return dao.sava_diary(Record);
         }
@@ -216,27 +227,28 @@ public class DiaryEdit extends Activity {
             //処理中ダイアログをクローズ
             progressDialog.dismiss();
 
-            clearKeyboard();
+         //   clearKeyboard();
             //保存完了表示
             DispToast(null);
-            finish();
+            getFragmentManager().popBackStack();
+          //  finish();
         }
 
     }
 
     //トースト表示
     public void DispToast(View v){
-        Toast.makeText(this,R.string.add_ok,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(),R.string.add_ok,Toast.LENGTH_SHORT).show();
     }
-
-    //ソフトキーボードを消去
-    private void clearKeyboard(){
-        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(all.getWindowToken(),0);
-    }
+//
+//    //ソフトキーボードを消去
+//    private void clearKeyboard(){
+//        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+//        inputMethodManager.hideSoftInputFromWindow(all.getWindowToken(),0);
+//    }
 
     public void DispToastVoiceNG(View v) {
-        Toast.makeText(this, R.string.voice_ng, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), R.string.voice_ng, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -262,20 +274,20 @@ public class DiaryEdit extends Activity {
 
 
     //キー処理
-
-    public boolean onKeyDown(int keyCode,KeyEvent event){
-        if(keyCode == KeyEvent.KEYCODE_BACK){
-            if(diary.getText().length() > 0){
-                showDialog(0);
-            }else{
-                finish();
-            }
-            return true;
-        }else{
-            return false;
-        }
-
-    }
+//
+//    public boolean onKeyDown(int keyCode,KeyEvent event){
+//        if(keyCode == KeyEvent.KEYCODE_BACK){
+//            if(diary.getText().length() > 0){
+//                showDialog(0);
+//            }else{
+//                finish();
+//            }
+//            return true;
+//        }else{
+//            return false;
+//        }
+//
+//    }
 
 
 

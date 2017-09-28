@@ -13,7 +13,7 @@ public class RecordItem implements Serializable {
     //添付画像は別テーブルに作成しているので注意
 
     //テーブル名
-    public static final String TABLE_NAME = "Matatabi_Diary";
+    public static final String TABLE_NAME = "matatabi_diary";
     //ここからカ
     //カラムID
     public static final String COLUMN_ID = "_id";
@@ -22,8 +22,8 @@ public class RecordItem implements Serializable {
     public static final String DIARY_TITLE = "diary_title";
     //日記本文を記録
     public static final String DIARY_RECORD = "diary_record";
-    //旅行番号（これが何の旅行家識別する用）
-    public static final String TRAVEL_NUM = "trave_num";
+    //旅行番号（これが何の旅行か識別する用）
+    public static final String TRAVEL_NUM = "travel_num";
     //日記最終更新日の年数
     public static final String DIARY_YEAR = "diary_year";
     //日記最終更新日の月

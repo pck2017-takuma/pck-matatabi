@@ -32,7 +32,6 @@ public class stationInfoDBOpenHelper extends SQLiteOpenHelper{
             {"MUR", "デバックエキ", "Debug_Station","114514", "DEBUG98", "114-514", "香川県三豊市下北沢551", "52.04322", "164.514", "0","114514"},
             {"TNOK", "デバックエキ", "Debug_Station","114514", "DEBUG98", "114-514", "香川県三豊市下北沢551", "52.04322", "164.514", "0","114514"},
             {"TDN", "デバックエキ", "Debug_Station","114514", "DEBUG98", "114-514", "香川県三豊市下北沢551", "52.04322", "164.514", "0","114514"}
-
     };
 
     //データベースのバージョン
@@ -71,6 +70,7 @@ public class stationInfoDBOpenHelper extends SQLiteOpenHelper{
                 values.put(Station_Infomation.STATION_LONGITUDE, Double.parseDouble(data[8]));
                 values.put(Station_Infomation.TOURIST_FLAG, data[9]);
                 values.put(Station_Infomation.CITY_EVA_VALUE, data[10]);
+
                 db.insert(Station_Infomation.TABLE_NAME, null, values);
             }
             db.setTransactionSuccessful();

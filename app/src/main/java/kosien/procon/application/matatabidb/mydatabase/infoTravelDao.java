@@ -125,7 +125,6 @@ public class infoTravelDao {
     //カーソルからオブジェクトに変換
     private infoTravel getItem(Cursor cursor){
         infoTravel item = new infoTravel();
-
         item.setRowid((int)cursor.getLong(0));
         item.setTravelNum((int)cursor.getLong(1));
         item.setTravelTitle(cursor.getString(2));

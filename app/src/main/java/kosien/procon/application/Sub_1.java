@@ -15,13 +15,15 @@ import android.widget.ImageButton;
 
 import su.heartlove.matatabi.R;
 
+public class Sub_1 extends AppCompatActivity {
+//public class Sub_1 extends Activity {
 
-public class Sub_1 extends Activity {
     private SearchView mSearchView;
+
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        setContentView(R.layout.sub);
+        setContentView(R.layout.sub_1);
 
         ImageButton a_button = (ImageButton) findViewById(R.id.album_button);
         a_button.setOnClickListener(new OnClickListener() {
@@ -77,7 +79,7 @@ public class Sub_1 extends Activity {
                     bundle.putString("NAME", newText);
                     SearchFragment fragment = new SearchFragment();
                     fragment.setArguments(bundle);
-                    //TAGいるかな？
+                    //TAGいるかな///？
                     getFragmentManager().beginTransaction().replace(R.id.fragment_search, fragment).commit();
                 }
                 return false;

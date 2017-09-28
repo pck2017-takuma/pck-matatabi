@@ -1,4 +1,4 @@
-package kosien.procon.application.matatabidb;
+package kosien.procon.application;
 
 import android.content.Context;
 import android.graphics.Bitmap;
