@@ -203,20 +203,18 @@ public class DiaryTop extends Fragment {
         btn_top_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /* 追加クラスのインテントを生成して呼び出し */
-
                 FragmentManager maneger = getFragmentManager();
                 FragmentTransaction  fragmentTransaction = maneger.beginTransaction();
-                RecordFragment recordFragment = new RecordFragment();
-                fragmentTransaction.replace(R.id.fragment_record,recordFragment);
+                DiaryEdit recordFragment = new DiaryEdit();
+                fragmentTransaction.replace(R.id.LinearLayout_all,recordFragment);
                 fragmentTransaction.commit();
 
             }
 
         });
         
-                /* 一覧表示のアダプタ */
-        arrayAdapter = new ArrayAdapter<RecordItem>(getContext(), R.layout.diary_top);
+        /* 一覧表示のアダプタ */
+        arrayAdapter = new ArrayAdapter<RecordItem>(getContext(), R.layout.record_list);
         listView.setAdapter(arrayAdapter);
 
         /* リストから日記を選択した時 */
@@ -239,8 +237,6 @@ public class DiaryTop extends Fragment {
                 recordFragment.setArguments(bundle);
                 fragmentTransaction.replace(R.id.fragment_record,recordFragment);
                 fragmentTransaction.commit();
-
-
 
             }
         });

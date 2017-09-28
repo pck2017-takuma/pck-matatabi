@@ -15,6 +15,8 @@ public class infoTravel implements Serializable{
     //日記タイトル
     public static final String TRAVEL_NUM = "travel_num";
 
+    //
+    public static final String TRAVEL_TITEL = "travel_title";
     //プロパティ
     //行番号
     private int rowid = 0;

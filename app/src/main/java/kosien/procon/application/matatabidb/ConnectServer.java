@@ -1,4 +1,4 @@
-package kosien.procon.application.matatabidb.mydatabase;
+package kosien.procon.application.matatabidb;
 
 /**
  * Created by procon-kyougi on 2017/09/22.
@@ -28,7 +28,6 @@ public class ConnectServer extends AsyncTask<Void, Void, String> {
     ConnectServer(String url){
         JSON_LINK = new String(url);
     }
-
 
 
     @Override
@@ -100,7 +99,6 @@ public class ConnectServer extends AsyncTask<Void, Void, String> {
         {
             e.printStackTrace();
         }
-
         return sb.toString();
     }
 

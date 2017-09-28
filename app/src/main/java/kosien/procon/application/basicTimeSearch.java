@@ -2,6 +2,10 @@ package kosien.procon.application;
 
 import android.net.Uri;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+
 import kosien.procon.application.matatabidb.makeLink;
 
 /**
@@ -13,49 +17,67 @@ import kosien.procon.application.matatabidb.makeLink;
 
 public class basicTimeSearch extends makeLink {
 
-    //
-    // リンクテンプレート
+    //経路検索用
+    String url = "https://api.apigw.smt.docomo.ne.jp/ekispertCorp/v1/searchCourseExtreme?APIKEY="+API_CODE;
+    //駅コード取得用
+
+    //最低限の検索機能
+    String url_base = "&viaList=";
 
 
-    private int startStatioCode;
-    private int endStationCode;
+    private String startStation = null;
+    private String endStation = null;
+    private final String encoding = "UTF-8";
 
-    //パラメータとか
-    String scheme = "http";
-    String authority = "api.rakuten.co.jp";
-    String path = "/rws/3.0/json";
-
-    String developerId = "?????????";
-    String operation = "BooksBookSearch";
-    String version = "2010-03-18";
-    String size = "0";
-    String hits = "10";
-    String sort = "sales";
-
-
-
-    //駅コードを指定する
-    basicTimeSearch(int start_code,int end_code){
-        startStatioCode = start_code;
-        endStationCode = end_code;
+    basicTimeSearch(String s,String b){
+        startStation = s;
+        endStation = b;
     }
-
-
 
     @Override
     public String getSearchLink(){
-        Uri.Builder uriBuilder = new Uri.Builder();
 
-        uriBuilder.scheme(scheme);
-        uriBuilder.authority(authority);
-        uriBuilder.path(path);
-        uriBuilder.appendQueryParameter("developerId", developerId);
-        uriBuilder.appendQueryParameter("operation", operation);
-        uriBuilder.appendQueryParameter("version", version);
-        uriBuilder.appendQueryParameter("size", size);
-        uriBuilder.appendQueryParameter("hits", hits);
-        uriBuilder.appendQueryParameter("sort", sort);
-        
-        return uriBuilder.toString();
+        //まずは最低限の検索機能
+
+        //日本語をURLエンコード
+        String startEncoding = null;
+        String goalEncoding  =null;
+
+        try {
+            startEncoding = URLEncoder.encode(startStation, encoding);
+            goalEncoding = URLEncoder.encode(endStation,encoding);
+        }catch(UnsupportedEncodingException e){
+            //例外を投げたらスルー
+        }
+
+        return url + url_base + startEncoding + ":"+goalEncoding;
+
     }
+
+    //経由地をArrayList<String>で指定する
+
+    public String getViaSearchLink(ArrayList<String> viaStation){
+
+        //機能保存
+        ArrayList<String>endodeString = new ArrayList<String>();
+        String resultUrl = new String();
+
+        //最低限の検索機能
+        for(String x:viaStation){
+            try {
+
+                endodeString.add(URLEncoder.encode(x, encoding));
+
+            }catch(UnsupportedEncodingException e){
+
+            }
+
+            //リンク生成
+
+
+        }
+        return resultUrl;
+
+    }
+
 }

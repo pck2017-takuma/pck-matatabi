@@ -160,8 +160,7 @@ public class RecordDaoItem {
         /* where句の条件を得たら検索 */
         try {
             String query = null;
-            query = "select * " +
-                    "from " + RecordItem.TABLE_NAME +
+            query = "select * from " + RecordItem.TABLE_NAME +
                     " where " + searchCulmn + ";";
 
             Cursor cursor = db.rawQuery(query, null);

@@ -62,11 +62,18 @@ public class DiaryEdit extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,@Nullable Bundle savedInstanceState){
 
-        View layout = inflater.inflate(R.layout.diary_add,container);
+        super.onCreateView(inflater,container,savedInstanceState);
+        return inflater.inflate(R.layout.diary_add,container,false);
+
+    }//OnCreateここまで
+
+    public void onViewCreated(View layout,Bundle savedInstanceState){
+
+
         //リソース割り当て
         diary = (EditText)layout.findViewById(R.id.EditText_diary);
         btn_voice = (Button)layout.findViewById(R.id.Button_add_voice);
-        btn_save = (Button)layout.findViewById(R.id.Buttonadd_save);
+        btn_save = (Button)layout.findViewById(R.id.Button_add_save);
         btn_cancel = (Button)layout.findViewById(R.id.Button_add_cancel);
         all = (LinearLayout)layout.findViewById(R.id.LinearLayout_add_all);
 
@@ -157,11 +164,9 @@ public class DiaryEdit extends Fragment {
         //初期起動時にはフォーカスを当てないようにする
         diary.setFocusable(false);
 
-        return layout;
+    }
 
-    }//OnCreateここまで
-
-    //削除確認ダイアログ
+        //削除確認ダイアログ
 //    @Override
 //    protected Dialog onCreateDialog(int id){
 //
