@@ -89,13 +89,12 @@ public class parseSearchData {
 
        ParseJSONCourse(cource,courceCnt);
 
-
     }
 
     private void ParseJSONCourse(JSONObject[] srcData,int arraySize){
         //RouteとPriceがそれぞれドヴァーと生成される
-        ArrayList<JSONArray>priceJSONobject = null;
-        ArrayList<JSONObject>routeJSONobject = null;
+        ArrayList<JSONArray>priceJSONobject = new ArrayList<>();
+        ArrayList<JSONObject>routeJSONobject = new ArrayList<>();
 
         for(int i = 0; i < arraySize;i++){
             try{
@@ -118,6 +117,9 @@ public class parseSearchData {
     }
 
     private void ParseJSONroute(JSONObject routeJSON){
+
+
+
         JSONArray lineJSONarray = new JSONArray();
         JSONArray arrivalJSONarray = new JSONArray();
         JSONArray depatureJSONarray = new JSONArray();

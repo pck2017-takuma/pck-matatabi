@@ -57,7 +57,7 @@ public class SearchFragment extends Fragment {
         ArrayList<Station_Infomation> stationData = null;
 
         basicTimeSearch makelink = new basicTimeSearch("岡山","東京");
-        //System.out.println(makelink.getSearchLink());
+        System.out.println(makelink.getSearchLink());
        getJsonFromAsync(makelink.getSearchLink());
 
 
