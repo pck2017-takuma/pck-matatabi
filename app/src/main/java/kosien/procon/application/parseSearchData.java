@@ -47,12 +47,15 @@ public class parseSearchData {
     private ArrayList<ArrayList<RouteInfo>>routeInfo;
 
 
+    //返すデータ
+
 
 
     //受け取ったJSONオブジェクト
     JSONObject jsonObject = new JSONObject();
     parseSearchData(JSONObject srcObject){
         jsonObject = srcObject;
+        ParseObject();
     }
 
 
@@ -83,6 +86,9 @@ public class parseSearchData {
 
            }
        }
+
+       ParseJSONCourse(cource,courceCnt);
+
 
     }
 
@@ -116,6 +122,7 @@ public class parseSearchData {
         JSONArray arrivalJSONarray = new JSONArray();
         JSONArray depatureJSONarray = new JSONArray();
         JSONArray pointJSONarray = new JSONArray();
+
         try{
             lineJSONarray = routeJSON.getJSONArray(line);
             arrivalJSONarray = routeJSON.getJSONArray(arraival);

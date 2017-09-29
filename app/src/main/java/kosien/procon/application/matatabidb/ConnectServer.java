@@ -21,93 +21,92 @@ import java.net.URL;
 
 
 //サーバークラス
-public class ConnectServer extends AsyncTask<Void, Void, String> {
-    private String JSON_LINK = new String();
-    private JSONObject jsonData = null;
+public class ConnectServer extends AsyncTask<String, Integer, String> {
 
-    ConnectServer(String url){
-        JSON_LINK = new String(url);
-    }
-
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        // doInBackground前処理
-    }
+    private AsyncCallback _asyncCallback = null;
+        /*
+        * Activityへコールバック用InterFace
+        * */
 
 
-    @Override
-    protected void onPostExecute(String result) {
-        super.onPostExecute(result);
-        // doInBackground後処理
-    }
-
-    @Override
-    protected String doInBackground(Void... params) {
-        HttpURLConnection con = null;
-        URL url = null;
-
-        try {
-            // URLの作成
-            url = new URL(JSON_LINK);
-            // 接続用HttpURLConnectionオブジェクト作成
-            con = (HttpURLConnection)url.openConnection();
-            // リクエストメソッドの設定
-            con.setRequestMethod("POST");
-            // リダイレクトを自動で許可しない設定
-            con.setInstanceFollowRedirects(false);
-            // URL接続からデータを読み取る場合はtrue
-            con.setDoInput(true);
-            // URL接続にデータを書き込む場合はtrue
-           // con.setDoOutput(true);
-
-            // 接続
-            con.connect(); // ①
-            InputStream in = con.getInputStream();
-            String readSt = readInputStream(in);
-
-            jsonData = new JSONObject(readSt);
-
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }catch(JSONException e){
-            e.printStackTrace();
+        public interface AsyncCallback{
+            void onPreExecute();
+            void onPostExecute(String result);
+            void onProgressUpdate(int progress);
+            void onCancelled();
         }
 
-        return null;
+        public ConnectServer(AsyncCallback asyncCallback){
+            this._asyncCallback = asyncCallback;
+        }
+
+        protected String doInBackground(String... urls){
+            return httpGet(urls[0]);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            this._asyncCallback.onPreExecute();
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            this._asyncCallback.onProgressUpdate(values[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            this._asyncCallback.onPostExecute(result);
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            this._asyncCallback.onCancelled();
+        }
+
+
+        /*
+        * httpGet通信処理
+        * */
+        protected String httpGet(String urls){
+
+            HttpURLConnection urlCon;
+            InputStream in;
+
+            //Httpコネクションを確立し、URLを叩いて情報を取得
+            try {
+                System.out.println(urls);
+                urlCon = (HttpURLConnection) new URL(urls).openConnection();
+                urlCon.setRequestMethod("GET");
+                urlCon.setDoInput(true);
+                urlCon.connect();
+
+                String str_json = new String();
+                in = urlCon.getInputStream();
+                InputStreamReader objReader = new InputStreamReader(in);
+                BufferedReader objBuf = new BufferedReader(objReader);
+                StringBuilder strBuilder = new StringBuilder();
+                String sLine;
+                while((sLine = objBuf.readLine()) != null){
+                    strBuilder.append(sLine);
+                }
+                str_json = strBuilder.toString();
+                in.close();
+
+                return str_json;
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "network_error";
+            }
+        }
+
+
     }
 
 
-    public String readInputStream(InputStream in) throws IOException, UnsupportedEncodingException {
-        StringBuffer sb = new StringBuffer();
-        String st = "";
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
-        while((st = br.readLine()) != null)
-        {
-            sb.append(st);
-        }
-        try
-        {
-            in.close();
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-        return sb.toString();
-    }
-
-    public JSONObject getObject(){
-        return jsonData;
-    }
-
-
-
-
-
-}

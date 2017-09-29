@@ -13,8 +13,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
+import kosien.procon.application.matatabidb.ConnectServer;
 import kosien.procon.application.matatabidb.mydatabase.StationInfoDao;
 import kosien.procon.application.matatabidb.mydatabase.Station_Infomation;
 
@@ -40,7 +45,6 @@ public class SearchFragment extends Fragment {
     }
 
     //ビューを生成し終わった後に呼ばれるメソッド
-
     @Override
     public void onViewCreated(View view,Bundle saveInstanceState) {
         stationHelper = new StationInfoDao(getContext());
@@ -51,6 +55,11 @@ public class SearchFragment extends Fragment {
         searchWord = bundle.getString("NAME");
 
         ArrayList<Station_Infomation> stationData = null;
+
+        basicTimeSearch makelink = new basicTimeSearch("岡山","東京");
+        //System.out.println(makelink.getSearchLink());
+       getJsonFromAsync(makelink.getSearchLink());
+
 
         if(stationHelper.findStationInfo(searchWord,Station_Infomation.STATION_NAME)){
             stationData = stationHelper.getSearchResult();
@@ -72,6 +81,9 @@ public class SearchFragment extends Fragment {
             // 出力結果をリストビューに表示
             SetRecordListAdapter adapter = new SetRecordListAdapter(getContext(), R.layout.samplelist_item, listItems);
             listView.setAdapter(adapter);
+
+
+
 
 
             // アイテムクリック時ののイベントを追加
@@ -99,5 +111,28 @@ public class SearchFragment extends Fragment {
 
     }
 
+    private void getJsonFromAsync(String url) {
+
+        ConnectServer asyncGet = new ConnectServer(new ConnectServer.AsyncCallback() {
+            //非同期通信が開始される前に呼び出される
+            public void onPreExecute() {}
+            //非同期通信が更新されたと時に呼び出される
+            public void onProgressUpdate(int progress) {}
+            //非同期通信がキャンセルされたt気に呼び出される
+            public void onCancelled() {}
+            //非同期通信が完了した時点で呼び出される
+            public void onPostExecute(String result) {
+
+                try {
+                    JSONObject json = new JSONObject(result);
+                    parseSearchData resultParse = new parseSearchData(json.getJSONObject("ResultSet"));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        asyncGet.execute(url);
+    }
 
 }
