@@ -1,6 +1,9 @@
 package kosien.procon.application;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -8,10 +11,13 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,7 +42,9 @@ import su.heartlove.matatabi.R;
 
 //日記実装
 
-public class DiaryTop extends Activity {
+public class DiaryTop extends Fragment {
+
+    public OnMenuItemSelectedListener mCallback; // あとで宣言するinterfaceのフィールド
 
     private RecordItem Record = null;
 
@@ -67,23 +75,53 @@ public class DiaryTop extends Activity {
     private Toast g_Toast = null;
     private boolean toastFlag = true;
 
+
+    // コールバック用のinterfaceを定義
+    public interface OnMenuItemSelectedListener {
+        public void onMenuItemSelected(int position, String text);
+    }
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof OnMenuItemSelectedListener) {
+            mCallback = (OnMenuItemSelectedListener) activity; // 親Activityとの紐付け
+        }
+    }
+
+    //コンストラクタ
+
+    public DiaryTop(){}
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.diary_top);
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,@Nullable Bundle savedInstanceState){
+        super.onCreateView(inflater,container,savedInstanceState);
+        return inflater.inflate(R.layout.diary_top,container,false);
+    }
+
+
+    @Override
+    public void onViewCreated(View layout,Bundle savedInstanceState){
+
 
         /* どのItemを操作するのかリソースを割り当て */
-        tv_last = (TextView)findViewById(R.id.TextView_last_month);
-        tv_date = (TextView)findViewById(R.id.TextView_date);
-        tv_next = (TextView)findViewById(R.id.TextView_next_month);
-        et_search = (EditText)findViewById(R.id.EditText_top_search);
-        btn_top_search = (Button)findViewById(R.id.Button_top_search);
-        btn_top_add = (Button)findViewById(R.id.Button_top_add);
-        file_add = (Button)findViewById(R.id.Button_add_file);
-        sns_add = (Button)findViewById(R.id.Button_add_sns);
-        all = (LinearLayout)findViewById(R.id.LinearLayout_all);
-        listView = (ListView)findViewById( R.id.ListView_searchlist );
-
+        tv_last = (TextView)layout.findViewById(R.id.TextView_last_month);
+        tv_date = (TextView)layout.findViewById(R.id.TextView_date);
+        tv_next = (TextView)layout.findViewById(R.id.TextView_next_month);
+        et_search = (EditText)layout.findViewById(R.id.EditText_top_search);
+        btn_top_search = (Button)layout.findViewById(R.id.Button_top_search);
+        btn_top_add = (Button)layout.findViewById(R.id.Button_top_add);
+        file_add = (Button)layout.findViewById(R.id.Button_add_file);
+        sns_add = (Button)layout.findViewById(R.id.Button_add_sns);
+        all = (LinearLayout)layout.findViewById(R.id.LinearLayout_all);
+        listView = (ListView)layout.findViewById( R.id.ListView_searchlist );
 
 
         /* 先月をクリック */
@@ -165,16 +203,18 @@ public class DiaryTop extends Activity {
         btn_top_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /* 追加クラスのインテントを生成して呼び出し */
-                Toast.makeText(DiaryTop.this,"button clicked",Toast.LENGTH_SHORT).show();
-                Intent addIntent = new Intent(DiaryTop.this, DiaryEdit.class);
-                startActivity(addIntent);
+                FragmentManager maneger = getFragmentManager();
+                FragmentTransaction  fragmentTransaction = maneger.beginTransaction();
+                DiaryEdit recordFragment = new DiaryEdit();
+                fragmentTransaction.replace(R.id.LinearLayout_all,recordFragment);
+                fragmentTransaction.commit();
+
             }
 
         });
         
-                /* 一覧表示のアダプタ */
-        arrayAdapter = new ArrayAdapter<RecordItem>(this, R.layout.diary_top);
+        /* 一覧表示のアダプタ */
+        arrayAdapter = new ArrayAdapter<RecordItem>(getContext(), R.layout.record_list);
         listView.setAdapter(arrayAdapter);
 
         /* リストから日記を選択した時 */
@@ -183,14 +223,21 @@ public class DiaryTop extends Activity {
                 RecordItem item = arrayAdapter.getItem(position);
 
                 /* 参照画面で表示情報を引き継ぎ */
-                Intent viewIntent = new Intent(DiaryTop.this, DiaryView.class);
-                viewIntent.putExtra("year", item.getDiaryYear());
-                viewIntent.putExtra("month", item.getDiaryMon());
-                viewIntent.putExtra("day", item.getDiaryDay());
-                viewIntent.putExtra("diary", item.getDiaryRecord());
 
-                /* 参照画面を呼び出し */
-                startActivity(viewIntent);
+                Bundle bundle = new Bundle();
+
+                bundle.putInt("year", item.getDiaryYear());
+                bundle.putInt("month", item.getDiaryMon());
+                bundle.putInt("day", item.getDiaryDay());
+                bundle.putString("diary", item.getDiaryRecord());
+
+                FragmentManager maneger = getFragmentManager();
+                FragmentTransaction fragmentTransaction = maneger.beginTransaction();
+                DiaryView recordFragment = new DiaryView();
+                recordFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.fragment_record,recordFragment);
+                fragmentTransaction.commit();
+
             }
         });
         /* ボタンやエディットテキストの初期化 */
@@ -205,13 +252,14 @@ public class DiaryTop extends Activity {
         isWordSearch = false;
 
 
+
     }
 
     /**
      * アクティビティが前面に来るたびに一覧を更新
      */
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
 
         /* 一覧取得タスクの実行 */
@@ -219,7 +267,11 @@ public class DiaryTop extends Activity {
         task.execute();
     }
 
-    /**
+
+
+
+
+/**
      * 一覧データの取得と表示を行うタスク
      */
     public class DataLoadTask extends AsyncTask<Object, Integer, List<RecordItem>> {
@@ -229,7 +281,7 @@ public class DiaryTop extends Activity {
         @Override
         protected void onPreExecute() {
             /* 処理中ダイアログ表示 */
-            progressDialog = new ProgressDialog(DiaryTop.this);
+            progressDialog = new ProgressDialog(getContext());
             progressDialog.setMessage(getResources().getText(R.string.loading));
             progressDialog.setIndeterminate(true);
             progressDialog.show();
@@ -238,7 +290,7 @@ public class DiaryTop extends Activity {
         @Override
         protected List<RecordItem> doInBackground(Object... params) {
             /* 一覧を呼び出し */
-            RecordDaoItem dao = new RecordDaoItem(DiaryTop.this);
+            RecordDaoItem dao = new RecordDaoItem(getContext());
 
             return dao.list_search_item( Record ,isWordSearch );
         }
@@ -273,7 +325,7 @@ public class DiaryTop extends Activity {
                     btn_top_add.setVisibility(View.GONE);
                 }
             }
-            clearKeyboard();
+           // clearKeyboard();
 
             /* 検索結果が０件の時はトーストを */
             if( arrayAdapter.getCount() == 0 ){
@@ -294,7 +346,7 @@ public class DiaryTop extends Activity {
                 g_Toast.cancel();
                 g_Toast = null;
             }
-            g_Toast = Toast.makeText(this, resId, duration);
+            g_Toast = Toast.makeText(getContext(), resId, duration);
             g_Toast.show();
             toastFlag = false;
             Runnable toastRunnable = new Runnable() {
@@ -310,10 +362,10 @@ public class DiaryTop extends Activity {
     /**
      * ソフトキーボードを消去
      */
-    private void clearKeyboard() {
-        InputMethodManager inputMethodManager =
-                (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(all.getWindowToken(), 0);
-    }
+//    private void clearKeyboard() {
+//        InputMethodManager inputMethodManager =
+//                (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+//        inputMethodManager.hideSoftInputFromWindow(all.getWindowToken(), 0);
+//    }
 
 }

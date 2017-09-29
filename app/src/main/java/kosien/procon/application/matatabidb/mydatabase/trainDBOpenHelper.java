@@ -49,4 +49,20 @@ public class trainDBOpenHelper extends SQLiteOpenHelper{
 
     }
 
+    @Override
+    public void onOpen(SQLiteDatabase db){
+        db.beginTransaction();
+
+        //列車時刻表テーブルの作成
+
+        try {
+            //SQL取得
+            StringBuilder StationInfo = MAKE_SQL.createTraininfo();
+            db.execSQL(StationInfo.toString());
+        } finally {
+            db.endTransaction();
+
+        }
+    }
+
 }
