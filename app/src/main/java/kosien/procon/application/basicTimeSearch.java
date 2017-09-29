@@ -16,15 +16,13 @@ public class basicTimeSearch extends makeLink {
     //
     // リンクテンプレート
 
-
-    private int startStatioCode;
-    private int endStationCode;
+    private String startStatioCode;
+    private String endStationCode;
 
     //パラメータとか
     String scheme = "http";
     String authority = "api.rakuten.co.jp";
     String path = "/rws/3.0/json";
-
     String developerId = "?????????";
     String operation = "BooksBookSearch";
     String version = "2010-03-18";
@@ -33,19 +31,15 @@ public class basicTimeSearch extends makeLink {
     String sort = "sales";
 
 
-
     //駅コードを指定する
-    basicTimeSearch(int start_code,int end_code){
+    basicTimeSearch(String start_code,String end_code){
         startStatioCode = start_code;
         endStationCode = end_code;
     }
 
-
-
     @Override
     public String getSearchLink(){
         Uri.Builder uriBuilder = new Uri.Builder();
-
         uriBuilder.scheme(scheme);
         uriBuilder.authority(authority);
         uriBuilder.path(path);
@@ -55,7 +49,6 @@ public class basicTimeSearch extends makeLink {
         uriBuilder.appendQueryParameter("size", size);
         uriBuilder.appendQueryParameter("hits", hits);
         uriBuilder.appendQueryParameter("sort", sort);
-        
         return uriBuilder.toString();
     }
 }

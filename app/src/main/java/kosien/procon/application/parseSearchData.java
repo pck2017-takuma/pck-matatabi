@@ -15,9 +15,6 @@ import kosien.procon.application.matatabidb.mydatabase.RouteInfo;
 
 //時刻検索データパース
 
-
-
-
 public class parseSearchData {
 
     //カラム名
@@ -25,7 +22,9 @@ public class parseSearchData {
     //金額
     private static final String price = "Price";
     /****************************************************************************************price配下****************************************************************************************/
+
     private static final String type = "Type";
+
     /********************************************************************************************************************************************************************************/
 
     //Route
@@ -45,9 +44,6 @@ public class parseSearchData {
 
     //とりあえず出発駅・到着駅・時刻を返す
     private ArrayList<ArrayList<RouteInfo>>routeInfo;
-
-
-
 
     //受け取ったJSONオブジェクト
     JSONObject jsonObject = new JSONObject();

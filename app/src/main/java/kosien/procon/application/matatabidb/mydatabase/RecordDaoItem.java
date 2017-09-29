@@ -17,9 +17,7 @@ import java.util.List;
 //日記データベースアクセスクラス
 public class RecordDaoItem {
 
-
     private RecordOpenHelper helper = null;
-
     //コンストラクタ
     public RecordDaoItem(Context context){
         helper = new RecordOpenHelper(context);
@@ -58,7 +56,6 @@ public class RecordDaoItem {
         }
         return result;
     }
-
     //レコードの削除
     public void delete_item(RecordItem item){
         SQLiteDatabase db = helper.getWritableDatabase();
@@ -70,7 +67,6 @@ public class RecordDaoItem {
             db.close();
         }
     }
-
     //レコードの全件削除
     public void deleteall_item(){
         SQLiteDatabase db = helper.getWritableDatabase();

@@ -8,7 +8,6 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
 import su.heartlove.matatabi.R;
 
 public class MainActivity extends Activity implements OnClickListener {
