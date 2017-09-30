@@ -15,6 +15,11 @@ public class infoTravel implements Serializable{
     //日記タイトル
     public static final String TRAVEL_NUM = "travel_num";
 
+    //
+    public static final String TRAVEL_TITEL = "travel_title";
+    //
+    public static final String TRAVEL_FLAG = "travel_flag";
+
     //プロパティ
     //行番号
     private int rowid = 0;
@@ -22,6 +27,9 @@ public class infoTravel implements Serializable{
     private int travelNum = 0;
     //日記タイトル
     private String travelTitle = null;
+    //旅の実行状態
+    private Integer travelFlag = 0;
+
 
     //ゲッター
     public int getRowid(){
@@ -29,13 +37,14 @@ public class infoTravel implements Serializable{
     }
     public int gettravelNum(){return travelNum;}
     public String getTravelTitle(){return travelTitle;}
+    public int getTravelFlag(){return travelFlag;}
     public void setRowid(int _rowId){
         this.rowid = _rowId;
     }
     public void setTravelNum(int _travelnum){
         this.travelNum = _travelnum;
     }
-
+    public void setTravelFlag(int _travelFlag){this.travelFlag = _travelFlag;}
     public void setTravelTitle(String _travelTitle){
         this.travelTitle = _travelTitle;
     }

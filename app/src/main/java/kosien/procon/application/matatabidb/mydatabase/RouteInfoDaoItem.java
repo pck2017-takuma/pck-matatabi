@@ -4,6 +4,7 @@ package kosien.procon.application.matatabidb.mydatabase;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
@@ -14,8 +15,11 @@ import android.database.sqlite.SQLiteDatabase;
 //日記データベースアクセスクラス
 public class RouteInfoDaoItem {
 
-
     private RouteInfoOpenHelper helper = null;
+
+    //現在の行程を格納する
+    public RouteInfo nowRouteInfo = new RouteInfo();
+
 
     //コンストラクタ
     public RouteInfoDaoItem(Context context){
@@ -30,13 +34,13 @@ public class RouteInfoDaoItem {
         try{
             //データベースに値を格納するやつ
             ContentValues values = new ContentValues();
-            values.put( RouteInfo.ROUTE_DEPARTURE, item.getRouteDeparture());
+            values.put(RouteInfo.ROUTE_DEPARTURE, item.getRouteDeparture());
             values.put(RouteInfo.ROUTE_DEPTTIME, item.getrouteDepttime());
             values.put(RouteInfo.ROUTE_DESTINATION, item.getRouteDestination());
             values.put(RouteInfo.ROUTE_ARVTIME, item.getRouteArvtime());
             values.put(RouteInfo.ROUTE_TRAIN, item.getRouteTrain());
             values.put(RouteInfo.TRAVEL_NUM,item.getTravelNum());
-
+            values.put(RouteInfo.ROUTE_FLAG,item.getRouteFlag());
             int rowId = item.getRowid();
 
             //idが初期値なら
@@ -67,6 +71,43 @@ public class RouteInfoDaoItem {
             db.close();
         }
     }
+
+    //現在の行程を確認する
+    public void getNowRoute(){
+        //SQL文生成
+        String query = "select * from " + RouteInfo.TABLE_NAME + " where " + RouteInfo.ROUTE_FLAG + " = " + "1;";
+        SQLiteDatabase db = helper.getReadableDatabase();
+        try{
+            Cursor cursor = db.rawQuery(query,null);
+            nowRouteInfo = getItem(cursor);
+        }finally{
+            db.close();
+        }
+    }
+
+    //現在の行程を取得する
+    public RouteInfo getNowRouteInfo(){
+        return nowRouteInfo;
+    }
+
+    //現在の行程を完了し、次の行程に移る
+    public void moveRouteNext(){
+        SQLiteDatabase db = helper.getWritableDatabase();
+        //SQL文生成
+        String querybefore = "update " + RouteInfo.TABLE_NAME + " set " + RouteInfo.ROUTE_FLAG + " = 0 " + "where " + nowRouteInfo.getRowid() + " = " + RouteInfo.COLUMN_ID +" ;";
+        String queryafter = "update " + RouteInfo.TABLE_NAME + " set " + RouteInfo.ROUTE_FLAG + " = 0 " + "where " + nowRouteInfo.getRowid() + 1 + " = " + RouteInfo.COLUMN_ID  +" ;";
+        String queryget = "select * from " + RouteInfo.TABLE_NAME  + " where " + nowRouteInfo.getRowid()+1 + " = " + RouteInfo.COLUMN_ID + ";";
+        try{
+            db.rawQuery(querybefore,null);
+            db.rawQuery(queryafter,null);
+            Cursor cursor = db.rawQuery(queryget,null);
+            nowRouteInfo = getItem(cursor);
+        }finally {
+            db.close();
+        }
+
+    }
+
 
     //レコードの全件削除
     public void deleteall_item(){
@@ -110,7 +151,7 @@ public class RouteInfoDaoItem {
         item.setRouteArvtime(cursor.getString(4));
         item.setRouteTrain(cursor.getString(5));
         item.setTravelNum((int)cursor.getLong(6));
-
+        item.setRouteFlag((int)cursor.getLong(7));
         return item;
     }
 

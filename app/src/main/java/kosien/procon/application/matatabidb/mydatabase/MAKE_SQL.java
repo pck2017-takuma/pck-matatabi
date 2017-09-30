@@ -10,7 +10,8 @@ public class MAKE_SQL {
     //SQL文作成用クラス
         static StringBuilder createTraininfo() {
             StringBuilder createSql = new StringBuilder();
-            createSql.append("create table " + Train_Info.TABLE_NAME + " (");
+            createSql.append("create table if not exists " + Train_Info.TABLE_NAME + " (");
+            createSql.append(Train_Info.COLUMN_ID + " integer primary key autoincrement not null, ");
             createSql.append(Train_Info.TRAIN_NUMBER + " text not null,");
             createSql.append(Train_Info.STARTING_STATION + " text,");
             createSql.append(Train_Info.TERMINAL_STATION + " text,");
@@ -24,7 +25,8 @@ public class MAKE_SQL {
 
         static StringBuilder createBusInfomation() {
             StringBuilder createSql = new StringBuilder();
-            createSql.append("create table " + BUS_INFOMATION.TABLE_NAME + " (");
+            createSql.append("create table if not exists " + BUS_INFOMATION.TABLE_NAME + " (");
+            createSql.append(BUS_INFOMATION.COLUMN_ID + " integer primary key autoincrement not null, ");
             createSql.append(BUS_INFOMATION.BUS_STOPNAME + " text not null,");
             createSql.append(BUS_INFOMATION.KANA_NAME + " text not null,");
             createSql.append(BUS_INFOMATION.BET_NAME + " text not null,");
@@ -36,7 +38,8 @@ public class MAKE_SQL {
 
        static StringBuilder createBusTable() {
             StringBuilder createSql = new StringBuilder();
-            createSql.append("create table " + BUS_TABLE.TABLE_NAME + " (");
+            createSql.append("create table if not exists " + BUS_TABLE.TABLE_NAME + " (");
+            createSql.append(BUS_TABLE.COLUMN_ID + " integer primary key autoincrement not null, ");
             createSql.append(BUS_TABLE.LOAD_NUMBER + " text not null,");
             createSql.append(BUS_TABLE.BUS_AWAY + " text not null,");
             createSql.append(BUS_TABLE.DEPARTING_TIME + " text not null,");
@@ -49,9 +52,10 @@ public class MAKE_SQL {
 
         StringBuilder createStationInfomation() {
             StringBuilder createSql = new StringBuilder();
-            createSql.append("create table " + Station_Infomation.TABLE_NAME + " (");
-            createSql.append(Station_Infomation.COLUMN_ID + " integer not null, ");
+            createSql.append("create table if not exists " + Station_Infomation.TABLE_NAME + " (");
+            createSql.append(Station_Infomation.COLUMN_ID + " integer primary key autoincrement not null, ");
             createSql.append(Station_Infomation.STATION_NAME + " text not null, ");
+            createSql.append(Station_Infomation.STATION_CODE + " text not null, ");
             createSql.append(Station_Infomation.KANA_NAME + " text not null, ");
             createSql.append(Station_Infomation.BET_NAME + " text not null, ");
             createSql.append(Station_Infomation.STATION_NUMBER + " text not null, ");
@@ -61,22 +65,22 @@ public class MAKE_SQL {
             createSql.append(Station_Infomation.STATION_LONGITUDE + " real, ");
             createSql.append(Station_Infomation.TOURIST_FLAG + " text not null, ");
             createSql.append(Station_Infomation.CITY_EVA_VALUE + " text not null ");
-            createSql.append(")");
+            createSql.append(");");
 
             return createSql;
         }
 
         static StringBuilder createDiary(){
             StringBuilder createSql = new StringBuilder();
-            createSql.append("create table " + RecordItem.TABLE_NAME + " (");
-            createSql.append(RecordItem.COLUMN_ID + " integer not null, ");
+            createSql.append("create table if not exists " + RecordItem.TABLE_NAME + " (");
+            createSql.append(RecordItem.COLUMN_ID + " integer primary key autoincrement not null,");
             createSql.append(RecordItem.DIARY_TITLE  + " text, ");
             createSql.append(RecordItem.DIARY_RECORD + " text, ");
-            createSql.append(RecordItem.DIARY_YEAR + " integer not null, ");
-            createSql.append(RecordItem.DIARY_MON + " integer not null, ");
-            createSql.append(RecordItem.DIARY_Day + " integer not null, ");
-            createSql.append(RecordItem.DIARY_TIME + " integer not null, ");
-            createSql.append(RecordItem.TRAVEL_NUM + " integer not null ");
+            createSql.append(RecordItem.DIARY_YEAR + " integer, ");
+            createSql.append(RecordItem.DIARY_MON + " integer, ");
+            createSql.append(RecordItem.DIARY_Day + " integer, ");
+            createSql.append(RecordItem.DIARY_TIME + " integer, ");
+            createSql.append(RecordItem.TRAVEL_NUM + " integer ");
             createSql.append(");");
 
             return createSql;
@@ -84,8 +88,8 @@ public class MAKE_SQL {
 
         static StringBuilder createDiaryUpdateTime(){
             StringBuilder createSql = new StringBuilder();
-            createSql.append("create table " + RecordTime.TABLE_NAME + " (");
-            createSql.append(RecordTime.COLUMN_ID + " integer not null, ");
+            createSql.append("create table if not exists " + RecordTime.TABLE_NAME + " (");
+            createSql.append(RecordTime.COLUMN_ID + " integer primary key autoincrement not null, ");
             createSql.append(RecordTime.DIARY_ID + " integer not null, ");
             createSql.append(RecordTime.UPDATE_TIME + " integer not null, ");
             createSql.append(RecordTime.UPDATE_YEAR + " integer not null, ");
@@ -98,10 +102,11 @@ public class MAKE_SQL {
 
     static StringBuilder createtravelInfo(){
         StringBuilder createSql = new StringBuilder();
-        createSql.append("create table " + infoTravel.TABLE_NAME + " (");
-        createSql.append(infoTravel.COLUMN_ID + " integer not null, ");
+        createSql.append("create table if not exists " + infoTravel.TABLE_NAME + " (");
+        createSql.append(infoTravel.COLUMN_ID + " integer primary key autoincrement not null, ");
         createSql.append(infoTravel.TRAVEL_NUM + " integer not null, ");
-        createSql.append(infoTravel.TABLE_NAME + " text not null ");
+        createSql.append(infoTravel.TRAVEL_TITEL + " text not null, ");
+        createSql.append(infoTravel.TRAVEL_FLAG + " integer default 0 ");
         createSql.append(");");
         return createSql;
     }
@@ -109,21 +114,22 @@ public class MAKE_SQL {
         
         static StringBuilder createRouteInfo(){
             StringBuilder createSql = new StringBuilder();
-            createSql.append("create table " + RouteInfo.TABLE_NAME + " (");
+            createSql.append("create table if not exists " + RouteInfo.TABLE_NAME + " (");
             createSql.append(RouteInfo.COLUMN_ID + " integer primary key autoincrement not null, ");
             createSql.append(RouteInfo.ROUTE_DEPARTURE + " text not null, ");
             createSql.append(RouteInfo.ROUTE_DEPTTIME + " text not null, ");
             createSql.append(RouteInfo.ROUTE_DESTINATION + " text not null, ");
             createSql.append(RouteInfo.ROUTE_DEPTTIME + " text not null, ");
             createSql.append(RouteInfo.ROUTE_TRAIN + " text not null, ");
-            createSql.append(RouteInfo.TRAVEL_NUM + " integer primary key autoincrement not null ");
+            createSql.append(RouteInfo.TRAVEL_NUM + " integer primary key autoincrement not null, ");
+            createSql.append(RouteInfo.ROUTE_FLAG + " integer default 0 ");
             createSql.append(");");
             return createSql;
         }
 
     static StringBuilder createPlaceInfo(){
         StringBuilder createSql = new StringBuilder();
-        createSql.append("create table " + RecordTime.TABLE_NAME + " (");
+        createSql.append("create table if not exists " + RecordTime.TABLE_NAME + " (");
         createSql.append(placeInfomation.COLUMN_ID + " integer primary key autoincrement not null, ");
         createSql.append(placeInfomation.PLACE_NAME + " text not null");
         createSql.append(placeInfomation.PLACE_STATION + " text not null");
@@ -142,7 +148,8 @@ public class MAKE_SQL {
 
         static StringBuilder createDiaryImage(){
             StringBuilder createSql = new StringBuilder();
-            createSql.append("create table " + Diary_Image.TABLE_NAME + " (");
+            createSql.append("create table if not exists " + Diary_Image.TABLE_NAME + " (");
+            createSql.append(Station_Infomation.COLUMN_ID + " integer primary key autoincrement not null, ");
             createSql.append(Diary_Image.DIARY_ID + " integer primary key autoincrement not null, ");
             createSql.append(Diary_Image.SAVE_IMAGE  + " text ");
             createSql.append(");");
@@ -151,7 +158,8 @@ public class MAKE_SQL {
 
         static StringBuilder createStationImage(){
             StringBuilder createSql = new StringBuilder();
-            createSql.append("create table " + StationImage.TABLE_NAME + " (");
+            createSql.append("create table if not exists " + StationImage.TABLE_NAME + " (");
+            createSql.append(Station_Infomation.COLUMN_ID + " integer primary key autoincrement not null, ");
             createSql.append(StationImage.STATION_NUMBER + " text not null ");
             createSql.append(StationImage.STATION_PICTURE + " text ");
             createSql.append(");");
@@ -160,7 +168,8 @@ public class MAKE_SQL {
         
         static StringBuilder createPlaceImage(){
             StringBuilder createSql = new StringBuilder();
-            createSql.append("create table " + placeImage.TABLE_NAME + " (");
+            createSql.append("create table if not exists " + placeImage.TABLE_NAME + " (");
+            createSql.append(Station_Infomation.COLUMN_ID + " integer primary key autoincrement not null, ");
             createSql.append(placeImage.PLACE_ID + " integer primary key autoincrement not null, ");
             createSql.append(placeImage.SAVE_IMAGE  + " text ");
             createSql.append(");");

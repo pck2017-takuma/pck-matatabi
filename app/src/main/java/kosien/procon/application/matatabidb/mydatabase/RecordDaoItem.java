@@ -104,7 +104,7 @@ public class RecordDaoItem {
 
     public ArrayList<RecordItem> loadRecord(int travelnum){
         SQLiteDatabase db = helper.getReadableDatabase();
-        ArrayList<RecordItem> number = null;
+        ArrayList<RecordItem> number = new ArrayList<>();
 
         try{
             String query = MAKE_SQL.query_load(RecordItem.TABLE_NAME,RecordItem.COLUMN_ID,travelnum);
@@ -147,21 +147,20 @@ public class RecordDaoItem {
         }
         else{
             if( searchHi == 0 ){
-                searchCulmn = RecordItem.DIARY_YEAR + " = '" + searchNen + "' AND " +
-                        RecordItem.DIARY_MON + " = '" + searchTuki + "' ";
+                searchCulmn = RecordItem.DIARY_YEAR + " = " + searchNen + " AND " +
+                        RecordItem.DIARY_MON + " = " + searchTuki;
             }
             else {
-                searchCulmn = RecordItem.DIARY_YEAR + " = '" + searchNen + "' AND " +
-                        RecordItem.DIARY_MON + " = '" + searchTuki + "' AND " +
-                        RecordItem.DIARY_Day + " = '" + searchHi + "' ";
+                searchCulmn = RecordItem.DIARY_YEAR + " = " + searchNen + " AND " +
+                        RecordItem.DIARY_MON + " = " + searchTuki + " AND " +
+                        RecordItem.DIARY_Day + " = " + searchHi;
             }
         }
 
         /* where句の条件を得たら検索 */
         try {
             String query = null;
-            query = "select * " +
-                    " from " + RecordItem.TABLE_NAME +
+            query = "select * from " + RecordItem.TABLE_NAME +
                     " where " + searchCulmn + ";";
 
             Cursor cursor = db.rawQuery(query, null);
@@ -190,6 +189,12 @@ public class RecordDaoItem {
         item.setRowid((int)cursor.getLong(0));
         item.setDiaryTitle(cursor.getString(1));
         item.setDiaryRecord(cursor.getString(2));
+        item.setDiaryYear((int)cursor.getLong(3));
+        item.setDiaryMon((int)cursor.getLong(4));
+        item.setDiaryDay((int)cursor.getLong(5));
+        item.setDiaryTime((int)cursor.getLong(6));
+        item.setTravelNum((int)cursor.getLong(7));
+
         return item;
     }
 

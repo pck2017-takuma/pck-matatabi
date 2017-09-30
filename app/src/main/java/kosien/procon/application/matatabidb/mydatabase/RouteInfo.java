@@ -36,7 +36,10 @@ public class RouteInfo implements Serializable {
     
     //番号
     public static final String TRAVEL_NUM = "travel_num";
-    
+
+    //訪れたかどうかフラグを立てる
+    public static final String ROUTE_FLAG = "route_flag";
+
     //プロパティ
     //行番号
     private int rowid = 0;
@@ -52,7 +55,8 @@ public class RouteInfo implements Serializable {
     private String routeTrain = null;
     //番号
     private int travelNum = 0;
-    
+    //フラグ
+    private int routeFlag = 0;
     //ゲッター
     public int getRowid() {
         return rowid;
@@ -81,7 +85,7 @@ public class RouteInfo implements Serializable {
     public int getTravelNum() {
         return travelNum;
     }
-    
+    public int getRouteFlag(){return routeFlag;}
     //セッター
     public void setRowid(int _rowId) {
         this.rowid = _rowId;
@@ -110,4 +114,7 @@ public class RouteInfo implements Serializable {
     public void setTravelNum(int _travelNum) {
         this.travelNum = _travelNum;
     }
+
+    public void setRouteFlag(int _routeFlag){this.routeFlag = _routeFlag;}
+
 }

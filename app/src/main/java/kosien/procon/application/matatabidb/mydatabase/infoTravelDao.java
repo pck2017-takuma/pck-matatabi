@@ -21,6 +21,9 @@ public class infoTravelDao {
         helper = new infoTravelOpenHelper(context);
     }
 
+    //現在旅行中のレコード
+    private infoTravel nowTravel = new infoTravel();
+
     //レコードの保存
 
     public infoTravel save_time(infoTravel item){
@@ -119,16 +122,46 @@ public class infoTravelDao {
         return returnData;
     }
 
+    //旅行中のデータが存在するか
+    public boolean checkTravel(){
+        boolean flag = false;
+
+        SQLiteDatabase db = helper.getReadableDatabase();
+        String query = "select * from " + infoTravel.TABLE_NAME + " where " + infoTravel.TRAVEL_FLAG + " = " + "1;";
+        try{
+            Cursor  cursor = db.rawQuery(query, null);
+            //カーソル内にデータが存在するなら
+            if(cursor.getCount() != 0){
+                //現在の旅行データに情報を格納する
+              nowTravel = getItem(cursor);
+                flag = true;
+            }
+        }finally {
+            db.close();
+        }
+
+
+        return flag;
+
+
+    }
+
+    //現在の旅行情報を取得する
+
+    public infoTravel getNowTravel(){
+        return nowTravel;
+    }
+
 
 
 
     //カーソルからオブジェクトに変換
     private infoTravel getItem(Cursor cursor){
         infoTravel item = new infoTravel();
-
         item.setRowid((int)cursor.getLong(0));
         item.setTravelNum((int)cursor.getLong(1));
         item.setTravelTitle(cursor.getString(2));
+        item.setTravelFlag(cursor.getInt(3));
         return item;
     }
 }
