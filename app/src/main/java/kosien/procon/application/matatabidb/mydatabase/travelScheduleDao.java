@@ -5,16 +5,18 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 /**
  * Created by procon-kyougi on 2017/09/30.
  */
 
 public class travelScheduleDao {
 
-
-
+    private travelSchedule nowTravel = new travelSchedule();
     private travelScheduleOpenHelper helper = null;
 
+    ArrayList<travelSchedule> nowTravelList = null;
     //コンストラクタ
     public travelScheduleDao(Context context){
         helper = new travelScheduleOpenHelper(context);
@@ -31,7 +33,7 @@ public class travelScheduleDao {
             values.put( travelSchedule.TRAVEL_NUM, item.getTravelNum());
             values.put( travelSchedule.PLACE_NAME, item.getPlaceName());
             values.put( travelSchedule.ROUTE_NUM, item.getRouteNum());
-
+            values.put(travelSchedule.FLAG,item.getFlag());
             int rowId = item.getRowid();
 
             //idが初期値なら
@@ -95,6 +97,94 @@ public class travelScheduleDao {
         return number;
     }
 
+    //次の行程に移る
+    public void moveNextPlace(){
+
+        //現在の行程番号を取得
+        int nowNum = nowTravel.getRouteNum();
+        //次の行程に移る
+        if(nowNum == 0){
+            //０番の時は次の行程に行く必要はない
+        }else{
+            //SQL文生成
+            String query = "select * from " + travelSchedule.TABLE_NAME + " where " + nowTravel.getTravelNum() + " == " + travelSchedule.TRAVEL_NUM  + " AND " + (nowTravel.getRouteNum()+1)+ " == " + travelSchedule.ROUTE_NUM + " ;";
+
+
+            SQLiteDatabase db = helper.getReadableDatabase();
+         try {
+             Cursor cursor = db.rawQuery(query, null);
+
+             int cnt = cursor.getCount();
+             //
+             if (cnt == 0) {
+                 nowTravel.setPlaceName("お疲れさまでした");
+                 nowTravel.setFlag(0);
+             }else{
+                 nowTravel = getItem(cursor);
+             }
+         }finally{
+             db.close();
+         }
+        }
+
+
+    }
+
+    //現在の行程を一括取得
+    public boolean findSchedule(int nowTravelNum){
+        SQLiteDatabase db = helper.getReadableDatabase();
+        boolean flag = false;
+        String query = "select * from " + travelSchedule.TABLE_NAME + " where " + travelSchedule.TRAVEL_NUM + " = " + nowTravelNum + " ;";
+
+        try{
+            Cursor cursor = db.rawQuery(query,null);
+            if(cursor.getCount() == 0){
+
+
+            }else{
+
+                //現在のリストをリセット
+                nowTravelList = new ArrayList<>();
+                flag = true;
+
+                for(boolean next = cursor.moveToFirst();next;next = cursor.moveToNext()){
+                    //リストに検索結果をどんどん追加していく
+                    nowTravelList.add(getItem(cursor));
+                }
+            }
+        }finally {
+            db.close();
+        }
+        return flag;
+    }
+
+
+
+    //現在の行程を取得する（行程が存在すれば真）
+    public boolean findNowSchedule(int nowTravelNum){
+        SQLiteDatabase db = helper.getReadableDatabase();
+        boolean flag = false;
+        String query = "select * from " + travelSchedule.TABLE_NAME + " where " + travelSchedule.FLAG + " = " + 1 + " AND " + travelSchedule.TRAVEL_NUM + " = " + nowTravelNum + " ;";
+
+        try{
+            Cursor cursor = db.rawQuery(query,null);
+            if(cursor.getCount()==1){
+                flag = true;
+                nowTravel = getItem(cursor);
+            }else if(1 < cursor.getCount()){
+                System.out.println("Error:travelScheduleDaoでエラーが発生しました。複数の日程が現在の行程になっています。");
+            }
+        }finally {
+            db.close();
+        }
+        return flag;
+    }
+
+    public travelSchedule getNowTravel(){
+        return nowTravel;
+    }
+
+    public ArrayList<travelSchedule> getNowTravelList(){return nowTravelList;}
     //カーソルからオブジェクトに変換
     private travelSchedule getItem(Cursor cursor){
         travelSchedule item = new travelSchedule();
@@ -102,6 +192,7 @@ public class travelScheduleDao {
         item.setTravelNum((int)cursor.getLong(1));
         item.setPlaceName(cursor.getString(2));
         item.setRouteNum((int)cursor.getLong(3));
+        item.setFlag(cursor.getInt(4));
         return item;
     }
 

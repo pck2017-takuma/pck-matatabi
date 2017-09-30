@@ -45,7 +45,8 @@ public class DiaryEdit extends Fragment {
     private Button btn_voice = null;
     private Button btn_save = null;
     private Button btn_cancel = null;
-
+    private int bundleTravelNum = 0;
+    private int bundleScheduleNum = 0;
     private LinearLayout all = null;
 
     final Calendar calendar = Calendar.getInstance();
@@ -69,6 +70,8 @@ public class DiaryEdit extends Fragment {
 
     public void onViewCreated(View layout,Bundle savedInstanceState){
 
+        bundleScheduleNum = savedInstanceState.getInt("schedule");
+        bundleTravelNum = savedInstanceState.getInt("travel");
 
         //リソース割り当て
         diary = (EditText)layout.findViewById(R.id.EditText_diary);
@@ -139,6 +142,8 @@ public class DiaryEdit extends Fragment {
                 Record.setDiaryYear(year);
                 Record.setDiaryMon(month);
                 Record.setDiaryDay(day);
+                Record.setScheduleNum(bundleScheduleNum);
+                Record.setTravelNum(bundleTravelNum);
 
                 DataLoadTask task = new DataLoadTask();
                 task.execute();

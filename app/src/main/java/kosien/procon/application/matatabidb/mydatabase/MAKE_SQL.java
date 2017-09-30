@@ -76,9 +76,9 @@ public class MAKE_SQL {
         createSql.append(travelSchedule.COLUMN_ID + " integer primary key autoincrement not null, ");
         createSql.append(travelSchedule.TRAVEL_NUM + " integer not null, ");
         createSql.append(travelSchedule.PLACE_NAME + " text not null, ");
-        createSql.append(travelSchedule.ROUTE_NUM + " text not null ");
+        createSql.append(travelSchedule.ROUTE_NUM + " integer not null ");
+        createSql.append(travelSchedule.FLAG + " integer not null ");
         createSql.append(");");
-
         return createSql;
     }
 
@@ -93,7 +93,8 @@ public class MAKE_SQL {
             createSql.append(RecordItem.DIARY_MON + " integer, ");
             createSql.append(RecordItem.DIARY_Day + " integer, ");
             createSql.append(RecordItem.DIARY_TIME + " integer, ");
-            createSql.append(RecordItem.TRAVEL_NUM + " integer ");
+            createSql.append(RecordItem.TRAVEL_NUM + " integer, ");
+            createSql.append(RecordItem.SCHEDULE_NUM + " integer ");
             createSql.append(");");
 
             return createSql;
@@ -135,7 +136,8 @@ public class MAKE_SQL {
             createSql.append(RouteInfo.ROUTE_DEPTTIME + " text not null, ");
             createSql.append(RouteInfo.ROUTE_TRAIN + " text not null, ");
             createSql.append(RouteInfo.TRAVEL_NUM + " integer primary key autoincrement not null, ");
-            createSql.append(RouteInfo.ROUTE_FLAG + " integer default 0 ");
+            createSql.append(RouteInfo.ROUTE_FLAG + " integer default 0, ");
+            createSql.append(RouteInfo.SCHEDULE_NUM + " integer default -1 ");
             createSql.append(");");
             return createSql;
         }
@@ -144,17 +146,17 @@ public class MAKE_SQL {
         StringBuilder createSql = new StringBuilder();
         createSql.append("create table if not exists " + RecordTime.TABLE_NAME + " (");
         createSql.append(placeInfomation.COLUMN_ID + " integer primary key autoincrement not null, ");
-        createSql.append(placeInfomation.PLACE_NAME + " text not null");
-        createSql.append(placeInfomation.PLACE_STATION + " text not null");
-        createSql.append(placeInfomation.LATITUDE + " text not null");
-        createSql.append(placeInfomation.LONGITUDE + " text not null");
-        createSql.append(placeInfomation.ADDRESS + " text not null");
-        createSql.append(placeInfomation.COLUMN + " text not null");
-        createSql.append(placeInfomation.PHONE_NUMBER + " text not null");
-        createSql.append(placeInfomation.POST_NUMBER + " text not null");
-        createSql.append(placeInfomation.OPEN_TIME + " text not null");
-        createSql.append(placeInfomation.CLOSE_TIME + " text not null");
-        createSql.append(placeInfomation.PLACE_VALUE + " integer primary key autoincrement not null");
+        createSql.append(placeInfomation.PLACE_NAME + " text not null, ");
+        createSql.append(placeInfomation.PLACE_STATION + " text not null, ");
+        createSql.append(placeInfomation.LATITUDE + " text not null, ");
+        createSql.append(placeInfomation.LONGITUDE + " text not null, ");
+        createSql.append(placeInfomation.ADDRESS + " text not null, ");
+        createSql.append(placeInfomation.COLUMN + " text not null, ");
+        createSql.append(placeInfomation.PHONE_NUMBER + " text not null, ");
+        createSql.append(placeInfomation.POST_NUMBER + " text not null, ");
+        createSql.append(placeInfomation.OPEN_TIME + " text not null, ");
+        createSql.append(placeInfomation.CLOSE_TIME + " text not null, ");
+        createSql.append(placeInfomation.PLACE_VALUE + " integer primary key autoincrement not null ");
         createSql.append(");");
         return createSql;
     }

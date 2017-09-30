@@ -18,11 +18,14 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+
+import kosien.procon.application.matatabidb.mydatabase.RouteInfo;
 
 
 //サーバークラス
 public class ConnectServer extends AsyncTask<String, Integer, String> {
-
+    public ArrayList<ArrayList<RouteInfo>>resultData;
     private AsyncCallback _asyncCallback = null;
         /*
         * Activityへコールバック用InterFace
@@ -106,7 +109,14 @@ public class ConnectServer extends AsyncTask<String, Integer, String> {
         }
 
 
+    //パースデータ取得
+    public ArrayList<ArrayList<RouteInfo>> getParseData(){
+        return resultData;
     }
+
+
+
+}
 
 
 

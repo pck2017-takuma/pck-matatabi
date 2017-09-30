@@ -7,6 +7,15 @@ import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import kosien.procon.application.matatabidb.ConnectServer;
+import kosien.procon.application.matatabidb.basicTimeSearch;
+import kosien.procon.application.parseSearchData;
+
 /**
  * Created by Owner on 2017/09/15.
  */
@@ -19,6 +28,11 @@ public class RouteInfoDaoItem {
 
     //現在の行程を格納する
     public RouteInfo nowRouteInfo = new RouteInfo();
+
+    //時刻検索結果
+    ArrayList<ArrayList<RouteInfo>>getRouteList;
+    //採用データ
+    ArrayList<RouteInfo>nowRoute;
 
 
     //コンストラクタ
@@ -41,6 +55,7 @@ public class RouteInfoDaoItem {
             values.put(RouteInfo.ROUTE_TRAIN, item.getRouteTrain());
             values.put(RouteInfo.TRAVEL_NUM,item.getTravelNum());
             values.put(RouteInfo.ROUTE_FLAG,item.getRouteFlag());
+            values.put(RouteInfo.SCHEDULE_NUM,item.getScheduleNum());
             int rowId = item.getRowid();
 
             //idが初期値なら
@@ -73,9 +88,9 @@ public class RouteInfoDaoItem {
     }
 
     //現在の行程を確認する
-    public void getNowRoute(){
+    public void getNowRoute(int nowSchedule){
         //SQL文生成
-        String query = "select * from " + RouteInfo.TABLE_NAME + " where " + RouteInfo.ROUTE_FLAG + " = " + "1;";
+        String query = "select * from " + RouteInfo.TABLE_NAME + " where " + RouteInfo.SCHEDULE_NUM + " = " + nowSchedule + " AND" + RouteInfo.ROUTE_FLAG + " = " + "1;";
         SQLiteDatabase db = helper.getReadableDatabase();
         try{
             Cursor cursor = db.rawQuery(query,null);
@@ -91,25 +106,91 @@ public class RouteInfoDaoItem {
     }
 
     //現在の行程を完了し、次の行程に移る
-    public void moveRouteNext(){
+    public void moveRouteNext(int nowSchedule){
         SQLiteDatabase db = helper.getWritableDatabase();
+        nowRoute = new ArrayList<>();
         //SQL文生成
-        String querybefore = "update " + RouteInfo.TABLE_NAME + " set " + RouteInfo.ROUTE_FLAG + " = 0 " + "where " + nowRouteInfo.getRowid() + " = " + RouteInfo.COLUMN_ID +" ;";
-        String queryafter = "update " + RouteInfo.TABLE_NAME + " set " + RouteInfo.ROUTE_FLAG + " = 0 " + "where " + nowRouteInfo.getRowid() + 1 + " = " + RouteInfo.COLUMN_ID  +" ;";
-        String queryget = "select * from " + RouteInfo.TABLE_NAME  + " where " + nowRouteInfo.getRowid()+1 + " = " + RouteInfo.COLUMN_ID + ";";
+        //現在の行程の路線かつ、ある旅行の行程であるものを操作する
+        String querybefore = "update " + RouteInfo.TABLE_NAME + " set " + RouteInfo.ROUTE_FLAG + " = 0 " + "where " + nowRouteInfo.getRowid() + " = " + RouteInfo.COLUMN_ID + " AND " + nowSchedule + " = " + RouteInfo.SCHEDULE_NUM + " ;";
+        String queryafter = "update " + RouteInfo.TABLE_NAME + " set " + RouteInfo.ROUTE_FLAG + " = 1 " + "where " + (nowRouteInfo.getRowid() + 1) + " = " + RouteInfo.COLUMN_ID  +" AND " + nowSchedule + " = " + RouteInfo.SCHEDULE_NUM + " ;";
+        String queryget = "select * from " + RouteInfo.TABLE_NAME  + " where " + nowRouteInfo.getRowid()+1 + " = " + RouteInfo.COLUMN_ID + " AND " + nowSchedule + " = " + RouteInfo.SCHEDULE_NUM + ";";
+
         try{
             db.rawQuery(querybefore,null);
             db.rawQuery(queryafter,null);
             Cursor cursor = db.rawQuery(queryget,null);
-            nowRouteInfo = getItem(cursor);
+            RouteInfo tmp  = getItem(cursor);
+            if(cursor.getCount() != 0) {
+
+                nowRouteInfo = tmp;
+
+
+            }
         }finally {
             db.close();
         }
 
     }
 
+    //次の場所への行程を組み、出発地点のフラグをONにする
 
-    //レコードの全件削除
+    public void defalut(int num){
+
+
+        SQLiteDatabase db = helper.getReadableDatabase();
+        String query = "update " + RouteInfo.TABLE_NAME + " set " + RouteInfo.ROUTE_FLAG + " = 0" + " where " + RouteInfo.SCHEDULE_NUM  + " = " + num + ";";
+        String query2 = "select * from " + RouteInfo.TABLE_NAME + " where " + RouteInfo.SCHEDULE_NUM  + " = " + num + " AND " + RouteInfo.COLUMN_ID + " = 1;";
+
+        try {
+            db.rawQuery(query, null);
+            Cursor cursor = db.rawQuery(query2, null);
+            nowRouteInfo = getItem(cursor);
+
+            nowRouteInfo.setRouteFlag(1);
+            this.sava_diary(nowRouteInfo);
+        } finally{
+
+            db.close();
+        }
+
+
+    }
+
+
+
+    //現在の行程をキャンセルし、前の行程に戻る
+    public void moveRouteBefore(int nowSchedule) {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        //SQL文生成
+        //現在の行程の路線かつ、ある旅行の行程であるものを操作する
+        String querybefore = "update " + RouteInfo.TABLE_NAME + " set " + RouteInfo.ROUTE_FLAG + " = 1 " + "where " + (nowRouteInfo.getRowid() - 1) + " = " + RouteInfo.COLUMN_ID + " AND " + nowSchedule + " = " + RouteInfo.SCHEDULE_NUM + " ;";
+        String queryafter = "update " + RouteInfo.TABLE_NAME + " set " + RouteInfo.ROUTE_FLAG + " = 0 " + "where " + nowRouteInfo.getRowid() + " = " + RouteInfo.COLUMN_ID + " AND " + nowSchedule + " = " + RouteInfo.SCHEDULE_NUM + " ;";
+        String queryget = "select * from " + RouteInfo.TABLE_NAME + " where " + nowRouteInfo.getRowid() + 1 + " = " + RouteInfo.COLUMN_ID + " AND " + nowSchedule + " = " + RouteInfo.SCHEDULE_NUM + ";";
+        try {
+            db.rawQuery(querybefore, null);
+            db.rawQuery(queryafter, null);
+            Cursor cursor = db.rawQuery(queryget, null);
+            nowRouteInfo = getItem(cursor);
+
+            //こ↑こ↓で時間セット
+
+
+
+
+
+
+
+        } finally {
+            db.close();
+        }
+    }
+
+
+
+
+
+
+        //レコードの全件削除
     public void deleteall_item(){
         SQLiteDatabase db = helper.getWritableDatabase();
         RouteInfo number = null;
@@ -152,15 +233,36 @@ public class RouteInfoDaoItem {
         item.setRouteTrain(cursor.getString(5));
         item.setTravelNum((int)cursor.getLong(6));
         item.setRouteFlag((int)cursor.getLong(7));
+        item.setScheduleNum(cursor.getInt(8));
         return item;
     }
 
 
 
+    private ArrayList<ArrayList<RouteInfo>> getJsonFromAsync(String url) {
 
+        ConnectServer asyncGet = new ConnectServer(new ConnectServer.AsyncCallback() {
+            //非同期通信が開始される前に呼び出される
+            public void onPreExecute() {}
+            //非同期通信が更新されたと時に呼び出される
+            public void onProgressUpdate(int progress) {}
+            //非同期通信がキャンセルされたt気に呼び出される
+            public void onCancelled() {}
+            //非同期通信が完了した時点で呼び出される
+            public void onPostExecute(String result) {
 
+                try {
+                    JSONObject json = new JSONObject(result);
+                    parseSearchData resultParse = new parseSearchData(json.getJSONObject("ResultSet"));
 
-
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        asyncGet.execute(url);
+        return asyncGet.getParseData();
+    }
 
 
 

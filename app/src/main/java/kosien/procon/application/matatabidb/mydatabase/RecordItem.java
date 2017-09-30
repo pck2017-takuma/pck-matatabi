@@ -32,6 +32,8 @@ public class RecordItem implements Serializable {
     public static final String DIARY_Day = "diary_data";
     //日記最終更新日の時間（秒単位）
     public static final String DIARY_TIME = "diary_time";
+    //スケジュール割り当て
+    public static final String SCHEDULE_NUM = "schedule_num";
 
 
     //プロパティ
@@ -51,6 +53,8 @@ public class RecordItem implements Serializable {
     private int diaryTime = -1;
     //旅番号
     private int travelNum = 0;
+    //スケジュール
+    private int scheduleNum = 0;
 
     private static String itemsearchrecord = null;
     private static int itemsearchyear = 0;
@@ -78,10 +82,10 @@ public class RecordItem implements Serializable {
         return diaryTime;
     }
     public int gettravelNum(){return travelNum;}
-
-     public String getDiaryRecord(){
+    public String getDiaryRecord(){
          return diaryRecord;
      }
+    public int getScheduleNum(){return scheduleNum;}
 
     //セッター
     public void setRowid(int _rowId){
@@ -104,7 +108,7 @@ public class RecordItem implements Serializable {
     public void setDiaryTime(int _diaryTime){
         this.diaryTime = _diaryTime;
     }
-
+    public void setScheduleNum(int _scheduleNum){this.scheduleNum = _scheduleNum;}
 
     // //セッターについては年数とかを個別に設定することは想定していない
     // public void setDiaryTime(int _time){
@@ -115,11 +119,6 @@ public class RecordItem implements Serializable {
     //     int time = 0;
 
     //     //この先はまだ空実装
-
-
-
-
-
     // }
 
      public void setDiaryRecord(String _diaryRecord){

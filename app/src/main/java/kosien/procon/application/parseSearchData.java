@@ -44,13 +44,13 @@ public class parseSearchData {
     private static final String point = "Point";
 
     //とりあえず出発駅・到着駅・時刻を返す
-    private ArrayList<ArrayList<RouteInfo>>routeInfo;
+    private ArrayList<ArrayList<RouteInfo>>routeInfo = null;
 
 
 
     //受け取ったJSONオブジェクト
     JSONObject jsonObject = new JSONObject();
-    parseSearchData(JSONObject srcObject){
+   public  parseSearchData(JSONObject srcObject){
         jsonObject = srcObject;
         ParseObject();
     }
@@ -128,7 +128,7 @@ public class parseSearchData {
             //１検索候補についてあげられる料金オプションが全件取得される
             JSONObject[] getPriceObject = ParseJSONprice(x);
         }
-        
+
     }
 
     //乗り換え回数が０の時
@@ -352,6 +352,11 @@ public class parseSearchData {
         }
 
         return pointObject;
+    }
+
+    //パースデータ取得
+    public ArrayList<ArrayList<RouteInfo>> getParseData(){
+        return routeInfo;
     }
 
 
