@@ -37,6 +37,22 @@ public class DiaryImageOpenHelper extends SQLiteOpenHelper {
         }
     }
 
+    //データベース作成
+    public void onOpen(SQLiteDatabase db){
+        db.beginTransaction();
+
+        try{
+            //テーブル作成用SQL
+
+            StringBuilder createsql = MAKE_SQL.createDiaryImage();
+            db.execSQL(createsql.toString());
+            db.setTransactionSuccessful();
+        }finally {
+            db.endTransaction();
+        }
+    }
+
+
     @Override
     //データベース更新（空実装）
     public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion){
