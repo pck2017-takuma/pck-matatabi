@@ -109,18 +109,34 @@ public class parseSearchData {
 
         for(JSONObject x:routeJSONobject){
             ParseJSONroute(x);
+
+            routeJSON:par
+
+
+
         }
 
     }
 
+    //乗り換え回数が０の時
+    private void parseRouteObject(JSONObject routeJSON){
+
+
+    }
+
+
     private void ParseJSONroute(JSONObject routeJSON){
-
-
 
         JSONArray lineJSONarray = new JSONArray();
         JSONArray arrivalJSONarray = new JSONArray();
         JSONArray depatureJSONarray = new JSONArray();
         JSONArray pointJSONarray = new JSONArray();
+
+
+
+
+
+
 
         try{
             lineJSONarray = routeJSON.getJSONArray(line);
@@ -132,6 +148,9 @@ public class parseSearchData {
 
         }
 
+
+
+
         //それぞれのデータをパースする
         JSONObject[] parsePoint = ParseJSONpoint(pointJSONarray);
         JSONObject[] parseLine = ParseJSONline(lineJSONarray);
@@ -141,7 +160,6 @@ public class parseSearchData {
 
         //pointから駅名を取得
         for(int i = 0; i < parsePoint.length;i++){
-            //pointのstatoinを取得
             try {
                 JSONArray station = parsePoint[i].getJSONArray("Station");
                 //stationの２番目に駅名が入っているはず
@@ -166,11 +184,9 @@ public class parseSearchData {
 
             //順番に列車の発車時刻・到着時刻・列車名を取得する
             try {
-
                 trainName = x.getString("Name");
                 arrival = x.getJSONArray("ArrivalState");
                 depature = x.getJSONArray("DepartureState");
-
 
             }catch(JSONException e){
 
