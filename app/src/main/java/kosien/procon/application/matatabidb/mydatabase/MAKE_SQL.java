@@ -118,7 +118,8 @@ public class MAKE_SQL {
         createSql.append("create table if not exists " + infoTravel.TABLE_NAME + " (");
         createSql.append(infoTravel.COLUMN_ID + " integer primary key autoincrement not null, ");
         createSql.append(infoTravel.TRAVEL_NUM + " integer not null, ");
-        createSql.append(infoTravel.TRAVEL_TITEL + " text not null ");
+        createSql.append(infoTravel.TRAVEL_TITEL + " text not null, ");
+        createSql.append(infoTravel.TRAVEL_FLAG + " integer default 0 ");
         createSql.append(");");
         return createSql;
     }
@@ -133,7 +134,8 @@ public class MAKE_SQL {
             createSql.append(RouteInfo.ROUTE_DESTINATION + " text not null, ");
             createSql.append(RouteInfo.ROUTE_DEPTTIME + " text not null, ");
             createSql.append(RouteInfo.ROUTE_TRAIN + " text not null, ");
-            createSql.append(RouteInfo.TRAVEL_NUM + " integer primary key autoincrement not null ");
+            createSql.append(RouteInfo.TRAVEL_NUM + " integer primary key autoincrement not null, ");
+            createSql.append(RouteInfo.ROUTE_FLAG + " integer default 0 ");
             createSql.append(");");
             return createSql;
         }
