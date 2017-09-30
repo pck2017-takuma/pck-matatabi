@@ -39,6 +39,20 @@ public class RecordTimeOpenHelper extends SQLiteOpenHelper {
     }
 
     @Override
+    public void onOpen(SQLiteDatabase db){
+        db.beginTransaction();
+
+        try{
+            //データベース作成用SQL
+            StringBuilder createsql = MAKE_SQL.createDiaryUpdateTime();
+            db.execSQL(createsql.toString());
+            db.setTransactionSuccessful();
+        }finally {
+            db.endTransaction();
+        }
+    }
+
+    @Override
 
     //データベース更新（空実装）
     public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion){

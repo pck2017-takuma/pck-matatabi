@@ -23,7 +23,22 @@ public class placeImageOpenHelper extends SQLiteOpenHelper {
     }
 
     //データベース作成
+    @Override
     public void onCreate(SQLiteDatabase db){
+        db.beginTransaction();
+
+        try{
+            //テーブル作成用SQL
+            StringBuilder createsql = MAKE_SQL.createPlaceImage();
+            db.execSQL(createsql.toString());
+            db.setTransactionSuccessful();
+        }finally {
+            db.endTransaction();
+        }
+    }
+
+    @Override
+    public void onOpen(SQLiteDatabase db){
         db.beginTransaction();
 
         try{

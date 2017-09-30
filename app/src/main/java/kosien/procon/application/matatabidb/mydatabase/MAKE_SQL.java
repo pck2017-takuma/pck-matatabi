@@ -50,7 +50,7 @@ public class MAKE_SQL {
             return createSql;
         }
 
-        StringBuilder createStationInfomation() {
+       static  StringBuilder createStationInfomation() {
             StringBuilder createSql = new StringBuilder();
             createSql.append("create table if not exists " + Station_Infomation.TABLE_NAME + " (");
             createSql.append(Station_Infomation.COLUMN_ID + " integer primary key autoincrement not null, ");
@@ -69,6 +69,19 @@ public class MAKE_SQL {
 
             return createSql;
         }
+
+    static StringBuilder createtravelSchedule() {
+        StringBuilder createSql = new StringBuilder();
+        createSql.append("create table if not exists " + Station_Infomation.TABLE_NAME + " (");
+        createSql.append(travelSchedule.COLUMN_ID + " integer primary key autoincrement not null, ");
+        createSql.append(travelSchedule.TRAVEL_NUM + " integer not null, ");
+        createSql.append(travelSchedule.PLACE_NAME + " text not null, ");
+        createSql.append(travelSchedule.ROUTE_NUM + " text not null ");
+        createSql.append(");");
+
+        return createSql;
+    }
+
 
         static StringBuilder createDiary(){
             StringBuilder createSql = new StringBuilder();
@@ -190,14 +203,14 @@ public class MAKE_SQL {
         return sql;
     }
      
-     String query_deleteAlldata2(String tableName,String columnId){
+    static  String query_deleteAlldata2(String tableName,String columnId){
           String sql = "delete from " + tableName + " where " + columnId + "> -1;";
           return sql;
      }
      
      
      //idを指定してロードするSQLを作成する
-     String query_load2(String tableName,String columnId,int itemID){
+    static  String query_load2(String tableName,String columnId,int itemID){
           String sql = "select * " + " from " + tableName + " where " + columnId + " = '" + itemID + "';";
           return sql;
      }

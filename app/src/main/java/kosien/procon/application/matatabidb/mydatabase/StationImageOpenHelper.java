@@ -37,6 +37,19 @@ public class StationImageOpenHelper extends SQLiteOpenHelper{
         }
     }
 
+    //テーブル作成
+    @Override
+    public void onOpen(SQLiteDatabase db){
+        db.beginTransaction();
+        try{
+            //テーブル作成用SQL文
+            StringBuilder createsql = MAKE_SQL.createStationImage();
+            db.execSQL(createsql.toString());
+            db.setTransactionSuccessful();
+        }finally {
+            db.endTransaction();
+        }
+    }
 
     //テーブル更新
     @Override
