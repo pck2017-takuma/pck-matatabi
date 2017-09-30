@@ -47,9 +47,6 @@ public class parseSearchData {
     private ArrayList<ArrayList<RouteInfo>>routeInfo;
 
 
-    //返すデータ
-
-
 
     //受け取ったJSONオブジェクト
     JSONObject jsonObject = new JSONObject();
@@ -134,7 +131,6 @@ public class parseSearchData {
         }catch(JSONException e){
 
         }
-
 
         //それぞれのデータをパースする
         JSONObject[] parsePoint = ParseJSONpoint(pointJSONarray);
@@ -251,9 +247,6 @@ public class parseSearchData {
         }
 
         return pointObject;
-
-
-
     }
 
 
