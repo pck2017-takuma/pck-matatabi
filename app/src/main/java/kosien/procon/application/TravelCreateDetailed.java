@@ -19,13 +19,15 @@ import su.heartlove.matatabi.R;
 
 public class TravelCreateDetailed extends Activity {
 
-    private TravelCreate tc1 = new TravelCreate();
-    private placeInfomation info = tc1.infomation();
+
+    private placeInfomation info;
     private Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-    private MainActivity main = new MainActivity();
+    private MainActivity main;
 
     @Override
     protected void onCreate(Bundle icicle) {
+        Intent intent = getIntent();
+        info = (placeInfomation)intent.getSerializableExtra("place");
         super.onCreate(icicle);
         setContentView(R.layout.travel_create_detailed);
 

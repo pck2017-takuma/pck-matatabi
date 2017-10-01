@@ -37,7 +37,6 @@ public class TravelCreate extends Activity {
         Intent intent = getIntent();
         placeInfomation test = (placeInfomation)intent.getSerializableExtra("test");
         xxx = new placeInfoDao(tcf.getContext());
-        System.out.println("Success");
         yyy.add(test);
 
 
@@ -59,8 +58,8 @@ public class TravelCreate extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mposition = position;
-                Intent intent = new Intent(TravelCreate.this, TravelCreateDetailed.class);
-
+                Intent intent = new Intent(getApplication(), TravelCreateDetailed.class);
+                intent.putExtra("place",yyy.get(mposition));
                 startActivity(intent);
             }
         });

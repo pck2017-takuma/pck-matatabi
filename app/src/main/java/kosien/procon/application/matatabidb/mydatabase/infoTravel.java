@@ -38,8 +38,11 @@ public class infoTravel implements Serializable{
         return rowid;
     }
     public int gettravelNum(){return travelNum;}
+    public int getTravelNum(){return travelNum;}
+
     public String getTravelTitle(){return travelTitle;}
     public int getTravelFlag(){return travelFlag;}
+
     public void setRowid(int _rowId){
         this.rowid = _rowId;
     }

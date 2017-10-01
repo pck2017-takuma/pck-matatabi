@@ -76,7 +76,7 @@ public class MAKE_SQL {
         createSql.append(travelSchedule.COLUMN_ID + " integer primary key autoincrement not null, ");
         createSql.append(travelSchedule.TRAVEL_NUM + " integer not null, ");
         createSql.append(travelSchedule.PLACE_NAME + " text not null, ");
-        createSql.append(travelSchedule.ROUTE_NUM + " integer not null ");
+        createSql.append(travelSchedule.ROUTE_NUM + " integer not null, ");
         createSql.append(travelSchedule.FLAG + " integer not null ");
         createSql.append(");");
         return createSql;
