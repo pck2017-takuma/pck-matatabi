@@ -20,7 +20,9 @@ public class infoTravel implements Serializable{
     //
     public static final String TRAVEL_FLAG = "travel_flag";
 
-    //プロパティ
+
+
+
     //行番号
     private int rowid = 0;
     //旅番号
@@ -28,7 +30,7 @@ public class infoTravel implements Serializable{
     //日記タイトル
     private String travelTitle = null;
     //旅の実行状態
-    private Integer travelFlag = 0;
+    private int travelFlag = 0;
 
 
     //ゲッター

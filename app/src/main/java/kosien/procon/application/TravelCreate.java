@@ -24,7 +24,7 @@ import su.heartlove.matatabi.R;
 public class TravelCreate extends Activity {
 
     private int mposition = 0;
-    private ArrayList<placeInfomation> yyy;
+    private ArrayList<placeInfomation> yyy = new ArrayList<>();
     private placeInfoDao xxx;
     private travelCreateFragment tcf = new travelCreateFragment();
 
@@ -32,11 +32,13 @@ public class TravelCreate extends Activity {
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.search_2);
-
         // レイアウトからリストビューを取得
-        ListView listView = (ListView)findViewById(R.id.sample_listview);
+        ListView listView = (ListView)findViewById(R.id.travel_listview);
+        Intent intent = getIntent();
+        placeInfomation test = (placeInfomation)intent.getSerializableExtra("test");
         xxx = new placeInfoDao(tcf.getContext());
-        yyy = xxx.getSearchResult();
+        System.out.println("Success");
+        yyy.add(test);
 
 
         // リストビューに表示する要素を設定
@@ -57,7 +59,8 @@ public class TravelCreate extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mposition = position;
-                Intent intent = new Intent(getApplication(), TravelCreateDetailed.class);
+                Intent intent = new Intent(TravelCreate.this, TravelCreateDetailed.class);
+
                 startActivity(intent);
             }
         });

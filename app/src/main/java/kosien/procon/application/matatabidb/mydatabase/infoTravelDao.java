@@ -127,14 +127,14 @@ public class infoTravelDao {
         boolean flag = false;
 
         SQLiteDatabase db = helper.getReadableDatabase();
-        String query = "select * from " + infoTravel.TABLE_NAME + " where " + infoTravel.TRAVEL_FLAG + " = " + "1;";
+        String query = "select * from " + infoTravel.TABLE_NAME + " where " + infoTravel.TRAVEL_FLAG + " == " + "1;";
         try{
             Cursor  cursor = db.rawQuery(query, null);
             //カーソル内にデータが存在するなら
             if(cursor.getCount() != 0){
                 //現在の旅行データに情報を格納する
               nowTravel = getItem(cursor);
-                flag = true;
+              flag = true;
             }
         }finally {
             db.close();

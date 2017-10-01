@@ -18,11 +18,8 @@ import java.util.ArrayList;
 
 import kosien.procon.application.matatabidb.ConnectServer;
 import kosien.procon.application.matatabidb.basicTimeSearch;
-import kosien.procon.application.matatabidb.mydatabase.RecordDaoItem;
-import kosien.procon.application.matatabidb.mydatabase.RecordItem;
 import kosien.procon.application.matatabidb.mydatabase.RouteInfo;
 import kosien.procon.application.matatabidb.mydatabase.infoTravel;
-import kosien.procon.application.matatabidb.mydatabase.infoTravelDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfoDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfomation;
 import kosien.procon.application.matatabidb.mydatabase.travelSchedule;

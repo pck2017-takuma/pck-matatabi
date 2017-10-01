@@ -49,8 +49,12 @@ public class travelCreateFragment extends Fragment {
             public void onClick(View v) {
                 String search = mEdit.getText().toString();
                 if(xxx.findPlaceInfo(search, placeInfomation.PLACE_NAME)){
-                    Intent intent = new Intent(getContext(), TravelCreate.class);
-                    startActivity(intent);
+                    placeInfomation tmp = xxx.getSearchResult().get(0);
+                    Intent intent = new Intent(getActivity(), TravelCreate.class);
+                    intent.putExtra("test",tmp);
+                    getActivity().startActivity(intent);
+
+
                 }
                 else {
                     Toast.makeText(getActivity(), "候補が見つかりませんでした。", Toast.LENGTH_SHORT).show();
