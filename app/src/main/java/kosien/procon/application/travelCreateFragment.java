@@ -1,17 +1,14 @@
 package kosien.procon.application;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-
-import java.util.ArrayList;
+import android.widget.Toast;
 
 import kosien.procon.application.matatabidb.mydatabase.placeInfoDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfomation;
@@ -24,11 +21,7 @@ import su.heartlove.matatabi.R;
 public class travelCreateFragment extends Fragment {
 
     private EditText mEdit;
-    private Button mButton;
-
     private placeInfoDao xxx;
-    private placeInfomation placeInfomation;
-    private ArrayList<placeInfomation> yyy;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
@@ -40,17 +33,28 @@ public class travelCreateFragment extends Fragment {
     public void onViewCreated(View view, final Bundle saveInstanceState) {
         super.onViewCreated(view, saveInstanceState);
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        mEdit = (EditText) getActivity().findViewById(R.id.edit_text);
         xxx = new placeInfoDao(getContext());
-        Button btn = (Button) view.findViewById(R.id.button1);
+
+        // ボタンを取得して、ClickListenerをセット
+        Button btn = (Button) getActivity().findViewById(R.id.button1);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String search = mEdit.getText().toString();
-                if(xxx.findPlaceInfo(search,placeInfomation.PLACE_NAME)){
-                    yyy = xxx.getSearchData();
-
+                if(xxx.findPlaceInfo(search, placeInfomation.PLACE_NAME)){
+                    Intent intent = new Intent(getContext(), TravelCreate.class);
+                    startActivity(intent);
                 }
-
+                else {
+                    Toast.makeText(getActivity(), "候補が見つかりませんでした。", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });

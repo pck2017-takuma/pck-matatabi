@@ -4,35 +4,30 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import kosien.procon.application.matatabidb.mydatabase.infoTravelDao;
+import kosien.procon.application.matatabidb.mydatabase.placeInfoDao;
+import kosien.procon.application.matatabidb.mydatabase.placeInfomation;
 import su.heartlove.matatabi.R;
 
-public class MainActivity extends Activity implements OnClickListener {
-
-  //  private String[] myDataset = new String[20];
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.activity_main);
-
-
-//        mLayoutManager = new LinearLayoutManager(this);
-//        mRecyclerView.setLayoutManager(mLayoutManager);
-//
-//        //RecyclerViewの中身
-//        for(int i=0; i<myDataset.length; i++) {
-//            myDataset[i] = "Data_0"+String.valueOf(i);
-//        }
-//
-
 
 
         //こ↑こ↓画面遷移
@@ -88,17 +83,22 @@ public class MainActivity extends Activity implements OnClickListener {
             travelCreateFragment recordFragment = new travelCreateFragment();
             fragmentTransaction.replace(R.id.my_recycler_view,recordFragment);
             fragmentTransaction.commit();
-
-
-
         }
-
-
-
 
     }
 
-    public void onClick(View v) {
+    public void setListView(){
 
+        TravelCreate tc1 = new TravelCreate();
+        placeInfomation info = tc1.infomation();
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        ListView _listView = (ListView) findViewById(R.id.list_view);
+
+        ArrayList<SampleListItem> listItem = new ArrayList<>();
+        SampleListItem item = new SampleListItem(bmp, info.getPlaceName(), info.getPlacePostNumber());
+        listItem.add(item);
+
+        SetRecordListAdapter adapter = new SetRecordListAdapter(this, R.layout.samplelist_item, listItem);
+        _listView.setAdapter(adapter);
     }
 }

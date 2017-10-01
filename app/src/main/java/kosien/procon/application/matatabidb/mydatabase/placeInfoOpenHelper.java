@@ -40,7 +40,6 @@ public class placeInfoOpenHelper extends SQLiteOpenHelper{
     @Override
     public void onOpen(SQLiteDatabase db){
         db.beginTransaction();
-
         try{
             //データベース作成用SQL
             StringBuilder createsql = MAKE_SQL.createPlaceInfo();

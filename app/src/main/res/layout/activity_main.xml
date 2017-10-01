@@ -9,6 +9,17 @@
     android:id="@+id/schedule"
     android:background="#F0F0F0">
 
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ListView>
+
     <LinearLayout
         android:id="@+id/activity_main"
         android:layout_width="fill_parent"
