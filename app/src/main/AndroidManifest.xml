@@ -41,6 +41,8 @@
                 android:scheme="twittercallback" />
         </intent-filter>
     </activity>
+    <activity android:name="kosien.procon.application.TravelCreate" />
+    <activity android:name="kosien.procon.application.TravelCreateDetailed" />
 
 </application>
 

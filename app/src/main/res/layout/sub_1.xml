@@ -36,7 +36,9 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/schedule_text"
-                tools:context=".MainActivity"></LinearLayout>
+                tools:context=".MainActivity">
+
+            </LinearLayout>
 
         </FrameLayout>
 
@@ -45,9 +47,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp"
-
-            >
+            tools:layout_editor_absoluteY="8dp">
 
             <TextView
                 android:id="@+id/textView2"
@@ -70,7 +70,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-
                     android:layout_weight="1"
                     android:background="@null"
                     android:src="@drawable/schedule_nuvi_icon_b"
@@ -83,13 +82,11 @@
                     android:id="@+id/search_button"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-
                     android:layout_weight="1"
                     android:background="@null"
-                    android:src="@drawable/search_nuvi_icon_b"
+                    android:src="@drawable/search_nuvi_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHorizontal_bias="0.527"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -101,10 +98,9 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-
                     android:layout_weight="1"
                     android:background="@null"
-                    android:src="@drawable/album_nuvi_icon"
+                    android:src="@drawable/album_nuvi_icon_b"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/schedule_button"
                     app:layout_constraintRight_toRightOf="parent" />

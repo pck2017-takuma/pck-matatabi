@@ -15,6 +15,9 @@ public class placeInfoOpenHelper extends SQLiteOpenHelper{
     private static final String DB_NAME = "MATATABI";
     //データベースバージョン
     private static final int DB_VERSION = 1;
+
+
+
     //コンストラクタ
     public placeInfoOpenHelper(Context context){
         super(context,DB_NAME,null,DB_VERSION);
@@ -40,7 +43,6 @@ public class placeInfoOpenHelper extends SQLiteOpenHelper{
     @Override
     public void onOpen(SQLiteDatabase db){
         db.beginTransaction();
-
         try{
             //データベース作成用SQL
             StringBuilder createsql = MAKE_SQL.createPlaceInfo();

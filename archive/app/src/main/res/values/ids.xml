@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<item name="Button_add_file" type="id">BUTTON_ADD_FILE</item>
-	<item name="Button_add_sns" type="id">BUTTON_ADD_SNS</item>
-	<item name="Buttonadd_save" type="id">BUTTONADD_SAVE</item>
-</resources>

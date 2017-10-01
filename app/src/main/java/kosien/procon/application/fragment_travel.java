@@ -1,10 +1,7 @@
 package kosien.procon.application;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,14 +11,20 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
+import kosien.procon.application.matatabidb.ConnectServer;
 import kosien.procon.application.matatabidb.basicTimeSearch;
 import kosien.procon.application.matatabidb.mydatabase.RecordDaoItem;
 import kosien.procon.application.matatabidb.mydatabase.RecordItem;
 import kosien.procon.application.matatabidb.mydatabase.RouteInfo;
 import kosien.procon.application.matatabidb.mydatabase.infoTravel;
 import kosien.procon.application.matatabidb.mydatabase.infoTravelDao;
+import kosien.procon.application.matatabidb.mydatabase.placeInfoDao;
+import kosien.procon.application.matatabidb.mydatabase.placeInfomation;
 import kosien.procon.application.matatabidb.mydatabase.travelSchedule;
 import kosien.procon.application.matatabidb.mydatabase.travelScheduleDao;
 import su.heartlove.matatabi.R;
@@ -31,29 +34,20 @@ import su.heartlove.matatabi.R;
  */
 
 public class fragment_travel extends Fragment{
-
-
     //フラグメントで表示する内容
     private TextView mTextView;
-
     //スケジュールデータベース
     travelScheduleDao scheduleDB;
-
-
     //現在の行程
     ArrayList<RouteInfo>routeList;
-
     //スケジュール一覧
     ArrayList<travelSchedule>travelList;
-
-
     //現在の旅行
     infoTravel bundleData;
-
     //現在の場所
     travelSchedule nowPlace;
-
-
+    //観光地データベースにアクセス
+    placeInfoDao placeInfoDB;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
@@ -69,14 +63,35 @@ public class fragment_travel extends Fragment{
         //バンドルされた旅行データを取得
         bundleData = (infoTravel)saveInstanceState.getSerializable("travelNum");
 
+        //観光地データベースオープン
+        placeInfoDB = new placeInfoDao(getContext());
 
 
         //現在の行程を取得
         if(scheduleDB.findSchedule(bundleData.gettravelNum())){
             nowPlace = scheduleDB.getNowTravel();
-        }else{
+            placeInfomation placeData = new placeInfomation();
+            //次に訪れる場所の座標を取得する
+            if(placeInfoDB.findPlaceInfo(nowPlace.getPlaceName(),placeInfomation.PLACE_NAME)){
+                //同じ名前の観光地は存在しないと思う。
+                placeData = placeInfoDB.getSearchResult().get(0);
+            }
 
-            //全件取得して１つ目の要素をtrueにしてデータベースに登録する
+            String goalStation = placeData.getPlaceLatitude() + "," + placeData.getPlaceLongitude();
+            String startStation = "33.311139,134.010361";
+            basicTimeSearch url = new basicTimeSearch(startStation,goalStation);
+
+
+            routeList = getJsonFromAsync(url.getSearchLink()).get(0);
+
+            //旅行データ
+
+
+        }else{
+            //
+
+
+
 
 
         }
@@ -113,6 +128,32 @@ public class fragment_travel extends Fragment{
 
 
     }
+
+    private ArrayList<ArrayList<RouteInfo>> getJsonFromAsync(String url) {
+
+        ConnectServer asyncGet = new ConnectServer(new ConnectServer.AsyncCallback() {
+            //非同期通信が開始される前に呼び出される
+            public void onPreExecute() {}
+            //非同期通信が更新されたと時に呼び出される
+            public void onProgressUpdate(int progress) {}
+            //非同期通信がキャンセルされたt気に呼び出される
+            public void onCancelled() {}
+            //非同期通信が完了した時点で呼び出される
+            public void onPostExecute(String result) {
+
+                try {
+                    JSONObject json = new JSONObject(result);
+                    parseSearchData resultParse = new parseSearchData(json.getJSONObject("ResultSet"));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        asyncGet.execute(url);
+        return asyncGet.getParseData();
+    }
+
 
 
 
