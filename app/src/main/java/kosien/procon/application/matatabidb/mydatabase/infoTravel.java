@@ -20,7 +20,9 @@ public class infoTravel implements Serializable{
     //
     public static final String TRAVEL_FLAG = "travel_flag";
 
-    //プロパティ
+
+
+
     //行番号
     private int rowid = 0;
     //旅番号
@@ -28,7 +30,7 @@ public class infoTravel implements Serializable{
     //日記タイトル
     private String travelTitle = null;
     //旅の実行状態
-    private Integer travelFlag = 0;
+    private int travelFlag = 0;
 
 
     //ゲッター
@@ -36,8 +38,11 @@ public class infoTravel implements Serializable{
         return rowid;
     }
     public int gettravelNum(){return travelNum;}
+    public int getTravelNum(){return travelNum;}
+
     public String getTravelTitle(){return travelTitle;}
     public int getTravelFlag(){return travelFlag;}
+
     public void setRowid(int _rowId){
         this.rowid = _rowId;
     }

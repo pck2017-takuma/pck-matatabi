@@ -80,7 +80,7 @@ public class RecordFragment extends Fragment {
                 listItems.add(item);
 
                 // 出力結果をリストビューに表示
-                SetRecordListAdapter adapter = new SetRecordListAdapter(getContext(), R.layout.fragment_searchlist, listItems);
+                SetRecordListAdapter adapter = new SetRecordListAdapter(getContext(), R.layout.samplelist_item, listItems);
                 listView.setAdapter(adapter);
 
 
@@ -102,7 +102,7 @@ public class RecordFragment extends Fragment {
                         //とりあえずバンドルに一つ一つ値を入れていくｗｗ
                         bundle.putSerializable("infoTravel",data);
 
-                        schedule_detail recordFragment = new schedule_detail();
+                        fragment_schedule recordFragment = new fragment_schedule();
                         recordFragment.setArguments(bundle);
                         fragmentTransaction.add(R.id.edit_diary,recordFragment);
                         fragmentTransaction.commit();

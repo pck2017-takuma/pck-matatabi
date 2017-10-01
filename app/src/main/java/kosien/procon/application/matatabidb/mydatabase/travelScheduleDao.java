@@ -141,6 +141,7 @@ public class travelScheduleDao {
             if(cursor.getCount() == 0){
 
 
+
             }else{
 
                 //現在のリストをリセット

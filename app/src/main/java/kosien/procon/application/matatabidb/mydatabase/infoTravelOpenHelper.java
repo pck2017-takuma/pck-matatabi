@@ -1,6 +1,7 @@
 package kosien.procon.application.matatabidb.mydatabase;
 
 import android.app.Application;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -26,6 +27,11 @@ public class infoTravelOpenHelper extends SQLiteOpenHelper {
         super(context,DB_NAME,null,DB_VERSION);
     }
 
+    private String[][] datas = new String[][]{
+            {"99999","テスト旅行","0"}
+
+    };
+
     //データベース生成
     @Override
     public void onCreate(SQLiteDatabase db){
@@ -36,11 +42,20 @@ public class infoTravelOpenHelper extends SQLiteOpenHelper {
             StringBuilder createsql = MAKE_SQL.createtravelInfo();
 
             db.execSQL(createsql.toString());
+            for (String[] data : datas) {
+                ContentValues values = new ContentValues();
+                values.put(infoTravel.TRAVEL_NUM, data[0]);
+                values.put(infoTravel.TRAVEL_TITEL,data[1]);
+                values.put(infoTravel.TRAVEL_FLAG,data[2]);
+
+                db.insert(infoTravel.TABLE_NAME, null, values);
+            }
             db.setTransactionSuccessful();
         }finally {
             db.endTransaction();
         }
     }
+
 
 
 
@@ -57,9 +72,17 @@ public class infoTravelOpenHelper extends SQLiteOpenHelper {
         try{
 
             //テーブル作成用SQL生成
-            StringBuilder createsql = MAKE_SQL.createtravelInfo();
-
+            StringBuilder createsql = MAKE_SQL.createtravelInfo();            // サンプルデータの投入
             db.execSQL(createsql.toString());
+
+            for (String[] data : datas) {
+                ContentValues values = new ContentValues();
+                values.put(infoTravel.TRAVEL_NUM, data[0]);
+                values.put(infoTravel.TRAVEL_TITEL,data[1]);
+                values.put(infoTravel.TRAVEL_FLAG,data[2]);
+
+                db.insert(infoTravel.TABLE_NAME, null, values);
+            }
             db.setTransactionSuccessful();
         }finally {
             db.endTransaction();

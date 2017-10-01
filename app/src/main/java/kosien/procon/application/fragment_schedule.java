@@ -59,11 +59,11 @@ public class fragment_schedule extends Fragment {
         scheduleDB = new travelScheduleDao(getContext());
         travelDB = new infoTravelDao(getContext());
 
-        //ここでBundleで渡されたinfoTravelDataを取得
-        getData = (infoTravel)saveInstanceState.getSerializable("infoTravel");
-
+        //バンドルされたデータを取得する
+        Bundle bundle = getArguments();
+        getData = (infoTravel)bundle.getSerializable("infoTravel");
         //スケジュール一覧を取得する
-        if(scheduleDB.findSchedule(getData.gettravelNum())){
+        if(scheduleDB.findSchedule(getData.getTravelNum())){
             getList = scheduleDB.getNowTravelList();
         }
 
@@ -84,9 +84,18 @@ public class fragment_schedule extends Fragment {
             accept_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //ここで旅行をこのスケジュールを実行状態にする
+                //_idが１のやつを旅行中に、現在の選択項目もアクティブにする（デバック中は一回一回アンインストールしないと不具合が生じる）
                 getData.setTravelFlag(1);
+
+                travelSchedule start = getList.get(0);
+                //アクティブにする
+                start.setFlag(1);
+
+                //データベース登録
+
                 travelDB.save_time(getData);
+                scheduleDB.sava_diary(start);
+
             }
         });
 
@@ -105,7 +114,6 @@ public class fragment_schedule extends Fragment {
 
         }
 
-
         ListView listView = (ListView)view.findViewById(R.id.sample_listview);
         ArrayList<SampleListItem> listItems = new ArrayList<SampleListItem>();
 
@@ -119,7 +127,7 @@ public class fragment_schedule extends Fragment {
                 listItems.add(item);
 
                 // 出力結果をリストビューに表示
-                SetRecordListAdapter adapter = new SetRecordListAdapter(getContext(), R.layout.fragment_searchlist, listItems);
+                SetRecordListAdapter adapter = new SetRecordListAdapter(getContext(), R.layout.samplelist_item, listItems);
                 listView.setAdapter(adapter);
 
                 // アイテムクリック時ののイベントを追加
@@ -128,23 +136,6 @@ public class fragment_schedule extends Fragment {
                     public void onItemClick(AdapterView<?> parent,
                                             View view, int pos, long id) {
 
-
-                        Bundle bundle = new Bundle();
-
-                        //とりあえずバンドルに一つ一つ値を入れていくｗｗ
-                        travelSchedule putData = getList.get(pos);
-                        bundle.putSerializable("schedule",putData);
-
-
-                        //詳細フラグメントに飛ぶ（人見氏実装後同様画面に飛ぶ、その際に＋でボタンを設置する
-
-                        FragmentManager fragmentManager = getFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                        schedule_detail detailFragment = new schedule_detail();
-                        detailFragment.setArguments(bundle);
-                        fragmentTransaction.add(R.id.sample_listview,detailFragment);
-                        fragmentTransaction.commit();
 
 
                     }

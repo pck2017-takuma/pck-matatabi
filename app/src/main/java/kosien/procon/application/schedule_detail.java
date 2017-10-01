@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import kosien.procon.application.matatabidb.mydatabase.RecordDaoItem;
 import kosien.procon.application.matatabidb.mydatabase.RecordItem;
+import kosien.procon.application.matatabidb.mydatabase.infoTravel;
 import kosien.procon.application.matatabidb.mydatabase.infoTravelDao;
 import kosien.procon.application.matatabidb.mydatabase.travelSchedule;
 import su.heartlove.matatabi.R;
@@ -48,6 +49,8 @@ public class schedule_detail extends Fragment {
         travelHelper = new infoTravelDao(getContext());
         recordDB = new RecordDaoItem(getContext());
         //バンドルされたデータを取得する
+        Bundle bundle = getArguments();
+        infoTravel data = (infoTravel)bundle.getSerializable("infoTravel");
 
         // ボタンを生成
         super.onViewCreated(view, saveInstanceState);
