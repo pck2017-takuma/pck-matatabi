@@ -142,7 +142,7 @@ public class MAKE_SQL {
 
     static StringBuilder createPlaceInfo(){
         StringBuilder createSql = new StringBuilder();
-        createSql.append("create table if not exists " + RecordTime.TABLE_NAME + " ( ");
+        createSql.append("create table if not exists " + placeInfomation.TABLE_NAME + " ( ");
         createSql.append(placeInfomation.COLUMN_ID + " integer primary key autoincrement not null, ");
         createSql.append(placeInfomation.PLACE_NAME + " text not null, ");
         createSql.append(placeInfomation.PLACE_STATION + " text not null, ");

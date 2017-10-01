@@ -3,8 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1"
-    >
+    android:weightSum="1">
 
 
     <LinearLayout
@@ -40,7 +39,8 @@
                 android:id="@+id/edit_button"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="新規"></Button>
+                android:text="新規" />
+
         </FrameLayout>
 
     </LinearLayout>
