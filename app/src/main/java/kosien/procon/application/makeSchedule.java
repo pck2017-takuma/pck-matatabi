@@ -34,7 +34,6 @@ public class makeSchedule extends AppCompatActivity {
         // リストビューに表示する要素を設定
         ArrayList<makeScheduleListItem> listItems = new ArrayList<>();
 
-
         for(RouteInfo x:routeInfo){
         //for (int i = 0; i < 3; i++) {
             Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);  // 今回はサンプルなのでデフォルトのAndroid Iconを利用

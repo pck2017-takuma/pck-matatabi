@@ -96,23 +96,23 @@ public class stationInfoDBOpenHelper extends SQLiteOpenHelper{
             StringBuilder StationInfo = tmp.createStationInfomation();
             db.execSQL(StationInfo.toString());
 
-            // サンプルデータの投入
-            for (String[] data : datas) {
-                ContentValues values = new ContentValues();
-                values.put(Station_Infomation.STATION_NAME, data[0]);
-                values.put(Station_Infomation.KANA_NAME, data[1]);
-                values.put(Station_Infomation.BET_NAME, data[2]);
-                values.put(Station_Infomation.STATION_CODE,data[3]);
-                values.put(Station_Infomation.STATION_NUMBER, data[4]);
-                values.put(Station_Infomation.STATION_POST, data[5]);
-                values.put(Station_Infomation.STATION_ADDRESS, data[6]);
-                values.put(Station_Infomation.STATION_LATITUDE, Double.parseDouble(data[7]));
-                values.put(Station_Infomation.STATION_LONGITUDE, Double.parseDouble(data[8]));
-                values.put(Station_Infomation.TOURIST_FLAG, data[9]);
-                values.put(Station_Infomation.CITY_EVA_VALUE, data[10]);
-
-                db.insert(Station_Infomation.TABLE_NAME, null, values);
-            }
+//            // サンプルデータの投入
+//            for (String[] data : datas) {
+//                ContentValues values = new ContentValues();
+//                values.put(Station_Infomation.STATION_NAME, data[0]);
+//                values.put(Station_Infomation.KANA_NAME, data[1]);
+//                values.put(Station_Infomation.BET_NAME, data[2]);
+//                values.put(Station_Infomation.STATION_CODE,data[3]);
+//                values.put(Station_Infomation.STATION_NUMBER, data[4]);
+//                values.put(Station_Infomation.STATION_POST, data[5]);
+//                values.put(Station_Infomation.STATION_ADDRESS, data[6]);
+//                values.put(Station_Infomation.STATION_LATITUDE, Double.parseDouble(data[7]));
+//                values.put(Station_Infomation.STATION_LONGITUDE, Double.parseDouble(data[8]));
+//                values.put(Station_Infomation.TOURIST_FLAG, data[9]);
+//                values.put(Station_Infomation.CITY_EVA_VALUE, data[10]);
+//
+//                db.insert(Station_Infomation.TABLE_NAME, null, values);
+//            }
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();

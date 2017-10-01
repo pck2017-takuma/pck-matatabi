@@ -1,17 +1,14 @@
 package kosien.procon.application.matatabidb.mydatabase;
 
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by i15317 on 2017/09/15.
+ * Created by procon-kyougi on 2017/09/30.
  */
 
-
-//レコードクラス処理クラス
-public class RouteInfoOpenHelper extends SQLiteOpenHelper {
+public class travelScheduleOpenHelper extends SQLiteOpenHelper {
 
     //データベース名称
     private static final String DB_NAME = "MATATABI";
@@ -20,7 +17,7 @@ public class RouteInfoOpenHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
 
     //コンストラクタ
-    public RouteInfoOpenHelper(Context context){
+    public travelScheduleOpenHelper(Context context){
         //オブジェクトを作成する
         super(context,DB_NAME,null,DB_VERSION);
     }
@@ -31,12 +28,13 @@ public class RouteInfoOpenHelper extends SQLiteOpenHelper {
         db.beginTransaction();
 
         try{
-
             //テーブル作成用SQL生成
-            StringBuilder createsql = MAKE_SQL.createRouteInfo();
+            StringBuilder createsql = MAKE_SQL.createtravelSchedule();
             db.execSQL(createsql.toString());
             db.setTransactionSuccessful();
+
         }finally {
+
             db.endTransaction();
         }
     }
@@ -48,7 +46,7 @@ public class RouteInfoOpenHelper extends SQLiteOpenHelper {
         try{
 
             //テーブル作成用SQL生成
-            StringBuilder createsql = MAKE_SQL.createRouteInfo();
+            StringBuilder createsql = MAKE_SQL.createtravelSchedule();
             db.execSQL(createsql.toString());
             db.setTransactionSuccessful();
         }finally {
@@ -63,5 +61,8 @@ public class RouteInfoOpenHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion){
 
     }
+
+
+
 
 }

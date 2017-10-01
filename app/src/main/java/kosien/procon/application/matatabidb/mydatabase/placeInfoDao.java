@@ -6,6 +6,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 /**
  * Created by procon-kyougi on 2017/09/16.
  */
@@ -14,7 +16,7 @@ public class placeInfoDao {
 
 
     private placeInfoOpenHelper helper = null;
-
+    private ArrayList<placeInfomation> returnData = new ArrayList<>();
     //コンストラクタ
     public placeInfoDao(Context context){
         helper = new placeInfoOpenHelper(context);
@@ -83,6 +85,41 @@ public class placeInfoDao {
         }
     }
 
+    public boolean findPlaceInfo(String search_data, String column_name){
+        SQLiteDatabase db = helper.getReadableDatabase();
+        //データを空にする。
+        if(!returnData.isEmpty()) {
+            returnData.clear();
+        }
+
+        try{
+            String query = "select * from " + placeInfomation.TABLE_NAME + " where " + column_name + " == " + "'" + search_data + "'" + ";";
+            Cursor cursor = db.rawQuery(query,null);
+            int count = cursor.getCount();
+            cursor.moveToFirst();
+            //カーソルの行数だけループ
+            for(int i = 0; i < count;i++){
+                returnData.add(getItem(cursor));
+                //カーソルを次に移動
+                cursor.moveToNext();
+            }
+        }finally{
+            //処理が終わったらデータベースを閉じる
+            db.close();
+        }
+
+        if(returnData.size() == 0){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+    public ArrayList<placeInfomation> getSearchResult(){
+        return returnData;
+    }
+
+
     //idを指定してロード
     public placeInfomation load_item(int itemId){
         SQLiteDatabase db = helper.getReadableDatabase();
@@ -99,6 +136,8 @@ public class placeInfoDao {
 
         return number;
     }
+
+
 
 
     //カーソルからオブジェクトに変換

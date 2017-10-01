@@ -1,4 +1,4 @@
-package kosien.procon.application;
+package kosien.procon.application.matatabidb;
 
 import android.net.Uri;
 
@@ -27,12 +27,21 @@ public class basicTimeSearch extends makeLink {
 
     private String startStation = null;
     private String endStation = null;
+    private String endlatitude = null;
+    private String endlongitude = null;
     private final String encoding = "UTF-8";
 
-    basicTimeSearch(String s,String b){
+    public basicTimeSearch(String s,String b){
         startStation = s;
         endStation = b;
     }
+
+    public void setDestination(String _latitude,String _longitude){
+        this.endlatitude = _latitude;
+        this.endlongitude = _longitude;
+    }
+
+
 
     @Override
     public String getSearchLink(){

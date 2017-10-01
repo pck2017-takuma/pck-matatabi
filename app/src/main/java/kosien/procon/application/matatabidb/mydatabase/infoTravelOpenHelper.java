@@ -42,6 +42,9 @@ public class infoTravelOpenHelper extends SQLiteOpenHelper {
         }
     }
 
+
+
+
     @Override
     //データベース更新（空実装）
     public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion){

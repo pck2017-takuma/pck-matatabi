@@ -13,13 +13,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 import kosien.procon.application.matatabidb.ConnectServer;
+import kosien.procon.application.matatabidb.basicTimeSearch;
+import kosien.procon.application.matatabidb.mydatabase.RouteInfo;
 import kosien.procon.application.matatabidb.mydatabase.StationInfoDao;
 import kosien.procon.application.matatabidb.mydatabase.Station_Infomation;
 
@@ -58,7 +59,7 @@ public class SearchFragment extends Fragment {
 
         basicTimeSearch makelink = new basicTimeSearch("岡山","東京");
         System.out.println(makelink.getSearchLink());
-       getJsonFromAsync(makelink.getSearchLink());
+        getJsonFromAsync(makelink.getSearchLink());
 
 
         if(stationHelper.findStationInfo(searchWord,Station_Infomation.STATION_NAME)){
@@ -81,10 +82,6 @@ public class SearchFragment extends Fragment {
             // 出力結果をリストビューに表示
             SetRecordListAdapter adapter = new SetRecordListAdapter(getContext(), R.layout.samplelist_item, listItems);
             listView.setAdapter(adapter);
-
-
-
-
 
             // アイテムクリック時ののイベントを追加
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -111,7 +108,7 @@ public class SearchFragment extends Fragment {
 
     }
 
-    private void getJsonFromAsync(String url) {
+    private ArrayList<ArrayList<RouteInfo>> getJsonFromAsync(String url) {
 
         ConnectServer asyncGet = new ConnectServer(new ConnectServer.AsyncCallback() {
             //非同期通信が開始される前に呼び出される
@@ -133,6 +130,7 @@ public class SearchFragment extends Fragment {
             }
         });
         asyncGet.execute(url);
+        return asyncGet.getParseData();
     }
 
 }

@@ -25,20 +25,18 @@ public class RouteInfo implements Serializable {
     public static final String ROUTE_DEPARTURE = "route_departure";
     //出発時刻
     public static final String ROUTE_DEPTTIME = "route_depttime";
-    
     //到着駅
     public static final String ROUTE_DESTINATION = "route_destination";
     //到着時刻
     public static final String ROUTE_ARVTIME = "route_arvtime";
-    
     //列車名
     public static final String ROUTE_TRAIN = "route_train";
-    
     //番号
     public static final String TRAVEL_NUM = "travel_num";
-
     //訪れたかどうかフラグを立てる
     public static final String ROUTE_FLAG = "route_flag";
+    //どの行程かを割り当てる
+    public static final String SCHEDULE_NUM = "schedule_num";
 
     //プロパティ
     //行番号
@@ -57,35 +55,39 @@ public class RouteInfo implements Serializable {
     private int travelNum = 0;
     //フラグ
     private int routeFlag = 0;
+    //行程番号
+    private int scheduleNum = -1;
     //ゲッター
     public int getRowid() {
         return rowid;
     }
     
     public String getRouteDeparture() {
-        return routeDeparture;
+        return this.routeDeparture;
     }
     
     public String getrouteDepttime() {
-        return routeDepttime;
+        return this.routeDepttime;
     }
     
     public String getRouteDestination() {
-        return routeDestination;
+        return this.routeDestination;
     }
     
     public String getRouteArvtime() {
-        return routeArvtime;
+        return this.routeArvtime;
     }
     
     public String getRouteTrain() {
-        return routeTrain;
+        return this.routeTrain;
     }
     
     public int getTravelNum() {
-        return travelNum;
+        return this.travelNum;
     }
-    public int getRouteFlag(){return routeFlag;}
+    public int getRouteFlag(){return this.routeFlag;}
+    public int getScheduleNum(){return this.scheduleNum;}
+
     //セッター
     public void setRowid(int _rowId) {
         this.rowid = _rowId;
@@ -116,5 +118,6 @@ public class RouteInfo implements Serializable {
     }
 
     public void setRouteFlag(int _routeFlag){this.routeFlag = _routeFlag;}
-
+    public void setScheduleNum(int _scheduleNum){this.scheduleNum = _scheduleNum;}
+    
 }

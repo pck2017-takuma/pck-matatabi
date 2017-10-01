@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import kosien.procon.application.Record;
+
 /**
  * Created by Owner on 2017/09/15.
  */
@@ -23,6 +25,11 @@ public class RecordDaoItem {
         helper = new RecordOpenHelper(context);
     }
     //レコードの保存
+
+    //目的地
+    double placeLatitude = 0;
+    double placeLongitude = 0;
+
     public RecordItem sava_diary(RecordItem item){
         //書き込み可能でデータベースを読み出し
         SQLiteDatabase db = helper.getWritableDatabase();
@@ -38,6 +45,7 @@ public class RecordDaoItem {
             values.put(RecordItem.DIARY_Day,item.getDiaryDay());
             values.put(RecordItem.DIARY_TIME,item.getDiaryTime());
             values.put(RecordItem.TRAVEL_NUM,item.gettravelNum());
+            values.put(RecordItem.SCHEDULE_NUM,item.getScheduleNum());
             int rowId = item.getRowid();
 
             //idが初期値なら
@@ -98,6 +106,25 @@ public class RecordDaoItem {
         return number;
     }
 
+    //idを指定してロード
+    public RecordItem load_item(int schedule,int traval){
+        SQLiteDatabase db = helper.getReadableDatabase();
+        RecordItem number = null;
+        try{
+            String query = "select * from " + RecordItem.TABLE_NAME + " where " + RecordItem.SCHEDULE_NUM + " = " + schedule + " AND " + traval + " = " + RecordItem.TRAVEL_NUM + " ;";
+            Cursor cursor = db.rawQuery(query,null);
+            cursor.moveToFirst();
+            number = getItem(cursor);
+
+        }finally{
+            //処理が終わったらデータベースを閉じる
+            db.close();
+        }
+
+        return number;
+    }
+
+
     public ArrayList<RecordItem> loadRecord(int travelnum){
         SQLiteDatabase db = helper.getReadableDatabase();
         ArrayList<RecordItem> number = new ArrayList<>();
@@ -120,8 +147,6 @@ public class RecordDaoItem {
 
         return number;
     }
-
-
 
 
     public List list_search_item(RecordItem record, boolean searchWord ) {
@@ -173,6 +198,11 @@ public class RecordDaoItem {
         return itemList;
     }
 
+    void setDestination(double _latitude,double _longitude){
+        this.placeLatitude = _latitude;
+        this.placeLongitude = _longitude;
+    }
+
 
 
 
@@ -190,7 +220,7 @@ public class RecordDaoItem {
         item.setDiaryDay((int)cursor.getLong(5));
         item.setDiaryTime((int)cursor.getLong(6));
         item.setTravelNum((int)cursor.getLong(7));
-
+        item.setScheduleNum((int)cursor.getLong(8));
         return item;
     }
 

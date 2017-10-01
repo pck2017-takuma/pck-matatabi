@@ -46,20 +46,27 @@ public class RecordFragment extends Fragment {
         super.onViewCreated(view,saveInstanceState);
         Button btn = (Button)view.findViewById(R.id.edit_button);
         // レイアウトにボタンを追加
+
+
+
         btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                //リストビュー表示用フラグメント
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                DiaryTop recordFragment = new DiaryTop();
-                fragmentTransaction.add(R.id.edit_diary,recordFragment);
-                fragmentTransaction.commit();
+
+//                //こ↑こ↓のボタンは無効化する
+//                FragmentManager fragmentManager = getFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                DiaryTop recordFragment = new DiaryTop();
+//                fragmentTransaction.add(R.id.edit_diary,recordFragment);
+//                fragmentTransaction.commit();
+
+
+
             }
         });
 
         //データベースからデータを取得する
-        ArrayList<infoTravel> travelData = travelHelper.load_item();
+        final ArrayList<infoTravel> travelData = travelHelper.load_item();
 
         ListView listView = (ListView)view.findViewById(R.id.sample_listview);
         ArrayList<SampleListItem> listItems = new ArrayList<SampleListItem>();
@@ -72,7 +79,6 @@ public class RecordFragment extends Fragment {
                 SampleListItem item = new SampleListItem(bmp, "TravelNum text No. " + String.valueOf(i), "sample No. " + String.valueOf(i));
                 listItems.add(item);
 
-
                 // 出力結果をリストビューに表示
                 SetRecordListAdapter adapter = new SetRecordListAdapter(getContext(), R.layout.fragment_searchlist, listItems);
                 listView.setAdapter(adapter);
@@ -84,15 +90,22 @@ public class RecordFragment extends Fragment {
                     public void onItemClick(AdapterView<?> parent,
                                             View view, int pos, long id) {
 
-                        // 選択アイテムを取得
-                        ListView listView2 = (ListView)parent;
-                        String item = (String)listView2.getItemAtPosition(pos);
+                        //リストビューの番号って０からよね？
+                        infoTravel data = travelData.get(pos);
 
-                        // 通知ダイアログを表示
-                        Toast.makeText(getContext(),
-                                item, Toast.LENGTH_LONG
-                        ).show();
+                        //詳細フラグメントに飛ぶ（人見氏実装後同様画面に飛ぶ、その際に＋でボタンを設置する
+                        //こ↑こ↓のボタンは無効化する
+                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        Bundle bundle = new Bundle();
 
+                        //とりあえずバンドルに一つ一つ値を入れていくｗｗ
+                        bundle.putSerializable("infoTravel",data);
+
+                        schedule_detail recordFragment = new schedule_detail();
+                        recordFragment.setArguments(bundle);
+                        fragmentTransaction.add(R.id.edit_diary,recordFragment);
+                        fragmentTransaction.commit();
 
                     }
 

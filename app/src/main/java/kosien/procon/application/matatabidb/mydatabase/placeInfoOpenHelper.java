@@ -35,6 +35,24 @@ public class placeInfoOpenHelper extends SQLiteOpenHelper{
         }
     }
 
+
+    //テーブル作成
+    @Override
+    public void onOpen(SQLiteDatabase db){
+        db.beginTransaction();
+
+        try{
+            //データベース作成用SQL
+            StringBuilder createsql = MAKE_SQL.createPlaceInfo();
+            db.execSQL(createsql.toString());
+            db.setTransactionSuccessful();
+        }finally{
+            db.endTransaction();
+        }
+    }
+
+
+
     @Override
     //データベース更新（空実装）
     public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion){
