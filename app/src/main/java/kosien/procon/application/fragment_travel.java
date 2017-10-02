@@ -58,8 +58,8 @@ public class fragment_travel extends Fragment{
     public void onViewCreated(final View view, Bundle saveInstanceState) {
         scheduleDB = new travelScheduleDao(getContext());
         //バンドルされた旅行データを取得
-        bundleData = (infoTravel)saveInstanceState.getSerializable("travelNum");
-
+        Bundle bundle = getArguments();
+        bundleData = (infoTravel)bundle.getSerializable("infoTravel");
         //観光地データベースオープン
         placeInfoDB = new placeInfoDao(getContext());
 

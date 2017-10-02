@@ -2,6 +2,8 @@ package kosien.procon.application.matatabidb.mydatabase;
 
 import java.io.Serializable;
 
+import static java.sql.Types.NULL;
+
 /**
  * Created by procon-kyougi on 2017/09/23.
  */
@@ -24,7 +26,7 @@ public class infoTravel implements Serializable{
 
 
     //行番号
-    private int rowid = 0;
+    private Integer rowid = NULL;
     //旅番号
     private int travelNum = 0;
     //日記タイトル

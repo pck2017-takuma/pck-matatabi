@@ -132,10 +132,17 @@ public class MainActivity extends Activity {
                 }
             });
         }else{
-
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            travelCreateFragment recordFragment = new travelCreateFragment();
+
+            Bundle bundle = new Bundle();
+
+            bundle.putSerializable("infoTravel",travelHelper.getNowTravel());
+
+
+
+            fragment_travel recordFragment = new fragment_travel();
+            recordFragment.setArguments(bundle);
             fragmentTransaction.replace(R.id.my_recycler_view,recordFragment);
             fragmentTransaction.commit();
         }

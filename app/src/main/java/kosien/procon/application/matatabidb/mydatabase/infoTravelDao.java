@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
+import static java.sql.Types.NULL;
+
 /**
  * Created by procon-kyougi on 2017/09/23.
  */
@@ -42,12 +44,12 @@ public class infoTravelDao {
             int rowId = item.getRowid();
 
             //idが初期値ならば
-            if(rowId == 0){
+            if(rowId == NULL){
                 rowId = (int)db.insert(infoTravel.TABLE_NAME,null,values);
             }else{
                 db.update(infoTravel.TABLE_NAME,values,infoTravel.COLUMN_ID + "=?",new String[]{String.valueOf(rowId)});
             }
-            result = load_item(rowId);
+            result = Load_item(rowId);
 
         }finally {
             //処理が終了したらデータベースを閉じる
@@ -98,6 +100,24 @@ public class infoTravelDao {
         return number;
     }
 
+    //idを指定してロード
+    public infoTravel Load_item(int itemId){
+        SQLiteDatabase db = helper.getReadableDatabase();
+        infoTravel number = null;
+        try{
+            //テーブル名、検索カラム、検索番号
+            String query = MAKE_SQL.query_load(infoTravel.TABLE_NAME,infoTravel.COLUMN_ID,itemId);
+            Cursor cursor = db.rawQuery(query,null);
+            cursor.moveToFirst();
+            number = getItem(cursor);
+        }finally{
+            //処理が終わったらデータベースを閉じる
+            db.close();
+        }
+
+        return number;
+    }
+
     //とりあえず全件取得
     public ArrayList<infoTravel> load_item(){
         ArrayList<infoTravel>returnData = new ArrayList<infoTravel>();
@@ -134,6 +154,8 @@ public class infoTravelDao {
             Cursor  cursor = db.rawQuery(query, null);
             //カーソル内にデータが存在するなら
             if(cursor.getCount() != 0){
+
+                cursor.moveToFirst();
                 //現在の旅行データに情報を格納する
               nowTravel = getItem(cursor);
               flag = true;

@@ -147,7 +147,6 @@ public class travelScheduleDao {
                 //現在のリストをリセット
                 nowTravelList = new ArrayList<>();
                 flag = true;
-
                 for(boolean next = cursor.moveToFirst();next;next = cursor.moveToNext()){
                     //リストに検索結果をどんどん追加していく
                     nowTravelList.add(getItem(cursor));
