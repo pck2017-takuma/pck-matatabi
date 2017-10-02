@@ -1,15 +1,13 @@
 package kosien.procon.application;
 
 import android.app.Fragment;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +17,7 @@ import java.util.ArrayList;
 import kosien.procon.application.matatabidb.ConnectServer;
 import kosien.procon.application.matatabidb.basicTimeSearch;
 import kosien.procon.application.matatabidb.mydatabase.RouteInfo;
+import kosien.procon.application.matatabidb.mydatabase.RouteInfoDaoItem;
 import kosien.procon.application.matatabidb.mydatabase.infoTravel;
 import kosien.procon.application.matatabidb.mydatabase.placeInfoDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfomation;
@@ -45,6 +44,10 @@ public class fragment_travel extends Fragment{
     travelSchedule nowPlace;
     //観光地データベースにアクセス
     placeInfoDao placeInfoDB;
+    //行程データベース更新
+    RouteInfoDaoItem routeDB;
+    //訪れる場所の情報
+    placeInfomation nowPlaceData;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
@@ -52,7 +55,7 @@ public class fragment_travel extends Fragment{
         return inflater.inflate(R.layout.fragment_travel, container, false);
     }
 
-    //ビューを生成し終わった後に呼ばれるメソッド
+
 
     @Override
     public void onViewCreated(final View view, Bundle saveInstanceState) {
@@ -62,37 +65,54 @@ public class fragment_travel extends Fragment{
         bundleData = (infoTravel)bundle.getSerializable("infoTravel");
         //観光地データベースオープン
         placeInfoDB = new placeInfoDao(getContext());
+        routeDB = new RouteInfoDaoItem(getContext());
 
-
-        //現在の行程を取得
+        //訪問先データ全件取得
         if(scheduleDB.findSchedule(bundleData.gettravelNum())){
-            nowPlace = scheduleDB.getNowTravel();
-            placeInfomation placeData = new placeInfomation();
-            //次に訪れる場所の座標を取得する
-            if(placeInfoDB.findPlaceInfo(nowPlace.getPlaceName(),placeInfomation.PLACE_NAME)){
-                //同じ名前の観光地は存在しないと思う。
-                placeData = placeInfoDB.getSearchResult().get(0);
-            }
-
-            String goalStation = placeData.getPlaceLatitude() + "," + placeData.getPlaceLongitude();
-            String startStation = "33.311139,134.010361";
-            basicTimeSearch url = new basicTimeSearch(startStation,goalStation);
-
-
-            routeList = getJsonFromAsync(url.getSearchLink()).get(0);
-
-            //旅行データ
-
-
-        }else{
-            //
-
-
-
-
-
+            travelList = scheduleDB.getNowTravelList();
         }
 
+        //現在の進んだ行程があるか確認する
+
+        if (scheduleDB.findNowSchedule(bundleData.gettravelNum())) {
+            nowPlace = scheduleDB.getNowTravel();
+        } else {
+            //ない場合はトラベルナンバーが１番目のscheduleをアクティブにしてデータベースに登録する
+
+            for (travelSchedule x : travelList) {
+                if (x.getTravelNum() == 0) {
+                    x.setFlag(1);
+                    scheduleDB.sava_diary(x);
+                    nowPlace = x;
+                }
+            }
+        }
+
+        //観光地の情報を取得する
+        if(placeInfoDB.findPlaceInfo(nowPlace.getPlaceName(),placeInfomation.PLACE_NAME)){
+            //１つしかデータが見つからないという信頼の上で
+            nowPlaceData = placeInfoDB.getSearchResult().get(0);
+        }else{
+            Toast.makeText(getContext(),"ヤバい、可笑しいことになった！",Toast.LENGTH_SHORT).show();
+        }
+
+        //起点を決める（将来的：現在位置　現状：香川高等専門学校詫間キャンパス学生課）
+        String startStation = "33.311139,134.010361";
+        String goalStation = nowPlaceData.getPlaceLatitude() + "," + nowPlaceData.getPlaceLongitude();
+        basicTimeSearch url = new basicTimeSearch(startStation, goalStation);
+
+
+
+        //経路検索を行いその結果を格納する
+        routeList = getJsonFromAsync(url.getSearchLink()).get(0);
+        for(int i = 0; i < routeList.size();i++){
+            RouteInfo tmp = routeList.get(i);
+            //スケジュールとどの行程かを記憶する
+            tmp.setTravelNum(bundleData.getTravelNum());
+            tmp.setScheduleNum(nowPlace.getRouteNum());
+            //データベース登録
+            routeDB.sava_diary(tmp);
+        }
 
 
 
@@ -151,6 +171,14 @@ public class fragment_travel extends Fragment{
         return asyncGet.getParseData();
     }
 
+
+    boolean moveNextStation(){
+
+    }
+
+    boolean moveBeforeStation(){
+
+    }
 
 
 
