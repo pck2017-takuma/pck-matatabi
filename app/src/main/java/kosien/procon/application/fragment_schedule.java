@@ -74,7 +74,7 @@ public class fragment_schedule extends Fragment {
 
 
 
-        Button accept_button = (Button)view.findViewById(R.id.edit_button);
+        Button accept_button = (Button)view.findViewById(R.id.edit_buttonn);
 
 
         //acceptボタンの割り当て
@@ -114,7 +114,7 @@ public class fragment_schedule extends Fragment {
 
         }
 
-        ListView listView = (ListView)view.findViewById(R.id.sample_listview);
+        ListView listView = (ListView)view.findViewById(R.id.sample_listvieww);
         ArrayList<SampleListItem> listItems = new ArrayList<SampleListItem>();
 
         if(getList.size() == 0){
@@ -136,6 +136,21 @@ public class fragment_schedule extends Fragment {
                     public void onItemClick(AdapterView<?> parent,
                                             View view, int pos, long id) {
 
+                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                        //データをバンドル
+                        Bundle bundle = new Bundle();
+
+                        //バンドルデータを取得
+                        travelSchedule tmp = getList.get(pos);
+                        bundle.putSerializable("infoTravel",tmp);
+                        //フラグメントを立ち上げる
+                        //こ↑こ↓のボタンは無効化する
+                        schedule_detail recordFragment = new schedule_detail();
+                        recordFragment.setArguments(bundle);
+                        fragmentTransaction.add(R.id.detail_schedule,recordFragment);
+                        fragmentTransaction.commit();
 
 
                     }

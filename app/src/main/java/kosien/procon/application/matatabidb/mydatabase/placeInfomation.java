@@ -13,6 +13,7 @@ public class placeInfomation implements Serializable{
     //ここからカラム名
     //カラムID
     public static final String COLUMN_ID = "_id";
+
     //観光地名
     public static final String PLACE_NAME = "Place_Name";
     //最寄り駅番号

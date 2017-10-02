@@ -50,7 +50,7 @@ public class schedule_detail extends Fragment {
         recordDB = new RecordDaoItem(getContext());
         //バンドルされたデータを取得する
         Bundle bundle = getArguments();
-        infoTravel data = (infoTravel)bundle.getSerializable("infoTravel");
+        travelSchedule data = (travelSchedule) bundle.getSerializable("infoTravel");
 
         // ボタンを生成
         super.onViewCreated(view, saveInstanceState);
@@ -85,7 +85,6 @@ public class schedule_detail extends Fragment {
             @Override
             public void onClick(View v) {
                 updateRecord();
-
                 //日記の作成
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -107,32 +106,7 @@ public class schedule_detail extends Fragment {
 
 
 
-        ListView listView = (ListView) view.findViewById(R.id.sample_listview);
-        ArrayList<SampleListItem> listItems = new ArrayList<SampleListItem>();
 
-        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);  // 今回はサンプルなのでデフォルトのAndroid Iconを利用
-        SampleListItem item = new SampleListItem(bmp, "TravelNum text No. ", "sample No. " );
-        listItems.add(item);
-
-
-        // 出力結果をリストビューに表示
-        SetRecordListAdapter adapter = new SetRecordListAdapter(getContext(), R.layout.fragment_searchlist, listItems);
-        listView.setAdapter(adapter);
-
-        // アイテムクリック時ののイベントを追加
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent,
-                                    View view, int pos, long id) {
-
-
-                //詳細画面ではとりあえず何もしない（OK?）
-
-
-            }
-
-
-        });
 
 
     }

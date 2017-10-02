@@ -19,7 +19,8 @@ public class placeInfoOpenHelper extends SQLiteOpenHelper{
 
     //駅情報データベース用サンプルデータ
     private String[][] datas = new String[][]{
-            {"TDN","Y19","34.132046","133.64343","観音寺市有明町","日本さくら名所100選に選定されている。砂で作られた寛永通宝の銭形砂絵は金運スポットとして有名である。","0875-23-3933","768-0062","24時間営業","24時間営業","4"}
+            {"TDN","Y19","34.132046","133.64343","観音寺市有明町","日本さくら名所100選に選定されている。砂で作られた寛永通宝の銭形砂絵は金運スポットとして有名である。","0875-23-3933","768-0062","24時間営業","24時間営業","4"},
+            {"琴弾公園","Y19","34.132046","133.64343","観音寺市有明町","日本さくら名所100選に選定されている。砂で作られた寛永通宝の銭形砂絵は金運スポットとして有名である。","0875-23-3933","768-0062","24時間営業","4"},
 
     };
 
@@ -41,7 +42,6 @@ public class placeInfoOpenHelper extends SQLiteOpenHelper{
             StringBuilder createsql = MAKE_SQL.createPlaceInfo();
             db.execSQL(createsql.toString());
             db.setTransactionSuccessful();
-
 
 
             // サンプルデータの投入

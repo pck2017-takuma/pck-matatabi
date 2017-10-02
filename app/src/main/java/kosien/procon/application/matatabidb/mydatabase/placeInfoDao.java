@@ -96,13 +96,10 @@ public class placeInfoDao {
         try{
             String query = "select * from " + placeInfomation.TABLE_NAME + " where " + column_name + " == " + "'" + search_data + "'" + ";";
             Cursor cursor = db.rawQuery(query,null);
-            int count = cursor.getCount();
             cursor.moveToFirst();
             //カーソルの行数だけループ
-            for(int i = 0; i < count;i++){
+            for(boolean next = cursor.moveToFirst();next;next= cursor.moveToNext()){
                 returnData.add(getItem(cursor));
-                //カーソルを次に移動
-                cursor.moveToNext();
             }
         }finally{
             //処理が終わったらデータベースを閉じる

@@ -78,9 +78,8 @@ public class fragment_travel extends Fragment{
             nowPlace = scheduleDB.getNowTravel();
         } else {
             //ない場合はトラベルナンバーが１番目のscheduleをアクティブにしてデータベースに登録する
-
             for (travelSchedule x : travelList) {
-                if (x.getTravelNum() == 0) {
+                if (x.getRouteNum() == 0) {
                     x.setFlag(1);
                     scheduleDB.sava_diary(x);
                     nowPlace = x;
@@ -126,8 +125,7 @@ public class fragment_travel extends Fragment{
         accept_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+                moveNextStation();
             }
         });
 
@@ -136,18 +134,13 @@ public class fragment_travel extends Fragment{
         view_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
-
+                moveBeforeStation();
             }
         });
-
-
-
 
     }
 
     private ArrayList<ArrayList<RouteInfo>> getJsonFromAsync(String url) {
-
         ConnectServer asyncGet = new ConnectServer(new ConnectServer.AsyncCallback() {
             //非同期通信が開始される前に呼び出される
             public void onPreExecute() {}
@@ -179,17 +172,58 @@ public class fragment_travel extends Fragment{
 
         for(RouteInfo x:routeList){
             if(x.getRouteFlag() == 1){
+                //現在の行程は終了
+                x.setRouteFlag(0);
+                //次の列車
+                if(loop_i != routeList.size()){
+                    RouteInfo tmp = routeList.get(loop_i + 1);
+                    tmp.setRouteFlag(1);
+
+                    routeDB.sava_diary(tmp);
+                    routeDB.sava_diary(x);
+
+                }else{
+                    //最後の場合はこちら
+                    routeDB.sava_diary(x);
+                }
 
             }
             loop_i++;
         }
 
 
+        return true;
 
     }
 
     boolean moveBeforeStation(){
 
+        //現在のフラグの位置を格納する
+        int loop_i = 0;
+
+        for(RouteInfo x:routeList){
+            if(x.getRouteFlag() == 1){
+                //現在の行程は終了
+                x.setRouteFlag(0);
+                //次の列車
+                if(loop_i != 0){
+                    RouteInfo tmp = routeList.get(loop_i - 1);
+                    tmp.setRouteFlag(1);
+
+                    routeDB.sava_diary(tmp);
+                    routeDB.sava_diary(x);
+
+                }else{
+                    //最後の場合はこちら
+                    routeDB.sava_diary(x);
+                }
+
+            }
+            loop_i++;
+        }
+
+
+        return true;
 
 
 

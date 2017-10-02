@@ -15,8 +15,8 @@ public class travelScheduleDao {
 
     private travelSchedule nowTravel = new travelSchedule();
     private travelScheduleOpenHelper helper = null;
-
     ArrayList<travelSchedule> nowTravelList = null;
+
     //コンストラクタ
     public travelScheduleDao(Context context){
         helper = new travelScheduleOpenHelper(context);
@@ -109,7 +109,6 @@ public class travelScheduleDao {
             //SQL文生成
             String query = "select * from " + travelSchedule.TABLE_NAME + " where " + nowTravel.getTravelNum() + " == " + travelSchedule.TRAVEL_NUM  + " AND " + (nowTravel.getRouteNum()+1)+ " == " + travelSchedule.ROUTE_NUM + " ;";
 
-
             SQLiteDatabase db = helper.getReadableDatabase();
          try {
              Cursor cursor = db.rawQuery(query, null);
@@ -165,13 +164,14 @@ public class travelScheduleDao {
         SQLiteDatabase db = helper.getReadableDatabase();
         boolean flag = false;
         String query = "select * from " + travelSchedule.TABLE_NAME + " where " + travelSchedule.FLAG + " = " + 1 + " AND " + travelSchedule.TRAVEL_NUM + " = " + nowTravelNum + " ;";
-
+        nowTravel = new travelSchedule();
         try{
             Cursor cursor = db.rawQuery(query,null);
-            if(cursor.getCount()==1){
+            cursor.moveToFirst();
+            if(1 < cursor.getCount()){
                 flag = true;
                 nowTravel = getItem(cursor);
-            }else if(1 < cursor.getCount()){
+            }else{
                 System.out.println("Error:travelScheduleDaoでエラーが発生しました。複数の日程が現在の行程になっています。");
             }
         }finally {

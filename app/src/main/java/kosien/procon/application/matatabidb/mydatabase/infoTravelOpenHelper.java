@@ -28,7 +28,7 @@ public class infoTravelOpenHelper extends SQLiteOpenHelper {
     }
 
     private String[][] datas = new String[][]{
-            {"99999","テスト旅行","0"}
+            {"99999","丸亀観光","0"}
 
     };
 
