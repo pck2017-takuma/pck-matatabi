@@ -36,6 +36,8 @@ public class infoTravelDao {
             //データベースに値を格納するやつ
             ContentValues values = new ContentValues();
             values.put(infoTravel.TRAVEL_NUM,item.gettravelNum());
+            values.put(infoTravel.TRAVEL_TITEL,item.getTravelTitle());
+            values.put(infoTravel.TRAVEL_FLAG,item.getTravelFlag());
             //行番号を取得
             int rowId = item.getRowid();
 
