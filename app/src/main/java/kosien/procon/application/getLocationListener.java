@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import su.heartlove.matatabi.R;
 
-/**
+/*
  * Created by procon-kyougi1 on 2017/10/02.
  */
 
@@ -72,7 +72,7 @@ public class getLocationListener extends AppCompatActivity implements LocationLi
         Location location = locationManager.getLastKnownLocation(locationProvider);
 
         if (location != null) {
-            TextView textView = findViewById(R.id.location);
+            TextView textView = (TextView) findViewById(R.id.location);
             textView.setText(String.valueOf( "onCreate() : " + location.getLatitude()) + "," + String.valueOf(location.getLongitude()));
         }
 
@@ -82,7 +82,7 @@ public class getLocationListener extends AppCompatActivity implements LocationLi
     @SuppressLint("SetTextI18n")
     @Override
     public void onLocationChanged(Location location){
-        TextView textView = findViewById(R.id.location);
+        TextView textView = (TextView) findViewById(R.id.location);
         textView.setText(String.valueOf("onLocationChanged() : " + location.getLatitude()) + ":" + String.valueOf(location.getLongitude()));
     }
 
