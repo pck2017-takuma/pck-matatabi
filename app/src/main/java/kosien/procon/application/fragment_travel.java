@@ -171,14 +171,13 @@ public class fragment_travel extends Fragment{
         return asyncGet.getParseData();
     }
 
-
-    boolean moveNextStation(){
-
-    }
-
-    boolean moveBeforeStation(){
-
-    }
+//    boolean moveNextStation(){
+//
+//    }
+//
+//    boolean moveBeforeStation(){
+//
+//    }
 
 
 
