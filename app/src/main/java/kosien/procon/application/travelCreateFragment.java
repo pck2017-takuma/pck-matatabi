@@ -1,6 +1,8 @@
 package kosien.procon.application;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -49,12 +51,17 @@ public class travelCreateFragment extends Fragment {
             public void onClick(View v) {
                 String search = mEdit.getText().toString();
                 if(xxx.findPlaceInfo(search, placeInfomation.PLACE_NAME)){
-                    placeInfomation tmp = xxx.getSearchResult().get(0);
-                    Intent intent = new Intent(getActivity(), TravelCreate.class);
-                    intent.putExtra("test",tmp);
-                    getActivity().startActivity(intent);
 
 
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    TravelCreateFragment_2 recordFragment = new TravelCreateFragment_2();
+                    fragmentTransaction.replace(R.id.my_recycler_view,recordFragment);
+                    fragmentTransaction.commit();
+//                    placeInfomation tmp = xxx.getSearchResult().get(0);
+//                    Intent intent = new Intent(getActivity(), TravelCreateFragment_2.class);
+//                    intent.putExtra("test",tmp);
+//                    getActivity().startActivity(intent);
                 }
                 else {
                     Toast.makeText(getActivity(), "候補が見つかりませんでした。", Toast.LENGTH_SHORT).show();

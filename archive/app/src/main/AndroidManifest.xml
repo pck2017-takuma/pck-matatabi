@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="su.heartlove.matatabi">
+    <uses-permission android:name="android.permission.INTERNET" />
+<application
+    android:allowBackup="true"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:supportsRtl="true"
+    android:theme="@style/Theme.AppCompat">
+
+    <activity
+        android:name="kosien.procon.application.MainActivity"
+        android:label="@string/app_name">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+    <activity
+        android:name="kosien.procon.application.Record"
+        android:label="@string/app_name">
+    </activity>
+    <activity
+        android:name="kosien.procon.application.Sub_1"
+        android:label="@string/app_name">
+    </activity>
+
+    <activity
+        android:name="kosien.procon.application.Sub_3"
+        android:launchMode="singleTask">
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+
+            <data
+                android:host="twitter"
+                android:scheme="twittercallback" />
+        </intent-filter>
+    </activity>
+    <activity android:name="kosien.procon.application.TravelCreate" android:label="Matatabi"></activity>
+    <activity android:name="kosien.procon.application.TravelCreateDetailed" android:label="Matatabi"></activity>
+
+</application>
+
+</manifest>

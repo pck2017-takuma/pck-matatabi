@@ -15,12 +15,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import kosien.procon.application.matatabidb.mydatabase.infoTravelDao;
-import kosien.procon.application.matatabidb.mydatabase.placeInfoDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfomation;
 import su.heartlove.matatabi.R;
 
@@ -30,6 +28,9 @@ public class MainActivity extends Activity {
     SetRecordListAdapter adapter;
     Button button1;
     Button button2;
+    String travelName = null;
+    boolean first = false;
+    ArrayList<SampleListItem> listItem;
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -37,7 +38,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         _listView = (ListView) findViewById(R.id.list_view);
-        SetRecordListAdapter adapter;
+        adapter = null;
         button1 = (Button) findViewById(R.id.add_button);
         button2 = (Button) findViewById(R.id.decide_button);
 
@@ -79,15 +80,22 @@ public class MainActivity extends Activity {
         infoTravelDao travelHelper = new infoTravelDao(this);
 
         //旅行中データの照会
-        boolean travelFlag = true;
-
-        travelFlag = travelHelper.checkTravel();
+        boolean travelFlag = travelHelper.checkTravel();
 
         if(!travelFlag){
 
-            button1.setVisibility(View.VISIBLE);
-            button2.setVisibility(View.VISIBLE);
-            _listView.setVisibility(View.VISIBLE);
+            if(first) {
+                button1.setVisibility(View.VISIBLE);
+                button2.setVisibility(View.VISIBLE);
+                _listView.setVisibility(View.VISIBLE);
+            }
+            else {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                travelCreateFragment recordFragment = new travelCreateFragment();
+                fragmentTransaction.replace(R.id.my_recycler_view,recordFragment);
+                fragmentTransaction.commit();
+            }
 
             button1.setOnClickListener(new OnClickListener() {
                 @Override
@@ -113,15 +121,12 @@ public class MainActivity extends Activity {
                     final EditText editView = new EditText(MainActivity.this);
                     new AlertDialog.Builder(MainActivity.this)
                             //.setIcon(android.R.drawable.ic_dialog_info)
-                            .setTitle("旅行の名前")
+                            .setTitle("旅行に名前をつけてください。")
                             //setViewにてビューを設定します。
                             .setView(editView)
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("決定!", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
-                                    //入力した文字をトースト出力する
-                                    Toast.makeText(MainActivity.this,
-                                            editView.getText().toString(),
-                                            Toast.LENGTH_LONG).show();
+                                    travelName = editView.getText().toString();
                                 }
                             })
                             .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
@@ -129,8 +134,15 @@ public class MainActivity extends Activity {
                                 }
                             })
                             .show();
+
+                    TravelDataWrite tra = new TravelDataWrite();
+                    tra.dataWrite(getApplication(), travelName);
+
+                    Intent intent = new Intent(getApplication(), MainActivity.class);
+                    startActivity(intent);
                 }
             });
+
         }else{
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -151,11 +163,11 @@ public class MainActivity extends Activity {
 
     public void setListView(){
 
-        TravelCreate tc1 = new TravelCreate();
+        TravelCreateFragment_2 tc1 = new TravelCreateFragment_2();
         placeInfomation info = tc1.infomation();
         Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
 
-        ArrayList<SampleListItem> listItem = new ArrayList<>();
+        listItem = new ArrayList<>();
         SampleListItem item = new SampleListItem(bmp, info.getPlaceName(), info.getPlacePostNumber());
         listItem.add(item);
 
@@ -163,6 +175,7 @@ public class MainActivity extends Activity {
         _listView.setAdapter(adapter);
     }
 
-
-
+    public String itemName (int i) {
+        return listItem.get(i).getTitle();
+    }
 }

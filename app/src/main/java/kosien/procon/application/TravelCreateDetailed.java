@@ -46,6 +46,7 @@ public class TravelCreateDetailed extends Activity {
             @Override
             public void onClick(View v) {
                 main.setListView();
+                main.first = true;
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }

@@ -20,15 +20,16 @@ import kosien.procon.application.Record;
 public class RecordDaoItem {
 
     private RecordOpenHelper helper = null;
+
+
+    ArrayList<RecordItem> nowRecord;
     //コンストラクタ
     public RecordDaoItem(Context context){
         helper = new RecordOpenHelper(context);
     }
     //レコードの保存
 
-    //目的地
-    double placeLatitude = 0;
-    double placeLongitude = 0;
+
 
     public RecordItem sava_diary(RecordItem item){
         //書き込み可能でデータベースを読み出し
@@ -124,18 +125,44 @@ public class RecordDaoItem {
         return number;
     }
 
+    public boolean findRecord(int scheduleNum,int travelNum){
+        SQLiteDatabase db = helper.getReadableDatabase();
+        nowRecord = new ArrayList<RecordItem>();
+        String query = "select * from " + RecordItem.TABLE_NAME + " where " + RecordItem.SCHEDULE_NUM + " = " + scheduleNum + " AND " + RecordItem.TRAVEL_NUM + " = " +travelNum  + " ;";
+        try{
+
+            Cursor cursor = db.rawQuery(query,null);
+            cursor.moveToFirst();
+            nowRecord.add(getItem(cursor));
+
+        }finally{
+            //処理が終わったらデータベースを閉じる
+            db.close();
+        }
+
+        if(nowRecord.size() == 0){
+            return false;
+        }else{
+            return true;
+        }
+
+
+
+    }
+
+    public ArrayList<RecordItem>getRecord(){
+        return nowRecord;
+    }
 
     public ArrayList<RecordItem> loadRecord(int travelnum){
         SQLiteDatabase db = helper.getReadableDatabase();
         ArrayList<RecordItem> number = new ArrayList<>();
-
         try{
             String query = MAKE_SQL.query_load(RecordItem.TABLE_NAME,RecordItem.COLUMN_ID,travelnum);
             Cursor cursor = db.rawQuery(query,null);
             int count = cursor.getCount();
             //カーソルの行数だけループ
-            for(int i = 0; i < count;i++){
-
+            for(boolean next = cursor.moveToFirst();next;next = cursor.moveToNext()){
                 number.add(getItem(cursor));
                 //カーソルを次に移動
                 cursor.moveToNext();
@@ -197,13 +224,6 @@ public class RecordDaoItem {
         }
         return itemList;
     }
-
-    void setDestination(double _latitude,double _longitude){
-        this.placeLatitude = _latitude;
-        this.placeLongitude = _longitude;
-    }
-
-
 
 
 

@@ -62,7 +62,7 @@ public class schedule_detail extends Fragment {
         accept_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                updateRecord();
                 //日記の作成
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -75,7 +75,7 @@ public class schedule_detail extends Fragment {
                 fragmentTransaction.add(R.id.edit_diary, recordFragment);
                 fragmentTransaction.commit();
 
-                updateRecord();
+
             }
         });
 
@@ -112,7 +112,10 @@ public class schedule_detail extends Fragment {
     }
 
     private void updateRecord(){
-        myRecord = recordDB.load_item(viewData.getRouteNum(),viewData.getTravelNum());
+
+        if(recordDB.findRecord(viewData.getRouteNum(),viewData.getTravelNum())){
+            myRecord = recordDB.getRecord().get(0);
+        }
 
     }
 

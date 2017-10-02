@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_y="22dip"
+    android:layout_x="46dip"
+    android:id="@+id/LinearLayout_add_all"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:gravity="top">
+
+    <LinearLayout
+        android:id="@+id/LinearLayout_add_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@android:color/background_light">
+
+        <TextView
+            android:id="@+id/TextView_add_title"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/txt_add_desc"
+            android:gravity="center"></TextView>
+
+        <Button
+            android:id="@+id/Button_add_voice"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/btn_add_voice"
+            android:minWidth="100dp"></Button>
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/ScrollView01"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_weight="1">
+
+        <EditText
+            android:id="@+id/EditText_diary"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="top|left"
+            android:inputType="textMultiLine"
+            android:textColor="@android:color/primary_text_light"></EditText>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout_btn"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/Button_add_save"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_margin="3dp"
+            android:text="@string/btn_add_save"
+            android:minWidth="120dp"></Button>
+
+        <Button
+            android:id="@+id/Button_add_cancel"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="@string/btn_add_cancel"
+            android:minWidth="120dp"></Button>
+    </LinearLayout>
+
+</LinearLayout>

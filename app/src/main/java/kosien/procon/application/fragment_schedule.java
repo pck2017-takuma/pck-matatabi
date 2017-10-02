@@ -152,7 +152,6 @@ public class fragment_schedule extends Fragment {
                         fragmentTransaction.add(R.id.detail_schedule,recordFragment);
                         fragmentTransaction.commit();
 
-
                     }
 
 
