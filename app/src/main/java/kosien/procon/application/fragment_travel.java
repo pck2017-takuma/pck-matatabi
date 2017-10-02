@@ -170,13 +170,28 @@ public class fragment_travel extends Fragment{
         asyncGet.execute(url);
         return asyncGet.getParseData();
     }
-
+    
 
     boolean moveNextStation(){
+
+        //現在のフラグの位置を格納する
+        int loop_i = 0;
+
+        for(RouteInfo x:routeList){
+            if(x.getRouteFlag() == 1){
+
+            }
+            loop_i++;
+        }
+
+
 
     }
 
     boolean moveBeforeStation(){
+
+
+
 
     }
 
