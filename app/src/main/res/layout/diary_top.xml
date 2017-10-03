@@ -41,7 +41,7 @@
                     android:gravity="center"
                     android:text="@string/last_month"
                     android:textColor="#0000ff"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:typeface="serif" />
 
@@ -59,7 +59,7 @@
                     android:gravity="center"
                     android:text="Year/Month"
                     android:textColor="#ff0000"
-                    android:textSize="30dp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:typeface="serif" />
 
@@ -73,7 +73,7 @@
                     android:gravity="center"
                     android:text="@string/next_month"
                     android:textColor="#0000ff"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:typeface="serif" />
             </LinearLayout>
@@ -132,7 +132,7 @@
                         android:gravity="left|center_vertical"
                         android:inputType="text"
                         android:maxWidth="200dp"
-                        android:minWidth="200dp"></EditText>
+                        android:minWidth="200dp"/>
 
                     <Button
                         android:id="@+id/Button_top_search"
@@ -140,9 +140,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"
                         android:text="@string/btn_top_search"
-                        android:textSize="18dp"
+                        android:textSize="18sp"/>
 
-                        ></Button>
                 </LinearLayout>
 
                 <Button
@@ -155,7 +154,7 @@
 
                     android:minWidth="200dp"
                     android:text="@string/btn_top_add"
-                    android:textSize="18dp"></Button>
+                    android:textSize="18sp"/>
             </LinearLayout>
         </FrameLayout>
 

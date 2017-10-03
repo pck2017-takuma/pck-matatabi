@@ -35,6 +35,7 @@
         android:layout_marginEnd="20dp"
         android:text="sumple text"
         android:textSize="20sp"
+        android:textColor="#222222"
         app:layout_constraintBottom_toTopOf="@+id/text_view2"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -46,6 +47,7 @@
         android:layout_marginEnd="20dp"
         android:text="sumple text"
         android:textSize="20sp"
+        android:textColor="#222222"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

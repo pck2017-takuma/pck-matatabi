@@ -24,6 +24,7 @@
         android:layout_marginTop="10dp"
         android:text="text sumple"
         android:textSize="20sp"
+        android:textColor="#222222"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_veiw" />
 
@@ -35,6 +36,7 @@
         android:layout_marginTop="10dp"
         android:text="text sumple"
         android:textSize="20sp"
+        android:textColor="#222222"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_veiw" />
 
@@ -45,6 +47,7 @@
         android:layout_marginTop="50dp"
         android:text="text sumple"
         android:textSize="18sp"
+        android:textColor="#222222"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_veiw" />

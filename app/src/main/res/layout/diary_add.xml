@@ -21,15 +21,16 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:textStyle="bold"
+            android:textColor="#888888"
             android:text="@string/txt_add_desc"
-            android:gravity="center"></TextView>
+            android:gravity="center"/>
 
         <Button
             android:id="@+id/Button_add_voice"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="@string/btn_add_voice"
-            android:minWidth="100dp"></Button>
+            android:minWidth="100dp"/>
     </LinearLayout>
 
     <ScrollView
@@ -48,7 +49,7 @@
             android:layout_height="fill_parent"
             android:gravity="top|left"
             android:inputType="textMultiLine"
-            android:textColor="@android:color/primary_text_light"></EditText>
+            android:textColor="@android:color/primary_text_light"/>
     </ScrollView>
 
     <LinearLayout
@@ -64,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_margin="3dp"
             android:text="@string/btn_add_save"
-            android:minWidth="120dp"></Button>
+            android:minWidth="120dp"/>
 
         <Button
             android:id="@+id/Button_add_cancel"
@@ -72,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_marginLeft="20dp"
             android:text="@string/btn_add_cancel"
-            android:minWidth="120dp"></Button>
+            android:minWidth="120dp"/>
     </LinearLayout>
 
 </LinearLayout>

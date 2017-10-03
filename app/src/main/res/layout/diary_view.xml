@@ -30,7 +30,7 @@
             android:typeface="serif"
             android:text="Year / Month / day" 
             android:textColor="#339900" 
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:gravity="center" 
             android:background="#00000000">
         </TextView>
@@ -52,7 +52,8 @@
         <TextView
             android:id="@+id/TextView_view_diary"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"></TextView>
+            android:layout_height="fill_parent"
+            android:textColor="#222222" />
     </ScrollView>
 
     <LinearLayout
