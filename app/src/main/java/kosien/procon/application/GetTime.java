@@ -11,8 +11,8 @@ import java.util.Date;
 
 public class GetTime {
     public static String getNowDate() {
-        final DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        final Date date = new Date(System.currentTimeMillis());
+        final DateFormat df = new SimpleDateFormat("HH:mm:ss");
+        final Date date = new Date(System.currentTimeMillis() + 32400000L);
         return df.format(date);
     }
 }
