@@ -175,8 +175,11 @@ public class fragment_travel extends Fragment{
         for(RouteInfo x:routeList){
             x.setScheduleNum(nowPlace.getRouteNum());
             x.setTravelNum(nowPlace.getTravelNum());
-            nowRoute = routeDB.sava_diary(x);
         }
+        nowRoute = routeList.get(0);
+        textview1.setText(nowRoute.getRouteDeparture() + ":" +  nowRoute.getrouteDepttime());
+        textview2.setText(nowRoute.getRouteTrain());
+
     }
 
     boolean moveNextStation(){
@@ -208,18 +211,18 @@ public class fragment_travel extends Fragment{
 
                 }else{
                     //最後の場合はこちら
-                    routeDB.sava_diary(x);
+                    nowRoute = routeDB.sava_diary(x);
                 }
-
+                break;
             }
 
-            textview1.setText(nowRoute.getRouteDeparture() + ":" +  nowRoute.getrouteDepttime());
-            textview2.setText(nowRoute.getRouteTrain());
+
 
             loop_i++;
         }
 
-
+        textview1.setText(nowRoute.getRouteDeparture() + ":" +  nowRoute.getrouteDepttime());
+        textview2.setText(nowRoute.getRouteTrain());
         return true;
 
     }
@@ -232,37 +235,31 @@ public class fragment_travel extends Fragment{
         //経路検索を行いその結果を格納する
       //  routeList = resultParse.getParseData().get(0);
 
-        for(int i = 0; i < routeList.size();i++){
-            RouteInfo tmp = routeList.get(i);
-            //スケジュールとどの行程かを記憶する
-            tmp.setTravelNum(bundleData.getTravelNum());
-            tmp.setScheduleNum(nowPlace.getRouteNum());
-            //データベース登録
-            routeDB.sava_diary(tmp);
-        }
+
         for(RouteInfo x:routeList){
             if(x.getRouteFlag() == 1){
-                routeList = null;
                 //現在の行程は終了
                 x.setRouteFlag(0);
                 //次の列車
                 if(loop_i != 0){
                     RouteInfo tmp = routeList.get(loop_i - 1);
                     tmp.setRouteFlag(1);
-
-                    routeDB.sava_diary(tmp);
                     routeDB.sava_diary(x);
+
+                   nowRoute =  routeDB.sava_diary(tmp);
 
                 }else{
-                    //最後の場合はこちら
-                    routeDB.sava_diary(x);
+                    x.setRouteFlag(1);
+                    nowRoute = routeDB.sava_diary(x);
                 }
+                break;
 
             }
             loop_i++;
         }
 
-
+        textview1.setText(nowRoute.getRouteDeparture() + ":" +  nowRoute.getrouteDepttime());
+        textview2.setText(nowRoute.getRouteTrain());
         return true;
 
 

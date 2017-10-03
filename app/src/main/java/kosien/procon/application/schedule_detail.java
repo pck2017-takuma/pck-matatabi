@@ -45,6 +45,8 @@ public class schedule_detail extends Fragment {
 
     //ビューを生成し終わった後に呼ばれるメソッド
 
+
+
     @Override
     public void onViewCreated(final View view, Bundle saveInstanceState) {
         travelHelper = new infoTravelDao(getContext());
@@ -57,7 +59,6 @@ public class schedule_detail extends Fragment {
         super.onViewCreated(view, saveInstanceState);
         Button accept_button = (Button) view.findViewById(R.id.detail_button1);
         Button view_button = (Button)view.findViewById(R.id.detail_button2);
-
         //acceptボタンの割り当て
         accept_button.setText("日記を作成");
         accept_button.setOnClickListener(new View.OnClickListener() {
@@ -73,12 +74,15 @@ public class schedule_detail extends Fragment {
                 bundle.putInt("schedule",viewData.getRowid());
                 bundle.putInt("travel",viewData.getTravelNum());
                 recordFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.diary_edit, recordFragment);
+                fragmentTransaction.replace(R.id.travel_list, recordFragment);
                 fragmentTransaction.commit();
 
 
             }
         });
+
+
+
 
         //日記を見るボタン
         view_button.setText("日記を見る");

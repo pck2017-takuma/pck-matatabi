@@ -252,9 +252,11 @@ public class parseSearchData {
 
         //列車情報を取得
         int i = 0;
+
         for(JSONObject x:parseLine){
-
-
+            if(i == stationData.size() - 1){
+                break;
+            }
             String trainName = null;
             JSONObject arrival = null;
             JSONObject depature = null;
@@ -296,6 +298,7 @@ public class parseSearchData {
             pushData.setRouteDepttime(depatureTime);
             pushData.setRouteTrain(trainName);
             data.add(pushData);
+            ++i;
         }
         routeInfo.add(data);
     }

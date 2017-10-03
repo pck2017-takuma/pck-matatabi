@@ -45,9 +45,7 @@
                 android:scheme="twittercallback" />
         </intent-filter>
     </activity>
-    <activity
-        android:name="kosien.procon.application.TravelCreateDetailed"
-        android:label="Matatabi"/>
+
     <activity
         android:name="kosien.procon.application.getLocationListener" />
 

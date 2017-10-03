@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="kosien.procon.application.TravelCreateDetailed">
+    tools:context="kosien.procon.application.TravelCreateDetailed"
+    android:id="@+id/travel_place"
+    >
 
     <ImageView
         android:id="@+id/image_veiw"
@@ -24,6 +26,7 @@
         android:layout_marginTop="10dp"
         android:text="text sumple"
         android:textSize="20sp"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_veiw" />
 
@@ -35,6 +38,7 @@
         android:layout_marginTop="10dp"
         android:text="text sumple"
         android:textSize="20sp"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_veiw" />
 
@@ -45,6 +49,7 @@
         android:layout_marginTop="50dp"
         android:text="text sumple"
         android:textSize="18sp"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_veiw" />
