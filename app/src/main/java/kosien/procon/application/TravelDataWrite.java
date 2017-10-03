@@ -31,6 +31,5 @@ public class TravelDataWrite {
             bbb.setTravelNum(aaa);
         }
 
-        main.listItem.clear();
     }
 }

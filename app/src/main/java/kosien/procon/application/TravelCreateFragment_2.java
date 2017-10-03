@@ -3,6 +3,7 @@ package kosien.procon.application;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,8 +17,12 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import kosien.procon.application.matatabidb.mydatabase.infoTravel;
+import kosien.procon.application.matatabidb.mydatabase.infoTravelDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfoDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfomation;
+import kosien.procon.application.matatabidb.mydatabase.travelSchedule;
+import kosien.procon.application.matatabidb.mydatabase.travelScheduleDao;
 import su.heartlove.matatabi.R;
 
 /**
@@ -44,7 +49,6 @@ public class TravelCreateFragment_2 extends Fragment {
     private placeInfomation AddPlace = new placeInfomation();
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         super.onCreateView(inflater,container,savedInstanceState);
@@ -53,15 +57,15 @@ public class TravelCreateFragment_2 extends Fragment {
         Bundle addBundle = getArguments();
 
         if(addBundle != null && addBundle.containsKey(listKey)){
-            decidePlace = (ArrayList<placeInfomation>)addBundle.getSerializable(listKey);
+            Bundle tmpBundle = addBundle.getBundle(listKey);
+            decidePlace = (ArrayList<placeInfomation>)tmpBundle.getSerializable(listKey);
         }
-
 
         //詳細フラグメントからのデータが存在するかどうか
         if(addBundle!= null && addBundle.containsKey(addPlace)){
-            AddPlace = (placeInfomation)addBundle.getSerializable(addPlace);
+            Bundle tmpBundle = addBundle.getBundle(addPlace);
+            AddPlace = (placeInfomation)tmpBundle.getSerializable(addPlace);
             decidePlace.add(AddPlace);
-
         }
 
 
@@ -89,6 +93,8 @@ public class TravelCreateFragment_2 extends Fragment {
 
         super.onStart();
         Button searchButton = (Button)getActivity().findViewById(R.id.search_button4);
+
+        Button acceptButton = (Button)getActivity().findViewById((R.id.accept_button));
 
         // レイアウトからリストビューを取得
         ListView listView = (ListView) getActivity().findViewById(R.id.travel_listview);
@@ -141,12 +147,13 @@ public class TravelCreateFragment_2 extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mposition = position;
+
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("place",yyy.get(mposition));
 
                 Bundle placeBundle = new Bundle();
                 placeBundle.putSerializable(listKey,decidePlace);
-
+                bundle.putBundle(listKey,placeBundle);
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 TravelCreateDetailed intent = new TravelCreateDetailed();
@@ -163,16 +170,47 @@ public class TravelCreateFragment_2 extends Fragment {
             public void onClick(View v) {
 
                 Bundle placeBundle = new Bundle();
+                Bundle bundle = new Bundle();
                 placeBundle.putSerializable(listKey,decidePlace);
+                bundle.putBundle(listKey,placeBundle);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 travelCreateFragment intent = new travelCreateFragment();
+                intent.setArguments(bundle);
                 fragmentTransaction.replace(R.id.my_recycler_view,intent);
                 fragmentTransaction.commit();
 
+
+
+
             }
         });
+
+        //スケジュールの確定処理
+
+        acceptButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                //スケジュールデータの確定処理
+                TravelDataWrite travelDataWrite = new TravelDataWrite();
+
+
+
+
+                //フラグメントマネージャー
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+
+
+
+
+            }
+        });
+
+
+
 
     }
 
@@ -183,6 +221,32 @@ public class TravelCreateFragment_2 extends Fragment {
         super.onSaveInstanceState(outState);
 
     }
+
+    private void dataWrite() {
+
+        infoTravelDao xxx = new infoTravelDao(getContext());
+        travelScheduleDao yyy = new travelScheduleDao(getContext());
+        infoTravel zzz = new infoTravel();
+
+        //旅行のタイトルをとりあえず勝手に設定する（旅行名＋現在時刻
+        zzz.setTravelTitle(str);
+        zzz = xxx.save_time(zzz);
+        int aaa = zzz.getRowid();
+        travelSchedule bbb = new travelSchedule();
+
+
+
+        for(int i = 0; i < main.listItem.size(); i++) {
+            bbb.setPlaceName(main.itemName(i));
+            bbb.setRouteNum(i);
+            bbb.setTravelNum(aaa);
+        }
+
+
+
+
+    }
+
 
 
 

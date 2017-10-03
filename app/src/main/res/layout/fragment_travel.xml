@@ -5,12 +5,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:text="乗車駅・交通業者・乗車時刻"
+            android:textColor="#000000"
+            android:textSize="30sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="68dp" />
+
+        <TextView
+            android:id="@+id/next_station1"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginEnd="48dp"
+            android:text="sumple text"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteY="142dp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:text="乗車列車・バス情報"
+            android:textColor="#000000"
+            android:textSize="32sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="302dp" />
+
+        <TextView
+            android:id="@+id/next_station2"
+            android:layout_width="match_parent"
+            android:layout_height="161dp"
+            android:layout_marginBottom="112dp"
+            android:layout_marginEnd="52dp"
+            android:text="sumple text"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/button1"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="100dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginBottom="48dp"
+        android:layout_marginStart="32dp"
         android:text="前"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,35 +72,21 @@
         android:id="@+id/button2"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="100dp"
-        android:layout_marginStart="30dp"
+        android:layout_marginBottom="48dp"
+        android:layout_marginStart="32dp"
         android:text="次"
-        android:textSize="20sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button1" />
 
-    <TextView
-        android:id="@+id/text_view1"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="80dp"
-        android:layout_marginEnd="20dp"
-        android:text="sumple text"
-        android:textSize="20sp"
-        android:textColor="#222222"
-        app:layout_constraintBottom_toTopOf="@+id/text_view2"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/text_view2"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="50dp"
-        android:layout_marginEnd="20dp"
-        android:text="sumple text"
-        android:textSize="20sp"
-        android:textColor="#222222"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="216dp"
+        android:text="次の目的地へ"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/button1"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

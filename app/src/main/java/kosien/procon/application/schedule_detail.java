@@ -51,7 +51,7 @@ public class schedule_detail extends Fragment {
     public void onViewCreated(final View view, Bundle saveInstanceState) {
         travelHelper = new infoTravelDao(getContext());
         recordDB = new RecordDaoItem(getContext());
-        //バンドルされたデータを取得する
+        //バンドルされたデータを取得するz
         Bundle bundle = getArguments();
         viewData = (travelSchedule) bundle.getSerializable("infoTravel");
 
@@ -80,9 +80,6 @@ public class schedule_detail extends Fragment {
 
             }
         });
-
-
-
 
         //日記を見るボタン
         view_button.setText("日記を見る");
