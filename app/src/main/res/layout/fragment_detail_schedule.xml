@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.procon_kyougi1.myapplication.MainActivity">
+    android:id="@+id/diary_edit"
+    >
 
     <ImageView
-        android:id="@+id/image_veiw"
+        android:id="@+id/fragment_detail_img"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_marginTop="10dp"
         android:background="#DDDDDD"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.432"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_view1"
+        android:id="@+id/fragment_detail_text1"
         android:layout_width="150dp"
         android:layout_height="30dp"
         android:layout_marginEnd="25dp"
@@ -27,10 +27,10 @@
         android:textColor="#000000"
         android:background="#DDDDDD"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_veiw" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_detail_img" />
 
     <TextView
-        android:id="@+id/text_view2"
+        android:id="@+id/fragment_detail_text2"
         android:layout_width="150dp"
         android:layout_height="30dp"
         android:layout_marginStart="25dp"
@@ -40,10 +40,10 @@
         android:textColor="#000000"
         android:background="#DDDDDD"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_veiw" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_detail_img" />
 
     <TextView
-        android:id="@+id/text_view3"
+        android:id="@+id/fragment_detail_text3"
         android:layout_width="250dp"
         android:layout_height="100dp"
         android:layout_marginTop="50dp"
@@ -53,24 +53,28 @@
         android:background="#DDDDDD"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_veiw" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_detail_img" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/detail_button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="248dp"
+        android:layout_marginEnd="260dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view3" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_detail_text3" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/detail_button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="36dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view3" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_detail_text3" />
 
 </android.support.constraint.ConstraintLayout>

@@ -41,7 +41,7 @@ public class DiaryView extends Fragment {
     @Override
     public void onViewCreated(View view,Bundle savedInstanceState){
 
-
+        Bundle bundle = getArguments();
         super.onViewCreated(view,savedInstanceState);
 
         //リソースの割り当て
@@ -50,11 +50,11 @@ public class DiaryView extends Fragment {
         btn_cancel = (Button)view.findViewById(R.id.Button_view_cancel);
 
         //引継ぎデータの取得
-        year = savedInstanceState.getInt("year",0);
-        month = savedInstanceState.getInt("month",0);
-        day = savedInstanceState.getInt("day",0);
+        year = bundle.getInt("year",0);
+        month = bundle.getInt("month",0);
+        day = bundle.getInt("day",0);
         tv_date.setText(String.valueOf(year) + " / " + String.valueOf(month) + " / " + String.valueOf(day));
-        tv_diary.setText(savedInstanceState.getString("diary"));
+        tv_diary.setText(bundle.getString("diary"));
 
         //キャンセル処理
         btn_cancel.setOnClickListener(new View.OnClickListener(){

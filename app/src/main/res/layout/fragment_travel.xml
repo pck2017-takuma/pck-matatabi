@@ -28,20 +28,20 @@
         app:layout_constraintStart_toEndOf="@+id/button1" />
 
     <TextView
-        android:id="@+id/text_view1"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
+        android:id="@+id/next_station1"
+        android:layout_width="192dp"
+        android:layout_height="161dp"
         android:layout_marginBottom="80dp"
         android:layout_marginEnd="20dp"
         android:text="sumple text"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/text_view2"
+        app:layout_constraintBottom_toTopOf="@+id/next_station2"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/text_view2"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
+        android:id="@+id/next_station2"
+        android:layout_width="191dp"
+        android:layout_height="174dp"
         android:layout_marginBottom="50dp"
         android:layout_marginEnd="20dp"
         android:text="sumple text"

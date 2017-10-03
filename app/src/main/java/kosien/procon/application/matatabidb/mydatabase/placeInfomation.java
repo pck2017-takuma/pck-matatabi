@@ -74,7 +74,7 @@ public class placeInfomation implements Serializable{
         return placeLatitude;
     }
     public String getPlaceLongitude(){
-        return placeLatitude;
+        return placeLongitude;
     }
     public String getPlaceAddress(){
         return placeAddress;

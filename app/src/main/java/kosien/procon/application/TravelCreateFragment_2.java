@@ -46,8 +46,8 @@ public class TravelCreateFragment_2 extends Fragment {
 
         // レイアウトからリストビューを取得
         ListView listView = (ListView) getActivity().findViewById(R.id.travel_listview);
-        Intent intent = getActivity().getIntent();
-        placeInfomation test = (placeInfomation)intent.getSerializableExtra("test");
+        Bundle intent = getArguments();
+        placeInfomation test = (placeInfomation)intent.getSerializable("test");
         xxx = new placeInfoDao(tcf.getContext());
         yyy.add(test);
 
@@ -70,9 +70,11 @@ public class TravelCreateFragment_2 extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mposition = position;
-                Intent intent = new Intent(getContext(), TravelCreateDetailed.class);
+                Intent intent = new Intent(getActivity(), TravelCreateDetailed.class);
                 intent.putExtra("place",yyy.get(mposition));
-                startActivity(intent);
+                getActivity().startActivity(intent);
+
+
             }
         });
     }

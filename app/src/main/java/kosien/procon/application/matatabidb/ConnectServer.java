@@ -33,10 +33,10 @@ public class ConnectServer extends AsyncTask<String, Integer, String> {
 
 
         public interface AsyncCallback{
-            void onPreExecute();
+      //      void onPreExecute();
             void onPostExecute(String result);
-            void onProgressUpdate(int progress);
-            void onCancelled();
+      //      void onProgressUpdate(int progress);
+          //  void onCancelled();
         }
 
         public ConnectServer(AsyncCallback asyncCallback){
@@ -44,32 +44,35 @@ public class ConnectServer extends AsyncTask<String, Integer, String> {
         }
 
         protected String doInBackground(String... urls){
+
+
             return httpGet(urls[0]);
         }
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            this._asyncCallback.onPreExecute();
-        }
+//       // @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            this._asyncCallback.onPreExecute();
+//            return ;
+//        }
 
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            this._asyncCallback.onProgressUpdate(values[0]);
-        }
+        //@Override
+//        protected void onProgressUpdate(Integer... values) {
+//            super.onProgressUpdate(values);
+//            this._asyncCallback.onProgressUpdate(values[0]);
+//        }
 
-        @Override
+        //@Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             this._asyncCallback.onPostExecute(result);
         }
 
-        @Override
-        protected void onCancelled() {
-            super.onCancelled();
-            this._asyncCallback.onCancelled();
-        }
+//       // @Override
+//        protected void onCancelled() {
+//            super.onCancelled();
+//            this._asyncCallback.onCancelled();
+//        }
 
 
         /*

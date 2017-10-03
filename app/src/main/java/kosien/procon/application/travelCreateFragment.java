@@ -51,17 +51,19 @@ public class travelCreateFragment extends Fragment {
             public void onClick(View v) {
                 String search = mEdit.getText().toString();
                 if(xxx.findPlaceInfo(search, placeInfomation.PLACE_NAME)){
+                    placeInfomation tmp = xxx.getSearchResult().get(0);
 
+                    Bundle bundle = new Bundle();
 
+                    bundle.putSerializable("test",tmp);
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     TravelCreateFragment_2 recordFragment = new TravelCreateFragment_2();
+
+                    recordFragment.setArguments(bundle);
                     fragmentTransaction.replace(R.id.my_recycler_view,recordFragment);
                     fragmentTransaction.commit();
-//                    placeInfomation tmp = xxx.getSearchResult().get(0);
-//                    Intent intent = new Intent(getActivity(), TravelCreateFragment_2.class);
-//                    intent.putExtra("test",tmp);
-//                    getActivity().startActivity(intent);
+
                 }
                 else {
                     Toast.makeText(getActivity(), "候補が見つかりませんでした。", Toast.LENGTH_SHORT).show();

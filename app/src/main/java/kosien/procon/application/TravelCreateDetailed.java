@@ -21,22 +21,23 @@ public class TravelCreateDetailed extends Activity {
 
 
     private placeInfomation info;
-    private Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-    private MainActivity main;
+    private Bitmap bmp;
+    private MainActivity main = new MainActivity();
 
     @Override
     protected void onCreate(Bundle icicle) {
-        Intent intent = getIntent();
-        info = (placeInfomation)intent.getSerializableExtra("place");
         super.onCreate(icicle);
         setContentView(R.layout.travel_create_detailed);
+
+        Intent intent = getIntent();
+        info = (placeInfomation)intent.getSerializableExtra("place");
 
         ImageView image = (ImageView) findViewById(R.id.image_veiw);
         TextView text1 = (TextView) findViewById(R.id.text_view1);
         TextView text2 = (TextView) findViewById(R.id.text_view2);
         TextView text3 = (TextView) findViewById(R.id.text_view3);
         Button button  = (Button) findViewById(R.id.button);
-
+        bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         image.setImageBitmap(bmp);
         text1.setText(info.getPlaceName());
         text2.setText(info.getPlaceAddress());

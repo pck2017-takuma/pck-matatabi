@@ -44,12 +44,13 @@ public class parseSearchData {
     private static final String point = "Point";
 
     //とりあえず出発駅・到着駅・時刻を返す
-    private ArrayList<ArrayList<RouteInfo>>routeInfo = null;
+    private ArrayList<ArrayList<RouteInfo>>routeInfo = new ArrayList<ArrayList<RouteInfo>>();
 
 
 
     //受け取ったJSONオブジェクト
     JSONObject jsonObject = new JSONObject();
+
    public  parseSearchData(JSONObject srcObject){
         jsonObject = srcObject;
         ParseObject();
@@ -216,20 +217,20 @@ public class parseSearchData {
     private void ParseJSONroute(JSONObject routeJSON){
 
         JSONArray lineJSONarray = new JSONArray();
-        JSONArray arrivalJSONarray = new JSONArray();
-        JSONArray depatureJSONarray = new JSONArray();
+        JSONObject arrivalJSONarray = new JSONObject();
+        JSONObject depatureJSONarray = new JSONObject();
         JSONArray pointJSONarray = new JSONArray();
 
 
         try{
             lineJSONarray = routeJSON.getJSONArray(line);
-            arrivalJSONarray = routeJSON.getJSONArray(arraival);
-            depatureJSONarray = routeJSON.getJSONArray(departure);
             pointJSONarray = routeJSON.getJSONArray(point);
 
         }catch(JSONException e){
 
         }
+
+
 
         //それぞれのデータをパースする
         JSONObject[] parsePoint = ParseJSONpoint(pointJSONarray);
@@ -241,9 +242,9 @@ public class parseSearchData {
         //pointから駅名を取得
         for(int i = 0; i < parsePoint.length;i++){
             try {
-                JSONArray station = parsePoint[i].getJSONArray("Station");
+                JSONObject station = parsePoint[i].getJSONObject("Station");
                 //stationの２番目に駅名が入っているはず
-                stationData.add(station.getString(1));
+                stationData.add(station.getString("Name"));
             }catch(JSONException e){
 
             }
@@ -255,26 +256,25 @@ public class parseSearchData {
 
 
             String trainName = null;
-            JSONArray arrival = null;
-            JSONArray depature = null;
-            JSONArray depatureDatetime = null;
-            JSONArray arrivalDateTime = null;
+            JSONObject arrival = null;
+            JSONObject depature = null;
+            JSONObject depatureDatetime = null;
+            JSONObject arrivalDateTime = null;
 
             RouteInfo pushData = new RouteInfo();
 
             //順番に列車の発車時刻・到着時刻・列車名を取得する
             try {
+                arrival = x.getJSONObject("ArrivalState");
+                depature = x.getJSONObject("DepartureState");
                 trainName = x.getString("Name");
-                arrival = x.getJSONArray("ArrivalState");
-                depature = x.getJSONArray("DepartureState");
-
             }catch(JSONException e){
 
             }
 
             try {
-                arrivalDateTime = arrival.getJSONArray(2);
-                depatureDatetime = depature.getJSONArray(2);
+                arrivalDateTime = arrival.getJSONObject("Datetime");
+                depatureDatetime = depature.getJSONObject("Datetime");
             }catch(JSONException e){
 
             }
@@ -285,8 +285,8 @@ public class parseSearchData {
 
 
             try {
-                arriveTime = arrivalDateTime.getString(0);
-                depatureTime = depatureDatetime.getString(0);
+                arriveTime = arrivalDateTime.getString("text");
+                depatureTime = depatureDatetime.getString("text");
             }catch(JSONException e){
 
             }

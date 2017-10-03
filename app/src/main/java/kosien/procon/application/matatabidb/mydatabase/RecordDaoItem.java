@@ -130,11 +130,10 @@ public class RecordDaoItem {
         nowRecord = new ArrayList<RecordItem>();
         String query = "select * from " + RecordItem.TABLE_NAME + " where " + RecordItem.SCHEDULE_NUM + " = " + scheduleNum + " AND " + RecordItem.TRAVEL_NUM + " = " +travelNum  + " ;";
         try{
-
             Cursor cursor = db.rawQuery(query,null);
-            cursor.moveToFirst();
-            nowRecord.add(getItem(cursor));
 
+            if(cursor.moveToFirst())
+                nowRecord.add(getItem(cursor));
         }finally{
             //処理が終わったらデータベースを閉じる
             db.close();
@@ -164,8 +163,7 @@ public class RecordDaoItem {
             //カーソルの行数だけループ
             for(boolean next = cursor.moveToFirst();next;next = cursor.moveToNext()){
                 number.add(getItem(cursor));
-                //カーソルを次に移動
-                cursor.moveToNext();
+
             }
         }finally{
             //処理が終わったらデータベースを閉じる

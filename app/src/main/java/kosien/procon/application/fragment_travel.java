@@ -48,6 +48,12 @@ public class fragment_travel extends Fragment{
     RouteInfoDaoItem routeDB;
     //訪れる場所の情報
     placeInfomation nowPlaceData;
+    parseSearchData resultParse = null;
+    TextView textview1;
+    TextView textview2;
+    //現在のルート
+    RouteInfo nowRoute;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
@@ -59,10 +65,14 @@ public class fragment_travel extends Fragment{
 
     @Override
     public void onViewCreated(final View view, Bundle saveInstanceState) {
+        super.onViewCreated(view, saveInstanceState);
+
+
         scheduleDB = new travelScheduleDao(getContext());
         //バンドルされた旅行データを取得
         Bundle bundle = getArguments();
         bundleData = (infoTravel)bundle.getSerializable("infoTravel");
+        nowRoute = new RouteInfo();
         //観光地データベースオープン
         placeInfoDB = new placeInfoDao(getContext());
         routeDB = new RouteInfoDaoItem(getContext());
@@ -83,6 +93,7 @@ public class fragment_travel extends Fragment{
                     x.setFlag(1);
                     scheduleDB.sava_diary(x);
                     nowPlace = x;
+                    break;
                 }
             }
         }
@@ -92,31 +103,22 @@ public class fragment_travel extends Fragment{
             //１つしかデータが見つからないという信頼の上で
             nowPlaceData = placeInfoDB.getSearchResult().get(0);
         }else{
-            Toast.makeText(getContext(),"ヤバい、可笑しいことになった！",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(),"ヤバい、可笑しいことになった！",Toast.LENGTH_SHORT).show();
         }
 
         //起点を決める（将来的：現在位置　現状：香川高等専門学校詫間キャンパス学生課）
         String startStation = "33.311139,134.010361";
         String goalStation = nowPlaceData.getPlaceLatitude() + "," + nowPlaceData.getPlaceLongitude();
         basicTimeSearch url = new basicTimeSearch(startStation, goalStation);
+        System.out.println(url.getSearchLink());
+        getJsonFromAsync(url.getSearchLink());
 
 
 
-        //経路検索を行いその結果を格納する
-        routeList = getJsonFromAsync(url.getSearchLink()).get(0);
-        for(int i = 0; i < routeList.size();i++){
-            RouteInfo tmp = routeList.get(i);
-            //スケジュールとどの行程かを記憶する
-            tmp.setTravelNum(bundleData.getTravelNum());
-            tmp.setScheduleNum(nowPlace.getRouteNum());
-            //データベース登録
-            routeDB.sava_diary(tmp);
-        }
-
-
+        textview1 = (TextView)view.findViewById(R.id.next_station1);
+        textview2 = (TextView)view.findViewById(R.id.next_station2);
 
         // ボタンを生成
-        super.onViewCreated(view, saveInstanceState);
         Button accept_button = (Button) view.findViewById(R.id.button1);
         Button view_button = (Button)view.findViewById(R.id.button2);
 
@@ -125,7 +127,7 @@ public class fragment_travel extends Fragment{
         accept_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                moveNextStation();
+                moveBeforeStation();
             }
         });
 
@@ -134,26 +136,27 @@ public class fragment_travel extends Fragment{
         view_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                moveBeforeStation();
+                moveNextStation();
             }
         });
 
     }
 
-    private ArrayList<ArrayList<RouteInfo>> getJsonFromAsync(String url) {
+    private void getJsonFromAsync(String url) {
+
         ConnectServer asyncGet = new ConnectServer(new ConnectServer.AsyncCallback() {
             //非同期通信が開始される前に呼び出される
-            public void onPreExecute() {}
+         //   public void onPreExecute() {}
             //非同期通信が更新されたと時に呼び出される
-            public void onProgressUpdate(int progress) {}
+       //     public void onProgressUpdate(int progress) {}
             //非同期通信がキャンセルされたt気に呼び出される
-            public void onCancelled() {}
+         //   public void onCancelled() {}
             //非同期通信が完了した時点で呼び出される
             public void onPostExecute(String result) {
-
                 try {
                     JSONObject json = new JSONObject(result);
-                    parseSearchData resultParse = new parseSearchData(json.getJSONObject("ResultSet"));
+                    resultParse = new parseSearchData(json.getJSONObject("ResultSet"));
+                    initializer();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -161,9 +164,20 @@ public class fragment_travel extends Fragment{
             }
         });
         asyncGet.execute(url);
-        return asyncGet.getParseData();
+
+
     }
-    
+
+    void initializer(){
+        routeList = resultParse.getParseData().get(0);
+        routeList.get(0).setRouteFlag(1);
+        //データベース登録
+        for(RouteInfo x:routeList){
+            x.setScheduleNum(nowPlace.getRouteNum());
+            x.setTravelNum(nowPlace.getTravelNum());
+            nowRoute = routeDB.sava_diary(x);
+        }
+    }
 
     boolean moveNextStation(){
 
@@ -172,15 +186,25 @@ public class fragment_travel extends Fragment{
 
         for(RouteInfo x:routeList){
             if(x.getRouteFlag() == 1){
+                //経路検索を行いその結果を格納する
+//                routeList = new ArrayList<>();
+//                for(int i = 0; i < routeList.size();i++){
+//                    RouteInfo tmp = routeList.get(i);
+//                    //スケジュールとどの行程かを記憶する
+//                    tmp.setTravelNum(bundleData.getTravelNum());
+//                    tmp.setScheduleNum(nowPlace.getRouteNum());
+//                    //データベース登録
+//                    routeDB.sava_diary(tmp);
+//                }
+
                 //現在の行程は終了
                 x.setRouteFlag(0);
                 //次の列車
-                if(loop_i != routeList.size()){
+                if(loop_i != routeList.size() - 1){
                     RouteInfo tmp = routeList.get(loop_i + 1);
                     tmp.setRouteFlag(1);
-
-                    routeDB.sava_diary(tmp);
                     routeDB.sava_diary(x);
+                    nowRoute = routeDB.sava_diary(tmp);
 
                 }else{
                     //最後の場合はこちら
@@ -188,6 +212,10 @@ public class fragment_travel extends Fragment{
                 }
 
             }
+
+            textview1.setText(nowRoute.getRouteDeparture() + ":" +  nowRoute.getrouteDepttime());
+            textview2.setText(nowRoute.getRouteTrain());
+
             loop_i++;
         }
 
@@ -201,8 +229,20 @@ public class fragment_travel extends Fragment{
         //現在のフラグの位置を格納する
         int loop_i = 0;
 
+        //経路検索を行いその結果を格納する
+      //  routeList = resultParse.getParseData().get(0);
+
+        for(int i = 0; i < routeList.size();i++){
+            RouteInfo tmp = routeList.get(i);
+            //スケジュールとどの行程かを記憶する
+            tmp.setTravelNum(bundleData.getTravelNum());
+            tmp.setScheduleNum(nowPlace.getRouteNum());
+            //データベース登録
+            routeDB.sava_diary(tmp);
+        }
         for(RouteInfo x:routeList){
             if(x.getRouteFlag() == 1){
+                routeList = null;
                 //現在の行程は終了
                 x.setRouteFlag(0);
                 //次の列車

@@ -36,6 +36,7 @@ public class schedule_detail extends Fragment {
     private RecordDaoItem recordDB;
     private RecordItem myRecord;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         super.onCreateView(inflater, container, saveInstanceState);
@@ -50,12 +51,12 @@ public class schedule_detail extends Fragment {
         recordDB = new RecordDaoItem(getContext());
         //バンドルされたデータを取得する
         Bundle bundle = getArguments();
-        travelSchedule data = (travelSchedule) bundle.getSerializable("infoTravel");
+        viewData = (travelSchedule) bundle.getSerializable("infoTravel");
 
         // ボタンを生成
         super.onViewCreated(view, saveInstanceState);
-        Button accept_button = (Button) view.findViewById(R.id.button1);
-        Button view_button = (Button)view.findViewById(R.id.button2);
+        Button accept_button = (Button) view.findViewById(R.id.detail_button1);
+        Button view_button = (Button)view.findViewById(R.id.detail_button2);
 
         //acceptボタンの割り当て
         accept_button.setText("日記を作成");
@@ -66,13 +67,13 @@ public class schedule_detail extends Fragment {
                 //日記の作成
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                DiaryTop recordFragment = new DiaryTop();
-
+                DiaryEdit recordFragment = new DiaryEdit();
                 //旅行番号をバンドルする
                 Bundle bundle = new Bundle();
                 bundle.putInt("schedule",viewData.getRowid());
                 bundle.putInt("travel",viewData.getTravelNum());
-                fragmentTransaction.add(R.id.edit_diary, recordFragment);
+                recordFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.diary_edit, recordFragment);
                 fragmentTransaction.commit();
 
 
@@ -97,23 +98,18 @@ public class schedule_detail extends Fragment {
                 bundle.putInt("day", myRecord.getDiaryDay());
                 bundle.putString("diary", myRecord.getDiaryRecord());
 
+
                 recordFragment.setArguments(bundle);
-                fragmentTransaction.add(R.id.fragment_record,recordFragment);
+                fragmentTransaction.replace(R.id.fragment_record,recordFragment);
                 fragmentTransaction.commit();
 
             }
         });
 
-
-
-
-
-
     }
 
     private void updateRecord(){
-
-        if(recordDB.findRecord(viewData.getRouteNum(),viewData.getTravelNum())){
+        if(recordDB.findRecord(viewData.getRowid(),viewData.getTravelNum())){
             myRecord = recordDB.getRecord().get(0);
         }
 

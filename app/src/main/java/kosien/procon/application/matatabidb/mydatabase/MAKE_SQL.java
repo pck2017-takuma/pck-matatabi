@@ -133,10 +133,11 @@ public class MAKE_SQL {
             createSql.append(RouteInfo.ROUTE_DEPARTURE + " text not null, ");
             createSql.append(RouteInfo.ROUTE_DEPTTIME + " text not null, ");
             createSql.append(RouteInfo.ROUTE_DESTINATION + " text not null, ");
-            createSql.append(RouteInfo.ROUTE_DEPTTIME + " text not null, ");
-            createSql.append(RouteInfo.ROUTE_TRAIN + " text not null, ");
+            createSql.append(RouteInfo.ROUTE_ARVTIME + " text not null, ");
+            createSql.append(RouteInfo.ROUTE_TRAIN + " text, ");
             createSql.append(RouteInfo.TRAVEL_NUM + " integer not null, ");
-            createSql.append(RouteInfo.ROUTE_FLAG + " integer default 0 ");
+            createSql.append(RouteInfo.ROUTE_FLAG + " integer default 0, ");
+            createSql.append(RouteInfo.SCHEDULE_NUM + " integer default 0 ");
             createSql.append(");");
             return createSql;
         }

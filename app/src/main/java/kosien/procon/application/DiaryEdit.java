@@ -31,6 +31,7 @@ import java.util.Calendar;
 
 import kosien.procon.application.matatabidb.mydatabase.RecordDaoItem;
 import kosien.procon.application.matatabidb.mydatabase.RecordItem;
+import kosien.procon.application.matatabidb.mydatabase.travelSchedule;
 import su.heartlove.matatabi.R;
 
 /**
@@ -70,8 +71,9 @@ public class DiaryEdit extends Fragment {
 
     public void onViewCreated(View layout,Bundle savedInstanceState){
 
-        bundleScheduleNum = savedInstanceState.getInt("schedule");
-        bundleTravelNum = savedInstanceState.getInt("travel");
+        Bundle bundle = getArguments();
+        bundleScheduleNum= bundle.getInt("schedule");
+        bundleTravelNum = bundle.getInt("travel");
 
         //リソース割り当て
         diary = (EditText)layout.findViewById(R.id.EditText_diary);
@@ -264,7 +266,7 @@ public class DiaryEdit extends Fragment {
 
     //戻り処理
 
-    public void onActivity(int requestCode,int resultCode,Intent data){
+    public void onFragment(int requestCode,int resultCode,Intent data){
         //声入力からの戻り
 
         if(requestCode == VOICE_WORD){
