@@ -43,9 +43,11 @@ public class TravelCreateFragment_2 extends Fragment {
     //バンドルされる追加された行先
     private placeInfomation AddPlace = new placeInfomation();
 
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
-        super.onCreateView(inflater,container,saveInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        super.onCreateView(inflater,container,savedInstanceState);
 
         //これまでに保存したデータが存在するか
         Bundle addBundle = getArguments();
@@ -72,24 +74,14 @@ public class TravelCreateFragment_2 extends Fragment {
     public void onViewCreated(View view, final Bundle saveInstanceState) {
 
 
+
         super.onViewCreated(view, saveInstanceState);
 
 
-        if (saveInstanceState != null) {
-            // onSaveInstanceStateで保存されたデータを復元
-            decidePlace = (ArrayList<placeInfomation>)saveInstanceState.getSerializable(listKey);
-        }
-
-
 
 
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable(listKey,decidePlace);
-    }
 
     @Override
     public void onStart() {
@@ -141,7 +133,7 @@ public class TravelCreateFragment_2 extends Fragment {
         listView.setAdapter(adapter);
 
         SetRecordListAdapter adapter2 = new SetRecordListAdapter(getContext(), R.layout.samplelist_item, listItems2);
-        listView2.setAdapter(adapter);
+        listView2.setAdapter(adapter2);
 
 
         // ListViewアイテムを選択した場合の動作
@@ -159,17 +151,20 @@ public class TravelCreateFragment_2 extends Fragment {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 TravelCreateDetailed intent = new TravelCreateDetailed();
 
-
                 intent.setArguments(bundle);
                 fragmentTransaction.replace(R.id.my_recycler_view,intent);
                 fragmentTransaction.commit();
-                
+
             }
         });
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Bundle placeBundle = new Bundle();
+                placeBundle.putSerializable(listKey,decidePlace);
+
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 travelCreateFragment intent = new travelCreateFragment();
@@ -182,6 +177,12 @@ public class TravelCreateFragment_2 extends Fragment {
     }
 
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(listKey,decidePlace);
+        super.onSaveInstanceState(outState);
+
+    }
 
 
 
