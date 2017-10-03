@@ -44,7 +44,6 @@ public class TravelCreateFragment_2 extends Fragment {
     private placeInfomation AddPlace = new placeInfomation();
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         super.onCreateView(inflater,container,savedInstanceState);
@@ -53,15 +52,15 @@ public class TravelCreateFragment_2 extends Fragment {
         Bundle addBundle = getArguments();
 
         if(addBundle != null && addBundle.containsKey(listKey)){
-            decidePlace = (ArrayList<placeInfomation>)addBundle.getSerializable(listKey);
+            Bundle tmpBundle = addBundle.getBundle(listKey);
+            decidePlace = (ArrayList<placeInfomation>)tmpBundle.getSerializable(listKey);
         }
-
 
         //詳細フラグメントからのデータが存在するかどうか
         if(addBundle!= null && addBundle.containsKey(addPlace)){
-            AddPlace = (placeInfomation)addBundle.getSerializable(addPlace);
+            Bundle tmpBundle = addBundle.getBundle(addPlace);
+            AddPlace = (placeInfomation)tmpBundle.getSerializable(addPlace);
             decidePlace.add(AddPlace);
-
         }
 
 
@@ -141,12 +140,13 @@ public class TravelCreateFragment_2 extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mposition = position;
+
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("place",yyy.get(mposition));
 
                 Bundle placeBundle = new Bundle();
                 placeBundle.putSerializable(listKey,decidePlace);
-
+                bundle.putBundle(listKey,placeBundle);
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 TravelCreateDetailed intent = new TravelCreateDetailed();
@@ -163,13 +163,19 @@ public class TravelCreateFragment_2 extends Fragment {
             public void onClick(View v) {
 
                 Bundle placeBundle = new Bundle();
+                Bundle bundle = new Bundle();
                 placeBundle.putSerializable(listKey,decidePlace);
+                bundle.putBundle(listKey,placeBundle);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 travelCreateFragment intent = new travelCreateFragment();
+                intent.setArguments(bundle);
                 fragmentTransaction.replace(R.id.my_recycler_view,intent);
                 fragmentTransaction.commit();
+
+
+
 
             }
         });

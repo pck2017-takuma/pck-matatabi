@@ -10,7 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import kosien.procon.application.matatabidb.mydatabase.placeInfoDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfomation;
@@ -25,6 +28,8 @@ public class travelCreateFragment extends Fragment {
     private EditText mEdit;
     private placeInfoDao xxx;
 
+    Bundle placeBundle = null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
         super.onCreateView(inflater,container,saveInstanceState);
@@ -34,6 +39,12 @@ public class travelCreateFragment extends Fragment {
     @Override
     public void onViewCreated(View view, final Bundle saveInstanceState) {
         super.onViewCreated(view, saveInstanceState);
+
+        Bundle tmp = getArguments();
+        if(tmp != null && tmp.containsKey(TravelCreateFragment_2.listKey)){
+            placeBundle = tmp.getBundle(TravelCreateFragment_2.listKey);
+        }
+
 
     }
 
@@ -61,6 +72,11 @@ public class travelCreateFragment extends Fragment {
                     TravelCreateFragment_2 recordFragment = new TravelCreateFragment_2();
 
                     recordFragment.setArguments(bundle);
+
+                    if(placeBundle != null){
+                        bundle.putBundle(TravelCreateFragment_2.listKey,placeBundle);
+                    }
+
                     fragmentTransaction.replace(R.id.my_recycler_view,recordFragment);
                     fragmentTransaction.commit();
 
