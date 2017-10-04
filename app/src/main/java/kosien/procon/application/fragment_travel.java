@@ -111,6 +111,8 @@ public class fragment_travel extends Fragment{
             //Toast.makeText(getContext(),"ヤバい、可笑しいことになった！",Toast.LENGTH_SHORT).show();
         }
 
+
+
         //起点を決める（将来的：現在位置　現状：香川高等専門学校詫間キャンパス学生課）
         String startStation = "33.311139,134.010361";
 //        String aaa = getpos.longitude.toString();
@@ -185,6 +187,7 @@ public class fragment_travel extends Fragment{
 
     void initializer(){
 
+
         routeList = resultParse.getParseData().get(0);
         routeList.get(0).setRouteFlag(1);
         //データベース登録
@@ -193,18 +196,23 @@ public class fragment_travel extends Fragment{
             x.setTravelNum(nowPlace.getTravelNum());
         }
         nowRoute = routeList.get(0);
-        textview1.setText(nowRoute.getRouteDeparture() + ":" +  nowRoute.getrouteDepttime());
+        String time = GetTime.convertNowTime(nowRoute.getrouteDepttime());
+        String time2 = GetTime.convertNowTime(nowRoute.getRouteArvtime());
+        textview1.setText(nowRoute.getRouteDeparture() + ":" + '\n'+"発車時刻：　" + time + '\n'+ "到着時刻：　" + time2);
         textview2.setText(nowRoute.getRouteTrain());
         textview9.setText(nowPlace.getPlaceName());
 
 
     }
 
+    void updateList(){
+    }
+
     boolean moveNextStation(){
 
         //現在のフラグの位置を格納する
         int loop_i = 0;
-        initializer();
+  //      initializer();
        for(RouteInfo x:routeList){
             if(x.getRouteFlag() == 1){
                 //経路検索を行いその結果を格納する
@@ -238,8 +246,9 @@ public class fragment_travel extends Fragment{
 
             loop_i++;
         }
-
-        textview1.setText(nowRoute.getRouteDeparture() + ":" +  nowRoute.getrouteDepttime());
+        String time = GetTime.convertNowTime(nowRoute.getrouteDepttime());
+        String time2 = GetTime.convertNowTime(nowRoute.getRouteArvtime());
+        textview1.setText(nowRoute.getRouteDeparture() + ":" + '\n'+"発車時刻：　" + time + '\n'+ "到着時刻：　" + time2);
         textview2.setText(nowRoute.getRouteTrain());
         textview9.setText(nowPlace.getPlaceName());
         return true;
@@ -251,9 +260,7 @@ public class fragment_travel extends Fragment{
         //現在のフラグの位置を格納する
         int loop_i = 0;
 
-        //経路検索を行いその結果を格納する
-      //  routeList = resultParse.getParseData().get(0);
-        initializer();
+
 
         for(RouteInfo x:routeList){
             if(x.getRouteFlag() == 1){
@@ -276,8 +283,9 @@ public class fragment_travel extends Fragment{
             }
             loop_i++;
         }
-
-        textview1.setText(nowRoute.getRouteDeparture() + ":" +  nowRoute.getrouteDepttime());
+        String time = GetTime.convertNowTime(nowRoute.getrouteDepttime());
+        String time2 = GetTime.convertNowTime(nowRoute.getRouteArvtime());
+        textview1.setText(nowRoute.getRouteDeparture() + ":" + '\n'+"発車時刻：　" + time + '\n'+ "到着時刻：　" + time2);
         textview2.setText(nowRoute.getRouteTrain());
         textview9.setText(nowPlace.getPlaceName());
         return true;
@@ -292,13 +300,7 @@ public class fragment_travel extends Fragment{
         scheduleDB.moveNextPlace(nowPlace);
 
         //次の場所を取得
-        travelSchedule tmp = scheduleDB.getNowTravel();
-
-            nowPlace.setFlag(0);
-            tmp.setFlag(1);
-            scheduleDB.sava_diary(nowPlace);
-            scheduleDB.sava_diary(tmp);
-            nowPlace = tmp;
+        nowPlace = scheduleDB.getNowTravel();
 
         //観光地の情報を取得する
         if(placeInfoDB.findPlaceInfo(nowPlace.getPlaceName(),placeInfomation.PLACE_NAME)){
@@ -309,12 +311,15 @@ public class fragment_travel extends Fragment{
         }
 
 
+
         //起点を決める（将来的：現在位置　現状：香川高等専門学校詫間キャンパス学生課）
         String startStation = "33.311139,134.010361";
 //        getLocationListener fdsak = new getLocationListener();
 //        String aaa = fdsak.longitude.toString();
 //        String bbb = fdsak.longitude.toString();
       //  String startStation = aaa + "," +bbb;
+
+
         String goalStation = nowPlaceData.getPlaceLatitude() + "," + nowPlaceData.getPlaceLongitude();
         basicTimeSearch url = new basicTimeSearch(startStation, goalStation);
         getJsonFromAsync(url.getSearchLink());
