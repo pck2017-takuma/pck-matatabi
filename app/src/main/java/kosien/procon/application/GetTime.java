@@ -15,7 +15,7 @@ import java.util.Locale;
 public class GetTime {
     public static String getNowDate() {
         final DateFormat df = new SimpleDateFormat("HH:mm:ss");
-        final Date date = new Date(System.currentTimeMillis() + 32400000L);
+        final Date date = new Date(System.currentTimeMillis());
         return df.format(date);
     }
 

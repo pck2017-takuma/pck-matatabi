@@ -195,6 +195,8 @@ public class fragment_travel extends Fragment{
             x.setScheduleNum(nowPlace.getRouteNum());
             x.setTravelNum(nowPlace.getTravelNum());
         }
+
+
         nowRoute = routeList.get(0);
         String time = GetTime.convertNowTime(nowRoute.getrouteDepttime());
         String time2 = GetTime.convertNowTime(nowRoute.getRouteArvtime());
