@@ -1,7 +1,13 @@
 package kosien.procon.application;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +30,8 @@ import kosien.procon.application.matatabidb.mydatabase.placeInfomation;
 import kosien.procon.application.matatabidb.mydatabase.travelSchedule;
 import kosien.procon.application.matatabidb.mydatabase.travelScheduleDao;
 import su.heartlove.matatabi.R;
+
+import static android.content.Context.LOCATION_SERVICE;
 
 /**
  * Created by procon-kyougi on 2017/10/01.
@@ -56,7 +64,10 @@ public class fragment_travel extends Fragment{
     //現在のルート
     RouteInfo nowRoute;
 
-    getLocationListener getpos = new getLocationListener();
+
+    public Double longitude = null;
+    public Double latitude = null;
+
 
 
 
@@ -71,6 +82,9 @@ public class fragment_travel extends Fragment{
     @Override
     public void onViewCreated(final View view, Bundle saveInstanceState) {
         super.onViewCreated(view, saveInstanceState);
+
+
+
 
 
         scheduleDB = new travelScheduleDao(getContext());
@@ -114,10 +128,11 @@ public class fragment_travel extends Fragment{
 
 
         //起点を決める（将来的：現在位置　現状：香川高等専門学校詫間キャンパス学生課）
-        String startStation = "33.311139,134.010361";
-//        String aaa = getpos.longitude.toString();
-//        String bbb = getpos.longitude.toString();
-//        String startStation = aaa + "," +bbb;
+      ;
+   //   String startStation = "33.311139,134.010361";
+        String aaa = longitude.toString();
+        String bbb = latitude.toString();
+        String startStation = bbb + "," + aaa;
         String goalStation = nowPlaceData.getPlaceLatitude() + "," + nowPlaceData.getPlaceLongitude();
         basicTimeSearch url = new basicTimeSearch(startStation, goalStation);
         getJsonFromAsync(url.getSearchLink());
@@ -314,7 +329,8 @@ public class fragment_travel extends Fragment{
 
 
 
-        //起点を決める（将来的：現在位置　現状：香川高等専門学校詫間キャンパス学生課）
+        //起点を決める（将来的：現在位置　現状：香川高等専門学校詫間キャンパス学生課
+
         String startStation = "33.311139,134.010361";
 //        getLocationListener fdsak = new getLocationListener();
 //        String aaa = fdsak.longitude.toString();
@@ -335,5 +351,6 @@ public class fragment_travel extends Fragment{
     }
 
 
-
 }
+
+

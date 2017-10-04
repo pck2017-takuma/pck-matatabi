@@ -45,7 +45,7 @@ public class getLocationListener extends AppCompatActivity implements LocationLi
         }
 
         // 位置情報を管理している LocationManager のインスタンスを生成する
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
         String locationProvider;
 
         // GPSが利用可能になっているかどうかをチェック

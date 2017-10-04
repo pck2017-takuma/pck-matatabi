@@ -206,8 +206,6 @@ public class TravelCreateFragment_2 extends Fragment {
         });
 
 
-
-
     }
 
 
