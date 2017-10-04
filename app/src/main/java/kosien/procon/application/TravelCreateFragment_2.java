@@ -193,18 +193,14 @@ public class TravelCreateFragment_2 extends Fragment {
             @Override
             public void onClick(View v){
                 //スケジュールデータの確定処理
-                TravelDataWrite travelDataWrite = new TravelDataWrite();
+                dataWrite();
 
+                //スケジュール画面に飛ぶ
 
+                Intent intent = new Intent(getActivity(),Record.class);
 
-
-                //フラグメントマネージャー
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-
-
-
+                //バンドルデータは存在しない
+                startActivity(intent);
 
             }
         });
@@ -228,18 +224,27 @@ public class TravelCreateFragment_2 extends Fragment {
         travelScheduleDao yyy = new travelScheduleDao(getContext());
         infoTravel zzz = new infoTravel();
 
-        //旅行のタイトルをとりあえず勝手に設定する（旅行名＋現在時刻
-        zzz.setTravelTitle(str);
+        //旅行のタイトルをとりあえず勝手に設定する（旅行名＋現在時刻）
+
+        //現在時刻の取得
+
+
+        zzz.setTravelTitle("テスト旅行" + GetTime.getNowDate());
+        zzz.setTravelFlag(0);
         zzz = xxx.save_time(zzz);
         int aaa = zzz.getRowid();
+
         travelSchedule bbb = new travelSchedule();
+        int i = 0;
+        for(placeInfomation x:decidePlace){
 
-
-
-        for(int i = 0; i < main.listItem.size(); i++) {
-            bbb.setPlaceName(main.itemName(i));
+            bbb.setPlaceName(x.getPlaceName());
             bbb.setRouteNum(i);
             bbb.setTravelNum(aaa);
+            bbb.setFlag(0);
+            //スケジュール情報をデータベースに登録
+            yyy.sava_diary(bbb);
+            ++i;
         }
 
 

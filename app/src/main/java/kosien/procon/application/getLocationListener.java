@@ -21,8 +21,8 @@ import su.heartlove.matatabi.R;
 
 public class getLocationListener extends AppCompatActivity implements LocationListener {
 
-    Double longitude = null;
-    Double latitude = null;
+    public Double longitude = null;
+    public Double latitude = null;
 
 
     @SuppressLint("SetTextI18n")

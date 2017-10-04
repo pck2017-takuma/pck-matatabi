@@ -74,7 +74,7 @@ public class schedule_detail extends Fragment {
                 bundle.putInt("schedule",viewData.getRowid());
                 bundle.putInt("travel",viewData.getTravelNum());
                 recordFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.travel_list, recordFragment);
+                fragmentTransaction.replace(R.id.fragment_record, recordFragment);
                 fragmentTransaction.commit();
 
 

@@ -16,7 +16,6 @@ import android.widget.ImageButton;
 import su.heartlove.matatabi.R;
 
 public class Sub_1 extends AppCompatActivity {
-//public class Sub_1 extends Activity {
 
     private SearchView mSearchView;
 

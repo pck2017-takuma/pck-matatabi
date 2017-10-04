@@ -3,6 +3,7 @@ package kosien.procon.application;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -96,6 +97,9 @@ public class fragment_schedule extends Fragment {
                 travelDB.save_time(getData);
                 scheduleDB.sava_diary(start);
 
+                Intent intent = new Intent(getActivity(),MainActivity.class);
+                startActivity(intent);
+
             }
         });
 
@@ -107,6 +111,10 @@ public class fragment_schedule extends Fragment {
                     //ここで旅行をこのスケジュールを終了状態にする
                     getData.setTravelFlag(0);
                     travelDB.save_time(getData);
+
+                    Intent intent = new Intent(getActivity(),MainActivity.class);
+                    startActivity(intent);
+
 
                 }
             });
