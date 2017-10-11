@@ -54,7 +54,6 @@ public class fragment_travel extends Fragment{
     //現在のルート
     RouteInfo nowRoute;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         super.onCreateView(inflater, container, saveInstanceState);
@@ -215,8 +214,6 @@ public class fragment_travel extends Fragment{
                 }
                 break;
             }
-
-
 
             loop_i++;
         }

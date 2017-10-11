@@ -45,7 +45,6 @@ public class travelCreateFragment extends Fragment {
             placeBundle = tmp.getBundle(TravelCreateFragment_2.listKey);
         }
 
-
     }
 
     @Override

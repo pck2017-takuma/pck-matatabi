@@ -68,7 +68,6 @@ public class TravelCreateFragment_2 extends Fragment {
             decidePlace.add(AddPlace);
         }
 
-
         return inflater.inflate(R.layout.search_2, container,false);
 
 
