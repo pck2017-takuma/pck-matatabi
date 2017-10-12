@@ -3,22 +3,15 @@ package kosien.procon.application;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 
 import kosien.procon.application.matatabidb.mydatabase.RecordDaoItem;
 import kosien.procon.application.matatabidb.mydatabase.RecordItem;
-import kosien.procon.application.matatabidb.mydatabase.infoTravel;
 import kosien.procon.application.matatabidb.mydatabase.infoTravelDao;
 import kosien.procon.application.matatabidb.mydatabase.travelSchedule;
 import su.heartlove.matatabi.R;
@@ -27,7 +20,7 @@ import su.heartlove.matatabi.R;
  * Created by procon-kyougi on 2017/09/30.
  */
 
-public class schedule_detail extends Fragment {
+public class fragment_schedule_detail extends Fragment {
 
     //フラグメントで表示する内容
     private TextView mTextView;
@@ -68,7 +61,7 @@ public class schedule_detail extends Fragment {
                 //日記の作成
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                DiaryEdit recordFragment = new DiaryEdit();
+                fragment_diaryedit recordFragment = new fragment_diaryedit();
                 //旅行番号をバンドルする
                 Bundle bundle = new Bundle();
                 bundle.putInt("schedule",viewData.getRowid());
@@ -90,7 +83,7 @@ public class schedule_detail extends Fragment {
                 //日記の作成
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                DiaryView recordFragment = new DiaryView();
+                fragment_diaryview recordFragment = new fragment_diaryview();
 
                 /* 参照画面で表示情報を引き継ぎ */
                 Bundle bundle = new Bundle();

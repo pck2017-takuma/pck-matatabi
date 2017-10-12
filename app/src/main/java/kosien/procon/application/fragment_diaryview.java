@@ -1,10 +1,7 @@
 package kosien.procon.application;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +17,7 @@ import su.heartlove.matatabi.R;
  * Created by procon-kyougi on 2017/09/23.
  */
 
-public class DiaryView extends Fragment {
+public class fragment_diaryview extends Fragment {
     private TextView tv_date = null;
     private TextView tv_diary = null;
     private Button btn_cancel = null;
@@ -59,7 +56,7 @@ public class DiaryView extends Fragment {
         //キャンセル処理
         btn_cancel.setOnClickListener(new View.OnClickListener(){
            public void onClick(View v){
-               getFragmentManager().beginTransaction().remove(DiaryView.this).commit();
+               getFragmentManager().beginTransaction().remove(fragment_diaryview.this).commit();
            }
         });
     }

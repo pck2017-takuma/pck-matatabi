@@ -5,8 +5,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -42,7 +39,7 @@ import su.heartlove.matatabi.R;
 
 //日記実装
 
-public class DiaryTop extends Fragment {
+public class fragment_diarytop extends Fragment {
 
     public OnMenuItemSelectedListener mCallback; // あとで宣言するinterfaceのフィールド
 
@@ -91,7 +88,7 @@ public class DiaryTop extends Fragment {
 
     //コンストラクタ
 
-    public DiaryTop(){}
+    public fragment_diarytop(){}
 
 
     @Override
@@ -205,7 +202,7 @@ public class DiaryTop extends Fragment {
             public void onClick(View v) {
                 FragmentManager maneger = getFragmentManager();
                 FragmentTransaction  fragmentTransaction = maneger.beginTransaction();
-                DiaryEdit recordFragment = new DiaryEdit();
+                fragment_diaryedit recordFragment = new fragment_diaryedit();
                 fragmentTransaction.replace(R.id.LinearLayout_all,recordFragment);
                 fragmentTransaction.commit();
 
@@ -233,7 +230,7 @@ public class DiaryTop extends Fragment {
 
                 FragmentManager maneger = getFragmentManager();
                 FragmentTransaction fragmentTransaction = maneger.beginTransaction();
-                DiaryView recordFragment = new DiaryView();
+                fragment_diaryview recordFragment = new fragment_diaryview();
                 recordFragment.setArguments(bundle);
                 fragmentTransaction.replace(R.id.fragment_record,recordFragment);
                 fragmentTransaction.commit();

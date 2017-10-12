@@ -3,17 +3,13 @@ package kosien.procon.application;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import kosien.procon.application.matatabidb.mydatabase.placeInfoDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfomation;
@@ -23,7 +19,7 @@ import su.heartlove.matatabi.R;
  * Created by procon-kyougi on 2017/09/29.
  */
 
-public class travelCreateFragment extends Fragment {
+public class fragment_travelcreate extends Fragment {
 
     private EditText mEdit;
     private placeInfoDao xxx;
@@ -41,8 +37,8 @@ public class travelCreateFragment extends Fragment {
         super.onViewCreated(view, saveInstanceState);
 
         Bundle tmp = getArguments();
-        if(tmp != null && tmp.containsKey(TravelCreateFragment_2.listKey)){
-            placeBundle = tmp.getBundle(TravelCreateFragment_2.listKey);
+        if(tmp != null && tmp.containsKey(fragmnet_travelcreate_list.listKey)){
+            placeBundle = tmp.getBundle(fragmnet_travelcreate_list.listKey);
         }
 
 
@@ -69,12 +65,12 @@ public class travelCreateFragment extends Fragment {
                     bundle.putSerializable("test",tmp);
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    TravelCreateFragment_2 recordFragment = new TravelCreateFragment_2();
+                    fragmnet_travelcreate_list recordFragment = new fragmnet_travelcreate_list();
 
                     recordFragment.setArguments(bundle);
 
                     if(placeBundle != null){
-                        bundle.putBundle(TravelCreateFragment_2.listKey,placeBundle);
+                        bundle.putBundle(fragmnet_travelcreate_list.listKey,placeBundle);
                     }
 
                     fragmentTransaction.replace(R.id.my_recycler_view,recordFragment);

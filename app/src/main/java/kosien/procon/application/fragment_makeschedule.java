@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import kosien.procon.application.matatabidb.mydatabase.RouteInfo;
 import su.heartlove.matatabi.R;
 
-public class makeSchedule extends AppCompatActivity {
+public class fragment_makeschedule extends AppCompatActivity {
 
     /**
      * アクティビティ生成時に呼ばれる

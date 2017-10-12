@@ -1,13 +1,7 @@
 package kosien.procon.application;
 
-import android.annotation.SuppressLint;
 import android.app.Fragment;
-import android.content.Intent;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +24,6 @@ import kosien.procon.application.matatabidb.mydatabase.placeInfomation;
 import kosien.procon.application.matatabidb.mydatabase.travelSchedule;
 import kosien.procon.application.matatabidb.mydatabase.travelScheduleDao;
 import su.heartlove.matatabi.R;
-
-import static android.content.Context.LOCATION_SERVICE;
 
 /**
  * Created by procon-kyougi on 2017/10/01.
@@ -64,12 +56,8 @@ public class fragment_travel extends Fragment{
     //現在のルート
     RouteInfo nowRoute;
 
-
     public Double longitude = null;
     public Double latitude = null;
-
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
@@ -213,8 +201,8 @@ public class fragment_travel extends Fragment{
 
 
         nowRoute = routeList.get(0);
-        String time = GetTime.convertNowTime(nowRoute.getrouteDepttime());
-        String time2 = GetTime.convertNowTime(nowRoute.getRouteArvtime());
+        String time = getTimeListener.convertNowTime(nowRoute.getrouteDepttime());
+        String time2 = getTimeListener.convertNowTime(nowRoute.getRouteArvtime());
         textview1.setText(nowRoute.getRouteDeparture() + ":" + '\n'+"発車時刻：　" + time + '\n'+ "到着時刻：　" + time2);
         textview2.setText(nowRoute.getRouteTrain());
         textview9.setText(nowPlace.getPlaceName());
@@ -263,8 +251,8 @@ public class fragment_travel extends Fragment{
 
             loop_i++;
         }
-        String time = GetTime.convertNowTime(nowRoute.getrouteDepttime());
-        String time2 = GetTime.convertNowTime(nowRoute.getRouteArvtime());
+        String time = getTimeListener.convertNowTime(nowRoute.getrouteDepttime());
+        String time2 = getTimeListener.convertNowTime(nowRoute.getRouteArvtime());
         textview1.setText(nowRoute.getRouteDeparture() + ":" + '\n'+"発車時刻：　" + time + '\n'+ "到着時刻：　" + time2);
         textview2.setText(nowRoute.getRouteTrain());
         textview9.setText(nowPlace.getPlaceName());
@@ -300,8 +288,8 @@ public class fragment_travel extends Fragment{
             }
             loop_i++;
         }
-        String time = GetTime.convertNowTime(nowRoute.getrouteDepttime());
-        String time2 = GetTime.convertNowTime(nowRoute.getRouteArvtime());
+        String time = getTimeListener.convertNowTime(nowRoute.getrouteDepttime());
+        String time2 = getTimeListener.convertNowTime(nowRoute.getRouteArvtime());
         textview1.setText(nowRoute.getRouteDeparture() + ":" + '\n'+"発車時刻：　" + time + '\n'+ "到着時刻：　" + time2);
         textview2.setText(nowRoute.getRouteTrain());
         textview9.setText(nowPlace.getPlaceName());

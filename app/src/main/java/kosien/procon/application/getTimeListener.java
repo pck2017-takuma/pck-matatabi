@@ -12,7 +12,7 @@ import java.util.Locale;
  * Created by procon-kyougi1 on 2017/09/15.
  */
 
-public class GetTime {
+public class getTimeListener {
     public static String getNowDate() {
         final DateFormat df = new SimpleDateFormat("HH:mm:ss");
         final Date date = new Date(System.currentTimeMillis());

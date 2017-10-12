@@ -9,8 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import kosien.procon.application.Record;
-
 /**
  * Created by Owner on 2017/09/15.
  */

@@ -18,9 +18,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import kosien.procon.application.DiaryTop;
-import kosien.procon.application.SampleListItem;
-import kosien.procon.application.SetRecordListAdapter;
 import kosien.procon.application.matatabidb.mydatabase.infoTravel;
 import kosien.procon.application.matatabidb.mydatabase.infoTravelDao;
 import kosien.procon.application.matatabidb.mydatabase.travelSchedule;
@@ -97,7 +94,7 @@ public class fragment_schedule extends Fragment {
                 travelDB.save_time(getData);
                 scheduleDB.sava_diary(start);
 
-                Intent intent = new Intent(getActivity(),MainActivity.class);
+                Intent intent = new Intent(getActivity(),activity_main.class);
                 startActivity(intent);
 
             }
@@ -112,7 +109,7 @@ public class fragment_schedule extends Fragment {
                     getData.setTravelFlag(0);
                     travelDB.save_time(getData);
 
-                    Intent intent = new Intent(getActivity(),MainActivity.class);
+                    Intent intent = new Intent(getActivity(),activity_main.class);
                     startActivity(intent);
 
 
@@ -155,7 +152,7 @@ public class fragment_schedule extends Fragment {
                         bundle.putSerializable("infoTravel",tmp);
                         //フラグメントを立ち上げる
                         //こ↑こ↓のボタンは無効化する
-                        schedule_detail recordFragment = new schedule_detail();
+                        fragment_schedule_detail recordFragment = new fragment_schedule_detail();
                         recordFragment.setArguments(bundle);
                         fragmentTransaction.add(R.id.detail_schedule,recordFragment);
                         fragmentTransaction.commit();

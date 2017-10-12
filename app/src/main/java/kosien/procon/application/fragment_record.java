@@ -26,7 +26,7 @@ import su.heartlove.matatabi.R;
  * Created by procon-kyougi on 2017/09/24.
  */
 
-public class RecordFragment extends Fragment {
+public class fragment_record extends Fragment {
 
     //フラグメントで表示する内容
     private TextView mTextView;
@@ -57,13 +57,13 @@ public class RecordFragment extends Fragment {
 //                //こ↑こ↓のボタンは無効化する
 //                FragmentManager fragmentManager = getFragmentManager();
 //                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                DiaryTop recordFragment = new DiaryTop();
+//                fragment_diarytop recordFragment = new fragment_diarytop();
 //                fragmentTransaction.add(R.id.edit_diary,recordFragment);
 //                fragmentTransaction.commit();
 
                 //スケジュール作成はとりあえずmainActivityに飛ばす
 
-                Intent intent = new Intent(getActivity(),MainActivity.class);
+                Intent intent = new Intent(getActivity(),activity_main.class);
                 startActivity(intent);
             }
         });

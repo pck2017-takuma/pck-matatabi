@@ -13,7 +13,7 @@ import kosien.procon.application.matatabidb.mydatabase.travelScheduleDao;
 
 public class TravelDataWrite {
 
-    private MainActivity main = new MainActivity();
+    private activity_main main = new activity_main();
 
     void dataWrite(Context cont, String str) {
         infoTravelDao xxx = new infoTravelDao(cont);
