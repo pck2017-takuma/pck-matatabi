@@ -1,6 +1,8 @@
 package kosien.procon.application;
 
 import android.app.Fragment;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,8 @@ import kosien.procon.application.matatabidb.mydatabase.travelSchedule;
 import kosien.procon.application.matatabidb.mydatabase.travelScheduleDao;
 import su.heartlove.matatabi.R;
 
+import static android.content.Context.LOCATION_SERVICE;
+
 /**
  * Created by procon-kyougi on 2017/10/01.
  */
@@ -48,7 +52,11 @@ public class fragment_travel extends Fragment{
     RouteInfoDaoItem routeDB;
     //訪れる場所の情報
     placeInfomation nowPlaceData;
+
+    //パースデータ
     parseSearchData resultParse = null;
+
+    //テキストビュー
     TextView textview1;
     TextView textview2;
     TextView textview9;
@@ -56,12 +64,16 @@ public class fragment_travel extends Fragment{
     //現在のルート
     RouteInfo nowRoute;
 
+    //位置情報
+    myLocationListener listener;
+
     public Double longitude = null;
     public Double latitude = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         super.onCreateView(inflater, container, saveInstanceState);
+        listener = new myLocationListener(getActivity());
         return inflater.inflate(R.layout.fragment_travel, container, false);
     }
 
@@ -70,9 +82,6 @@ public class fragment_travel extends Fragment{
     @Override
     public void onViewCreated(final View view, Bundle saveInstanceState) {
         super.onViewCreated(view, saveInstanceState);
-
-
-
 
 
         scheduleDB = new travelScheduleDao(getContext());
@@ -116,12 +125,21 @@ public class fragment_travel extends Fragment{
 
 
         //起点を決める（将来的：現在位置　現状：香川高等専門学校詫間キャンパス学生課）
-      ;
-   //   String startStation = "33.311139,134.010361";
-        String aaa = longitude.toString();
-        String bbb = latitude.toString();
-        String startStation = bbb + "," + aaa;
+        //String startStation = "33.311139,134.010361";
+        listener.getLocation();
+
+        double tmpLatitude = listener.latitude;
+        double tmpLongitude = listener.longitude;
+        String latitude = String.valueOf(tmpLatitude);
+        String longitude = String.valueOf(tmpLongitude);
+        String startStation = latitude + "," + longitude;
+
         String goalStation = nowPlaceData.getPlaceLatitude() + "," + nowPlaceData.getPlaceLongitude();
+
+        //デバック用
+        System.out.println(startStation);
+        System.out.println(goalStation);
+
         basicTimeSearch url = new basicTimeSearch(startStation, goalStation);
         getJsonFromAsync(url.getSearchLink());
 
