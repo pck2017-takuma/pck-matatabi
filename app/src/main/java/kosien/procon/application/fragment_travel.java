@@ -52,10 +52,8 @@ public class fragment_travel extends Fragment{
     RouteInfoDaoItem routeDB;
     //訪れる場所の情報
     placeInfomation nowPlaceData;
-
     //パースデータ
     parseSearchData resultParse = null;
-
     //テキストビュー
     TextView textview1;
     TextView textview2;

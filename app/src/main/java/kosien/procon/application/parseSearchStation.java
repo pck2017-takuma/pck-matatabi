@@ -1,7 +1,9 @@
 package kosien.procon.application;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.util.ArrayList;
 
@@ -46,18 +48,44 @@ public class parseSearchStation  {
 
     public void parseData(){
 
-        //Pointオブジェクト？を取得
-        try {
-            JSONObject pointJSON = srcObject.getJSONObject(point);
+        JSONArray parsePoint = new JSONArray();
+
+        try{
+            //ポイントデータは複数あるものとする
+            parsePoint = srcObject.getJSONArray(point);
+
         }catch(JSONException e){
-            System.out.println("parseSearchStationのpointのパース処理が失敗したよ");
+            try{
+
+                //ルートがオブジェクトなら配列で包む
+                parsePoint.put(srcObject.getJSONObject(point));
+
+            }catch(JSONException f){
+                //それでもだめなら
+                System.out.println("失敗");
+            }
+        }
+
+        //配列データから一つ一つのオブジェクトに変換する
+
+        ArrayList<JSONObject>pointObject = new ArrayList<JSONObject>();
+
+        for(int i = 0; i < parsePoint.length();i++) {
+            try {
+
+                pointObject.add(parsePoint.getJSONObject(i));
+
+            } catch (JSONException e) {
+                System.out.println("JSONArrayからJSONObjectへの変換処理が失敗しました");
+            }
+
         }
 
 
 
 
-
     }
+
 
 
     //Distance基準で駅情報をソートする関数

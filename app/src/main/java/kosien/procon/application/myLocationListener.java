@@ -75,7 +75,6 @@ public class myLocationListener implements LocationListener {
         }
     }
 
-
     @Override
     public void onLocationChanged(Location location){
 
