@@ -24,15 +24,15 @@ public class travelScheduleOpenHelper extends SQLiteOpenHelper {
     }
 
 
-    private String[][] datas = new String[][]{
-            {"99999","丸亀城","0","0"},
-            {"99999","瀬戸大橋","1","0"},
-            {"99999","デバック１","2","0"},
-            {"99999","丸亀駅","3","0"},
-            {"99999","デバック２","4","0"},
-            {"99999","多度津駅","5","0"},
-            {"99999","デバック３","6","0"}
-    };
+//    private String[][] datas = new String[][]{
+//            {"99999","丸亀城","0","0"},
+//            {"99999","瀬戸大橋","1","0"},
+//            {"99999","デバック１","2","0"},
+//            {"99999","丸亀駅","3","0"},
+//            {"99999","デバック２","4","0"},
+//            {"99999","多度津駅","5","0"},
+//            {"99999","デバック３","6","0"}
+//    };
 
 
     //データベース生成
@@ -44,15 +44,15 @@ public class travelScheduleOpenHelper extends SQLiteOpenHelper {
             //テーブル作成用SQL生成
             StringBuilder createsql = MAKE_SQL.createtravelSchedule();
             db.execSQL(createsql.toString());
-
-            for (String[] data : datas) {
-                ContentValues values = new ContentValues();
-                values.put(travelSchedule.TRAVEL_NUM, data[0]);
-                values.put(travelSchedule.PLACE_NAME,data[1]);
-                values.put(travelSchedule.ROUTE_NUM,data[2]);
-                values.put(travelSchedule.FLAG,data[3]);
-                db.insert(travelSchedule.TABLE_NAME, null, values);
-            }
+//
+//            for (String[] data : datas) {
+//                ContentValues values = new ContentValues();
+//                values.put(travelSchedule.TRAVEL_NUM, data[0]);
+//                values.put(travelSchedule.PLACE_NAME,data[1]);
+//                values.put(travelSchedule.ROUTE_NUM,data[2]);
+//                values.put(travelSchedule.FLAG,data[3]);
+//                db.insert(travelSchedule.TABLE_NAME, null, values);
+//            }
 
             db.setTransactionSuccessful();
 
@@ -71,16 +71,16 @@ public class travelScheduleOpenHelper extends SQLiteOpenHelper {
             //テーブル作成用SQL生成
             StringBuilder createsql = MAKE_SQL.createtravelSchedule();
             db.execSQL(createsql.toString());
-
-
-            for (String[] data : datas) {
-                ContentValues values = new ContentValues();
-                values.put(travelSchedule.TRAVEL_NUM, data[0]);
-                values.put(travelSchedule.PLACE_NAME,data[1]);
-                values.put(travelSchedule.ROUTE_NUM,data[2]);
-                values.put(travelSchedule.FLAG,data[3]);
-                db.insert(travelSchedule.TABLE_NAME, null, values);
-            }
+//
+//
+//            for (String[] data : datas) {
+//                ContentValues values = new ContentValues();
+//                values.put(travelSchedule.TRAVEL_NUM, data[0]);
+//                values.put(travelSchedule.PLACE_NAME,data[1]);
+//                values.put(travelSchedule.ROUTE_NUM,data[2]);
+//                values.put(travelSchedule.FLAG,data[3]);
+//                db.insert(travelSchedule.TABLE_NAME, null, values);
+//            }
 
             db.setTransactionSuccessful();
         }finally {

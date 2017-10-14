@@ -6,7 +6,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#F0F0F0"
-    tools:context="kosien.procon.application.MainActivity" >
+    tools:context="kosien.procon.application.activity_main" >
 
     <LinearLayout
         android:id="@+id/activity_main"

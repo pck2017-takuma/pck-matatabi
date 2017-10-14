@@ -21,8 +21,8 @@ import su.heartlove.matatabi.R;
 
 public class getLocationListener extends AppCompatActivity implements LocationListener {
 
-    Double longitude = null;
-    Double latitude = null;
+    public Double longitude = null;
+    public Double latitude = null;
 
 
     @SuppressLint("SetTextI18n")
@@ -45,7 +45,7 @@ public class getLocationListener extends AppCompatActivity implements LocationLi
         }
 
         // 位置情報を管理している LocationManager のインスタンスを生成する
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
         String locationProvider;
 
         // GPSが利用可能になっているかどうかをチェック

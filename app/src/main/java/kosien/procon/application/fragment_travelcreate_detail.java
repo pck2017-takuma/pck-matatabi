@@ -1,10 +1,8 @@
 package kosien.procon.application;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -22,7 +20,7 @@ import su.heartlove.matatabi.R;
  * Created by procon-kyougi1 on 2017/09/30.
  */
 
-public class TravelCreateDetailed extends Fragment {
+public class fragment_travelcreate_detail extends Fragment {
 
 
     private placeInfomation info;
@@ -41,8 +39,8 @@ public class TravelCreateDetailed extends Fragment {
         Bundle intent = getArguments();
         info = (placeInfomation)intent.getSerializable("place");
 
-        if(intent != null && intent.containsKey(TravelCreateFragment_2.listKey)){
-            placeBundle = intent.getBundle(TravelCreateFragment_2.listKey);
+        if(intent != null && intent.containsKey(fragmnet_travelcreate_list.listKey)){
+            placeBundle = intent.getBundle(fragmnet_travelcreate_list.listKey);
         }
 
         ImageView image = (ImageView)view.findViewById(R.id.image_veiw);
@@ -65,17 +63,17 @@ public class TravelCreateDetailed extends Fragment {
                 //travelCreate呼び出し
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                TravelCreateFragment_2 intent = new TravelCreateFragment_2();
+                fragmnet_travelcreate_list intent = new fragmnet_travelcreate_list();
 
-                bundle.putSerializable(TravelCreateFragment_2.addPlace,info);
+                bundle.putSerializable(fragmnet_travelcreate_list.addPlace,info);
 
 
                 if(placeBundle != null){
 
-                    insertBundle.putBundle(TravelCreateFragment_2.listKey,placeBundle);
+                    insertBundle.putBundle(fragmnet_travelcreate_list.listKey,placeBundle);
                 }
 
-                insertBundle.putBundle(TravelCreateFragment_2.addPlace,bundle);
+                insertBundle.putBundle(fragmnet_travelcreate_list.addPlace,bundle);
 
                 intent.setArguments(insertBundle);
 

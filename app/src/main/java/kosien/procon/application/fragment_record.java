@@ -3,6 +3,7 @@ package kosien.procon.application;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -25,7 +26,7 @@ import su.heartlove.matatabi.R;
  * Created by procon-kyougi on 2017/09/24.
  */
 
-public class RecordFragment extends Fragment {
+public class fragment_record extends Fragment {
 
     //フラグメントで表示する内容
     private TextView mTextView;
@@ -56,12 +57,14 @@ public class RecordFragment extends Fragment {
 //                //こ↑こ↓のボタンは無効化する
 //                FragmentManager fragmentManager = getFragmentManager();
 //                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                DiaryTop recordFragment = new DiaryTop();
+//                fragment_diarytop recordFragment = new fragment_diarytop();
 //                fragmentTransaction.add(R.id.edit_diary,recordFragment);
 //                fragmentTransaction.commit();
 
+                //スケジュール作成はとりあえずmainActivityに飛ばす
 
-
+                Intent intent = new Intent(getActivity(),activity_main.class);
+                startActivity(intent);
             }
         });
 
@@ -76,7 +79,7 @@ public class RecordFragment extends Fragment {
         }else {
             for (int i = 0; i < travelData.size(); i++) {
                 Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);  // 今回はサンプルなのでデフォルトのAndroid Iconを利用
-                SampleListItem item = new SampleListItem(bmp, "TravelNum text No. " + String.valueOf(i), "sample No. " + String.valueOf(i));
+                SampleListItem item = new SampleListItem(bmp, travelData.get(i).getTravelTitle(), "No. " + String.valueOf(i));
                 listItems.add(item);
 
                 // 出力結果をリストビューに表示

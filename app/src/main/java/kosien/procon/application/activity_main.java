@@ -22,7 +22,7 @@ import kosien.procon.application.matatabidb.mydatabase.infoTravelDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfomation;
 import su.heartlove.matatabi.R;
 
-public class MainActivity extends Activity {
+public class activity_main extends Activity {
 
     ListView _listView;
     SetRecordListAdapter adapter;
@@ -47,7 +47,7 @@ public class MainActivity extends Activity {
         a_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), Sub_1.class);
+                Intent intent = new Intent(getApplication(), activity_search.class);
                 startActivity(intent);
             }
         });
@@ -56,7 +56,7 @@ public class MainActivity extends Activity {
         b_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), Record.class);
+                Intent intent = new Intent(getApplication(), activity_record.class);
                 startActivity(intent);
             }
         });
@@ -65,7 +65,7 @@ public class MainActivity extends Activity {
         c_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), Sub_3.class);
+                Intent intent = new Intent(getApplication(), activity_setting.class);
                 startActivity(intent);
             }
         });
@@ -92,7 +92,7 @@ public class MainActivity extends Activity {
             else {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                travelCreateFragment recordFragment = new travelCreateFragment();
+                fragment_travelcreate recordFragment = new fragment_travelcreate();
                 fragmentTransaction.replace(R.id.my_recycler_view,recordFragment);
                 fragmentTransaction.commit();
             }
@@ -107,7 +107,7 @@ public class MainActivity extends Activity {
 
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    travelCreateFragment recordFragment = new travelCreateFragment();
+                    fragment_travelcreate recordFragment = new fragment_travelcreate();
                     fragmentTransaction.replace(R.id.my_recycler_view,recordFragment);
                     fragmentTransaction.commit();
 
@@ -118,8 +118,8 @@ public class MainActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     //テキスト入力を受け付けるビューを作成します。
-                    final EditText editView = new EditText(MainActivity.this);
-                    new AlertDialog.Builder(MainActivity.this)
+                    final EditText editView = new EditText(activity_main.this);
+                    new AlertDialog.Builder(activity_main.this)
                             //.setIcon(android.R.drawable.ic_dialog_info)
                             .setTitle("旅行に名前をつけてください。")
                             //setViewにてビューを設定します。
@@ -138,7 +138,7 @@ public class MainActivity extends Activity {
                     TravelDataWrite tra = new TravelDataWrite();
                     tra.dataWrite(getApplication(), travelName);
 
-                    Intent intent = new Intent(getApplication(), MainActivity.class);
+                    Intent intent = new Intent(getApplication(), activity_main.class);
                     startActivity(intent);
                 }
             });
@@ -163,7 +163,7 @@ public class MainActivity extends Activity {
 
     public void setListView(){
 
-        TravelCreateFragment_2 tc1 = new TravelCreateFragment_2();
+        fragmnet_travelcreate_list tc1 = new fragmnet_travelcreate_list();
         placeInfomation info = tc1.infomation();
         Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
 

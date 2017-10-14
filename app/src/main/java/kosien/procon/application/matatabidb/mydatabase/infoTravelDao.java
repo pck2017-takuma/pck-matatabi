@@ -37,7 +37,7 @@ public class infoTravelDao {
         try{
             //データベースに値を格納するやつ
             ContentValues values = new ContentValues();
-            values.put(infoTravel.TRAVEL_NUM,item.gettravelNum());
+            //values.put(infoTravel.TRAVEL_NUM,item.gettravelNum());
             values.put(infoTravel.TRAVEL_TITEL,item.getTravelTitle());
             values.put(infoTravel.TRAVEL_FLAG,item.getTravelFlag());
             //行番号を取得
@@ -88,7 +88,7 @@ public class infoTravelDao {
         infoTravel number = null;
         try{
         //テーブル名、検索カラム、検索番号
-            String query = MAKE_SQL.query_load(infoTravel.TABLE_NAME,infoTravel.TRAVEL_NUM,itemId);
+            String query = MAKE_SQL.query_load(infoTravel.TABLE_NAME,infoTravel.COLUMN_ID,itemId);
             Cursor cursor = db.rawQuery(query,null);
             cursor.moveToFirst();
             number = getItem(cursor);
@@ -183,9 +183,9 @@ public class infoTravelDao {
     private infoTravel getItem(Cursor cursor){
         infoTravel item = new infoTravel();
         item.setRowid((int)cursor.getLong(0));
-        item.setTravelNum((int)cursor.getLong(1));
-        item.setTravelTitle(cursor.getString(2));
-        item.setTravelFlag(cursor.getInt(3));
+     //   item.setTravelNum((int)cursor.getLong(1));
+        item.setTravelTitle(cursor.getString(1));
+        item.setTravelFlag(cursor.getInt(2));
         return item;
     }
 }

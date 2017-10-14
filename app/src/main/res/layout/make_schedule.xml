@@ -4,7 +4,7 @@
     android:id="@+id/makeSchedule"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="kosien.procon.application.makeSchedule">
+    tools:context="kosien.procon.application.fragment_makeschedule">
 
     <ListView
         android:id="@+id/sample_listview"

@@ -7,10 +7,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="523dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteX="0dp">
 
         <TextView
             android:id="@+id/textView"
@@ -25,8 +24,7 @@
         <TextView
             android:id="@+id/next_station1"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_marginEnd="48dp"
+            android:layout_height="89dp"
             android:text="sumple text"
             android:textColor="#000000"
             android:textSize="24sp"
@@ -46,14 +44,32 @@
         <TextView
             android:id="@+id/next_station2"
             android:layout_width="match_parent"
-            android:layout_height="161dp"
-            android:layout_marginBottom="112dp"
-            android:layout_marginEnd="52dp"
+            android:layout_height="111dp"
             android:text="sumple text"
             android:textColor="#000000"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:text="次の訪れる観光地"
+            android:textColor="#000000"
+            android:textSize="30sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="68dp" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="101dp"
+            android:text="sumple text"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteY="142dp"/>
 
     </LinearLayout>
 
@@ -66,7 +82,7 @@
         android:text="前"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
         android:id="@+id/button2"
@@ -77,16 +93,17 @@
         android:text="次"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button1" />
+        app:layout_constraintStart_toEndOf="@+id/button1"/>
 
     <Button
         android:id="@+id/button3"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_marginStart="216dp"
+        android:layout_marginBottom="48dp"
+        android:layout_marginStart="112dp"
         android:text="次の目的地へ"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/button1"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/button2" />
 
 </android.support.constraint.ConstraintLayout>

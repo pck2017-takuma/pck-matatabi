@@ -28,7 +28,9 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="1"
             android:text="決定した行先"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textColor="#000000"
+            />
 
         <Button
             android:id="@+id/search_button4"
@@ -45,6 +47,14 @@
         android:layout_height="0dp"
         android:layout_weight="6"
 
-        />
+        >
+
+    </ListView>
+
+    <Button
+        android:id="@+id/accept_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="スケジュールを確定する" />
 
 </LinearLayout>

@@ -18,7 +18,7 @@ import twitter4j.TwitterException;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 
-public class Sub_3 extends Activity {
+public class activity_setting extends Activity {
 
     private String mCallbackIRL;
     private Twitter mTwitter;
@@ -56,7 +56,7 @@ public class Sub_3 extends Activity {
         a_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), MainActivity.class);
+                Intent intent = new Intent(getApplication(), activity_main.class);
                 startActivity(intent);
             }
         });
@@ -65,7 +65,7 @@ public class Sub_3 extends Activity {
         b_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), Sub_1.class);
+                Intent intent = new Intent(getApplication(), activity_search.class);
                 startActivity(intent);
             }
         });
@@ -74,7 +74,7 @@ public class Sub_3 extends Activity {
         c_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), Record.class);
+                Intent intent = new Intent(getApplication(), activity_record.class);
                 startActivity(intent);
             }
         });
@@ -144,7 +144,7 @@ public class Sub_3 extends Activity {
 
     private void successOAuth(AccessToken accessToken){
         TwitterUtils.storeAccessToken(this, accessToken);
-        Intent intent = new Intent(this, Sub_3.class);
+        Intent intent = new Intent(this, activity_setting.class);
         startActivity(intent);
     }
 

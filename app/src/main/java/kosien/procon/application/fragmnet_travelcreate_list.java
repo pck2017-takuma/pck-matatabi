@@ -3,7 +3,6 @@ package kosien.procon.application;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -29,12 +28,12 @@ import su.heartlove.matatabi.R;
  * Created by procon-kyougi1 on 2017/10/02.
  */
 
-public class TravelCreateFragment_2 extends Fragment {
+public class fragmnet_travelcreate_list extends Fragment {
 
     private int mposition = 0;
     private ArrayList<placeInfomation> yyy = new ArrayList<>();
     private placeInfoDao xxx;
-    private travelCreateFragment tcf = new travelCreateFragment();
+    private fragment_travelcreate tcf = new fragment_travelcreate();
 
 
     public static  final String listKey = "placeList";
@@ -155,7 +154,7 @@ public class TravelCreateFragment_2 extends Fragment {
                 bundle.putBundle(listKey,placeBundle);
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                TravelCreateDetailed intent = new TravelCreateDetailed();
+                fragment_travelcreate_detail intent = new fragment_travelcreate_detail();
 
                 intent.setArguments(bundle);
                 fragmentTransaction.replace(R.id.my_recycler_view,intent);
@@ -175,7 +174,7 @@ public class TravelCreateFragment_2 extends Fragment {
 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                travelCreateFragment intent = new travelCreateFragment();
+                fragment_travelcreate intent = new fragment_travelcreate();
                 intent.setArguments(bundle);
                 fragmentTransaction.replace(R.id.my_recycler_view,intent);
                 fragmentTransaction.commit();
@@ -192,23 +191,17 @@ public class TravelCreateFragment_2 extends Fragment {
             @Override
             public void onClick(View v){
                 //スケジュールデータの確定処理
-                TravelDataWrite travelDataWrite = new TravelDataWrite();
+                dataWrite();
 
+                //スケジュール画面に飛ぶ
 
+                Intent intent = new Intent(getActivity(),activity_record.class);
 
-
-                //フラグメントマネージャー
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-
-
-
+                //バンドルデータは存在しない
+                startActivity(intent);
 
             }
         });
-
-
 
 
     }
@@ -227,18 +220,27 @@ public class TravelCreateFragment_2 extends Fragment {
         travelScheduleDao yyy = new travelScheduleDao(getContext());
         infoTravel zzz = new infoTravel();
 
-        //旅行のタイトルをとりあえず勝手に設定する（旅行名＋現在時刻
-        zzz.setTravelTitle(str);
+        //旅行のタイトルをとりあえず勝手に設定する（旅行名＋現在時刻）
+
+        //現在時刻の取得
+
+
+        zzz.setTravelTitle("テスト旅行" + getTimeListener.getNowDate());
+        zzz.setTravelFlag(0);
         zzz = xxx.save_time(zzz);
         int aaa = zzz.getRowid();
+
         travelSchedule bbb = new travelSchedule();
+        int i = 0;
+        for(placeInfomation x:decidePlace){
 
-
-
-        for(int i = 0; i < main.listItem.size(); i++) {
-            bbb.setPlaceName(main.itemName(i));
+            bbb.setPlaceName(x.getPlaceName());
             bbb.setRouteNum(i);
             bbb.setTravelNum(aaa);
+            bbb.setFlag(0);
+            //スケジュール情報をデータベースに登録
+            yyy.sava_diary(bbb);
+            ++i;
         }
 
 

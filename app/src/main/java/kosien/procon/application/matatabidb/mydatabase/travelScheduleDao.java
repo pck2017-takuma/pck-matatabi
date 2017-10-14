@@ -98,25 +98,25 @@ public class travelScheduleDao {
     }
 
     //次の行程に移る
-    public void moveNextPlace(){
+    public void moveNextPlace(travelSchedule Travel){
 
         //現在の行程番号を取得
-        int nowNum = nowTravel.getRouteNum();
+        int nowNum = Travel.getRouteNum();
         //次の行程に移る
-        if(nowNum == 0){
+        if(false){
             //０番の時は次の行程に行く必要はない
         }else{
             //SQL文生成
-            String query = "select * from " + travelSchedule.TABLE_NAME + " where " + nowTravel.getTravelNum() + " == " + travelSchedule.TRAVEL_NUM  + " AND " + (nowTravel.getRouteNum()+1)+ " == " + travelSchedule.ROUTE_NUM + " ;";
+            int tmp = Travel.getRouteNum() + 1;
+            String query = "select * from " + travelSchedule.TABLE_NAME + " where " + Travel.getTravelNum() + " == " + travelSchedule.TRAVEL_NUM  + " AND " + tmp + " == " + travelSchedule.ROUTE_NUM + " ;";
 
             SQLiteDatabase db = helper.getReadableDatabase();
          try {
              Cursor cursor = db.rawQuery(query, null);
-
              int cnt = cursor.getCount();
-             //
+             cursor.moveToFirst();
              if (cnt == 0) {
-                 nowTravel.setPlaceName("お疲れさまでした");
+          //       nowTravel.setPlaceName("お疲れさまでした");
                  nowTravel.setFlag(0);
              }else{
                  nowTravel = getItem(cursor);
@@ -138,7 +138,6 @@ public class travelScheduleDao {
         try{
             Cursor cursor = db.rawQuery(query,null);
             if(cursor.getCount() == 0){
-
 
 
             }else{

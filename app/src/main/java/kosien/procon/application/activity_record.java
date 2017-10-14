@@ -15,7 +15,7 @@ import su.heartlove.matatabi.R;
  * Created by procon-kyougi on 2017/09/24.
  */
 
-public class Record extends Activity  {
+public class activity_record extends Activity  {
 
 
     /**
@@ -34,7 +34,7 @@ public class Record extends Activity  {
         a_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), Sub_3.class);
+                Intent intent = new Intent(getApplication(), activity_setting.class);
                 startActivity(intent);
             }
         });
@@ -43,7 +43,7 @@ public class Record extends Activity  {
         b_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), MainActivity.class);
+                Intent intent = new Intent(getApplication(), activity_main.class);
                 startActivity(intent);
             }
         });
@@ -52,7 +52,7 @@ public class Record extends Activity  {
         c_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), Sub_1.class);
+                Intent intent = new Intent(getApplication(), activity_search.class);
                 startActivity(intent);
             }
         });
@@ -86,7 +86,7 @@ public class Record extends Activity  {
 //                String item = (String)listView2.getItemAtPosition(pos);
 //
 //                // 通知ダイアログを表示
-//                Toast.makeText(Record.this,
+//                Toast.makeText(activity_record.this,
 //                        item, Toast.LENGTH_LONG
 //                ).show();
 //            }
@@ -94,7 +94,7 @@ public class Record extends Activity  {
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        RecordFragment recordFragment = new RecordFragment();
+        fragment_record recordFragment = new fragment_record();
         fragmentTransaction.replace(R.id.fragment_record,recordFragment);
         fragmentTransaction.commit();
 

@@ -28,8 +28,7 @@ public class infoTravelOpenHelper extends SQLiteOpenHelper {
     }
 
     private String[][] datas = new String[][]{
-            {"99999","丸亀観光","0"}
-
+            {"丸亀観光","0"}
     };
 
     //データベース生成
@@ -42,14 +41,14 @@ public class infoTravelOpenHelper extends SQLiteOpenHelper {
             StringBuilder createsql = MAKE_SQL.createtravelInfo();
 
             db.execSQL(createsql.toString());
-            for (String[] data : datas) {
-                ContentValues values = new ContentValues();
-                values.put(infoTravel.TRAVEL_NUM, data[0]);
-                values.put(infoTravel.TRAVEL_TITEL,data[1]);
-                values.put(infoTravel.TRAVEL_FLAG,data[2]);
-
-                db.insert(infoTravel.TABLE_NAME, null, values);
-            }
+//            for (String[] data : datas) {
+//                ContentValues values = new ContentValues();
+//           //     values.put(infoTravel.TRAVEL_NUM, data[0]);
+//                values.put(infoTravel.TRAVEL_TITEL,data[0]);
+//                values.put(infoTravel.TRAVEL_FLAG,data[1]);
+//
+//                db.insert(infoTravel.TABLE_NAME, null, values);
+//            }
             db.setTransactionSuccessful();
         }finally {
             db.endTransaction();
@@ -74,15 +73,14 @@ public class infoTravelOpenHelper extends SQLiteOpenHelper {
             //テーブル作成用SQL生成
             StringBuilder createsql = MAKE_SQL.createtravelInfo();            // サンプルデータの投入
             db.execSQL(createsql.toString());
-
-            for (String[] data : datas) {
-                ContentValues values = new ContentValues();
-                values.put(infoTravel.TRAVEL_NUM, data[0]);
-                values.put(infoTravel.TRAVEL_TITEL,data[1]);
-                values.put(infoTravel.TRAVEL_FLAG,data[2]);
-
-                db.insert(infoTravel.TABLE_NAME, null, values);
-            }
+//
+//            for (String[] data : datas) {
+//                ContentValues values = new ContentValues();
+//                //values.put(infoTravel.TRAVEL_NUM, data[0]);
+//                values.put(infoTravel.TRAVEL_TITEL,data[0]);
+//                values.put(infoTravel.TRAVEL_FLAG,data[1]);
+//                db.insert(infoTravel.TABLE_NAME, null, values);
+//            }
             db.setTransactionSuccessful();
         }finally {
             db.endTransaction();

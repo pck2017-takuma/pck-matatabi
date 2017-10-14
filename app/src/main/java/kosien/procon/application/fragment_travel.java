@@ -1,6 +1,8 @@
 package kosien.procon.application;
 
 import android.app.Fragment;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,8 @@ import kosien.procon.application.matatabidb.mydatabase.travelSchedule;
 import kosien.procon.application.matatabidb.mydatabase.travelScheduleDao;
 import su.heartlove.matatabi.R;
 
+import static android.content.Context.LOCATION_SERVICE;
+
 /**
  * Created by procon-kyougi on 2017/10/01.
  */
@@ -48,15 +52,28 @@ public class fragment_travel extends Fragment{
     RouteInfoDaoItem routeDB;
     //訪れる場所の情報
     placeInfomation nowPlaceData;
+
+    //パースデータ
     parseSearchData resultParse = null;
+
+    //テキストビュー
     TextView textview1;
     TextView textview2;
+    TextView textview9;
+
     //現在のルート
     RouteInfo nowRoute;
+
+    //位置情報
+    myLocationListener listener;
+
+    public Double longitude = null;
+    public Double latitude = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         super.onCreateView(inflater, container, saveInstanceState);
+        listener = new myLocationListener(getActivity());
         return inflater.inflate(R.layout.fragment_travel, container, false);
     }
 
@@ -105,22 +122,36 @@ public class fragment_travel extends Fragment{
             //Toast.makeText(getContext(),"ヤバい、可笑しいことになった！",Toast.LENGTH_SHORT).show();
         }
 
-        //起点を決める（将来的：現在位置　現状：香川高等専門学校詫間キャンパス学生課）
-        String startStation = "33.311139,134.010361";
-        String goalStation = nowPlaceData.getPlaceLatitude() + "," + nowPlaceData.getPlaceLongitude();
-        basicTimeSearch url = new basicTimeSearch(startStation, goalStation);
-        System.out.println(url.getSearchLink());
-        getJsonFromAsync(url.getSearchLink());
 
+
+        //起点を決める（将来的：現在位置　現状：香川高等専門学校詫間キャンパス学生課）
+        //String startStation = "33.311139,134.010361";
+        listener.getLocation();
+
+        double tmpLatitude = listener.latitude;
+        double tmpLongitude = listener.longitude;
+        String latitude = String.valueOf(tmpLatitude);
+        String longitude = String.valueOf(tmpLongitude);
+        String startStation = latitude + "," + longitude;
+
+        String goalStation = nowPlaceData.getPlaceLatitude() + "," + nowPlaceData.getPlaceLongitude();
+
+        //デバック用
+        System.out.println(startStation);
+        System.out.println(goalStation);
+
+        basicTimeSearch url = new basicTimeSearch(startStation, goalStation);
+        getJsonFromAsync(url.getSearchLink());
 
 
         textview1 = (TextView)view.findViewById(R.id.next_station1);
         textview2 = (TextView)view.findViewById(R.id.next_station2);
+        textview9 = (TextView)view.findViewById(R.id.textView9);
 
         // ボタンを生成
         Button accept_button = (Button) view.findViewById(R.id.button1);
         Button view_button = (Button)view.findViewById(R.id.button2);
-
+        Button button3 = (Button)view.findViewById(R.id.button3);
         //前の時刻表示
         accept_button.setText("前へ");
         accept_button.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +169,15 @@ public class fragment_travel extends Fragment{
                 moveNextStation();
             }
         });
+
+
+        button3.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                moveNextPlace();
+            }
+        });
+
 
     }
 
@@ -164,10 +204,11 @@ public class fragment_travel extends Fragment{
         });
         asyncGet.execute(url);
 
-
     }
 
     void initializer(){
+
+
         routeList = resultParse.getParseData().get(0);
         routeList.get(0).setRouteFlag(1);
         //データベース登録
@@ -175,18 +216,27 @@ public class fragment_travel extends Fragment{
             x.setScheduleNum(nowPlace.getRouteNum());
             x.setTravelNum(nowPlace.getTravelNum());
         }
-        nowRoute = routeList.get(0);
-        textview1.setText(nowRoute.getRouteDeparture() + ":" +  nowRoute.getrouteDepttime());
-        textview2.setText(nowRoute.getRouteTrain());
 
+
+        nowRoute = routeList.get(0);
+        String time = getTimeListener.convertNowTime(nowRoute.getrouteDepttime());
+        String time2 = getTimeListener.convertNowTime(nowRoute.getRouteArvtime());
+        textview1.setText(nowRoute.getRouteDeparture() + ":" + '\n'+"発車時刻：　" + time + '\n'+ "到着時刻：　" + time2);
+        textview2.setText(nowRoute.getRouteTrain());
+        textview9.setText(nowPlace.getPlaceName());
+
+
+    }
+
+    void updateList(){
     }
 
     boolean moveNextStation(){
 
         //現在のフラグの位置を格納する
         int loop_i = 0;
-
-        for(RouteInfo x:routeList){
+  //      initializer();
+       for(RouteInfo x:routeList){
             if(x.getRouteFlag() == 1){
                 //経路検索を行いその結果を格納する
 //                routeList = new ArrayList<>();
@@ -217,9 +267,11 @@ public class fragment_travel extends Fragment{
 
             loop_i++;
         }
-
-        textview1.setText(nowRoute.getRouteDeparture() + ":" +  nowRoute.getrouteDepttime());
+        String time = getTimeListener.convertNowTime(nowRoute.getrouteDepttime());
+        String time2 = getTimeListener.convertNowTime(nowRoute.getRouteArvtime());
+        textview1.setText(nowRoute.getRouteDeparture() + ":" + '\n'+"発車時刻：　" + time + '\n'+ "到着時刻：　" + time2);
         textview2.setText(nowRoute.getRouteTrain());
+        textview9.setText(nowPlace.getPlaceName());
         return true;
 
     }
@@ -229,8 +281,6 @@ public class fragment_travel extends Fragment{
         //現在のフラグの位置を格納する
         int loop_i = 0;
 
-        //経路検索を行いその結果を格納する
-      //  routeList = resultParse.getParseData().get(0);
 
 
         for(RouteInfo x:routeList){
@@ -254,15 +304,57 @@ public class fragment_travel extends Fragment{
             }
             loop_i++;
         }
-
-        textview1.setText(nowRoute.getRouteDeparture() + ":" +  nowRoute.getrouteDepttime());
+        String time = getTimeListener.convertNowTime(nowRoute.getrouteDepttime());
+        String time2 = getTimeListener.convertNowTime(nowRoute.getRouteArvtime());
+        textview1.setText(nowRoute.getRouteDeparture() + ":" + '\n'+"発車時刻：　" + time + '\n'+ "到着時刻：　" + time2);
         textview2.setText(nowRoute.getRouteTrain());
+        textview9.setText(nowPlace.getPlaceName());
         return true;
 
 
 
     }
 
+    boolean moveNextPlace(){
+
+        //次の場所を取得
+        scheduleDB.moveNextPlace(nowPlace);
+
+        //次の場所を取得
+        nowPlace = scheduleDB.getNowTravel();
+
+        //観光地の情報を取得する
+        if(placeInfoDB.findPlaceInfo(nowPlace.getPlaceName(),placeInfomation.PLACE_NAME)){
+            //１つしかデータが見つからないという信頼の上で
+            nowPlaceData = placeInfoDB.getSearchResult().get(0);
+        }else{
+            Toast.makeText(getContext(),"ヤバい、可笑しいことになった！",Toast.LENGTH_SHORT).show();
+        }
+
+
+
+        //起点を決める（将来的：現在位置　現状：香川高等専門学校詫間キャンパス学生課
+
+        String startStation = "33.311139,134.010361";
+//        getLocationListener fdsak = new getLocationListener();
+//        String aaa = fdsak.longitude.toString();
+//        String bbb = fdsak.longitude.toString();
+      //  String startStation = aaa + "," +bbb;
+
+
+        String goalStation = nowPlaceData.getPlaceLatitude() + "," + nowPlaceData.getPlaceLongitude();
+        basicTimeSearch url = new basicTimeSearch(startStation, goalStation);
+        getJsonFromAsync(url.getSearchLink());
+
+
+
+
+        return true;
+
+
+    }
 
 
 }
+
+

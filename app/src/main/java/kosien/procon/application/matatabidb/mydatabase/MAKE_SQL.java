@@ -118,7 +118,7 @@ public class MAKE_SQL {
         StringBuilder createSql = new StringBuilder();
         createSql.append("create table if not exists " + infoTravel.TABLE_NAME + " (");
         createSql.append(infoTravel.COLUMN_ID + " integer primary key autoincrement not null, ");
-        createSql.append(infoTravel.TRAVEL_NUM + " integer not null, ");
+        //createSql.append(infoTravel.TRAVEL_NUM + " integer not null, ");
         createSql.append(infoTravel.TRAVEL_TITEL + " text not null, ");
         createSql.append(infoTravel.TRAVEL_FLAG + " integer default 0 ");
         createSql.append(");");
@@ -142,9 +142,115 @@ public class MAKE_SQL {
             return createSql;
         }
 
+    static StringBuilder insertPlaceInfo(placeInfomation data){
+        StringBuilder createSql = new StringBuilder();
+        createSql.append("insert or replace into " + placeInfomation.TABLE_NAME + " ( ");
+        createSql.append(placeInfomation.COLUMN_ID + ",");
+        createSql.append(placeInfomation.PLACE_NAME + ",");
+        createSql.append(placeInfomation.PLACE_STATION + ",");
+        createSql.append(placeInfomation.LATITUDE + ",");
+        createSql.append(placeInfomation.LONGITUDE + ",");
+        createSql.append(placeInfomation.ADDRESS + ",");
+        createSql.append(placeInfomation.COLUMN + ",");
+        createSql.append(placeInfomation.PHONE_NUMBER + ",");
+        createSql.append(placeInfomation.POST_NUMBER + ",");
+        createSql.append(placeInfomation.OPEN_TIME + ",");
+        createSql.append(placeInfomation.CLOSE_TIME + ",");
+        createSql.append(placeInfomation.PLACE_VALUE );
+        createSql.append(") values ( ");
+        createSql.append("'");
+        createSql.append(data.getPlaceName());
+        createSql.append("',");
+        createSql.append("'");
+        createSql.append(data.getPlaceStation());
+        createSql.append("',");
+        createSql.append("'");
+        createSql.append(data.getPlaceLatitude());
+        createSql.append("',");
+        createSql.append("'");
+        createSql.append(data.getPlaceLongitude());
+        createSql.append("',");
+        createSql.append("'");
+        createSql.append(data.getPlaceAddress());
+        createSql.append("',");
+        createSql.append("'");
+        createSql.append(data.getPlaceColumn());
+        createSql.append("',");
+        createSql.append("'");
+        createSql.append(data.getPlacePhoneNumber());
+        createSql.append("',");
+        createSql.append("'");
+        createSql.append(data.getPlacePostNumber());
+        createSql.append("',");
+        createSql.append("'");
+        createSql.append(data.getPlaceOpenTime());
+        createSql.append("',");
+        createSql.append("'");
+        createSql.append(data.getCloseTime());
+        createSql.append("',");
+        createSql.append("");
+        createSql.append(data.getPlaceValue());
+        createSql.append(");");
+
+
+        return createSql;
+    }
+
+    static StringBuilder insertPlaceInfo(String[] data){
+        StringBuilder createSql = new StringBuilder();
+        createSql.append("INSERT OR REPLACE INTO " + placeInfomation.TABLE_NAME + " ( ");
+        createSql.append(placeInfomation.PLACE_NAME + ",");
+        createSql.append(placeInfomation.PLACE_STATION + ",");
+        createSql.append(placeInfomation.LATITUDE + ",");
+        createSql.append(placeInfomation.LONGITUDE + ",");
+        createSql.append(placeInfomation.ADDRESS + ",");
+        createSql.append(placeInfomation.COLUMN + ",");
+        createSql.append(placeInfomation.PHONE_NUMBER + ",");
+        createSql.append(placeInfomation.POST_NUMBER + ",");
+        createSql.append(placeInfomation.OPEN_TIME + ",");
+        createSql.append(placeInfomation.CLOSE_TIME + ",");
+        createSql.append(placeInfomation.PLACE_VALUE );
+        createSql.append(") values ( ");
+        createSql.append("'");
+        createSql.append(data[0]);
+        createSql.append("',");
+        createSql.append("'");
+        createSql.append(data[1]);
+        createSql.append("',");
+        createSql.append("'");
+        createSql.append(data[2]);
+        createSql.append("',");
+        createSql.append("'");
+        createSql.append(data[3]);
+        createSql.append("',");
+        createSql.append("'");
+        createSql.append(data[4]);
+        createSql.append("',");
+        createSql.append("'");
+        createSql.append(data[5]);
+        createSql.append("',");
+        createSql.append("'");
+        createSql.append(data[6]);
+        createSql.append("',");
+        createSql.append("'");
+        createSql.append(data[7]);
+        createSql.append("',");
+        createSql.append("'");
+        createSql.append(data[8]);
+        createSql.append("',");
+        createSql.append("'");
+        createSql.append(data[9]);
+        createSql.append("',");
+        createSql.append("'");
+        createSql.append(data[10]);
+        createSql.append("');");
+        return createSql;
+    }
+
+
     static StringBuilder createPlaceInfo(){
         StringBuilder createSql = new StringBuilder();
-        createSql.append("create table if not exists " + placeInfomation.TABLE_NAME + " ( ");
+        createSql.append("create table if not exists " + placeInfomation.TABLE_NAME + " (");
         createSql.append(placeInfomation.COLUMN_ID + " integer primary key autoincrement not null, ");
         createSql.append(placeInfomation.PLACE_NAME + " text not null, ");
         createSql.append(placeInfomation.PLACE_STATION + " text not null, ");
@@ -156,10 +262,14 @@ public class MAKE_SQL {
         createSql.append(placeInfomation.POST_NUMBER + " text not null, ");
         createSql.append(placeInfomation.OPEN_TIME + " text not null, ");
         createSql.append(placeInfomation.CLOSE_TIME + " text not null, ");
-        createSql.append(placeInfomation.PLACE_VALUE + " integer not null ");
+        createSql.append(placeInfomation.PLACE_VALUE + " text");
         createSql.append(");");
         return createSql;
     }
+
+
+
+
 
         static StringBuilder createDiaryImage(){
             StringBuilder createSql = new StringBuilder();

@@ -9,14 +9,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.app.Activity;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 
 import su.heartlove.matatabi.R;
 
-public class Sub_1 extends AppCompatActivity {
-//public class Sub_1 extends Activity {
+public class activity_search extends AppCompatActivity {
 
     private SearchView mSearchView;
 
@@ -29,7 +27,7 @@ public class Sub_1 extends AppCompatActivity {
         a_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), Record.class);
+                Intent intent = new Intent(getApplication(), activity_record.class);
                 startActivity(intent);
             }
         });
@@ -38,7 +36,7 @@ public class Sub_1 extends AppCompatActivity {
         b_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), Sub_3.class);
+                Intent intent = new Intent(getApplication(), activity_setting.class);
                 startActivity(intent);
             }
         });
@@ -47,7 +45,7 @@ public class Sub_1 extends AppCompatActivity {
         c_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), MainActivity.class);
+                Intent intent = new Intent(getApplication(), activity_main.class);
                 startActivity(intent);
             }
         });

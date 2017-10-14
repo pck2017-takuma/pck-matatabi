@@ -38,7 +38,7 @@ import su.heartlove.matatabi.R;
  * Created by i15317 on 2017/09/22.
  */
 
-public class DiaryEdit extends Fragment {
+public class fragment_diaryedit extends Fragment {
 
     private RecordItem Record = null;
 
