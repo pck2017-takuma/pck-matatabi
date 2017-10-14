@@ -9,6 +9,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -22,7 +26,7 @@ import kosien.procon.application.matatabidb.mydatabase.infoTravelDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfomation;
 import su.heartlove.matatabi.R;
 
-public class activity_main extends Activity {
+public class activity_main extends AppCompatActivity {
 
     ListView _listView;
     SetRecordListAdapter adapter;
@@ -31,6 +35,25 @@ public class activity_main extends Activity {
     String travelName = null;
     boolean first = false;
     ArrayList<SampleListItem> listItem;
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.HomeUI:
+                    return true;
+                case R.id.SearchUI:
+                    return true;
+                case R.id.GalleryUI:
+                    return true;
+                case R.id.Garbage:
+                    return true;
+            }
+            return false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -42,33 +65,9 @@ public class activity_main extends Activity {
         button1 = (Button) findViewById(R.id.add_button);
         button2 = (Button) findViewById(R.id.decide_button);
 
-        //こ↑こ↓画面遷移
-        ImageButton a_button = (ImageButton) findViewById(R.id.search_button);
-        a_button.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), activity_search.class);
-                startActivity(intent);
-            }
-        });
-
-        ImageButton b_button = (ImageButton) findViewById(R.id.album_button);
-        b_button.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), activity_record.class);
-                startActivity(intent);
-            }
-        });
-
-        ImageButton c_button = (ImageButton) findViewById(R.id.option_button);
-        c_button.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), activity_setting.class);
-                startActivity(intent);
-            }
-        });
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationHelper.disableShiftMode(navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
         //こ↑こ↓から表示内容の選択
