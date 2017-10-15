@@ -44,11 +44,6 @@ public class main_fragment extends Fragment {
 
         //Toolbarの動作定義
 
-
-
-
-
-
         return inflater.inflate(R.layout.fragment_main,container,false);
     }
 
