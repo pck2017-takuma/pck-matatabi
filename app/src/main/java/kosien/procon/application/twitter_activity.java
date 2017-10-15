@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.app.Activity;
-import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import su.heartlove.matatabi.R;
@@ -18,7 +16,7 @@ import twitter4j.TwitterException;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 
-public class activity_setting extends Activity {
+public class twitter_activity extends AppCompatActivity {
 
     private String mCallbackIRL;
     private Twitter mTwitter;
@@ -27,7 +25,7 @@ public class activity_setting extends Activity {
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        setContentView(R.layout.sub_3);
+        setContentView(R.layout.activity_setting);
 
         mCallbackIRL = getString(R.string.twitter_callback_url);
         mTwitter = TwitterUtils.getTwitterInstance(this);
@@ -51,33 +49,8 @@ public class activity_setting extends Activity {
             txtButton.setText(R.string.tweet_text);
         }
 
-        //こ↑こ↓画面遷移
-        ImageButton a_button = (ImageButton) findViewById(R.id.schedule_button);
-        a_button.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), activity_main.class);
-                startActivity(intent);
-            }
-        });
 
-        ImageButton b_button = (ImageButton) findViewById(R.id.search_button);
-        b_button.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), activity_search.class);
-                startActivity(intent);
-            }
-        });
 
-        ImageButton c_button = (ImageButton) findViewById(R.id.album_button);
-        c_button.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), activity_record.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void startAuthorise() {
@@ -144,7 +117,7 @@ public class activity_setting extends Activity {
 
     private void successOAuth(AccessToken accessToken){
         TwitterUtils.storeAccessToken(this, accessToken);
-        Intent intent = new Intent(this, activity_setting.class);
+        Intent intent = new Intent(this, twitter_activity.class);
         startActivity(intent);
     }
 

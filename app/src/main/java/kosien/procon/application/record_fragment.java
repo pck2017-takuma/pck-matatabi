@@ -1,13 +1,17 @@
 package kosien.procon.application;
 
-import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
+import android.view.ViewGroup;
 
 import su.heartlove.matatabi.R;
 
@@ -15,7 +19,7 @@ import su.heartlove.matatabi.R;
  * Created by procon-kyougi on 2017/09/24.
  */
 
-public class activity_record extends Activity  {
+public class record_fragment extends Fragment {
 
 
     /**
@@ -23,39 +27,18 @@ public class activity_record extends Activity  {
      * @param savedInstanceState
      */
 
+
+    private Integer nowItem = null;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
+        super.onCreateView(inflater,container,saveInstanceState);
+        return inflater.inflate(R.layout.activity_record,container,false);
+    }
 
-        setContentView(R.layout.record_main);
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
 
-
-        ImageButton a_button = (ImageButton) findViewById(R.id.option_button);
-        a_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), activity_setting.class);
-                startActivity(intent);
-            }
-        });
-
-        ImageButton b_button = (ImageButton) findViewById(R.id.schedule_button);
-        b_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), activity_main.class);
-                startActivity(intent);
-            }
-        });
-
-        ImageButton c_button = (ImageButton) findViewById(R.id.search_button);
-        c_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), activity_search.class);
-                startActivity(intent);
-            }
-        });
 
 //
 //        // リストビューに表示する要素を設定
@@ -86,7 +69,7 @@ public class activity_record extends Activity  {
 //                String item = (String)listView2.getItemAtPosition(pos);
 //
 //                // 通知ダイアログを表示
-//                Toast.makeText(activity_record.this,
+//                Toast.makeText(record_fragment.this,
 //                        item, Toast.LENGTH_LONG
 //                ).show();
 //            }

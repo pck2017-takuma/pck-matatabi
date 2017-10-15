@@ -54,17 +54,9 @@ public class fragment_record extends Fragment {
             @Override
             public void onClick(View v){
 
-//                //こ↑こ↓のボタンは無効化する
-//                FragmentManager fragmentManager = getFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragment_diarytop recordFragment = new fragment_diarytop();
-//                fragmentTransaction.add(R.id.edit_diary,recordFragment);
-//                fragmentTransaction.commit();
-
                 //スケジュール作成はとりあえずmainActivityに飛ばす
 
-                Intent intent = new Intent(getActivity(),activity_main.class);
-                startActivity(intent);
+
             }
         });
 

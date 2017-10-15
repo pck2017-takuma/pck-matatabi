@@ -29,7 +29,7 @@ public class getLocationListener extends AppCompatActivity implements LocationLi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.fragment_main);
 
         // Fine か Coarseのいずれかのパーミッションが得られているかチェックする
         // 本来なら、Android6.0以上かそうでないかで実装を分ける必要がある

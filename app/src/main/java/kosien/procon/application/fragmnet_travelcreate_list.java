@@ -195,7 +195,7 @@ public class fragmnet_travelcreate_list extends Fragment {
 
                 //スケジュール画面に飛ぶ
 
-                Intent intent = new Intent(getActivity(),activity_record.class);
+                Intent intent = new Intent(getActivity(),record_fragment.class);
 
                 //バンドルデータは存在しない
                 startActivity(intent);

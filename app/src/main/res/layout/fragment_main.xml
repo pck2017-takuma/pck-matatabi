@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/schedule"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#F0F0F0">
+
+    <LinearLayout
+        android:id="@+id/activity_main"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="80dp"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        tools:context=".MainActivity">
+
+        <FrameLayout
+            android:id="@+id/my_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical">
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="128dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ListView>
+
+
+
+
+    <Button
+        android:id="@+id/add_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:layout_marginStart="20dp"
+        android:text="追加"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/decide_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:layout_marginEnd="20dp"
+        android:text="決定"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

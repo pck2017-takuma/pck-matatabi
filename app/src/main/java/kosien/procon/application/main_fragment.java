@@ -1,7 +1,7 @@
 package kosien.procon.application;
 
-import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
@@ -9,15 +9,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ import kosien.procon.application.matatabidb.mydatabase.infoTravelDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfomation;
 import su.heartlove.matatabi.R;
 
-public class activity_main extends AppCompatActivity {
+public class main_fragment extends Fragment {
 
     ListView _listView;
     SetRecordListAdapter adapter;
@@ -36,38 +35,30 @@ public class activity_main extends AppCompatActivity {
     boolean first = false;
     ArrayList<SampleListItem> listItem;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
+        super.onCreateView(inflater,container,saveInstanceState);
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.HomeUI:
-                    return true;
-                case R.id.SearchUI:
-                    return true;
-                case R.id.GalleryUI:
-                    return true;
-                case R.id.Garbage:
-                    return true;
-            }
-            return false;
-        }
-    };
+        //ActivityのToolbar呼び出し
+        Toolbar toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
+
+        //Toolbarの動作定義
+
+
+
+
+
+
+        return inflater.inflate(R.layout.fragment_main,container,false);
+    }
 
     @Override
-    protected void onCreate(Bundle icicle) {
+    public void onViewCreated(View view,Bundle icicle) {
         super.onCreate(icicle);
-        setContentView(R.layout.activity_main);
-
-        _listView = (ListView) findViewById(R.id.list_view);
+        _listView = (ListView) view.findViewById(R.id.list_view);
         adapter = null;
-        button1 = (Button) findViewById(R.id.add_button);
-        button2 = (Button) findViewById(R.id.decide_button);
-
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        BottomNavigationHelper.disableShiftMode(navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        button1 = (Button)view. findViewById(R.id.add_button);
+        button2 = (Button) view.findViewById(R.id.decide_button);
 
 
         //こ↑こ↓から表示内容の選択
@@ -76,7 +67,7 @@ public class activity_main extends AppCompatActivity {
         _listView.setVisibility(View.GONE);
 
         //データベースオープン
-        infoTravelDao travelHelper = new infoTravelDao(this);
+        infoTravelDao travelHelper = new infoTravelDao(getContext());
 
         //旅行中データの照会
         boolean travelFlag = travelHelper.checkTravel();
@@ -117,8 +108,8 @@ public class activity_main extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     //テキスト入力を受け付けるビューを作成します。
-                    final EditText editView = new EditText(activity_main.this);
-                    new AlertDialog.Builder(activity_main.this)
+                    final EditText editView = new EditText(getContext());
+                    new AlertDialog.Builder(getContext())
                             //.setIcon(android.R.drawable.ic_dialog_info)
                             .setTitle("旅行に名前をつけてください。")
                             //setViewにてビューを設定します。
@@ -134,11 +125,6 @@ public class activity_main extends AppCompatActivity {
                             })
                             .show();
 
-                    TravelDataWrite tra = new TravelDataWrite();
-                    tra.dataWrite(getApplication(), travelName);
-
-                    Intent intent = new Intent(getApplication(), activity_main.class);
-                    startActivity(intent);
                 }
             });
 
@@ -170,11 +156,26 @@ public class activity_main extends AppCompatActivity {
         SampleListItem item = new SampleListItem(bmp, info.getPlaceName(), info.getPlacePostNumber());
         listItem.add(item);
 
-        adapter = new SetRecordListAdapter(this, R.layout.samplelist_item, listItem);
+        adapter = new SetRecordListAdapter(getContext(), R.layout.samplelist_item, listItem);
         _listView.setAdapter(adapter);
     }
 
     public String itemName (int i) {
         return listItem.get(i).getTitle();
     }
+
+
+    @Override
+    public void onDestroyView(){
+        //Toolbar
+        Toolbar toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
+        //何かをセットしていた場合はここで破壊する
+
+
+
+
+
+        super.onDestroyView();
+    }
+
 }

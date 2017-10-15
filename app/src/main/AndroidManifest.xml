@@ -15,24 +15,17 @@
     android:theme="@style/Theme.AppCompat">
 
     <activity
-        android:name="kosien.procon.application.activity_main"
+        android:name="kosien.procon.application.MainActivity"
         android:label="@string/app_name">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
     </activity>
-    <activity
-        android:name="kosien.procon.application.activity_record"
-        android:label="@string/app_name">
-    </activity>
-    <activity
-        android:name="kosien.procon.application.activity_search"
-        android:label="@string/app_name">
-    </activity>
+
 
     <activity
-        android:name="kosien.procon.application.activity_setting"
+        android:name="kosien.procon.application.twitter_activity"
         android:launchMode="singleTask">
         <intent-filter>
             <action android:name="android.intent.action.VIEW" />
