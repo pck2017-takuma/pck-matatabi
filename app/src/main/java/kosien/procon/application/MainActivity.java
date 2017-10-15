@@ -96,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Toolbarの定義（実装は各フラグメントごとに分ける）
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        //アクションバーとしても動くようにする
-        setSupportActionBar(toolbar);
+       //アクションバーとしても動くようにする
+       // setSupportActionBar(toolbar);
 
 
 
