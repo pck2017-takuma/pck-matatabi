@@ -94,9 +94,11 @@ public class fragment_schedule extends Fragment {
                 travelDB.save_time(getData);
                 scheduleDB.sava_diary(start);
 
-                Intent intent = new Intent(getActivity(),main_fragment.class);
-                startActivity(intent);
-
+                FragmentManager manager = getFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                main_fragment mainFragment = new main_fragment();
+                transaction.replace(R.id.frame_layout,mainFragment);
+                transaction.commit();
             }
         });
 
@@ -109,9 +111,11 @@ public class fragment_schedule extends Fragment {
                     getData.setTravelFlag(0);
                     travelDB.save_time(getData);
 
-                    Intent intent = new Intent(getActivity(),main_fragment.class);
-                    startActivity(intent);
-
+                    FragmentManager manager = getFragmentManager();
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    main_fragment mainFragment = new main_fragment();
+                    transaction.replace(R.id.frame_layout,mainFragment);
+                    transaction.commit();
 
                 }
             });

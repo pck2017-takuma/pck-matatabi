@@ -109,20 +109,6 @@ public class main_fragment extends Fragment {
 
     }
 
-//    public void setListView(){
-//
-//        fragmnet_travelcreate_list tc1 = new fragmnet_travelcreate_list();
-//        placeInfomation info = tc1.infomation();
-//        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-//
-//        listItem = new ArrayList<>();
-//        SampleListItem item = new SampleListItem(bmp, info.getPlaceName(), info.getPlacePostNumber());
-//        listItem.add(item);
-//
-//        adapter = new SetRecordListAdapter(getContext(), R.layout.samplelist_item, listItem);
-//        _listView.setAdapter(adapter);
-//    }
-//
     public String itemName (int i) {
         return listItem.get(i).getTitle();
     }

@@ -193,13 +193,14 @@ public class fragmnet_travelcreate_list extends Fragment {
                 //スケジュールデータの確定処理
                 dataWrite();
 
-                //スケジュール画面に飛ぶ
+                //ここにダイアログを確定したとダイアログを表示
 
-                Intent intent = new Intent(getActivity(),record_fragment.class);
-
-                //バンドルデータは存在しない
-                startActivity(intent);
-
+                //トップに飛ぶ
+                FragmentManager manager = getFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                main_fragment mainFragmnet = new main_fragment();
+                transaction.replace(R.id.frame_layout,mainFragmnet);
+                transaction.commit();
             }
         });
 
