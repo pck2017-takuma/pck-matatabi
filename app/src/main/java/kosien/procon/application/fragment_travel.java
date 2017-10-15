@@ -1,6 +1,7 @@
 package kosien.procon.application;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,13 +21,14 @@ import kosien.procon.application.matatabidb.basicTimeSearch;
 import kosien.procon.application.matatabidb.mydatabase.RouteInfo;
 import kosien.procon.application.matatabidb.mydatabase.RouteInfoDaoItem;
 import kosien.procon.application.matatabidb.mydatabase.infoTravel;
+import kosien.procon.application.matatabidb.mydatabase.infoTravelDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfoDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfomation;
 import kosien.procon.application.matatabidb.mydatabase.travelSchedule;
 import kosien.procon.application.matatabidb.mydatabase.travelScheduleDao;
 import su.heartlove.matatabi.R;
 
-import static android.content.Context.LOCATION_SERVICE;
+
 
 /**
  * Created by procon-kyougi on 2017/10/01.
@@ -80,11 +82,17 @@ public class fragment_travel extends Fragment{
     public void onViewCreated(final View view, Bundle saveInstanceState) {
         super.onViewCreated(view, saveInstanceState);
 
+        //データベースオープン
+        infoTravelDao travelHelper = new infoTravelDao(getContext());
+
+        //旅行中データの照会
+        boolean travelFlag = travelHelper.checkTravel();
+
 
         scheduleDB = new travelScheduleDao(getContext());
         //バンドルされた旅行データを取得
-        Bundle bundle = getArguments();
-        bundleData = (infoTravel)bundle.getSerializable("infoTravel");
+        bundleData = travelHelper.getNowTravel();
+
         nowRoute = new RouteInfo();
         //観光地データベースオープン
         placeInfoDB = new placeInfoDao(getContext());

@@ -1,14 +1,9 @@
 package kosien.procon.application;
 
-import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -63,11 +58,13 @@ public class main_fragment extends Fragment {
             if(first) {
             }
             else {
-                FragmentManager fragmentManager = getFragmentManager();
+                android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragment_travelcreate recordFragment = new fragment_travelcreate();
                 fragmentTransaction.replace(R.id.my_recycler_view,recordFragment);
                 fragmentTransaction.commit();
+
+
             }
 //
 //            button2.setOnClickListener(new OnClickListener() {
@@ -97,13 +94,12 @@ public class main_fragment extends Fragment {
         }else{
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragment_travel_core fragmentTravel = new fragment_travel_core();
 
             Bundle bundle = new Bundle();
-
             bundle.putSerializable("infoTravel",travelHelper.getNowTravel());
-            fragment_travel recordFragment = new fragment_travel();
-            recordFragment.setArguments(bundle);
-            fragmentTransaction.replace(R.id.my_recycler_view,recordFragment);
+            fragmentTransaction.replace(R.id.my_recycler_view,fragmentTravel);
+            fragmentTravel.setArguments(bundle);
             fragmentTransaction.commit();
         }
 

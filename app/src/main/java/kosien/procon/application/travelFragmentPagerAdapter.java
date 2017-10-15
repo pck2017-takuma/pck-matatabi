@@ -46,7 +46,8 @@ public class travelFragmentPagerAdapter extends FragmentPagerAdapter {
                 fragment = new fragment_travel();
                 break;
             default:
-                break;
+                fragment = new fragment_travel();
+
         }
         return fragment;
     }
@@ -73,7 +74,7 @@ public class travelFragmentPagerAdapter extends FragmentPagerAdapter {
                 break;
             default:
                 sequence = "テスト４";
-                break;
+
         }
 
         return sequence;
