@@ -50,16 +50,7 @@ public class main_fragment extends Fragment {
     @Override
     public void onViewCreated(View view,Bundle icicle) {
         super.onCreate(icicle);
-        _listView = (ListView) view.findViewById(R.id.list_view);
-        adapter = null;
-        button1 = (Button)view. findViewById(R.id.add_button);
-        button2 = (Button) view.findViewById(R.id.decide_button);
 
-
-        //こ↑こ↓から表示内容の選択
-        button1.setVisibility(View.GONE);
-        button2.setVisibility(View.GONE);
-        _listView.setVisibility(View.GONE);
 
         //データベースオープン
         infoTravelDao travelHelper = new infoTravelDao(getContext());
@@ -70,9 +61,6 @@ public class main_fragment extends Fragment {
         if(!travelFlag){
 
             if(first) {
-                button1.setVisibility(View.VISIBLE);
-                button2.setVisibility(View.VISIBLE);
-                _listView.setVisibility(View.VISIBLE);
             }
             else {
                 FragmentManager fragmentManager = getFragmentManager();
@@ -81,47 +69,30 @@ public class main_fragment extends Fragment {
                 fragmentTransaction.replace(R.id.my_recycler_view,recordFragment);
                 fragmentTransaction.commit();
             }
-
-            button1.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    button1.setVisibility(View.GONE);
-                    button2.setVisibility(View.GONE);
-                    _listView.setVisibility(View.GONE);
-
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragment_travelcreate recordFragment = new fragment_travelcreate();
-                    fragmentTransaction.replace(R.id.my_recycler_view,recordFragment);
-                    fragmentTransaction.commit();
-
-                }
-            });
-
-            button2.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //テキスト入力を受け付けるビューを作成します。
-                    final EditText editView = new EditText(getContext());
-                    new AlertDialog.Builder(getContext())
-                            //.setIcon(android.R.drawable.ic_dialog_info)
-                            .setTitle("旅行に名前をつけてください。")
-                            //setViewにてビューを設定します。
-                            .setView(editView)
-                            .setPositiveButton("決定!", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int whichButton) {
-                                    travelName = editView.getText().toString();
-                                }
-                            })
-                            .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int whichButton) {
-                                }
-                            })
-                            .show();
-
-                }
-            });
+//
+//            button2.setOnClickListener(new OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    //テキスト入力を受け付けるビューを作成します。
+//                    final EditText editView = new EditText(getContext());
+//                    new AlertDialog.Builder(getContext())
+//                            //.setIcon(android.R.drawable.ic_dialog_info)
+//                            .setTitle("旅行に名前をつけてください。")
+//                            //setViewにてビューを設定します。
+//                            .setView(editView)
+//                            .setPositiveButton("決定!", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int whichButton) {
+//                                    travelName = editView.getText().toString();
+//                                }
+//                            })
+//                            .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int whichButton) {
+//                                }
+//                            })
+//                            .show();
+//
+//                }
+//            });
 
         }else{
             FragmentManager fragmentManager = getFragmentManager();
@@ -152,9 +123,9 @@ public class main_fragment extends Fragment {
 //        _listView.setAdapter(adapter);
 //    }
 //
-//    public String itemName (int i) {
-//        return listItem.get(i).getTitle();
-//    }
+    public String itemName (int i) {
+        return listItem.get(i).getTitle();
+    }
 
 
     @Override

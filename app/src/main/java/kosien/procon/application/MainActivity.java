@@ -18,7 +18,7 @@ import su.heartlove.matatabi.R;
  * Created by Owner on 2017/10/15.
  */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
 
 
