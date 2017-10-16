@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import kosien.procon.application.matatabidb.mydatabase.infoTravelDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfoDao;
+import kosien.procon.application.matatabidb.mydatabase.placeInfomation;
 import su.heartlove.matatabi.R;
 
 /**
@@ -19,6 +21,7 @@ public class fragment_place_introduce extends Fragment {
 
     //観光地データベース
     placeInfoDao placeHelper;
+    placeInfomation infomation;
 
 
     @Override
@@ -37,6 +40,8 @@ public class fragment_place_introduce extends Fragment {
 
         //データベースオープン
         placeHelper = new placeInfoDao(getContext());
+
+
 
 
 
