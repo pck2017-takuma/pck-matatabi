@@ -1,14 +1,19 @@
 package kosien.procon.application;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import kosien.procon.application.matatabidb.mydatabase.RouteInfo;
 import kosien.procon.application.matatabidb.mydatabase.infoTravel;
 import kosien.procon.application.matatabidb.mydatabase.infoTravelDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfoDao;
+import kosien.procon.application.matatabidb.mydatabase.placeInfomation;
 import kosien.procon.application.matatabidb.mydatabase.travelSchedule;
 import kosien.procon.application.matatabidb.mydatabase.travelScheduleDao;
+
+import static java.security.AccessController.getContext;
 
 /**
  * Created by i15317 on 2017/10/16.
@@ -30,6 +35,7 @@ public class travelStatusInfoHelper {
     travelScheduleDao scheduleHelper;
     
     //ここから状態保持//
+
     //現在の旅行情報を取得する
     infoTravel nowTravel;
     //現在訪れている観光地の情報を取得する
@@ -37,6 +43,10 @@ public class travelStatusInfoHelper {
     ArrayList<travelSchedule> scheduleList;
     //現在の行程
     travelSchedule nowSchedule;
+
+    //現在訪れている観光地
+    ArrayList<placeInfomation>placeList;
+    placeInfomation nowPlaceData;
 
     //コンストラクタ
     travelStatusInfoHelper(Context context){
@@ -62,19 +72,19 @@ public class travelStatusInfoHelper {
                 scheduleList = scheduleHelper.getNowTravelList();  
             }
             //今タイムリーで訪れている旅行先があるかを確認する
-            if(scheduleHelper.findNowSchedule(nowTravvel.gettravelNum())){
+            if(scheduleHelper.findNowSchedule(nowTravel.gettravelNum())){
                 //訪れている場所がある場合の処理
                 nowSchedule = scheduleHelper.getNowTravel();
             }else{
                 //いま訪れている場所がない場合は一か所目に訪れる場所をアクティブにする
                 
                 //どれが最初かわからないのでgetRouteNumが０の場所をリスト総舐めで調べる
-                for(travelSchedule x:travelList){
-                    if(x.getRouteNum() == 0{
+                for(travelSchedule x:scheduleList){
+                    if(x.getRouteNum() == 0){
                         //旅行中のフラグを立てる
                         x.setFlag(1);
                         //その情報をデータベースに保存する
-                        scheduleHelper.save_diary(x);
+                        scheduleHelper.sava_diary(x);
                         //現在のスケジュールにxを代入する
                         nowSchedule = x;
                         //これ以上ループ処理の必要がないのでブレイクする
@@ -83,9 +93,9 @@ public class travelStatusInfoHelper {
                 }
             }
             //次に観光地のデータを取得する
-            if(placeHelper.findePlaceInfo(nowSchedule.getPlaceName(),placeInfomation.PLACE_NAME)){
+            if(placeHelper.findPlaceInfo(nowSchedule.getPlaceName(), placeInfomation.PLACE_NAME)){
                 //1つのデータしか見つからないという信頼の上で
-                nowPlaceData = placeInfoDB.getSearchResult().get(0);
+                nowPlaceData = placeHelper.getSearchResult().get(0);
                 
             }else{
                 //ここに入ることはあり得ない
@@ -96,9 +106,9 @@ public class travelStatusInfoHelper {
     //旅行の開始処理
     public void onStartTravel(){
 
-        
-        
-        
+
+
+
 
 
 
@@ -116,7 +126,20 @@ public class travelStatusInfoHelper {
 
 
     //行程を進める
+    public void myNextPlace(){
+        //次の場所を取得する
+        scheduleHelper.moveNextPlace(nowSchedule);
+        //次の場所を取得する
+        nowSchedule = scheduleHelper.getNowTravel();
 
+        //観光地の情報を取得する
+        if(placeHelper.findPlaceInfo(nowPlaceData.getPlaceName(),placeInfomation.PLACE_NAME)){
+            //１つしかデータが見つからないという信頼の上で
+            nowPlaceData = placeHelper.getSearchResult().get(0);
+        }else{
+            Toast.makeText(myContext,"ヤバい、可笑しいことになった！",Toast.LENGTH_SHORT).show();
+        }
+    }
 
 
     //行程を逆戻り（非推奨）

@@ -268,10 +268,37 @@ public class MAKE_SQL {
     }
 
 
+    static StringBuilder createStoreInfo(){
+        StringBuilder createSql = new StringBuilder();
+        createSql.append("create table if not exists " + storeInfoTable.TABLE_NAME + " (");
+        createSql.append(storeInfoTable.COLUMN_ID + " integer primary key autoincrement not null, ");
+        createSql.append(storeInfoTable.STORE_NAME + " text not null, ");
+        createSql.append(storeInfoTable.STORE_STATION + " text not null, ");
+        createSql.append(storeInfoTable.LATITUDE + " text not null, ");
+        createSql.append(storeInfoTable.LONGITUDE + " text not null, ");
+        createSql.append(storeInfoTable.ADDRESS + " text not null, ");
+        createSql.append(storeInfoTable.COLUMN + " text not null, ");
+        createSql.append(storeInfoTable.PHONE_NUM + " text not null, ");
+        createSql.append(storeInfoTable.POST_NUM + " text not null, ");
+        createSql.append(storeInfoTable.OPEN_TIME + " text not null, ");
+        createSql.append(storeInfoTable.CLOSE_TIME + " text not null, ");
+        createSql.append(storeInfoTable.STORE_GENRE + " integer not null ");
+        createSql.append(");");
+        return createSql;
+    }
+
+    static StringBuilder crateStoreGenre(){
+        StringBuilder createSql = new StringBuilder();
+        createSql.append("create table if not exists " + storeGenre.TABLE_NAME + " (");
+        createSql.append(storeGenre.COLUMN_ID + " integer primary key autoincrement not null, ");
+        createSql.append(storeGenre.GENRE_ID + " text not null, ");
+        createSql.append(storeGenre.GENRE_NAME + " text not null ");
+        createSql.append(");");
+        return createSql;
+    }
 
 
-
-        static StringBuilder createDiaryImage(){
+    static StringBuilder createDiaryImage(){
             StringBuilder createSql = new StringBuilder();
             createSql.append("create table if not exists " + Diary_Image.TABLE_NAME + " (");
             createSql.append(Diary_Image.COLUMN_ID + " integer primary key autoincrement not null, ");
