@@ -73,7 +73,7 @@ public class fragment_travel extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         super.onCreateView(inflater, container, saveInstanceState);
         listener = new myLocationListener(getActivity());
-        return inflater.inflate(R.layout.fragment_travel, container, false);
+        return inflater.inflate(R.layout.fragment_travel, container, onDestroy();false);
     }
 
 

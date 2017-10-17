@@ -38,6 +38,8 @@ public class fragment_place_introduce extends Fragment {
 
         //ここでボタン等の各要素をセットする
 
+
+
         //データベースオープン
         placeHelper = new placeInfoDao(getContext());
 
