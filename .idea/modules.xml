@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Matatabi.iml" filepath="$PROJECT_DIR$/Matatabi.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pck-matatabi.iml" filepath="$PROJECT_DIR$/pck-matatabi.iml" />
+      <module fileurl="file://C:\Users\kokor\Documents\GitHub\Matatabi\app\app.iml" filepath="C:\Users\kokor\Documents\GitHub\Matatabi\app\app.iml" />
+      <module fileurl="file://C:\Users\kokor\Documents\GitHub\Matatabi\pck-matatabi.iml" filepath="C:\Users\kokor\Documents\GitHub\Matatabi\pck-matatabi.iml" />
     </modules>
   </component>
 </project>
