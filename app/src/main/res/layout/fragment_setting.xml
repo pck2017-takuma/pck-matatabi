@@ -11,6 +11,9 @@
 	<ListView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:entries="@array/fragment_setting_list" />
+		android:entries="@array/fragment_setting_list"
+		android:id="@+id/setting_view"
+
+		/>
 
 </LinearLayout>

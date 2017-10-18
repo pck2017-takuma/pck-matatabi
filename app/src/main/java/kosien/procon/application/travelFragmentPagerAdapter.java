@@ -15,12 +15,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 public class travelFragmentPagerAdapter extends FragmentPagerAdapter {
 
     /*表示内容：１つ１つの表示はフラグメントが担当する
-
     ・次の予定
     ・周辺のお勧めの場所
     ・地図UI
     ・次訪れる観光地の情報
-
     */
 
     //表示内容の数によってページ数を決める。
