@@ -77,7 +77,6 @@ public class fragment_travel extends Fragment{
     }
 
 
-
     @Override
     public void onViewCreated(final View view, Bundle saveInstanceState) {
         super.onViewCreated(view, saveInstanceState);
