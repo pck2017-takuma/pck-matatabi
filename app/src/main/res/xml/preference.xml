@@ -15,5 +15,8 @@
         android:title="位置情報"
         android:summary="位置情報の使用を許可しますか">
     </SwitchPreference>
+    <PreferenceCategory
+        android:layout="@layout/setting_license.xml">
+    </PreferenceCategory>
 
 </PreferenceScreen>
