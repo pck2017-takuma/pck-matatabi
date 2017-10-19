@@ -4,6 +4,7 @@ package kosien.procon.application;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
      */
 
 
-    //
+    //二種類のフラグメントマネージャーが混在しているので取り扱いには要注意
 
 
     private Integer nowItem = null;
@@ -55,28 +56,30 @@ public class MainActivity extends AppCompatActivity {
 
             switch (itemId) {
                 case R.id.HomeUI:
+                    getFragmentManager().popBackStack("setting",FragmentManager.POP_BACK_STACK_INCLUSIVE);
                     main_fragment mainFragment = new main_fragment();
                     fragmentTransaction.replace(R.id.frame_layout,mainFragment);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.SearchUI:
+                    getFragmentManager().popBackStack("setting",FragmentManager.POP_BACK_STACK_INCLUSIVE);
                     search_fragment searchFragment = new search_fragment();
                     fragmentTransaction.replace(R.id.frame_layout,searchFragment);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.GalleryUI:
+                    getFragmentManager().popBackStack("setting",FragmentManager.POP_BACK_STACK_INCLUSIVE);
                     record_fragment recordFragment = new record_fragment();
                     fragmentTransaction.replace(R.id.frame_layout,recordFragment);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.Garbage:
-                    setting_fragment settingFragment = new setting_fragment();
-                    fragmentTransaction.replace(R.id.frame_layout,settingFragment);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+                    //設定画面を開いたら色々情報が変わるのでバックスタックの内容をすべて消去（本当の理由は違う）
+                    fragmentManager.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                    getFragmentManager().beginTransaction().replace(R.id.frame_layout,new PrefsFragment()).addToBackStack("setting").commit();
 
                     return true;
             }
@@ -105,6 +108,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    //Preferenceフラグメント
+    public static class PrefsFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.preference);
+        }
+    }
 
 
 }
