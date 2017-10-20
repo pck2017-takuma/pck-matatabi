@@ -33,26 +33,25 @@ public class fragment_record extends Fragment {
     private infoTravelDao travelHelper;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
-        super.onCreateView(inflater,container,saveInstanceState);
-        return inflater.inflate(R.layout.fragment_record,container,false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
+        super.onCreateView(inflater, container, saveInstanceState);
+        return inflater.inflate(R.layout.fragment_record, container, false);
     }
 
     //ビューを生成し終わった後に呼ばれるメソッド
 
     @Override
-    public void onViewCreated(View view,Bundle saveInstanceState) {
+    public void onViewCreated(View view, Bundle saveInstanceState) {
         travelHelper = new infoTravelDao(getContext());
         // ボタンを生成
-        super.onViewCreated(view,saveInstanceState);
-        Button btn = (Button)view.findViewById(R.id.edit_button);
+        super.onViewCreated(view, saveInstanceState);
+        Button btn = (Button) view.findViewById(R.id.edit_button);
         // レイアウトにボタンを追加
 
 
-
-        btn.setOnClickListener(new View.OnClickListener(){
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
 
                 //スケジュール作成はとりあえずmainActivityに飛ばす
 
@@ -63,12 +62,12 @@ public class fragment_record extends Fragment {
         //データベースからデータを取得する
         final ArrayList<infoTravel> travelData = travelHelper.load_item();
 
-        ListView listView = (ListView)view.findViewById(R.id.sample_listview);
+        ListView listView = (ListView) view.findViewById(R.id.sample_listview);
         ArrayList<SampleListItem> listItems = new ArrayList<SampleListItem>();
 
-        if(travelData.size() == 0){
-            Toast.makeText(getContext(),"データが存在しません",Toast.LENGTH_SHORT).show();
-        }else {
+        if (travelData.size() == 0) {
+            Toast.makeText(getContext(), "データが存在しません", Toast.LENGTH_SHORT).show();
+        } else {
             for (int i = 0; i < travelData.size(); i++) {
                 Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);  // 今回はサンプルなのでデフォルトのAndroid Iconを利用
                 SampleListItem item = new SampleListItem(bmp, travelData.get(i).getTravelTitle(), "No. " + String.valueOf(i));
@@ -95,16 +94,14 @@ public class fragment_record extends Fragment {
                         Bundle bundle = new Bundle();
 
                         //とりあえずバンドルに一つ一つ値を入れていくｗｗ
-                        bundle.putSerializable("infoTravel",data);
+                        bundle.putSerializable("infoTravel", data);
 
                         fragment_schedule recordFragment = new fragment_schedule();
                         recordFragment.setArguments(bundle);
-                        fragmentTransaction.add(R.id.edit_diary,recordFragment);
+                        fragmentTransaction.add(R.id.edit_diary, recordFragment);
                         fragmentTransaction.commit();
 
                     }
-
-
 
 
                 });

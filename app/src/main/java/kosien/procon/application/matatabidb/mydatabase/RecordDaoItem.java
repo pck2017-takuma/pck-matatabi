@@ -21,83 +21,85 @@ public class RecordDaoItem {
 
 
     ArrayList<RecordItem> nowRecord;
+
     //コンストラクタ
-    public RecordDaoItem(Context context){
+    public RecordDaoItem(Context context) {
         helper = new RecordOpenHelper(context);
     }
     //レコードの保存
 
 
-
-    public RecordItem sava_diary(RecordItem item){
+    public RecordItem sava_diary(RecordItem item) {
         //書き込み可能でデータベースを読み出し
         SQLiteDatabase db = helper.getWritableDatabase();
         //結果を格納するやつ
         RecordItem result = null;
-        try{
+        try {
             //データベースに値を格納するやつ
             ContentValues values = new ContentValues();
-            values.put( RecordItem.DIARY_TITLE, item.getDiaryTitle());
-            values.put(RecordItem.DIARY_RECORD,item.getDiaryRecord());
-            values.put(RecordItem.DIARY_YEAR,item.getDiaryYear());
-            values.put(RecordItem.DIARY_MON,item.getDiaryMon());
-            values.put(RecordItem.DIARY_Day,item.getDiaryDay());
-            values.put(RecordItem.DIARY_TIME,item.getDiaryTime());
-            values.put(RecordItem.TRAVEL_NUM,item.gettravelNum());
-            values.put(RecordItem.SCHEDULE_NUM,item.getScheduleNum());
+            values.put(RecordItem.DIARY_TITLE, item.getDiaryTitle());
+            values.put(RecordItem.DIARY_RECORD, item.getDiaryRecord());
+            values.put(RecordItem.DIARY_YEAR, item.getDiaryYear());
+            values.put(RecordItem.DIARY_MON, item.getDiaryMon());
+            values.put(RecordItem.DIARY_Day, item.getDiaryDay());
+            values.put(RecordItem.DIARY_TIME, item.getDiaryTime());
+            values.put(RecordItem.TRAVEL_NUM, item.gettravelNum());
+            values.put(RecordItem.SCHEDULE_NUM, item.getScheduleNum());
             int rowId = item.getRowid();
 
             //idが初期値なら
-            if(rowId == 0){
-                rowId = (int)db.insert(RecordItem.TABLE_NAME,null,values);
-            }else{
+            if (rowId == 0) {
+                rowId = (int) db.insert(RecordItem.TABLE_NAME, null, values);
+            } else {
                 //そうでないなら既存データが存在するのデータベースの更新処理を行う
-                db.update(RecordItem.TABLE_NAME,values,RecordItem.COLUMN_ID + "=?", new String[]{String.valueOf(rowId)});
+                db.update(RecordItem.TABLE_NAME, values, RecordItem.COLUMN_ID + "=?", new String[]{String.valueOf(rowId)});
 
             }
             result = load_item(rowId);
 
-            }finally{
+        } finally {
             //処理が終了したらデータベースを閉じる
             db.close();
         }
         return result;
     }
-    //レコードの削除
-    public void delete_item(RecordItem item){
-        SQLiteDatabase db = helper.getWritableDatabase();
-        try{
-            db.delete(RecordItem.TABLE_NAME,RecordItem.COLUMN_ID + "=?",new String[]{String.valueOf(item.getRowid())});
 
-        }finally{
+    //レコードの削除
+    public void delete_item(RecordItem item) {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        try {
+            db.delete(RecordItem.TABLE_NAME, RecordItem.COLUMN_ID + "=?", new String[]{String.valueOf(item.getRowid())});
+
+        } finally {
             //処理が終わったらデータベースを閉じる
             db.close();
         }
     }
+
     //レコードの全件削除
-    public void deleteall_item(){
+    public void deleteall_item() {
         SQLiteDatabase db = helper.getWritableDatabase();
         RecordItem number = null;
-        try{
+        try {
             //削除のSQL文生成
             MAKE_SQL sql = new MAKE_SQL();
-            String query = sql.query_deleteAlldata(RecordItem.TABLE_NAME,RecordItem.COLUMN_ID);
-        }finally {
+            String query = sql.query_deleteAlldata(RecordItem.TABLE_NAME, RecordItem.COLUMN_ID);
+        } finally {
             db.close();
         }
     }
 
 
     //idを指定してロード
-    public RecordItem load_item(int itemId){
+    public RecordItem load_item(int itemId) {
         SQLiteDatabase db = helper.getReadableDatabase();
         RecordItem number = null;
-        try{
-            String query = MAKE_SQL.query_load(RecordItem.TABLE_NAME,RecordItem.COLUMN_ID,itemId);
-            Cursor cursor = db.rawQuery(query,null);
+        try {
+            String query = MAKE_SQL.query_load(RecordItem.TABLE_NAME, RecordItem.COLUMN_ID, itemId);
+            Cursor cursor = db.rawQuery(query, null);
             cursor.moveToFirst();
             number = getItem(cursor);
-        }finally{
+        } finally {
             //処理が終わったらデータベースを閉じる
             db.close();
         }
@@ -106,16 +108,16 @@ public class RecordDaoItem {
     }
 
     //idを指定してロード
-    public RecordItem load_item(int schedule,int traval){
+    public RecordItem load_item(int schedule, int traval) {
         SQLiteDatabase db = helper.getReadableDatabase();
         RecordItem number = null;
-        try{
+        try {
             String query = "select * from " + RecordItem.TABLE_NAME + " where " + RecordItem.SCHEDULE_NUM + " = " + schedule + " AND " + traval + " = " + RecordItem.TRAVEL_NUM + " ;";
-            Cursor cursor = db.rawQuery(query,null);
+            Cursor cursor = db.rawQuery(query, null);
             cursor.moveToFirst();
             number = getItem(cursor);
 
-        }finally{
+        } finally {
             //処理が終わったらデータベースを閉じる
             db.close();
         }
@@ -123,47 +125,46 @@ public class RecordDaoItem {
         return number;
     }
 
-    public boolean findRecord(int scheduleNum,int travelNum){
+    public boolean findRecord(int scheduleNum, int travelNum) {
         SQLiteDatabase db = helper.getReadableDatabase();
         nowRecord = new ArrayList<RecordItem>();
-        String query = "select * from " + RecordItem.TABLE_NAME + " where " + RecordItem.SCHEDULE_NUM + " = " + scheduleNum + " AND " + RecordItem.TRAVEL_NUM + " = " +travelNum  + " ;";
-        try{
-            Cursor cursor = db.rawQuery(query,null);
+        String query = "select * from " + RecordItem.TABLE_NAME + " where " + RecordItem.SCHEDULE_NUM + " = " + scheduleNum + " AND " + RecordItem.TRAVEL_NUM + " = " + travelNum + " ;";
+        try {
+            Cursor cursor = db.rawQuery(query, null);
 
-            if(cursor.moveToFirst())
+            if (cursor.moveToFirst())
                 nowRecord.add(getItem(cursor));
-        }finally{
+        } finally {
             //処理が終わったらデータベースを閉じる
             db.close();
         }
 
-        if(nowRecord.size() == 0){
+        if (nowRecord.size() == 0) {
             return false;
-        }else{
+        } else {
             return true;
         }
 
 
-
     }
 
-    public ArrayList<RecordItem>getRecord(){
+    public ArrayList<RecordItem> getRecord() {
         return nowRecord;
     }
 
-    public ArrayList<RecordItem> loadRecord(int travelnum){
+    public ArrayList<RecordItem> loadRecord(int travelnum) {
         SQLiteDatabase db = helper.getReadableDatabase();
         ArrayList<RecordItem> number = new ArrayList<>();
-        try{
-            String query = MAKE_SQL.query_load(RecordItem.TABLE_NAME,RecordItem.COLUMN_ID,travelnum);
-            Cursor cursor = db.rawQuery(query,null);
+        try {
+            String query = MAKE_SQL.query_load(RecordItem.TABLE_NAME, RecordItem.COLUMN_ID, travelnum);
+            Cursor cursor = db.rawQuery(query, null);
             int count = cursor.getCount();
             //カーソルの行数だけループ
-            for(boolean next = cursor.moveToFirst();next;next = cursor.moveToNext()){
+            for (boolean next = cursor.moveToFirst(); next; next = cursor.moveToNext()) {
                 number.add(getItem(cursor));
 
             }
-        }finally{
+        } finally {
             //処理が終わったらデータベースを閉じる
             db.close();
         }
@@ -172,7 +173,7 @@ public class RecordDaoItem {
     }
 
 
-    public List list_search_item(RecordItem record, boolean searchWord ) {
+    public List list_search_item(RecordItem record, boolean searchWord) {
         SQLiteDatabase db = helper.getReadableDatabase();
 
         List itemList;
@@ -184,17 +185,15 @@ public class RecordDaoItem {
         int searchTuki = RecordItem.getItemSearchMon();
         int searchHi = RecordItem.getItemSearchDay();
 
-        if( searchWord == true ){
-            if( searchNikki.length() > 0 ){
+        if (searchWord == true) {
+            if (searchNikki.length() > 0) {
                 searchCulmn = (RecordItem.DIARY_RECORD + " like '%" + searchNikki + "%' ").toString();
             }
-        }
-        else{
-            if( searchHi == 0 ){
+        } else {
+            if (searchHi == 0) {
                 searchCulmn = RecordItem.DIARY_YEAR + " = " + searchNen + " AND " +
                         RecordItem.DIARY_MON + " = " + searchTuki;
-            }
-            else {
+            } else {
                 searchCulmn = RecordItem.DIARY_YEAR + " = " + searchNen + " AND " +
                         RecordItem.DIARY_MON + " = " + searchTuki + " AND " +
                         RecordItem.DIARY_Day + " = " + searchHi;
@@ -211,8 +210,8 @@ public class RecordDaoItem {
 
             itemList = new ArrayList();
             cursor.moveToFirst();
-            while( !cursor.isAfterLast()){
-                itemList.add( getItem( cursor ) );
+            while (!cursor.isAfterLast()) {
+                itemList.add(getItem(cursor));
                 cursor.moveToNext();
             }
         } finally {
@@ -222,31 +221,20 @@ public class RecordDaoItem {
     }
 
 
-
-
-
     //カーソルからオブジェクトに変換
-    private RecordItem getItem(Cursor cursor){
+    private RecordItem getItem(Cursor cursor) {
         RecordItem item = new RecordItem();
-        item.setRowid((int)cursor.getLong(0));
+        item.setRowid((int) cursor.getLong(0));
         item.setDiaryTitle(cursor.getString(1));
         item.setDiaryRecord(cursor.getString(2));
-        item.setDiaryYear((int)cursor.getLong(3));
-        item.setDiaryMon((int)cursor.getLong(4));
-        item.setDiaryDay((int)cursor.getLong(5));
-        item.setDiaryTime((int)cursor.getLong(6));
-        item.setTravelNum((int)cursor.getLong(7));
-        item.setScheduleNum((int)cursor.getLong(8));
+        item.setDiaryYear((int) cursor.getLong(3));
+        item.setDiaryMon((int) cursor.getLong(4));
+        item.setDiaryDay((int) cursor.getLong(5));
+        item.setDiaryTime((int) cursor.getLong(6));
+        item.setTravelNum((int) cursor.getLong(7));
+        item.setScheduleNum((int) cursor.getLong(8));
         return item;
     }
-
-
-
-
-
-
-
-
 
 
 }

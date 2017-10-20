@@ -1,4 +1,4 @@
- package kosien.procon.application.matatabidb.mydatabase;
+package kosien.procon.application.matatabidb.mydatabase;
 
 
 import java.io.Serializable;
@@ -9,22 +9,22 @@ import java.io.Serializable;
 
 public class BUS_INFOMATION implements Serializable {
 
-//カラム名に追加
-public static final String COLUMN_ID = "_id";
+    //カラム名に追加
+    public static final String COLUMN_ID = "_id";
 
-//プロパティに追加
-private Long rowid = null;
+    //プロパティに追加
+    private Long rowid = null;
 
-//ゲッターに追加
-public Long getRowid() {
-      return rowid;
-}
+    //ゲッターに追加
+    public Long getRowid() {
+        return rowid;
+    }
 
-//セッターに追加
-public void setRowid(Long rowid) {
-     this.rowid = rowid;
-}
-    
+    //セッターに追加
+    public void setRowid(Long rowid) {
+        this.rowid = rowid;
+    }
+
     //テーブル名
     public static final String TABLE_NAME = "Bus_Infomation";
     //停留所

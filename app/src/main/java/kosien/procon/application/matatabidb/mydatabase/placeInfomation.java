@@ -7,7 +7,7 @@ import java.io.Serializable;
  * Created by procon-kyougi on 2017/09/16.
  */
 
-public class placeInfomation implements Serializable{
+public class placeInfomation implements Serializable {
     //テーブル名
     public static final String TABLE_NAME = "place_infomation";
     //ここからカラム名
@@ -63,75 +63,101 @@ public class placeInfomation implements Serializable{
     private int placeValue = 0;
 
     //ゲッター
-    public int getRowId(){
+    public int getRowId() {
         return rowId;
     }
-    public String getPlaceName(){
+
+    public String getPlaceName() {
         return placeName;
     }
-    public String getPlaceStation(){return placeStation;}
-    public String getPlaceLatitude(){
+
+    public String getPlaceStation() {
+        return placeStation;
+    }
+
+    public String getPlaceLatitude() {
         return placeLatitude;
     }
-    public String getPlaceLongitude(){
+
+    public String getPlaceLongitude() {
         return placeLongitude;
     }
-    public String getPlaceAddress(){
+
+    public String getPlaceAddress() {
         return placeAddress;
     }
-    public String getPlaceColumn(){
+
+    public String getPlaceColumn() {
         return placeColumn;
     }
-    public String getPlacePhoneNumber(){
+
+    public String getPlacePhoneNumber() {
         return placePhoneNumber;
     }
-    public String getPlacePostNumber(){
+
+    public String getPlacePostNumber() {
         return placePostNumber;
     }
-    public String getPlaceOpenTime(){
+
+    public String getPlaceOpenTime() {
         return placeOpenTime;
     }
-    public String getCloseTime(){
+
+    public String getCloseTime() {
         return placeCloseTime;
     }
-    public int getPlaceValue(){
+
+    public int getPlaceValue() {
         return placeValue;
     }
 
     //セッター
-    public void setRowId(int _rowId){
+    public void setRowId(int _rowId) {
         this.rowId = _rowId;
     }
-    public void setPlaceName(String _placeName){
+
+    public void setPlaceName(String _placeName) {
         this.placeName = _placeName;
     }
-    public void setPlaceStation(String _placeStation){this.placeStation = _placeStation;}
-    public void setPlaceLatitude(String _latitude){
+
+    public void setPlaceStation(String _placeStation) {
+        this.placeStation = _placeStation;
+    }
+
+    public void setPlaceLatitude(String _latitude) {
         this.placeLatitude = _latitude;
     }
-    public void setPlaceLongitude(String _longitude){
+
+    public void setPlaceLongitude(String _longitude) {
         this.placeLongitude = _longitude;
     }
-    public void setPlaceAddress(String _address){
+
+    public void setPlaceAddress(String _address) {
         this.placeAddress = _address;
     }
-    public void setPlaceColumn(String _column){
+
+    public void setPlaceColumn(String _column) {
         this.placeColumn = _column;
     }
-    public void setPlacePhoneNumber(String _phoneNumber){
+
+    public void setPlacePhoneNumber(String _phoneNumber) {
         this.placePhoneNumber = _phoneNumber;
     }
-    public void setPlacePostNumber(String _postNumber){
+
+    public void setPlacePostNumber(String _postNumber) {
         this.placePostNumber = _postNumber;
     }
-    public void setPlaceOpenTime(String _openTime){
+
+    public void setPlaceOpenTime(String _openTime) {
         this.placeOpenTime = _openTime;
     }
-    public void setPlaceCloseTime(String _closeTime){
+
+    public void setPlaceCloseTime(String _closeTime) {
         this.placeCloseTime = _closeTime;
     }
-    public void setPlaceValue(int _setValue){
-        this.placeValue  = _setValue;
+
+    public void setPlaceValue(int _setValue) {
+        this.placeValue = _setValue;
     }
 
 }

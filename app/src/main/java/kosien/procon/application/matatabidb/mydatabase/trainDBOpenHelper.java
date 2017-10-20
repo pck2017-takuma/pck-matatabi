@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by procon-kyougi on 2017/09/14.
  */
 
-public class trainDBOpenHelper extends SQLiteOpenHelper{
+public class trainDBOpenHelper extends SQLiteOpenHelper {
 
 
     //データベース名
@@ -44,13 +44,14 @@ public class trainDBOpenHelper extends SQLiteOpenHelper{
 
         }
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
 
     @Override
-    public void onOpen(SQLiteDatabase db){
+    public void onOpen(SQLiteDatabase db) {
         db.beginTransaction();
 
         //列車時刻表テーブルの作成

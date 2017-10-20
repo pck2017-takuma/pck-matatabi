@@ -16,8 +16,6 @@ import kosien.procon.application.matatabidb.mydatabase.RouteInfo;
 //時刻検索データパース
 
 
-
-
 public class parseSearchData {
 
     //カラム名
@@ -44,27 +42,26 @@ public class parseSearchData {
     private static final String point = "Point";
 
     //とりあえず出発駅・到着駅・時刻を返す
-    private ArrayList<ArrayList<RouteInfo>>routeInfo = new ArrayList<ArrayList<RouteInfo>>();
-
+    private ArrayList<ArrayList<RouteInfo>> routeInfo = new ArrayList<ArrayList<RouteInfo>>();
 
 
     //受け取ったJSONオブジェクト
     JSONObject jsonObject = new JSONObject();
 
-   public  parseSearchData(JSONObject srcObject){
+    public parseSearchData(JSONObject srcObject) {
         jsonObject = srcObject;
         ParseObject();
     }
 
 
-    private void ParseObject(){
+    private void ParseObject() {
         //指定の階層まですすんでそれぞれをJSONArrayに入れる
         //course
         JSONArray courceJSONarray = null;
 
         try {
             courceJSONarray = jsonObject.getJSONArray(course);
-        }catch(JSONException e){
+        } catch (JSONException e) {
             //エラーが出たら詰むしかない
         }
 
@@ -74,27 +71,27 @@ public class parseSearchData {
         //courceの要素を１つずつ配列に格納する
         JSONObject[] cource = new JSONObject[courceCnt];
 
-       for(int i = 0; i < courceCnt;i++){
-           try{
-               cource[i] = courceJSONarray.getJSONObject(i);
+        for (int i = 0; i < courceCnt; i++) {
+            try {
+                cource[i] = courceJSONarray.getJSONObject(i);
 
-           }catch (JSONException e){
+            } catch (JSONException e) {
 
-           }
-       }
-       ParseJSONCourse(cource,courceCnt);
+            }
+        }
+        ParseJSONCourse(cource, courceCnt);
     }
 
-    private void ParseJSONCourse(JSONObject[] srcData,int arraySize){
+    private void ParseJSONCourse(JSONObject[] srcData, int arraySize) {
         //RouteとPriceがそれぞれドヴァーと生成される
-        ArrayList<JSONArray>priceJSONobject = new ArrayList<>();
-        ArrayList<JSONObject>routeJSONobject = new ArrayList<>();
+        ArrayList<JSONArray> priceJSONobject = new ArrayList<>();
+        ArrayList<JSONObject> routeJSONobject = new ArrayList<>();
 
-        for(int i = 0; i < arraySize;i++){
-            try{
+        for (int i = 0; i < arraySize; i++) {
+            try {
                 routeJSONobject.add(srcData[i].getJSONObject(route));
                 priceJSONobject.add(srcData[i].getJSONArray(price));
-            }catch(JSONException e){
+            } catch (JSONException e) {
                 //隠し機能
                 continue;
             }
@@ -102,20 +99,20 @@ public class parseSearchData {
 
         //routeのパース
 
-        for(JSONObject x:routeJSONobject){
+        for (JSONObject x : routeJSONobject) {
             int getCount = 0;
             try {
                 getCount = x.getInt("transferCount");
-            }catch(JSONException e){
+            } catch (JSONException e) {
                 //オプション
             }
 
-            if(getCount == 0) {
+            if (getCount == 0) {
 
                 //乗り換え回数が０の時はすべてJSONObjectになる
                 parseRouteObject(x);
 
-            }else{
+            } else {
                 ParseJSONroute(x);
 
             }
@@ -124,7 +121,7 @@ public class parseSearchData {
 
         //priceのパース（自前で料金計算アルゴリズムが完成するまではスルー）
         //検索候補分の料金情報に対して
-        for(JSONArray x:priceJSONobject){
+        for (JSONArray x : priceJSONobject) {
 
             //１検索候補についてあげられる料金オプションが全件取得される
             JSONObject[] getPriceObject = ParseJSONprice(x);
@@ -133,9 +130,9 @@ public class parseSearchData {
     }
 
     //乗り換え回数が０の時
-    private void parseRouteObject(JSONObject routeJSON){
-        ArrayList<RouteInfo>data = new ArrayList<RouteInfo>();
-        ArrayList<String>stationData = new ArrayList<String>();
+    private void parseRouteObject(JSONObject routeJSON) {
+        ArrayList<RouteInfo> data = new ArrayList<RouteInfo>();
+        ArrayList<String> stationData = new ArrayList<String>();
 
 
         JSONObject lineJSONObject = new JSONObject();
@@ -144,25 +141,25 @@ public class parseSearchData {
         //ここはarrayで問題ないと思う
         JSONArray pointJSONArray = new JSONArray();
 
-        try{
+        try {
             lineJSONObject = routeJSON.getJSONObject(line);
             arrivalJSONObject = routeJSON.getJSONObject(arraival);
             depatureJSONObject = routeJSON.getJSONObject(departure);
             pointJSONArray = routeJSON.getJSONArray(point);
 
-        }catch(JSONException e){
+        } catch (JSONException e) {
 
         }
 
         JSONObject[] parsePoint = ParseJSONpoint(pointJSONArray);
 
         //pointから駅名を取得
-        for(int i = 0; i < parsePoint.length;i++){
+        for (int i = 0; i < parsePoint.length; i++) {
             try {
                 JSONArray station = parsePoint[i].getJSONArray("Station");
                 //stationの２番目に駅名が入っているはず
                 stationData.add(station.getString(1));
-            }catch(JSONException e){
+            } catch (JSONException e) {
 
             }
         }
@@ -180,14 +177,14 @@ public class parseSearchData {
             arrival = routeJSON.getJSONArray("ArrivalState");
             depature = routeJSON.getJSONArray("DepartureState");
 
-        }catch(JSONException e){
+        } catch (JSONException e) {
 
         }
 
         try {
             arrivalDateTime = arrival.getJSONArray(2);
             depatureDatetime = depature.getJSONArray(2);
-        }catch(JSONException e){
+        } catch (JSONException e) {
 
         }
 
@@ -199,7 +196,7 @@ public class parseSearchData {
         try {
             arriveTime = arrivalDateTime.getString(0);
             depatureTime = depatureDatetime.getString(0);
-        }catch(JSONException e){
+        } catch (JSONException e) {
 
         }
         pushData.setRouteDeparture(stationData.get(0));
@@ -214,7 +211,7 @@ public class parseSearchData {
     }//関数ここまで
 
 
-    private void ParseJSONroute(JSONObject routeJSON){
+    private void ParseJSONroute(JSONObject routeJSON) {
 
         JSONArray lineJSONarray = new JSONArray();
         JSONObject arrivalJSONarray = new JSONObject();
@@ -222,30 +219,29 @@ public class parseSearchData {
         JSONArray pointJSONarray = new JSONArray();
 
 
-        try{
+        try {
             lineJSONarray = routeJSON.getJSONArray(line);
             pointJSONarray = routeJSON.getJSONArray(point);
 
-        }catch(JSONException e){
+        } catch (JSONException e) {
 
         }
-
 
 
         //それぞれのデータをパースする
         JSONObject[] parsePoint = ParseJSONpoint(pointJSONarray);
         JSONObject[] parseLine = ParseJSONline(lineJSONarray);
 
-        ArrayList<RouteInfo>data = new ArrayList<RouteInfo>();
-        ArrayList<String>stationData = new ArrayList<String>();
+        ArrayList<RouteInfo> data = new ArrayList<RouteInfo>();
+        ArrayList<String> stationData = new ArrayList<String>();
 
         //pointから駅名を取得
-        for(int i = 0; i < parsePoint.length;i++){
+        for (int i = 0; i < parsePoint.length; i++) {
             try {
                 JSONObject station = parsePoint[i].getJSONObject("Station");
                 //stationの２番目に駅名が入っているはず
                 stationData.add(station.getString("Name"));
-            }catch(JSONException e){
+            } catch (JSONException e) {
 
             }
         }
@@ -253,8 +249,8 @@ public class parseSearchData {
         //列車情報を取得
         int i = 0;
 
-        for(JSONObject x:parseLine){
-            if(i == stationData.size() - 1){
+        for (JSONObject x : parseLine) {
+            if (i == stationData.size() - 1) {
                 break;
             }
             String trainName = null;
@@ -270,14 +266,14 @@ public class parseSearchData {
                 arrival = x.getJSONObject("ArrivalState");
                 depature = x.getJSONObject("DepartureState");
                 trainName = x.getString("Name");
-            }catch(JSONException e){
+            } catch (JSONException e) {
 
             }
 
             try {
                 arrivalDateTime = arrival.getJSONObject("Datetime");
                 depatureDatetime = depature.getJSONObject("Datetime");
-            }catch(JSONException e){
+            } catch (JSONException e) {
 
             }
 
@@ -289,7 +285,7 @@ public class parseSearchData {
             try {
                 arriveTime = arrivalDateTime.getString("text");
                 depatureTime = depatureDatetime.getString("text");
-            }catch(JSONException e){
+            } catch (JSONException e) {
 
             }
             pushData.setRouteDeparture(stationData.get(i));
@@ -305,16 +301,16 @@ public class parseSearchData {
 
 
     //lineはこれで必要データが整う、ちなみにpriceでも同様に出来ると思われる
-    private JSONObject[] ParseJSONline(JSONArray JSONline){
+    private JSONObject[] ParseJSONline(JSONArray JSONline) {
 
         int lineCnt = JSONline.length();
         JSONObject[] lineObject = new JSONObject[lineCnt];
 
-        for(int i = 0; i < lineCnt;i++) {
+        for (int i = 0; i < lineCnt; i++) {
             try {
                 lineObject[i] = JSONline.getJSONObject(i);
 
-            }catch(JSONException e){
+            } catch (JSONException e) {
                 continue;
             }
         }
@@ -322,16 +318,16 @@ public class parseSearchData {
     }
 
     //lineはこれで必要データが整う、ちなみにpriceでも同様に出来ると思われる
-    private JSONObject[] ParseJSONprice(JSONArray JSONprice){
+    private JSONObject[] ParseJSONprice(JSONArray JSONprice) {
 
         int priceCnt = JSONprice.length();
         JSONObject[] lineObject = new JSONObject[priceCnt];
 
-        for(int i = 0; i < priceCnt;i++) {
+        for (int i = 0; i < priceCnt; i++) {
             try {
                 lineObject[i] = JSONprice.getJSONObject(i);
 
-            }catch(JSONException e){
+            } catch (JSONException e) {
                 continue;
             }
         }
@@ -339,17 +335,16 @@ public class parseSearchData {
     }
 
 
-
-    private JSONObject[] ParseJSONpoint(JSONArray JSONpoint){
+    private JSONObject[] ParseJSONpoint(JSONArray JSONpoint) {
 
         int pointCnt = JSONpoint.length();
         JSONObject[] pointObject = new JSONObject[pointCnt];
 
-        for(int i = 0; i < pointCnt;i++) {
+        for (int i = 0; i < pointCnt; i++) {
             try {
-               pointObject[i] = JSONpoint.getJSONObject(i);
+                pointObject[i] = JSONpoint.getJSONObject(i);
 
-            }catch(JSONException e){
+            } catch (JSONException e) {
                 continue;
             }
         }
@@ -358,10 +353,9 @@ public class parseSearchData {
     }
 
     //パースデータ取得
-    public ArrayList<ArrayList<RouteInfo>> getParseData(){
+    public ArrayList<ArrayList<RouteInfo>> getParseData() {
         return routeInfo;
     }
-
 
 
 }

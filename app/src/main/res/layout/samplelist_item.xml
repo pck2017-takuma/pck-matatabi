@@ -23,7 +23,7 @@
             android:padding="5dp"
             android:gravity="center_vertical"
             android:maxLines="1"
-            android:text="Sample Text"/>
+            android:text="Sample Text" />
 
         <TextView
             android:id="@+id/nakami"

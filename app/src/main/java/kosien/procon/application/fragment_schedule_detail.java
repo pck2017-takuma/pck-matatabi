@@ -39,7 +39,6 @@ public class fragment_schedule_detail extends Fragment {
     //ビューを生成し終わった後に呼ばれるメソッド
 
 
-
     @Override
     public void onViewCreated(final View view, Bundle saveInstanceState) {
         travelHelper = new infoTravelDao(getContext());
@@ -51,7 +50,7 @@ public class fragment_schedule_detail extends Fragment {
         // ボタンを生成
         super.onViewCreated(view, saveInstanceState);
         Button accept_button = (Button) view.findViewById(R.id.detail_button1);
-        Button view_button = (Button)view.findViewById(R.id.detail_button2);
+        Button view_button = (Button) view.findViewById(R.id.detail_button2);
         //acceptボタンの割り当て
         accept_button.setText("日記を作成");
         accept_button.setOnClickListener(new View.OnClickListener() {
@@ -64,8 +63,8 @@ public class fragment_schedule_detail extends Fragment {
                 fragment_diaryedit recordFragment = new fragment_diaryedit();
                 //旅行番号をバンドルする
                 Bundle bundle = new Bundle();
-                bundle.putInt("schedule",viewData.getRowid());
-                bundle.putInt("travel",viewData.getTravelNum());
+                bundle.putInt("schedule", viewData.getRowid());
+                bundle.putInt("travel", viewData.getTravelNum());
                 recordFragment.setArguments(bundle);
                 fragmentTransaction.replace(R.id.fragment_record, recordFragment);
                 fragmentTransaction.commit();
@@ -76,7 +75,7 @@ public class fragment_schedule_detail extends Fragment {
 
         //日記を見るボタン
         view_button.setText("日記を見る");
-        view_button.setOnClickListener(new View.OnClickListener(){
+        view_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateRecord();
@@ -94,7 +93,7 @@ public class fragment_schedule_detail extends Fragment {
 
 
                 recordFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.fragment_record,recordFragment);
+                fragmentTransaction.replace(R.id.fragment_record, recordFragment);
                 fragmentTransaction.commit();
 
             }
@@ -102,8 +101,8 @@ public class fragment_schedule_detail extends Fragment {
 
     }
 
-    private void updateRecord(){
-        if(recordDB.findRecord(viewData.getRowid(),viewData.getTravelNum())){
+    private void updateRecord() {
+        if (recordDB.findRecord(viewData.getRowid(), viewData.getTravelNum())) {
             myRecord = recordDB.getRecord().get(0);
         }
 

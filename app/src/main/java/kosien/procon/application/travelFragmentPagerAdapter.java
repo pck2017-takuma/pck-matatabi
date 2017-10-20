@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 
 
-
 public class travelFragmentPagerAdapter extends FragmentPagerAdapter {
 
     /*表示内容：１つ１つの表示はフラグメントが担当する
@@ -24,16 +23,16 @@ public class travelFragmentPagerAdapter extends FragmentPagerAdapter {
     //表示内容の数によってページ数を決める。
     private static final int PAGE_NUM = 4;
 
-    public travelFragmentPagerAdapter(FragmentManager fm){
+    public travelFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
     @Override
-    public Fragment getItem(int position){
+    public Fragment getItem(int position) {
         Fragment fragment = null;
 
         //ここでフラグメントの指定
-        switch(position){
+        switch (position) {
             case 0:
                 fragment = new fragment_travel();
                 break;
@@ -51,16 +50,16 @@ public class travelFragmentPagerAdapter extends FragmentPagerAdapter {
     }
 
     @Override
-    public int getCount(){
+    public int getCount() {
         return PAGE_NUM;
     }
 
     @Override
-    public CharSequence getPageTitle(int position){
+    public CharSequence getPageTitle(int position) {
         CharSequence sequence = null;
 
         //ここでページタイトルを返す。
-        switch(position){
+        switch (position) {
             case 0:
                 sequence = "テスト１";
                 break;
@@ -68,7 +67,7 @@ public class travelFragmentPagerAdapter extends FragmentPagerAdapter {
                 sequence = "テスト２";
                 break;
             case 2:
-                sequence =  "テスト３";
+                sequence = "テスト３";
                 break;
             default:
                 sequence = "テスト４";

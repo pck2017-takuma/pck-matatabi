@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by procon-kyougi on 2017/09/14.
  */
 
-public class busInfoDBOpenHelper extends SQLiteOpenHelper{
+public class busInfoDBOpenHelper extends SQLiteOpenHelper {
 
     //データベース名
     private static final String DATABASE_NAME = "MATATABI";
@@ -38,6 +38,7 @@ public class busInfoDBOpenHelper extends SQLiteOpenHelper{
 
         }
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 

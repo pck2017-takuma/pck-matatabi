@@ -8,16 +8,16 @@ import java.io.Serializable;
  */
 
 public class RouteInfo implements Serializable {
-    
-    
+
+
     //添付画像は別テーブルに作成しているので注意
-    
+
     //テーブル名
-    
+
     public static final String TABLE_NAME = "Route_Info";
-    
+
     //ここからカラム名
-    
+
     //カラムID
     public static final String COLUMN_ID = "_id";
     //////////////////////////////////////////テーブル名////////////////////////////////////////////////////////////
@@ -57,67 +57,79 @@ public class RouteInfo implements Serializable {
     private int routeFlag = 0;
     //行程番号
     private int scheduleNum = -1;
+
     //ゲッター
     public int getRowid() {
         return rowid;
     }
-    
+
     public String getRouteDeparture() {
         return this.routeDeparture;
     }
-    
+
     public String getrouteDepttime() {
         return this.routeDepttime;
     }
-    
+
     public String getRouteDestination() {
         return this.routeDestination;
     }
-    
+
     public String getRouteArvtime() {
         return this.routeArvtime;
     }
-    
+
     public String getRouteTrain() {
         return this.routeTrain;
     }
-    
+
     public int getTravelNum() {
         return this.travelNum;
     }
-    public int getRouteFlag(){return this.routeFlag;}
-    public int getScheduleNum(){return this.scheduleNum;}
+
+    public int getRouteFlag() {
+        return this.routeFlag;
+    }
+
+    public int getScheduleNum() {
+        return this.scheduleNum;
+    }
 
     //セッター
     public void setRowid(int _rowId) {
         this.rowid = _rowId;
     }
-    
+
     public void setRouteDeparture(String _routeDeparture) {
         this.routeDeparture = _routeDeparture;
     }
-    
+
     public void setRouteDepttime(String _routeDepttime) {
         this.routeDepttime = _routeDepttime;
     }
-    
+
     public void setRouteDestination(String _routeDestination) {
         this.routeDestination = _routeDestination;
     }
-    
+
     public void setRouteArvtime(String _routeArvtime) {
         this.routeArvtime = _routeArvtime;
     }
-    
+
     public void setRouteTrain(String _routeTrain) {
         this.routeTrain = _routeTrain;
     }
-    
+
     public void setTravelNum(int _travelNum) {
         this.travelNum = _travelNum;
     }
 
-    public void setRouteFlag(int _routeFlag){this.routeFlag = _routeFlag;}
-    public void setScheduleNum(int _scheduleNum){this.scheduleNum = _scheduleNum;}
-    
+    public void setRouteFlag(int _routeFlag) {
+        this.routeFlag = _routeFlag;
+    }
+
+    public void setScheduleNum(int _scheduleNum) {
+        this.scheduleNum = _scheduleNum;
+    }
+
 }

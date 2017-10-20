@@ -6,17 +6,17 @@
     <SwitchPreference
         android:key="setting_checkswitch_preference"
         android:title="通知機能"
-        android:summary="通知機能をオンにしますか（消費電力が増える場合があります）">
-</SwitchPreference>
+        android:summary="通知機能をオンにしますか（消費電力が増える場合があります）"></SwitchPreference>
 
     <!--位置情報許可-->
     <SwitchPreference
         android:key="gps_checkswitch_preference"
         android:title="位置情報"
-        android:summary="位置情報の使用を許可しますか">
-    </SwitchPreference>
-    <PreferenceCategory
-        android:layout="@layout/setting_license.xml">
-    </PreferenceCategory>
+        android:summary="位置情報の使用を許可しますか"></SwitchPreference>
+    <PreferenceScreen
+        android:key="notice_preferencescreen"
+        android:title="ライセンス情報">
+        <PreferenceCategory android:layout="@layout/setting_license"></PreferenceCategory>
+    </PreferenceScreen>
 
 </PreferenceScreen>

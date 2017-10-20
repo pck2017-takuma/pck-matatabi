@@ -22,17 +22,16 @@ public class search_fragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
-        super.onCreateView(inflater,container,saveInstanceState);
-        return inflater.inflate(R.layout.activity_search,container,false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
+        super.onCreateView(inflater, container, saveInstanceState);
+        return inflater.inflate(R.layout.activity_search, container, false);
     }
 
     @Override
-    public void onViewCreated(View view,Bundle savedInstanceState){
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         //未実装
 
     }
-
 
 
 }

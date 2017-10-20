@@ -43,9 +43,7 @@
         </FrameLayout>
 
 
-
     </LinearLayout>
-
 
 
 </android.support.constraint.ConstraintLayout>

@@ -33,19 +33,19 @@ public class getLocationListener extends AppCompatActivity implements LocationLi
 
         // Fine か Coarseのいずれかのパーミッションが得られているかチェックする
         // 本来なら、Android6.0以上かそうでないかで実装を分ける必要がある
-        if (ActivityCompat.checkSelfPermission(getApplication(), Manifest.permission.ACCESS_FINE_LOCATION)  != PackageManager.PERMISSION_GRANTED
+        if (ActivityCompat.checkSelfPermission(getApplication(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(getApplication(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             //fine location のリクエストコード（値は他のパーミッションと被らなければ、なんでも良い）
             final int requestCode = 1;
 
             // いずれも得られていない場合はパーミッションのリクエストを要求する
-            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, requestCode );
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, requestCode);
             return;
         }
 
         // 位置情報を管理している LocationManager のインスタンスを生成する
-        LocationManager locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         String locationProvider;
 
         // GPSが利用可能になっているかどうかをチェック
@@ -89,7 +89,7 @@ public class getLocationListener extends AppCompatActivity implements LocationLi
     //位置情報が通知されるたびにコールバックされるメソッド
     @SuppressLint("SetTextI18n")
     @Override
-    public void onLocationChanged(Location location){
+    public void onLocationChanged(Location location) {
         TextView textView = (TextView) findViewById(R.id.location);
         textView.setText(String.valueOf("onLocationChanged() : " + location.getLatitude()) + ":" + String.valueOf(location.getLongitude()));
     }

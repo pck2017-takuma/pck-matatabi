@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 //ヘルパークラス
 
-public class storeInfoHelper extends SQLiteOpenHelper{
+public class storeInfoHelper extends SQLiteOpenHelper {
 
     //データベース名
     private static final String DB_NAME = "MATATABI";
@@ -19,22 +19,22 @@ public class storeInfoHelper extends SQLiteOpenHelper{
     private static final int DB_VERSION = 1;
 
     //コンストラクタ
-    public storeInfoHelper(Context context){
-        super(context,DB_NAME,null,DB_VERSION);
+    public storeInfoHelper(Context context) {
+        super(context, DB_NAME, null, DB_VERSION);
     }
 
     //初回データベース生成時のみ呼び出しされる
     @Override
-    public void onCreate(SQLiteDatabase db){
+    public void onCreate(SQLiteDatabase db) {
         db.beginTransaction();
 
 
-        try{
+        try {
             //データベース作成
             StringBuilder builder = MAKE_SQL.createStoreInfo();
             db.execSQL(builder.toString());
             db.setTransactionSuccessful();
-        }finally{
+        } finally {
             db.endTransaction();
         }
 
@@ -43,26 +43,25 @@ public class storeInfoHelper extends SQLiteOpenHelper{
 
     //ヘルパー起動時に呼ばれるメソッド
     @Override
-    public void onOpen(SQLiteDatabase db){
+    public void onOpen(SQLiteDatabase db) {
         db.beginTransaction();
 
 
-        try{
+        try {
             //データベース作成
             StringBuilder builder = MAKE_SQL.createStoreInfo();
             db.execSQL(builder.toString());
             db.setTransactionSuccessful();
-        }finally{
+        } finally {
             db.endTransaction();
         }
 
     }
 
     //データベース更新時（空実装）
-    public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion){
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //何も書かない
     }
-
 
 
 }

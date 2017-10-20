@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--      レイアウト     -->
+<?xml version="1.0" encoding="utf-8"?><!--      レイアウト     -->
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:fitsSystemWindows="true" >
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -25,8 +23,7 @@
                 android:background="@color/colorPrimary"
                 app:layout_collapseMode="pin"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:title="This space is Toolbar"
-                />
+                app:title="This space is Toolbar" />
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabLayout"
@@ -34,8 +31,7 @@
                 android:background="#FFFFFF"
                 android:layout_height="48dp"
                 android:textAllCaps="false"
-                app:tabMode="scrollable"
-                />
+                app:tabMode="scrollable" />
 
         </android.support.design.widget.AppBarLayout>
 
@@ -52,13 +48,12 @@
         >
 
 
-
         <!--<android.support.v4.view.ViewPager-->
-            <!--android:id="@+id/viewPager"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-            <!--/>-->
+        <!--android:id="@+id/viewPager"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+        <!--/>-->
 
         <!--      BottomNavigationView実装部   -->
         <android.support.design.widget.BottomNavigationView
@@ -75,12 +70,9 @@
             android:id="@+id/NavContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/navigation" >
-        </FrameLayout>
+            android:layout_above="@id/navigation"></FrameLayout>
         <!--      BottomNavigationView実装部終  -->
 
 
-
     </RelativeLayout>
-</android.support.design.widget.CoordinatorLayout>
-    <!--      レイアウト終     -->
+</android.support.design.widget.CoordinatorLayout><!--      レイアウト終     -->

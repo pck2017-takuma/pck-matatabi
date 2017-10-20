@@ -1,19 +1,14 @@
 package kosien.procon.application.matatabidb.mydatabase;
 
 
-import android.widget.ArrayAdapter;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import kosien.procon.application.matatabidb.Matatabi;
+;
 
 
 /**
@@ -21,10 +16,10 @@ import kosien.procon.application.matatabidb.Matatabi;
  * データベースアクセス用クラス
  */
 
-public class StationInfoDao{
+public class StationInfoDao {
 
     private stationInfoDBOpenHelper helper = null;
-    private ArrayList<Station_Infomation>returnData = new ArrayList<>();
+    private ArrayList<Station_Infomation> returnData = new ArrayList<>();
 
     public StationInfoDao(Context context) {
         helper = new stationInfoDBOpenHelper(context);
@@ -39,7 +34,7 @@ public class StationInfoDao{
             values.put(Station_Infomation.STATION_NAME, stationInfo.getStationname());
             values.put(Station_Infomation.KANA_NAME, stationInfo.getKananame());
             values.put(Station_Infomation.BET_NAME, stationInfo.getBetname());
-            values.put(Station_Infomation.STATION_CODE,stationInfo.getStationCode());
+            values.put(Station_Infomation.STATION_CODE, stationInfo.getStationCode());
             values.put(Station_Infomation.STATION_NUMBER, stationInfo.getStationNumber());
             values.put(Station_Infomation.STATION_POST, stationInfo.getStationpost());
             values.put(Station_Infomation.STATION_ADDRESS, stationInfo.getStationaddress());
@@ -60,8 +55,6 @@ public class StationInfoDao{
         }
         return result;
     }
-
-
 
 
     /**
@@ -156,44 +149,41 @@ public class StationInfoDao{
 //
 //        return bizCardList;
 //    }
-
-
-    public boolean findStationInfo(String search_data, String column_name){
+    public boolean findStationInfo(String search_data, String column_name) {
         SQLiteDatabase db = helper.getReadableDatabase();
 
         //データを空にする。
-        if(!returnData.isEmpty()) {
+        if (!returnData.isEmpty()) {
             returnData.clear();
         }
 
-        try{
+        try {
             String query = "select * from " + Station_Infomation.TABLE_NAME + " where " + column_name + " == " + "'" + search_data + "'" + ";";
-            Cursor cursor = db.rawQuery(query,null);
+            Cursor cursor = db.rawQuery(query, null);
             int count = cursor.getCount();
             cursor.moveToFirst();
             //カーソルの行数だけループ
-            for(int i = 0; i < count;i++){
+            for (int i = 0; i < count; i++) {
                 returnData.add(getStationInfo(cursor));
                 //カーソルを次に移動
                 cursor.moveToNext();
             }
-        }finally{
+        } finally {
             //処理が終わったらデータベースを閉じる
             db.close();
         }
 
-        if(returnData.size() == 0){
+        if (returnData.size() == 0) {
             return false;
-        }else{
+        } else {
             return true;
         }
 
     }
 
-    public ArrayList<Station_Infomation>getSearchResult(){
+    public ArrayList<Station_Infomation> getSearchResult() {
         return returnData;
     }
-
 
 
 //

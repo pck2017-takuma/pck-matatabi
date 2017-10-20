@@ -7,7 +7,7 @@ import java.io.Serializable;
  * Created by procon-kyougi on 2017/09/16.
  */
 
-public class StationImage implements Serializable{
+public class StationImage implements Serializable {
 
     //テーブル名
     public static final String TABLE_NAME = "station_image";
@@ -27,24 +27,28 @@ public class StationImage implements Serializable{
     private String stationPicture = null;
 
     //ここからゲッター
-    public int getRowId(){
+    public int getRowId() {
         return rowId;
     }
-    public String getStationNumber(){
+
+    public String getStationNumber() {
         return stationNumber;
     }
-    public String getStationPicuture(){
+
+    public String getStationPicuture() {
         return stationPicture;
     }
     //ここからセッター
 
-    public void setRowId(int _rowId){
+    public void setRowId(int _rowId) {
         this.rowId = _rowId;
     }
-    public void setStationNumber(String _stationNumber){
+
+    public void setStationNumber(String _stationNumber) {
         this.stationNumber = _stationNumber;
     }
-    public void setStationPicture(String _stationPicture){
+
+    public void setStationPicture(String _stationPicture) {
         this.stationPicture = _stationPicture;
     }
 }

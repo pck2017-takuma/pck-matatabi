@@ -19,37 +19,37 @@ import su.heartlove.matatabi.R;
 public class train_timetable_adapter extends ArrayAdapter<train_timetable_list> {
 
     private int mResource;
-    private ArrayList<train_timetable_list>mItems;
+    private ArrayList<train_timetable_list> mItems;
     private LayoutInflater mInflater;
 
-    public train_timetable_adapter(Context context, int resource, ArrayList<train_timetable_list>items){
-        super(context,resource,items);
+    public train_timetable_adapter(Context context, int resource, ArrayList<train_timetable_list> items) {
+        super(context, resource, items);
         mResource = resource;
         mItems = items;
-        mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, ViewGroup parent) {
         View view;
 
-        if(convertView != null){
+        if (convertView != null) {
             view = convertView;
-        }else{
-            view = mInflater.inflate(mResource,null);
+        } else {
+            view = mInflater.inflate(mResource, null);
         }
 
         train_timetable_list item = mItems.get(position);
 
         //こ↑こ↓からレイアウト割り当て
         //到着時刻
-        TextView arriveTimeView = (TextView)view.findViewById(R.id.arrive_time);
+        TextView arriveTimeView = (TextView) view.findViewById(R.id.arrive_time);
         arriveTimeView.setText(item.getArriveTime());
         //発車時刻
-        TextView departTime = (TextView)view.findViewById(R.id.depart_time);
+        TextView departTime = (TextView) view.findViewById(R.id.depart_time);
         departTime.setText(item.getDepartTime());
         //駅名
-        TextView stationName = (TextView)view.findViewById(R.id.station_name);
+        TextView stationName = (TextView) view.findViewById(R.id.station_name);
         stationName.setText(item.getStationName());
         //アイコン
         ImageView thumbnail = view.findViewById(R.id.station_icon);

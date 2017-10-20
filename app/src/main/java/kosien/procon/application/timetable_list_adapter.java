@@ -18,31 +18,30 @@ import su.heartlove.matatabi.R;
  */
 
 
-
 public class timetable_list_adapter extends ArrayAdapter<timetable_list_item> {
     private int mResource;
     private ArrayList<timetable_list_item> mItems = new ArrayList<>();
     private LayoutInflater mInflater;
 
     //コンストラクタ
-    public timetable_list_adapter(Context context,int resource,ArrayList<timetable_list_item>items){
-        super(context,resource,items);
+    public timetable_list_adapter(Context context, int resource, ArrayList<timetable_list_item> items) {
+        super(context, resource, items);
         mResource = resource;
         mItems = items;
-        mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, ViewGroup parent) {
 
         //２つのImageViewと５つのTextViewを表示する
 
         View view;
-        if(convertView != null){
+        if (convertView != null) {
             view = convertView;
-        }else{
-            view = mInflater.inflate(mResource,null);
+        } else {
+            view = mInflater.inflate(mResource, null);
         }
 
 

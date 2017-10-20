@@ -22,7 +22,6 @@ import su.heartlove.matatabi.R;
  */
 
 
-
 public class SetRecordListAdapter extends ArrayAdapter<SampleListItem> {
 
     //表示内容
@@ -33,16 +32,17 @@ public class SetRecordListAdapter extends ArrayAdapter<SampleListItem> {
 
     /**
      * コンストラクタ
-     * @param context コンテキスト
+     *
+     * @param context  コンテキスト
      * @param resource リソースID
-     * @param items リストビューの要素
+     * @param items    リストビューの要素
      */
 
-    public SetRecordListAdapter(Context context, int resource, List<SampleListItem>items){
-        super(context,resource,items);
+    public SetRecordListAdapter(Context context, int resource, List<SampleListItem> items) {
+        super(context, resource, items);
         mResource = resource;
         mItems = items;
-        mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     }
 

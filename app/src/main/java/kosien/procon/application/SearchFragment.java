@@ -38,16 +38,16 @@ public class SearchFragment extends Fragment {
     private String searchWord = new String();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
-        super.onCreateView(inflater,container,saveInstanceState);
-        return inflater.inflate(R.layout.fragment_searchlist,container,false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
+        super.onCreateView(inflater, container, saveInstanceState);
+        return inflater.inflate(R.layout.fragment_searchlist, container, false);
 
 
     }
 
     //ビューを生成し終わった後に呼ばれるメソッド
     @Override
-    public void onViewCreated(View view,Bundle saveInstanceState) {
+    public void onViewCreated(View view, Bundle saveInstanceState) {
         stationHelper = new StationInfoDao(getContext());
 
         // super.onViewCreated(view,saveInstanceState);
@@ -57,23 +57,23 @@ public class SearchFragment extends Fragment {
 
         ArrayList<Station_Infomation> stationData = null;
 
-        basicTimeSearch makelink = new basicTimeSearch("岡山","東京");
+        basicTimeSearch makelink = new basicTimeSearch("岡山", "東京");
         System.out.println(makelink.getSearchLink());
         getJsonFromAsync(makelink.getSearchLink());
 
 
-        if(stationHelper.findStationInfo(searchWord,Station_Infomation.STATION_NAME)){
+        if (stationHelper.findStationInfo(searchWord, Station_Infomation.STATION_NAME)) {
             stationData = stationHelper.getSearchResult();
         }
 
-        ListView listView = (ListView)view.findViewById(R.id.sample_listview);
+        ListView listView = (ListView) view.findViewById(R.id.sample_listview);
         ArrayList<SampleListItem> listItems = new ArrayList<>();
 
-        if(stationData.size() == 0){
-            Toast.makeText(getContext(),"データが存在しません",Toast.LENGTH_SHORT).show();
-        }else {
-           // for (int i = 0; i < stationData.size(); i++) {
-             for(Station_Infomation x:stationData){
+        if (stationData.size() == 0) {
+            Toast.makeText(getContext(), "データが存在しません", Toast.LENGTH_SHORT).show();
+        } else {
+            // for (int i = 0; i < stationData.size(); i++) {
+            for (Station_Infomation x : stationData) {
 
                 Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);  // 今回はサンプルなのでデフォルトのAndroid Iconを利用
                 SampleListItem item = new SampleListItem(bmp, x.getStationname(), x.getKananame());
@@ -90,16 +90,14 @@ public class SearchFragment extends Fragment {
                                         View view, int pos, long id) {
 
                     // 選択アイテムを取得
-                    ListView listView2 = (ListView)parent;
-                    String item = (String)listView2.getItemAtPosition(pos);
+                    ListView listView2 = (ListView) parent;
+                    String item = (String) listView2.getItemAtPosition(pos);
 
                     // 通知ダイアログを表示
                     Toast.makeText(getContext(),
                             item, Toast.LENGTH_LONG
                     ).show();
                 }
-
-
 
 
             });
@@ -112,11 +110,17 @@ public class SearchFragment extends Fragment {
 
         ConnectServer asyncGet = new ConnectServer(new ConnectServer.AsyncCallback() {
             //非同期通信が開始される前に呼び出される
-            public void onPreExecute() {}
+            public void onPreExecute() {
+            }
+
             //非同期通信が更新されたと時に呼び出される
-            public void onProgressUpdate(int progress) {}
+            public void onProgressUpdate(int progress) {
+            }
+
             //非同期通信がキャンセルされたt気に呼び出される
-            public void onCancelled() {}
+            public void onCancelled() {
+            }
+
             //非同期通信が完了した時点で呼び出される
             public void onPostExecute(String result) {
 

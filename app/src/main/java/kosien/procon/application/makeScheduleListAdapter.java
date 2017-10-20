@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import java.util.List;
 
 import su.heartlove.matatabi.R;
@@ -19,16 +20,17 @@ public class makeScheduleListAdapter extends ArrayAdapter<makeScheduleListItem> 
 
     /**
      * コンストラクタ
-     * @param context コンテキスト
+     *
+     * @param context  コンテキスト
      * @param resource リソースID
-     * @param items リストビューの要素
+     * @param items    リストビューの要素
      */
     public makeScheduleListAdapter(Context context, int resource, List<makeScheduleListItem> items) {
         super(context, resource, items);
 
         mResource = resource;
         mItems = items;
-        mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -37,8 +39,7 @@ public class makeScheduleListAdapter extends ArrayAdapter<makeScheduleListItem> 
 
         if (convertView != null) {
             view = convertView;
-        }
-        else {
+        } else {
             view = mInflater.inflate(mResource, null);
         }
 

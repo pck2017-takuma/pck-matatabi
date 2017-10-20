@@ -18,36 +18,36 @@ public class RecordTimeOpenHelper extends SQLiteOpenHelper {
 
     //コンストラクタ
 
-    public RecordTimeOpenHelper(Context context){
+    public RecordTimeOpenHelper(Context context) {
         //オブジェクトを作成する
-        super(context,DB_NAME,null,DB_VERSION);
+        super(context, DB_NAME, null, DB_VERSION);
     }
 
     //データベース
     @Override
-    public void onCreate(SQLiteDatabase db){
+    public void onCreate(SQLiteDatabase db) {
         db.beginTransaction();
 
-        try{
+        try {
             //データベース作成用SQL
             StringBuilder createsql = MAKE_SQL.createDiaryUpdateTime();
             db.execSQL(createsql.toString());
             db.setTransactionSuccessful();
-        }finally {
+        } finally {
             db.endTransaction();
         }
     }
 
     @Override
-    public void onOpen(SQLiteDatabase db){
+    public void onOpen(SQLiteDatabase db) {
         db.beginTransaction();
 
-        try{
+        try {
             //データベース作成用SQL
             StringBuilder createsql = MAKE_SQL.createDiaryUpdateTime();
             db.execSQL(createsql.toString());
             db.setTransactionSuccessful();
-        }finally {
+        } finally {
             db.endTransaction();
         }
     }
@@ -55,7 +55,7 @@ public class RecordTimeOpenHelper extends SQLiteOpenHelper {
     @Override
 
     //データベース更新（空実装）
-    public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion){
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
 

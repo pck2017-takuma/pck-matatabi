@@ -1,5 +1,4 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_y="22dip"
@@ -13,8 +12,7 @@
         android:layout_height="match_parent"
         android:id="@+id/LinearLayout_all"
 
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -82,8 +80,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5"
-            >
+            android:layout_weight="5">
 
             <ListView
                 android:id="@+id/ListView_searchlist"
@@ -132,7 +129,7 @@
                         android:gravity="left|center_vertical"
                         android:inputType="text"
                         android:maxWidth="200dp"
-                        android:minWidth="200dp"/>
+                        android:minWidth="200dp" />
 
                     <Button
                         android:id="@+id/Button_top_search"
@@ -140,7 +137,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"
                         android:text="@string/btn_top_search"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
@@ -154,7 +151,7 @@
 
                     android:minWidth="200dp"
                     android:text="@string/btn_top_add"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
             </LinearLayout>
         </FrameLayout>
 

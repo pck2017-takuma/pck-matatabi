@@ -27,23 +27,27 @@ public class Diary_Image implements Serializable {
     //ローカルの画像の保存場所
     private String image_pass = null;
 
-    public int getRowID(){
+    public int getRowID() {
         return rowid;
     }
+
     public int getDiaryId() {
         return diary_id;
     }
-    public String getImagePass(){
+
+    public String getImagePass() {
         return image_pass;
     }
 
-    public void setRowid(int _rowId){
+    public void setRowid(int _rowId) {
         this.rowid = _rowId;
     }
-    public void setDiaryId(int _diaryId){
+
+    public void setDiaryId(int _diaryId) {
         this.diary_id = _diaryId;
     }
-    public void setImagePass(String _imagePass){
+
+    public void setImagePass(String _imagePass) {
         this.image_pass = _imagePass;
     }
 

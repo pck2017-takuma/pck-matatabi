@@ -33,7 +33,7 @@ public class travelStatusInfoHelper {
     placeInfoDao placeHelper;
     //旅行行程
     travelScheduleDao scheduleHelper;
-    
+
     //ここから状態保持//
 
     //現在の旅行情報を取得する
@@ -45,11 +45,11 @@ public class travelStatusInfoHelper {
     travelSchedule nowSchedule;
 
     //現在訪れている観光地
-    ArrayList<placeInfomation>placeList;
+    ArrayList<placeInfomation> placeList;
     placeInfomation nowPlaceData;
 
     //コンストラクタ
-    travelStatusInfoHelper(Context context){
+    travelStatusInfoHelper(Context context) {
         myContext = context;
         //データベースオープン
         travelHelper = new infoTravelDao(myContext);
@@ -59,28 +59,28 @@ public class travelStatusInfoHelper {
 
 
     //現在の行程取得などの初期処理を行う
-    public void travelInitializer(){
-        
+    public void travelInitializer() {
+
         //現在の旅行データが存在するか照会する
         boolean travelFlag = travelHelper.checkTravel();
-        if(travelFlag){
+        if (travelFlag) {
             //現在の旅行情報を取得する
             nowTravel = travelHelper.getNowTravel();
             //訪問先データの全件取得処理
-            if(scheduleHelper.findSchedule(nowTravel.gettravelNum())){
+            if (scheduleHelper.findSchedule(nowTravel.gettravelNum())) {
                 //データベースから現在の旅行の行程をすべて取得する
-                scheduleList = scheduleHelper.getNowTravelList();  
+                scheduleList = scheduleHelper.getNowTravelList();
             }
             //今タイムリーで訪れている旅行先があるかを確認する
-            if(scheduleHelper.findNowSchedule(nowTravel.gettravelNum())){
+            if (scheduleHelper.findNowSchedule(nowTravel.gettravelNum())) {
                 //訪れている場所がある場合の処理
                 nowSchedule = scheduleHelper.getNowTravel();
-            }else{
+            } else {
                 //いま訪れている場所がない場合は一か所目に訪れる場所をアクティブにする
-                
+
                 //どれが最初かわからないのでgetRouteNumが０の場所をリスト総舐めで調べる
-                for(travelSchedule x:scheduleList){
-                    if(x.getRouteNum() == 0){
+                for (travelSchedule x : scheduleList) {
+                    if (x.getRouteNum() == 0) {
                         //旅行中のフラグを立てる
                         x.setFlag(1);
                         //その情報をデータベースに保存する
@@ -93,24 +93,18 @@ public class travelStatusInfoHelper {
                 }
             }
             //次に観光地のデータを取得する
-            if(placeHelper.findPlaceInfo(nowSchedule.getPlaceName(), placeInfomation.PLACE_NAME)){
+            if (placeHelper.findPlaceInfo(nowSchedule.getPlaceName(), placeInfomation.PLACE_NAME)) {
                 //1つのデータしか見つからないという信頼の上で
                 nowPlaceData = placeHelper.getSearchResult().get(0);
-                
-            }else{
+
+            } else {
                 //ここに入ることはあり得ない
             }
         }//旅行がある場合の処理の終端(if文の終端)
     }
 
     //旅行の開始処理
-    public void onStartTravel(){
-
-
-
-
-
-
+    public void onStartTravel() {
 
 
     }
@@ -118,26 +112,24 @@ public class travelStatusInfoHelper {
 
     //旅行の終了処理
 
-    public void onEndTravel(){
+    public void onEndTravel() {
 
     }
 
 
-
-
     //行程を進める
-    public void myNextPlace(){
+    public void myNextPlace() {
         //次の場所を取得する
         scheduleHelper.moveNextPlace(nowSchedule);
         //次の場所を取得する
         nowSchedule = scheduleHelper.getNowTravel();
 
         //観光地の情報を取得する
-        if(placeHelper.findPlaceInfo(nowPlaceData.getPlaceName(),placeInfomation.PLACE_NAME)){
+        if (placeHelper.findPlaceInfo(nowPlaceData.getPlaceName(), placeInfomation.PLACE_NAME)) {
             //１つしかデータが見つからないという信頼の上で
             nowPlaceData = placeHelper.getSearchResult().get(0);
-        }else{
-            Toast.makeText(myContext,"ヤバい、可笑しいことになった！",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(myContext, "ヤバい、可笑しいことになった！", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -148,14 +140,10 @@ public class travelStatusInfoHelper {
     //近くの飲食店の情報をArrayListで返す
 
 
-
-
-
-
     //こ↑こ↓からデバック＆システム処理用
 
     //行程情報・旅行情報のフラグをすべて０にする（メンテナンス用）
-    public void all_travelFlag_false(){
+    public void all_travelFlag_false() {
         //データベース照会
 
         //こ↑こ↓からデータベースのヘルパークラスにデータベース内の全件情報を取得するメソッドを追加してから内容を書く

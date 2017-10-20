@@ -25,7 +25,7 @@ public class TravelDataWrite {
         int aaa = zzz.getRowid();
         travelSchedule bbb = new travelSchedule();
 
-        for(int i = 0; i < main.listItem.size(); i++) {
+        for (int i = 0; i < main.listItem.size(); i++) {
             bbb.setPlaceName(main.itemName(i));
             bbb.setRouteNum(i);
             bbb.setTravelNum(aaa);

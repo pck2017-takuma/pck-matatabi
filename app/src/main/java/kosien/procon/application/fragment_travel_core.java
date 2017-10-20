@@ -24,19 +24,18 @@ public class fragment_travel_core extends Fragment {
         super.onCreateView(inflater, container, saveInstanceState);
 
         //ホストのタブを使用する
-        tabLayout = (TabLayout)getActivity().findViewById(R.id.tabLayout);
+        tabLayout = (TabLayout) getActivity().findViewById(R.id.tabLayout);
 
         return inflater.inflate(R.layout.fragment_travel_core, container, false);
 
     }
 
 
-
     @Override
     public void onViewCreated(final View view, Bundle saveInstanceState) {
         super.onViewCreated(view, saveInstanceState);
         //ViewPagerのセット
-        pager = (ViewPager)view.findViewById(R.id.travel_pager);
+        pager = (ViewPager) view.findViewById(R.id.travel_pager);
 
         //アダプターセット
 
@@ -44,12 +43,6 @@ public class fragment_travel_core extends Fragment {
         pager.setAdapter(adapter);
         tabLayout.setupWithViewPager(pager);
     }
-
-
-
-
-
-
 
 
 }

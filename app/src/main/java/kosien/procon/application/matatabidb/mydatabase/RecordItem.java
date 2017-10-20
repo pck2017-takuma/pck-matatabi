@@ -63,52 +63,74 @@ public class RecordItem implements Serializable {
 
 
     //ゲッター
-    public int getRowid(){
+    public int getRowid() {
         return rowid;
     }
-    public String getDiaryTitle(){
+
+    public String getDiaryTitle() {
         return diaryTitle;
     }
-    public int getDiaryYear(){
+
+    public int getDiaryYear() {
         return diaryYear;
     }
-    public int getDiaryMon(){
+
+    public int getDiaryMon() {
         return diaryMon;
     }
-    public int getDiaryDay(){
+
+    public int getDiaryDay() {
         return diaryDay;
     }
-    public int getDiaryTime(){
+
+    public int getDiaryTime() {
         return diaryTime;
     }
-    public int gettravelNum(){return travelNum;}
-    public String getDiaryRecord(){
-         return diaryRecord;
-     }
-    public int getScheduleNum(){return scheduleNum;}
+
+    public int gettravelNum() {
+        return travelNum;
+    }
+
+    public String getDiaryRecord() {
+        return diaryRecord;
+    }
+
+    public int getScheduleNum() {
+        return scheduleNum;
+    }
 
     //セッター
-    public void setRowid(int _rowId){
+    public void setRowid(int _rowId) {
         this.rowid = _rowId;
     }
 
-    public void setDiaryTitle(String _diaryTitle){
+    public void setDiaryTitle(String _diaryTitle) {
         this.diaryTitle = _diaryTitle;
     }
-    public void setTravelNum(int _travelNum){this.travelNum = _travelNum;}
-    public void setDiaryYear(int _diaryYear){
+
+    public void setTravelNum(int _travelNum) {
+        this.travelNum = _travelNum;
+    }
+
+    public void setDiaryYear(int _diaryYear) {
         this.diaryYear = _diaryYear;
     }
-    public void setDiaryMon(int _diaryMon){
+
+    public void setDiaryMon(int _diaryMon) {
         this.diaryMon = _diaryMon;
     }
-    public void setDiaryDay(int _diaryDay){
+
+    public void setDiaryDay(int _diaryDay) {
         this.diaryDay = _diaryDay;
     }
-    public void setDiaryTime(int _diaryTime){
+
+    public void setDiaryTime(int _diaryTime) {
         this.diaryTime = _diaryTime;
     }
-    public void setScheduleNum(int _scheduleNum){this.scheduleNum = _scheduleNum;}
+
+    public void setScheduleNum(int _scheduleNum) {
+        this.scheduleNum = _scheduleNum;
+    }
 
     // //セッターについては年数とかを個別に設定することは想定していない
     // public void setDiaryTime(int _time){
@@ -121,23 +143,42 @@ public class RecordItem implements Serializable {
     //     //この先はまだ空実装
     // }
 
-     public void setDiaryRecord(String _diaryRecord){
-         this.diaryRecord = _diaryRecord;
-     }
+    public void setDiaryRecord(String _diaryRecord) {
+        this.diaryRecord = _diaryRecord;
+    }
 
 
+    public static int getDiarySearchyear() {
+        return itemsearchyear;
+    }
 
-    public static int getDiarySearchyear() { return itemsearchyear; }
-    public void setItemSearchYear(int paramYear) { RecordItem.itemsearchyear = paramYear; }
+    public void setItemSearchYear(int paramYear) {
+        RecordItem.itemsearchyear = paramYear;
+    }
 
-    public static int getItemSearchMon() { return itemsearchmon; }
-    public void setItemSearchMon(int paramMon) { RecordItem.itemsearchmon = paramMon; }
+    public static int getItemSearchMon() {
+        return itemsearchmon;
+    }
 
-    public static int getItemSearchDay() { return itemsearchday; }
-    public void setItemSearchHi(int paramDay) { RecordItem.itemsearchday = paramDay; }
+    public void setItemSearchMon(int paramMon) {
+        RecordItem.itemsearchmon = paramMon;
+    }
 
-    public static String getItemSearchRecord() { return itemsearchrecord; }
-    public void setItemSearchRecord(String paramNikki) { RecordItem.itemsearchrecord = paramNikki; }
+    public static int getItemSearchDay() {
+        return itemsearchday;
+    }
+
+    public void setItemSearchHi(int paramDay) {
+        RecordItem.itemsearchday = paramDay;
+    }
+
+    public static String getItemSearchRecord() {
+        return itemsearchrecord;
+    }
+
+    public void setItemSearchRecord(String paramNikki) {
+        RecordItem.itemsearchrecord = paramNikki;
+    }
 
 
     //ListViewで内容を表示（デバック用？）、アプリ完成時にはコメントアウト推奨
@@ -171,10 +212,6 @@ public class RecordItem implements Serializable {
     //     return builder.toString();
 
     // }
-
-
-
-
 
 
 }

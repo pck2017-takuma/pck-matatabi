@@ -35,19 +35,30 @@ public class storeGenre implements Serializable {
     private String genreName = null;
 
     //ゲッター
-    public long getRowId(){
+    public long getRowId() {
         return this.rowId;
     }
-    public String getGenreId(){
+
+    public String getGenreId() {
         return this.genreId;
     }
-    public String getGenreName(){return this.genreName;}
+
+    public String getGenreName() {
+        return this.genreName;
+    }
 
     //セッター
-    public void setRowId(long _rowId){this.rowId = _rowId;}
-    public void setGenreId(String _genreId){this.genreId = _genreId;}
-    public void setGenreName(String _genreName){this.genreName = _genreName;}
+    public void setRowId(long _rowId) {
+        this.rowId = _rowId;
+    }
 
+    public void setGenreId(String _genreId) {
+        this.genreId = _genreId;
+    }
+
+    public void setGenreName(String _genreName) {
+        this.genreName = _genreName;
+    }
 
 
 }

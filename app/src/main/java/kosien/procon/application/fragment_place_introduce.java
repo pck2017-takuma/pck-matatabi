@@ -33,19 +33,14 @@ public class fragment_place_introduce extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view,Bundle savedInstanceState){
-        super.onViewCreated(view,savedInstanceState);
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         //ここでボタン等の各要素をセットする
 
 
-
         //データベースオープン
         placeHelper = new placeInfoDao(getContext());
-
-
-
-
 
 
     }

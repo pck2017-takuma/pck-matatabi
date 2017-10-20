@@ -19,14 +19,14 @@ public class getTimeListener {
         return df.format(date);
     }
 
-    public static String convertNowTime(String _time){
+    public static String convertNowTime(String _time) {
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
 
         Date date = new Date();
         try {
             date = df.parse(_time);
-        }catch(ParseException e){
+        } catch (ParseException e) {
 
 
         }
@@ -35,9 +35,6 @@ public class getTimeListener {
 
         return strDate;
     }
-
-
-
 
 
 }

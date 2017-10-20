@@ -41,16 +41,17 @@ public class fragment_schedule extends Fragment {
 
     //スケジュールデータを表示する
     ArrayList<travelSchedule> scheduleData = new ArrayList<>();
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
-        super.onCreateView(inflater,container,saveInstanceState);
-        return inflater.inflate(R.layout.fragment_schedule,container,false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
+        super.onCreateView(inflater, container, saveInstanceState);
+        return inflater.inflate(R.layout.fragment_schedule, container, false);
     }
 
     //ビューを生成し終わった後に呼ばれるメソッド
 
     @Override
-    public void onViewCreated(View view,Bundle saveInstanceState) {
+    public void onViewCreated(View view, Bundle saveInstanceState) {
 
 
         //スケジュールデータベースオープン
@@ -59,50 +60,48 @@ public class fragment_schedule extends Fragment {
 
         //バンドルされたデータを取得する
         Bundle bundle = getArguments();
-        getData = (infoTravel)bundle.getSerializable("infoTravel");
+        getData = (infoTravel) bundle.getSerializable("infoTravel");
         //スケジュール一覧を取得する
-        if(scheduleDB.findSchedule(getData.getTravelNum())){
+        if (scheduleDB.findSchedule(getData.getTravelNum())) {
             getList = scheduleDB.getNowTravelList();
         }
 
 
-
         // ボタンを生成
-        super.onViewCreated(view,saveInstanceState);
+        super.onViewCreated(view, saveInstanceState);
 
 
-
-        Button accept_button = (Button)view.findViewById(R.id.edit_buttonn);
+        Button accept_button = (Button) view.findViewById(R.id.edit_buttonn);
 
 
         //acceptボタンの割り当て
 
-        if(getData.getTravelFlag() == 0){
+        if (getData.getTravelFlag() == 0) {
             accept_button.setText("旅行を開始");
             accept_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //_idが１のやつを旅行中に、現在の選択項目もアクティブにする（デバック中は一回一回アンインストールしないと不具合が生じる）
-                getData.setTravelFlag(1);
+                @Override
+                public void onClick(View v) {
+                    //_idが１のやつを旅行中に、現在の選択項目もアクティブにする（デバック中は一回一回アンインストールしないと不具合が生じる）
+                    getData.setTravelFlag(1);
 
-                travelSchedule start = getList.get(0);
-                //アクティブにする
-                start.setFlag(1);
+                    travelSchedule start = getList.get(0);
+                    //アクティブにする
+                    start.setFlag(1);
 
-                //データベース登録
+                    //データベース登録
 
-                travelDB.save_time(getData);
-                scheduleDB.sava_diary(start);
+                    travelDB.save_time(getData);
+                    scheduleDB.sava_diary(start);
 
-                FragmentManager manager = getFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-                main_fragment mainFragment = new main_fragment();
-                transaction.replace(R.id.frame_layout,mainFragment);
-                transaction.commit();
-            }
-        });
+                    FragmentManager manager = getFragmentManager();
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    main_fragment mainFragment = new main_fragment();
+                    transaction.replace(R.id.frame_layout, mainFragment);
+                    transaction.commit();
+                }
+            });
 
-        }else{
+        } else {
             accept_button.setText("旅行を終了");
             accept_button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -114,7 +113,7 @@ public class fragment_schedule extends Fragment {
                     FragmentManager manager = getFragmentManager();
                     FragmentTransaction transaction = manager.beginTransaction();
                     main_fragment mainFragment = new main_fragment();
-                    transaction.replace(R.id.frame_layout,mainFragment);
+                    transaction.replace(R.id.frame_layout, mainFragment);
                     transaction.commit();
 
                 }
@@ -123,13 +122,13 @@ public class fragment_schedule extends Fragment {
 
         }
 
-        ListView listView = (ListView)view.findViewById(R.id.sample_listvieww);
+        ListView listView = (ListView) view.findViewById(R.id.sample_listvieww);
         ArrayList<SampleListItem> listItems = new ArrayList<SampleListItem>();
 
-        if(getList.size() == 0){
-            Toast.makeText(getContext(),"データが存在しません",Toast.LENGTH_SHORT).show();
-        }else {
-         for(travelSchedule x:getList){
+        if (getList.size() == 0) {
+            Toast.makeText(getContext(), "データが存在しません", Toast.LENGTH_SHORT).show();
+        } else {
+            for (travelSchedule x : getList) {
 
                 Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);  // 今回はサンプルなのでデフォルトのAndroid Iconを利用
                 SampleListItem item = new SampleListItem(bmp, x.getPlaceName(), x.getPlaceName());
@@ -153,17 +152,15 @@ public class fragment_schedule extends Fragment {
 
                         //バンドルデータを取得
                         travelSchedule tmp = getList.get(pos);
-                        bundle.putSerializable("infoTravel",tmp);
+                        bundle.putSerializable("infoTravel", tmp);
                         //フラグメントを立ち上げる
                         //こ↑こ↓のボタンは無効化する
                         fragment_schedule_detail recordFragment = new fragment_schedule_detail();
                         recordFragment.setArguments(bundle);
-                        fragmentTransaction.add(R.id.detail_schedule,recordFragment);
+                        fragmentTransaction.add(R.id.detail_schedule, recordFragment);
                         fragmentTransaction.commit();
 
                     }
-
-
 
 
                 });

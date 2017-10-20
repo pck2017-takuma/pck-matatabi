@@ -25,23 +25,27 @@ public class placeImage {
     //ローカルの画像の保存場所
     private String image_pass = null;
 
-    public int getRowID(){
+    public int getRowID() {
         return rowid;
     }
+
     public int getPlaceId() {
         return place_id;
     }
-    public String getImagePass(){
+
+    public String getImagePass() {
         return image_pass;
     }
 
-    public void setRowid(int _rowId){
+    public void setRowid(int _rowId) {
         this.rowid = _rowId;
     }
-    public void setPlaceId(int _placeId){
+
+    public void setPlaceId(int _placeId) {
         this.place_id = _placeId;
     }
-    public void setImagePass(String _imagePass){
+
+    public void setImagePass(String _imagePass) {
         this.image_pass = _imagePass;
     }
 

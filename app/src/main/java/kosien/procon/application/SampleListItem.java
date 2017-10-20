@@ -10,12 +10,16 @@ public class SampleListItem {
     /**
      * 空のコンストラクタ
      */
-    public SampleListItem() {};
+    public SampleListItem() {
+    }
+
+    ;
 
     /**
      * コンストラクタ
+     *
      * @param thumbnail サムネイル画像
-     * @param title タイトル
+     * @param title     タイトル
      */
     public SampleListItem(Bitmap thumbnail, String title, String nakami) {
         mThumbnail = thumbnail;
@@ -26,6 +30,7 @@ public class SampleListItem {
 
     /**
      * サムネイル画像を設定
+     *
      * @param thumbnail サムネイル画像
      */
     public void setThumbnail(Bitmap thumbnail) {
@@ -34,6 +39,7 @@ public class SampleListItem {
 
     /**
      * タイトルを設定
+     *
      * @param title タイトル
      */
     public void setmTitle(String title) {
@@ -42,6 +48,7 @@ public class SampleListItem {
 
     /**
      * ナカミを設定
+     *
      * @param nakami タイトル
      */
     public void setmNakami(String nakami) {
@@ -50,6 +57,7 @@ public class SampleListItem {
 
     /**
      * サムネイル画像を取得
+     *
      * @return サムネイル画像
      */
     public Bitmap getThumbnail() {
@@ -58,6 +66,7 @@ public class SampleListItem {
 
     /**
      * タイトルを取得
+     *
      * @return タイトル
      */
     public String getTitle() {
@@ -66,6 +75,7 @@ public class SampleListItem {
 
     /**
      * ナカミを設定
+     *
      * @return ナカミ
      */
     public String getNalami() {

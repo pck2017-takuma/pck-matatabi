@@ -11,12 +11,16 @@ public class makeScheduleListItem {
     /**
      * 空のコンストラクタ
      */
-    public makeScheduleListItem() {};
+    public makeScheduleListItem() {
+    }
+
+    ;
 
     /**
      * コンストラクタ
+     *
      * @param thumbnail サムネイル画像
-     * @param title タイトル
+     * @param title     タイトル
      */
     public makeScheduleListItem(Bitmap thumbnail, String title, String nakami, String time) {
         mThumbnail = thumbnail;
@@ -28,6 +32,7 @@ public class makeScheduleListItem {
 
     /**
      * サムネイル画像を設定
+     *
      * @param thumbnail サムネイル画像
      */
     public void setThumbnail(Bitmap thumbnail) {
@@ -36,6 +41,7 @@ public class makeScheduleListItem {
 
     /**
      * タイトルを設定
+     *
      * @param title タイトル
      */
     public void setmTitle(String title) {
@@ -44,6 +50,7 @@ public class makeScheduleListItem {
 
     /**
      * ナカミを設定
+     *
      * @param nakami ナカミ
      */
     public void setmNakami(String nakami) {
@@ -52,6 +59,7 @@ public class makeScheduleListItem {
 
     /**
      * 時間を設定
+     *
      * @param time 時間
      */
     public void setmTime(String time) {
@@ -60,6 +68,7 @@ public class makeScheduleListItem {
 
     /**
      * サムネイル画像を取得
+     *
      * @return サムネイル画像
      */
     public Bitmap getThumbnail() {
@@ -68,6 +77,7 @@ public class makeScheduleListItem {
 
     /**
      * タイトルを取得
+     *
      * @return タイトル
      */
     public String getTitle() {
@@ -76,6 +86,7 @@ public class makeScheduleListItem {
 
     /**
      * ナカミを取得
+     *
      * @return ナカミ
      */
     public String getNalami() {
@@ -84,6 +95,7 @@ public class makeScheduleListItem {
 
     /**
      * 時間を取得
+     *
      * @return 時間
      */
     public String getTime() {

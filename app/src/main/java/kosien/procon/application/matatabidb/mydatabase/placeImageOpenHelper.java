@@ -18,42 +18,42 @@ public class placeImageOpenHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
 
     //コンストラクタ
-    public placeImageOpenHelper(Context context){
-        super(context,DB_NAME,null,DB_VERSION);
+    public placeImageOpenHelper(Context context) {
+        super(context, DB_NAME, null, DB_VERSION);
     }
 
     //データベース作成
     @Override
-    public void onCreate(SQLiteDatabase db){
+    public void onCreate(SQLiteDatabase db) {
         db.beginTransaction();
 
-        try{
+        try {
             //テーブル作成用SQL
             StringBuilder createsql = MAKE_SQL.createPlaceImage();
             db.execSQL(createsql.toString());
             db.setTransactionSuccessful();
-        }finally {
+        } finally {
             db.endTransaction();
         }
     }
 
     @Override
-    public void onOpen(SQLiteDatabase db){
+    public void onOpen(SQLiteDatabase db) {
         db.beginTransaction();
 
-        try{
+        try {
             //テーブル作成用SQL
             StringBuilder createsql = MAKE_SQL.createPlaceImage();
             db.execSQL(createsql.toString());
             db.setTransactionSuccessful();
-        }finally {
+        } finally {
             db.endTransaction();
         }
     }
 
     @Override
     //データベース更新（空実装）
-    public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion){
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
 

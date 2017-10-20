@@ -20,38 +20,38 @@ public class RouteInfoOpenHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
 
     //コンストラクタ
-    public RouteInfoOpenHelper(Context context){
+    public RouteInfoOpenHelper(Context context) {
         //オブジェクトを作成する
-        super(context,DB_NAME,null,DB_VERSION);
+        super(context, DB_NAME, null, DB_VERSION);
     }
 
     //データベース生成
     @Override
-    public void onCreate(SQLiteDatabase db){
+    public void onCreate(SQLiteDatabase db) {
         db.beginTransaction();
 
-        try{
+        try {
 
             //テーブル作成用SQL生成
             StringBuilder createsql = MAKE_SQL.createRouteInfo();
             db.execSQL(createsql.toString());
             db.setTransactionSuccessful();
-        }finally {
+        } finally {
             db.endTransaction();
         }
     }
 
     @Override
-    public void onOpen(SQLiteDatabase db){
+    public void onOpen(SQLiteDatabase db) {
         db.beginTransaction();
 
-        try{
+        try {
 
             //テーブル作成用SQL生成
             StringBuilder createsql = MAKE_SQL.createRouteInfo();
             db.execSQL(createsql.toString());
             db.setTransactionSuccessful();
-        }finally {
+        } finally {
             db.endTransaction();
         }
     }
@@ -60,7 +60,7 @@ public class RouteInfoOpenHelper extends SQLiteOpenHelper {
     @Override
 
     //データベース更新（空実装）
-    public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion){
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
 

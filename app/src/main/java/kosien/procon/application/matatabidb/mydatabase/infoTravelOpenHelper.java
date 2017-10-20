@@ -1,12 +1,8 @@
 package kosien.procon.application.matatabidb.mydatabase;
 
-import android.app.Application;
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Created by procon-kyougi on 2017/09/23.
@@ -22,20 +18,20 @@ public class infoTravelOpenHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
 
     //コンストラクタ
-    public infoTravelOpenHelper(Context context){
+    public infoTravelOpenHelper(Context context) {
         //オブジェクトを作成する
-        super(context,DB_NAME,null,DB_VERSION);
+        super(context, DB_NAME, null, DB_VERSION);
     }
 
     private String[][] datas = new String[][]{
-            {"丸亀観光","0"}
+            {"丸亀観光", "0"}
     };
 
     //データベース生成
     @Override
-    public void onCreate(SQLiteDatabase db){
+    public void onCreate(SQLiteDatabase db) {
         db.beginTransaction();
-        try{
+        try {
 
             //テーブル作成用SQL生成
             StringBuilder createsql = MAKE_SQL.createtravelInfo();
@@ -50,25 +46,22 @@ public class infoTravelOpenHelper extends SQLiteOpenHelper {
 //                db.insert(infoTravel.TABLE_NAME, null, values);
 //            }
             db.setTransactionSuccessful();
-        }finally {
+        } finally {
             db.endTransaction();
         }
     }
 
 
-
-
-
     @Override
     //データベース更新（空実装）
-    public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion){
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
 
     @Override
-    public void onOpen(SQLiteDatabase db){
+    public void onOpen(SQLiteDatabase db) {
         db.beginTransaction();
-        try{
+        try {
 
             //テーブル作成用SQL生成
             StringBuilder createsql = MAKE_SQL.createtravelInfo();            // サンプルデータの投入
@@ -82,7 +75,7 @@ public class infoTravelOpenHelper extends SQLiteOpenHelper {
 //                db.insert(infoTravel.TABLE_NAME, null, values);
 //            }
             db.setTransactionSuccessful();
-        }finally {
+        } finally {
             db.endTransaction();
         }
     }

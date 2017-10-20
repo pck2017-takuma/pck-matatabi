@@ -28,9 +28,9 @@ public class fragment_travelcreate extends Fragment {
     Bundle placeBundle = null;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
-        super.onCreateView(inflater,container,saveInstanceState);
-        return inflater.inflate(R.layout.search_1,container,false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
+        super.onCreateView(inflater, container, saveInstanceState);
+        return inflater.inflate(R.layout.search_1, container, false);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class fragment_travelcreate extends Fragment {
         super.onViewCreated(view, saveInstanceState);
 
         Bundle tmp = getArguments();
-        if(tmp != null && tmp.containsKey(fragmnet_travelcreate_list.listKey)){
+        if (tmp != null && tmp.containsKey(fragmnet_travelcreate_list.listKey)) {
             placeBundle = tmp.getBundle(fragmnet_travelcreate_list.listKey);
         }
 
@@ -57,27 +57,26 @@ public class fragment_travelcreate extends Fragment {
             @Override
             public void onClick(View v) {
                 String search = mEdit.getText().toString();
-                if(xxx.findPlaceInfo(search, placeInfomation.PLACE_NAME)){
+                if (xxx.findPlaceInfo(search, placeInfomation.PLACE_NAME)) {
                     placeInfomation tmp = xxx.getSearchResult().get(0);
 
                     Bundle bundle = new Bundle();
 
-                    bundle.putSerializable("test",tmp);
+                    bundle.putSerializable("test", tmp);
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmnet_travelcreate_list recordFragment = new fragmnet_travelcreate_list();
 
                     recordFragment.setArguments(bundle);
 
-                    if(placeBundle != null){
-                        bundle.putBundle(fragmnet_travelcreate_list.listKey,placeBundle);
+                    if (placeBundle != null) {
+                        bundle.putBundle(fragmnet_travelcreate_list.listKey, placeBundle);
                     }
 
-                    fragmentTransaction.replace(R.id.my_recycler_view,recordFragment);
+                    fragmentTransaction.replace(R.id.my_recycler_view, recordFragment);
                     fragmentTransaction.commit();
 
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "候補が見つかりませんでした。", Toast.LENGTH_SHORT).show();
                 }
 

@@ -22,25 +22,25 @@ import su.heartlove.matatabi.R;
 public class search_timetable_adapter extends ArrayAdapter<search_timetable_list> {
 
     private int mResource;
-    private ArrayList<search_timetable_list>mItems;
+    private ArrayList<search_timetable_list> mItems;
     private LayoutInflater mInflater;
 
-    public search_timetable_adapter(Context context,int resource,ArrayList<search_timetable_list>item){
-        super(context,resource,item);
+    public search_timetable_adapter(Context context, int resource, ArrayList<search_timetable_list> item) {
+        super(context, resource, item);
 
         mResource = resource;
         mItems = item;
-        mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, ViewGroup parent) {
         View view;
-        if(convertView != null){
+        if (convertView != null) {
             view = convertView;
-        }else{
-            view = mInflater.inflate(mResource,null);
+        } else {
+            view = mInflater.inflate(mResource, null);
         }
 
         //リストビューに表示する要素の選択
@@ -48,16 +48,16 @@ public class search_timetable_adapter extends ArrayAdapter<search_timetable_list
 
         //こ↑こ↓からリソース割り当て
         //列車時刻
-        TextView trainTimeView = (TextView)view.findViewById(R.id.train_time);
+        TextView trainTimeView = (TextView) view.findViewById(R.id.train_time);
         //値をセットする
         trainTimeView.setText(item.getTrainTime());
 
         //列車詳細情報
-        TextView trainDetailView = (TextView)view.findViewById(R.id.train_detail);
+        TextView trainDetailView = (TextView) view.findViewById(R.id.train_detail);
         trainDetailView.setText(item.getTrainDetail());
 
         //列車行き先
-        TextView trainDepatureView = (TextView)view.findViewById(R.id.train_depature);
+        TextView trainDepatureView = (TextView) view.findViewById(R.id.train_depature);
         trainDepatureView.setText(item.getTrainDepature() + "　行");
 
 

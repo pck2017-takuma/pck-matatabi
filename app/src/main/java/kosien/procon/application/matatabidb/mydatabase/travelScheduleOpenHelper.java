@@ -1,6 +1,5 @@
 package kosien.procon.application.matatabidb.mydatabase;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -18,9 +17,9 @@ public class travelScheduleOpenHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
 
     //コンストラクタ
-    public travelScheduleOpenHelper(Context context){
+    public travelScheduleOpenHelper(Context context) {
         //オブジェクトを作成する
-        super(context,DB_NAME,null,DB_VERSION);
+        super(context, DB_NAME, null, DB_VERSION);
     }
 
 
@@ -37,10 +36,10 @@ public class travelScheduleOpenHelper extends SQLiteOpenHelper {
 
     //データベース生成
     @Override
-    public void onCreate(SQLiteDatabase db){
+    public void onCreate(SQLiteDatabase db) {
         db.beginTransaction();
 
-        try{
+        try {
             //テーブル作成用SQL生成
             StringBuilder createsql = MAKE_SQL.createtravelSchedule();
             db.execSQL(createsql.toString());
@@ -56,17 +55,17 @@ public class travelScheduleOpenHelper extends SQLiteOpenHelper {
 
             db.setTransactionSuccessful();
 
-        }finally {
+        } finally {
 
             db.endTransaction();
         }
     }
 
     @Override
-    public void onOpen(SQLiteDatabase db){
+    public void onOpen(SQLiteDatabase db) {
         db.beginTransaction();
 
-        try{
+        try {
 
             //テーブル作成用SQL生成
             StringBuilder createsql = MAKE_SQL.createtravelSchedule();
@@ -83,7 +82,7 @@ public class travelScheduleOpenHelper extends SQLiteOpenHelper {
 //            }
 
             db.setTransactionSuccessful();
-        }finally {
+        } finally {
             db.endTransaction();
         }
     }
@@ -92,11 +91,9 @@ public class travelScheduleOpenHelper extends SQLiteOpenHelper {
     @Override
 
     //データベース更新（空実装）
-    public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion){
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-
-
 
 
 }

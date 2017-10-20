@@ -25,6 +25,7 @@ public class record_fragment extends Fragment {
 
     /**
      * アクティビティ生成時に呼ばれる
+     *
      * @param savedInstanceState
      */
 
@@ -32,9 +33,9 @@ public class record_fragment extends Fragment {
     private Integer nowItem = null;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
-        super.onCreateView(inflater,container,saveInstanceState);
-        return inflater.inflate(R.layout.activity_record,container,false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
+        super.onCreateView(inflater, container, saveInstanceState);
+        return inflater.inflate(R.layout.activity_record, container, false);
     }
 
     @Override
@@ -79,17 +80,11 @@ public class record_fragment extends Fragment {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragment_record recordFragment = new fragment_record();
-        fragmentTransaction.replace(R.id.fragment_record,recordFragment);
+        fragmentTransaction.replace(R.id.fragment_record, recordFragment);
         fragmentTransaction.commit();
 
 
-
     }
-
-
-
-
-
 
 
 }

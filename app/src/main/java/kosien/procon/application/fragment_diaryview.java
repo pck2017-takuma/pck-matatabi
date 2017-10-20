@@ -31,35 +31,35 @@ public class fragment_diaryview extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState){
-        super.onCreateView(inflater,container,savedInstanceState);
-        return inflater.inflate(R.layout.diary_view,container,false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.diary_view, container, false);
 
     }
 
     @Override
-    public void onViewCreated(View view,Bundle savedInstanceState){
+    public void onViewCreated(View view, Bundle savedInstanceState) {
 
         Bundle bundle = getArguments();
-        super.onViewCreated(view,savedInstanceState);
+        super.onViewCreated(view, savedInstanceState);
 
         //リソースの割り当て
-        tv_date = (TextView)view.findViewById(R.id.TextView_view_date);
-        tv_diary= (TextView)view.findViewById(R.id.TextView_view_diary);
-        btn_cancel = (Button)view.findViewById(R.id.Button_view_cancel);
+        tv_date = (TextView) view.findViewById(R.id.TextView_view_date);
+        tv_diary = (TextView) view.findViewById(R.id.TextView_view_diary);
+        btn_cancel = (Button) view.findViewById(R.id.Button_view_cancel);
 
         //引継ぎデータの取得
-        year = bundle.getInt("year",0);
-        month = bundle.getInt("month",0);
-        day = bundle.getInt("day",0);
+        year = bundle.getInt("year", 0);
+        month = bundle.getInt("month", 0);
+        day = bundle.getInt("day", 0);
         tv_date.setText(String.valueOf(year) + " / " + String.valueOf(month) + " / " + String.valueOf(day));
         tv_diary.setText(bundle.getString("diary"));
 
         //キャンセル処理
-        btn_cancel.setOnClickListener(new View.OnClickListener(){
-           public void onClick(View v){
-               getFragmentManager().beginTransaction().remove(fragment_diaryview.this).commit();
-           }
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().remove(fragment_diaryview.this).commit();
+            }
         });
     }
 }

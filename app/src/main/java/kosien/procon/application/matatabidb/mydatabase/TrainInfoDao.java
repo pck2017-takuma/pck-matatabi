@@ -19,7 +19,6 @@ public class TrainInfoDao {
     }
 
 
-
     public Train_Info save(Train_Info trainInfo) {
         SQLiteDatabase db = helper.getWritableDatabase();
         Train_Info result = null;
@@ -106,6 +105,7 @@ public class TrainInfoDao {
         return bizCardList;
     }
 */
+
     /**
      * カーソルからオブジェクトへの変換
      *

@@ -58,31 +58,32 @@ public class fragment_diaryedit extends Fragment {
     final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
     private static final int VOICE_WORD = 1;
+
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,@Nullable Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        super.onCreateView(inflater,container,savedInstanceState);
-        return inflater.inflate(R.layout.diary_add,container,false);
+        super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.diary_add, container, false);
 
     }//OnCreateここまで
 
-    public void onViewCreated(View layout,Bundle savedInstanceState){
+    public void onViewCreated(View layout, Bundle savedInstanceState) {
 
         Bundle bundle = getArguments();
-        bundleScheduleNum= bundle.getInt("schedule");
+        bundleScheduleNum = bundle.getInt("schedule");
         bundleTravelNum = bundle.getInt("travel");
 
         //リソース割り当て
-        diary = (EditText)layout.findViewById(R.id.EditText_diary);
-        btn_voice = (Button)layout.findViewById(R.id.Button_add_voice);
-        btn_save = (Button)layout.findViewById(R.id.Button_add_save);
-        btn_cancel = (Button)layout.findViewById(R.id.Button_add_cancel);
-        all = (LinearLayout)layout.findViewById(R.id.LinearLayout_add_all);
+        diary = (EditText) layout.findViewById(R.id.EditText_diary);
+        btn_voice = (Button) layout.findViewById(R.id.Button_add_voice);
+        btn_save = (Button) layout.findViewById(R.id.Button_add_save);
+        btn_cancel = (Button) layout.findViewById(R.id.Button_add_cancel);
+        all = (LinearLayout) layout.findViewById(R.id.LinearLayout_add_all);
 
         //日記の本文をタップした時
         diary.setOnTouchListener(new View.OnTouchListener() {
@@ -99,9 +100,9 @@ public class fragment_diaryedit extends Fragment {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int before, int cnt) {
                 //編集中にセーブ画面を表示
-                if(charSequence.length()>0){
+                if (charSequence.length() > 0) {
                     btn_save.setEnabled(true);
-                }else{
+                } else {
                     btn_save.setEnabled(false);
                 }
             }
@@ -111,6 +112,7 @@ public class fragment_diaryedit extends Fragment {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
+
             @Override
             public void afterTextChanged(Editable editable) {
                 DispToastVoiceNG(null);
@@ -118,7 +120,7 @@ public class fragment_diaryedit extends Fragment {
         });
 
         //謎の音声入力機能入り
-        btn_voice.setOnClickListener(new View.OnClickListener(){
+        btn_voice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
@@ -137,9 +139,9 @@ public class fragment_diaryedit extends Fragment {
         });
 
         //saveボタンを押したとき
-        btn_save.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Toast.makeText(getContext(),"114514",Toast.LENGTH_SHORT).show();
+        btn_save.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "114514", Toast.LENGTH_SHORT).show();
 
                 Record = new RecordItem();
                 Record.setDiaryRecord(diary.getText().toString());
@@ -175,7 +177,7 @@ public class fragment_diaryedit extends Fragment {
 
     }
 
-        //削除確認ダイアログ
+    //削除確認ダイアログ
 //    @Override
 //    protected Dialog onCreateDialog(int id){
 //
@@ -214,12 +216,12 @@ public class fragment_diaryedit extends Fragment {
 
 
     //保存処理
-    public class DataLoadTask extends AsyncTask<Object,Integer,RecordItem> {
+    public class DataLoadTask extends AsyncTask<Object, Integer, RecordItem> {
         //処理中ダイアログ
         private ProgressDialog progressDialog = null;
 
         @Override
-        protected void onPreExecute(){
+        protected void onPreExecute() {
             //処理中ダイアログ表示
             progressDialog = new ProgressDialog(getContext());
             progressDialog.setMessage(getResources().getText(R.string.loading));
@@ -229,7 +231,7 @@ public class fragment_diaryedit extends Fragment {
 
 
         @Override
-        protected RecordItem doInBackground(Object... params){
+        protected RecordItem doInBackground(Object... params) {
             //保存処理
             RecordDaoItem dao = new RecordDaoItem(getContext());
 
@@ -237,22 +239,22 @@ public class fragment_diaryedit extends Fragment {
         }
 
         //処理中ダイアログをクローズ
-        protected void onPostExecute(RecordItem result){
+        protected void onPostExecute(RecordItem result) {
             //処理中ダイアログをクローズ
             progressDialog.dismiss();
 
-         //   clearKeyboard();
+            //   clearKeyboard();
             //保存完了表示
             DispToast(null);
             getFragmentManager().popBackStack();
-          //  finish();
+            //  finish();
         }
 
     }
 
     //トースト表示
-    public void DispToast(View v){
-        Toast.makeText(getContext(),R.string.add_ok,Toast.LENGTH_SHORT).show();
+    public void DispToast(View v) {
+        Toast.makeText(getContext(), R.string.add_ok, Toast.LENGTH_SHORT).show();
     }
 //
 //    //ソフトキーボードを消去
@@ -268,22 +270,22 @@ public class fragment_diaryedit extends Fragment {
 
     //戻り処理
 
-    public void onFragment(int requestCode,int resultCode,Intent data){
+    public void onFragment(int requestCode, int resultCode, Intent data) {
         //声入力からの戻り
 
-        if(requestCode == VOICE_WORD){
+        if (requestCode == VOICE_WORD) {
             String resultString = "";
 
             //結果文字列リスト
             ArrayList<String> results = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
-            for(int i = 0;i < results.size();i++){
-              resultString += results.get(i);
+            for (int i = 0; i < results.size(); i++) {
+                resultString += results.get(i);
             }
             diary.setText(diary.getText() + " " + resultString);
 
         }
-        super.onActivityResult(requestCode,resultCode,data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 
@@ -302,8 +304,6 @@ public class fragment_diaryedit extends Fragment {
 //        }
 //
 //    }
-
-
 
 
 }

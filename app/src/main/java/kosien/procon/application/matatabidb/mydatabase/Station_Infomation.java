@@ -15,7 +15,7 @@ public class Station_Infomation implements Serializable {
     //カラム名
     public static final String COLUMN_ID = "_id";
     public static final String STATION_NAME = "station_name";
-    public static final String STATION_CODE ="station_code";
+    public static final String STATION_CODE = "station_code";
     public static final String KANA_NAME = "kana_station_name";
     public static final String BET_NAME = "bet_station_name";
     public static final String STATION_NUMBER = "station_number";
@@ -24,7 +24,6 @@ public class Station_Infomation implements Serializable {
     public static final String STATION_LATITUDE = "station_latitude";
     public static final String STATION_LONGITUDE = "station_longitude";
     public static final String TOURIST_FLAG = "tourist_flag";
-
     public static final String CITY_EVA_VALUE = "city_evalution_value";
     public static final String COLUMN_id = "_id";
 
@@ -52,7 +51,10 @@ public class Station_Infomation implements Serializable {
         return stationName;
     }
 
-    public Long getStationCode(){return stationCode;}
+    public Long getStationCode() {
+        return stationCode;
+    }
+
     public String getKananame() {
         return kanaName;
     }
@@ -98,7 +100,11 @@ public class Station_Infomation implements Serializable {
     public void setStationName(String _stationName) {
         this.stationName = _stationName;
     }
-    public void setStationCode(Long _stationCode){this.stationCode = _stationCode;}
+
+    public void setStationCode(Long _stationCode) {
+        this.stationCode = _stationCode;
+    }
+
     public void setKanaName(String _kanaName) {
         this.kanaName = _kanaName;
     }
@@ -130,7 +136,6 @@ public class Station_Infomation implements Serializable {
     public void setTouristFlag(String _touristFlag) {
         this.touristFlag = _touristFlag;
     }
-
 
 
     public void setCITY_EVA(String _city_eva) {

@@ -7,7 +7,7 @@ import android.graphics.Bitmap;
  */
 
 
-public class timetable_list_item{
+public class timetable_list_item {
 
     /*こ↑こ↓表示アイテム*/
     //発駅画像
@@ -26,7 +26,7 @@ public class timetable_list_item{
     private String endTime = null;
 
     //一応ダイレクトに値を入れられるコンストラクタは用意するけど基本はセッター関数を使ったほうが分かりやすいと思います
-    public timetable_list_item(String _startStation,String _startTime,String _endStation,String _endTime,String _trainInfo){
+    public timetable_list_item(String _startStation, String _startTime, String _endStation, String _endTime, String _trainInfo) {
         this.trainInfo = _trainInfo;
         this.startStation = _startStation;
         this.startTime = _startTime;
@@ -39,62 +39,59 @@ public class timetable_list_item{
     }
 
     //コンストラクタ（別途セッターを読んでね）
-    public timetable_list_item(){
+    public timetable_list_item() {
         //画像読み込み
     }
 
     //発駅情報
 
-    public void setStartStationInfo(String _startStation,String _startTime){
+    public void setStartStationInfo(String _startStation, String _startTime) {
         this.startStation = _startStation;
         this.startTime = _startTime;
     }
 
     //着駅情報
-    public void setEndStationInfo(String _endStation,String _endTime){
+    public void setEndStationInfo(String _endStation, String _endTime) {
         this.endStation = _endStation;
         this.endTime = _endTime;
 
     }
 
     //列車情報セット
-    public void setTrainInfo(String _trainInfo){
+    public void setTrainInfo(String _trainInfo) {
         this.trainInfo = _trainInfo;
     }
 
 
     //ゲッター（１つずつ実装）
 
-    public Bitmap getStartStationImage(){
+    public Bitmap getStartStationImage() {
         return this.startStationImage;
     }
 
-    public Bitmap getEndStationImage(){
+    public Bitmap getEndStationImage() {
         return this.endStationImage;
     }
 
-    public String getStartStation(){
+    public String getStartStation() {
         return this.startStation;
     }
 
-    public String getStartTime(){
+    public String getStartTime() {
         return this.startTime;
     }
 
-    public String getEndStation(){
+    public String getEndStation() {
         return this.endStation;
     }
 
-    public String getEndTime(){
+    public String getEndTime() {
         return this.endTime;
     }
 
-    public String getTrainInfo(){
+    public String getTrainInfo() {
         return this.trainInfo;
     }
-
-
-
 
 
 }

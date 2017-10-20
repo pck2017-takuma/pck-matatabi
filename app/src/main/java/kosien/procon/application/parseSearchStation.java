@@ -13,17 +13,14 @@ import java.util.ArrayList;
 
 
 //駅情報と距離を格納したクラス
-class stationData{
-        public String stationName;
-        public double distance;
+class stationData {
+    public String stationName;
+    public double distance;
 }
 
 
-
-
-
 //緯度経度を用いた駅情報APIのパース処理
-public class parseSearchStation  {
+public class parseSearchStation {
 
     //JSONのパース
 
@@ -33,7 +30,7 @@ public class parseSearchStation  {
     private JSONObject srcObject = new JSONObject();
 
     //取得データをこ↑こ↓に
-    ArrayList<stationData>stationInfo;
+    ArrayList<stationData> stationInfo;
 
     public JSONObject getSrcObject() {
         return srcObject;
@@ -42,25 +39,25 @@ public class parseSearchStation  {
 
 
     //コンストラクタ
-    public parseSearchStation(JSONObject object){
+    public parseSearchStation(JSONObject object) {
         srcObject = object;
     }
 
-    public void parseData(){
+    public void parseData() {
 
         JSONArray parsePoint = new JSONArray();
 
-        try{
+        try {
             //ポイントデータは複数あるものとする
             parsePoint = srcObject.getJSONArray(point);
 
-        }catch(JSONException e){
-            try{
+        } catch (JSONException e) {
+            try {
 
                 //ルートがオブジェクトなら配列で包む
                 parsePoint.put(srcObject.getJSONObject(point));
 
-            }catch(JSONException f){
+            } catch (JSONException f) {
                 //それでもだめなら
                 System.out.println("失敗");
             }
@@ -68,9 +65,9 @@ public class parseSearchStation  {
 
         //配列データから一つ一つのオブジェクトに変換する
 
-        ArrayList<JSONObject>pointObject = new ArrayList<JSONObject>();
+        ArrayList<JSONObject> pointObject = new ArrayList<JSONObject>();
 
-        for(int i = 0; i < parsePoint.length();i++) {
+        for (int i = 0; i < parsePoint.length(); i++) {
             try {
 
                 pointObject.add(parsePoint.getJSONObject(i));
@@ -82,20 +79,14 @@ public class parseSearchStation  {
         }
 
 
-
-
     }
-
 
 
     //Distance基準で駅情報をソートする関数
-    private void sort(){
-
+    private void sort() {
 
 
     }
-
-
 
 
 }

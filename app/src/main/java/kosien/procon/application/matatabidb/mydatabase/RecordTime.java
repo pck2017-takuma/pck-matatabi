@@ -46,69 +46,62 @@ public class RecordTime implements Serializable {
     private int update_dayTime = 0;
 
 
-
-
-    public int getRowid(){
+    public int getRowid() {
         return rowid;
     }
-    public int getdiaryID(){
+
+    public int getdiaryID() {
         return diaryId;
     }
-    public int getUpdateTime(){
+
+    public int getUpdateTime() {
         return update_time;
     }
-    public int getUpdateYear(){
+
+    public int getUpdateYear() {
         return update_year;
     }
-    public int getUpdateDate(){
+
+    public int getUpdateDate() {
         return update_date;
     }
-    public int getUpdateDay(){
+
+    public int getUpdateDay() {
         return update_day;
     }
-    public int getUpdateDayTime(){
+
+    public int getUpdateDayTime() {
         return update_dayTime;
     }
 
 
-    public void setRowId(int _rowId){
+    public void setRowId(int _rowId) {
         this.rowid = _rowId;
     }
 
-    public void setDiaryId(int _diaryId){
+    public void setDiaryId(int _diaryId) {
         this.diaryId = _diaryId;
     }
 
-    public void setDiaryUpdateTime(int _diaryupdatetime){
+    public void setDiaryUpdateTime(int _diaryupdatetime) {
         this.update_time = _diaryupdatetime;
     }
 
-    public void setUpdateYear(int _updateYear){
+    public void setUpdateYear(int _updateYear) {
         this.update_year = _updateYear;
     }
 
-    public void setUpdateDate(int _updateDate){
+    public void setUpdateDate(int _updateDate) {
         this.update_date = _updateDate;
     }
-    public void setUpdateDay(int _updateDay){
+
+    public void setUpdateDay(int _updateDay) {
         this.update_day = _updateDay;
     }
-    public void setUpdateDayTime(int _updatedayTime){
+
+    public void setUpdateDayTime(int _updatedayTime) {
         this.update_dayTime = _updatedayTime;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

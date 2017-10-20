@@ -22,7 +22,7 @@ public class myLocationListener implements LocationListener {
     //ロケーション
     Location location;
 
-//    //緯度
+    //    //緯度
 //    private double latitude = 0.0;
 //    //経度
 //    private double longitude = 0.0;
@@ -36,47 +36,47 @@ public class myLocationListener implements LocationListener {
     private final long minDistance = 1;
 
     //コンストラクタでいろいろ生成
-    public myLocationListener(Context context){
+    public myLocationListener(Context context) {
         this.context = context;
 
 
     }
 
-    public void getLocation(){
+    public void getLocation() {
         //位置情報を管理しているマネージャーのインスタンスを生成
-        locationManager = (LocationManager)this.context.getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) this.context.getSystemService(Context.LOCATION_SERVICE);
 
         //GPSが利用可能になっているかチェックする
         assert locationManager != null;
 
         //GPSが利用可能になっているかチェックする
-        if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             locationProvider = LocationManager.GPS_PROVIDER;
         }
 
         //GPSプロバイダーが有効になっていない場合は基地局情報が利用可能になっているかチェックする
-        else if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+        else if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             locationProvider = LocationManager.NETWORK_PROVIDER;
         }
 
         //いずれも利用可能でない場合はGPSを設定する画面に状態遷移する
-        else{
+        else {
             //未実装
         }
 
-        locationManager.requestLocationUpdates(locationProvider, minTime, minDistance,this);
+        locationManager.requestLocationUpdates(locationProvider, minTime, minDistance, this);
 
         //位置情報を取得する
         location = locationManager.getLastKnownLocation(locationProvider);
 
-        if(location!=null){
+        if (location != null) {
             latitude = location.getLatitude();
             longitude = location.getLongitude();
         }
     }
 
     @Override
-    public void onLocationChanged(Location location){
+    public void onLocationChanged(Location location) {
 
 
     }
@@ -98,7 +98,6 @@ public class myLocationListener implements LocationListener {
     public void onStatusChanged(String provider, int status, Bundle extras) {
         // 利用可能なプロバイダの利用状態が変化したときに呼ばれる
     }
-
 
 
 }

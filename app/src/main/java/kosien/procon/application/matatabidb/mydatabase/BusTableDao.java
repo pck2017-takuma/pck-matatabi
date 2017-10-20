@@ -21,31 +21,31 @@ public class BusTableDao {
     /**
      * BizCardの保存
      * rowidがnullの場合はinsert、rowidが!nullの場合はupdate
+     *
      * @param busTable 保存対象のオブジェクト
      * @return 保存結果
      */
 
-    public BUS_TABLE save(BUS_TABLE busTable){
+    public BUS_TABLE save(BUS_TABLE busTable) {
         SQLiteDatabase db = helper.getWritableDatabase();
         BUS_TABLE result = null;
         try {
             ContentValues values = new ContentValues();
-            values.put( BUS_TABLE.LOAD_NUMBER, busTable.getloadNumber());
-            values.put( BUS_TABLE.BUS_AWAY, busTable.getloadNumber());
-            values.put( BUS_TABLE.DEPARTING_TIME, busTable.getloadNumber());
-            values.put( BUS_TABLE.ARRIVING_TIME, busTable.getloadNumber());
-            values.put( BUS_TABLE.STATION_NUMBER, busTable.getloadNumber());
-            values.put( BUS_TABLE.PLACE_NUMBER, busTable.getloadNumber());
+            values.put(BUS_TABLE.LOAD_NUMBER, busTable.getloadNumber());
+            values.put(BUS_TABLE.BUS_AWAY, busTable.getloadNumber());
+            values.put(BUS_TABLE.DEPARTING_TIME, busTable.getloadNumber());
+            values.put(BUS_TABLE.ARRIVING_TIME, busTable.getloadNumber());
+            values.put(BUS_TABLE.STATION_NUMBER, busTable.getloadNumber());
+            values.put(BUS_TABLE.PLACE_NUMBER, busTable.getloadNumber());
 
             Long rowId = busTable.getRowid();
             // IDがnullの場合はinsert
-            if( rowId == null){
-                rowId = db.insert( BUS_TABLE.TABLE_NAME, null, values);
+            if (rowId == null) {
+                rowId = db.insert(BUS_TABLE.TABLE_NAME, null, values);
+            } else {
+                db.update(BUS_TABLE.TABLE_NAME, values, BUS_TABLE.COLUMN_ID + "=?", new String[]{String.valueOf(rowId)});
             }
-            else{
-                db.update( BUS_TABLE.TABLE_NAME, values, BUS_TABLE.COLUMN_ID + "=?", new String[]{ String.valueOf( rowId)});
-            }
-            result = load( rowId);
+            result = load(rowId);
         } finally {
             db.close();
         }
@@ -54,12 +54,13 @@ public class BusTableDao {
 
     /**
      * レコードの削除
+     *
      * @param busTable 削除対象のオブジェクト
      */
     public void delete(BUS_TABLE busTable) {
         SQLiteDatabase db = helper.getWritableDatabase();
         try {
-            db.delete( BUS_TABLE.TABLE_NAME, BUS_TABLE.COLUMN_ID + "=?", new String[]{ String.valueOf( busTable.getRowid())});
+            db.delete(BUS_TABLE.TABLE_NAME, BUS_TABLE.COLUMN_ID + "=?", new String[]{String.valueOf(busTable.getRowid())});
         } finally {
             db.close();
         }
@@ -67,6 +68,7 @@ public class BusTableDao {
 
     /**
      * idでBizCardをロードする
+     *
      * @param rowId PK
      * @return ロード結果
      */
@@ -75,7 +77,7 @@ public class BusTableDao {
 
         BUS_TABLE bizCard = null;
         try {
-            Cursor cursor = db.query( BUS_TABLE.TABLE_NAME, null, BUS_TABLE.COLUMN_ID + "=?", new String[]{ String.valueOf( rowId)}, null, null, null);
+            Cursor cursor = db.query(BUS_TABLE.TABLE_NAME, null, BUS_TABLE.COLUMN_ID + "=?", new String[]{String.valueOf(rowId)}, null, null, null);
             cursor.moveToFirst();
             bizCard = getBusTable(cursor);
         } finally {
@@ -108,19 +110,20 @@ public class BusTableDao {
 
     /**
      * カーソルからオブジェクトへの変換
+     *
      * @param cursor カーソル
      * @return 変換結果
      */
-    private BUS_TABLE getBusTable( Cursor cursor){
+    private BUS_TABLE getBusTable(Cursor cursor) {
         BUS_TABLE bizCard = new BUS_TABLE();
 
-        bizCard.setRowid( cursor.getLong(0));
-        bizCard.setloadNumber( cursor.getString(1));
-        bizCard.setbusAway( cursor.getString(2));
-        bizCard.setdepatingTime( cursor.getString(3));
-        bizCard.setarrivingTime( cursor.getString(4));
-        bizCard.setstationNumber( cursor.getString(5));
-        bizCard.setplaceNumber( cursor.getString(6));
+        bizCard.setRowid(cursor.getLong(0));
+        bizCard.setloadNumber(cursor.getString(1));
+        bizCard.setbusAway(cursor.getString(2));
+        bizCard.setdepatingTime(cursor.getString(3));
+        bizCard.setarrivingTime(cursor.getString(4));
+        bizCard.setstationNumber(cursor.getString(5));
+        bizCard.setplaceNumber(cursor.getString(6));
         return bizCard;
     }
 

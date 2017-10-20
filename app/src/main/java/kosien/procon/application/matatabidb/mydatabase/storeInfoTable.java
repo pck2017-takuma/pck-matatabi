@@ -69,66 +69,103 @@ public class storeInfoTable implements Serializable {
 
 
     //ゲッター
-    public int getRowId(){
+    public int getRowId() {
         return this.rowId;
     }
-    public String getStoreName(){
+
+    public String getStoreName() {
         return this.storeName;
     }
 
-    public String getStoreStation(){
+    public String getStoreStation() {
         return this.stationNumber;
     }
-    public String getStoreLatitude(){
+
+    public String getStoreLatitude() {
         return this.storeLatitude;
     }
-    public String getStoreLongitude(){
+
+    public String getStoreLongitude() {
         return this.storeLongitude;
     }
-    public String getPlaceAddress(){
+
+    public String getPlaceAddress() {
         return this.placeAddress;
     }
-    public String getStoreColumn(){
+
+    public String getStoreColumn() {
         return this.storeColumn;
     }
-    public String getStorePhoneNum(){
+
+    public String getStorePhoneNum() {
         return this.storePhoneNum;
     }
-    public String getStorePostNum(){
+
+    public String getStorePostNum() {
         return this.storePostNum;
     }
-    public String getStoreOpenTime(){
+
+    public String getStoreOpenTime() {
         return this.storeOpenTime;
     }
-    public String getStoreCloseTime(){
+
+    public String getStoreCloseTime() {
         return this.storeCloseTime;
     }
-    public int getStoreGenre(){
+
+    public int getStoreGenre() {
         return this.storeGenre;
     }
 
 
     //セッター
-    public void setRowId(int _rowId){this.rowId = _rowId;}
-    public void setStoreName(String _storeName){this.storeName = _storeName;}
-    public void setStoreStation(String _stationNumber){this.stationNumber = _stationNumber;}
-    public void setStoreLatitude(String _storeLatitude){this.storeLatitude = _storeLatitude;}
-    public void setStoreLongitude(String _storeLongitude){this.storeLongitude = _storeLongitude;}
-    public void setStoreAddress(String _storeAddress){this.placeAddress = _storeAddress;}
-    public void setStoreColumn(String _storeColumn){this.storeColumn = _storeColumn;}
-    public void setStorePhoneNum(String _storePhoneNum){this.storePhoneNum = _storePhoneNum;}
-    public void setStorePostNum(String _storePostNum){this.storePhoneNum = _storePostNum;}
-    public void setStoreOpenTime(String _storeOpenTime){this.storeOpenTime = _storeOpenTime;}
-    public void setStoreCloseTime(String _storeCloseTime){this.storeCloseTime = _storeCloseTime;}
-    public void setStoreGenre(int _storeGenre){this.storeGenre = _storeGenre;}
+    public void setRowId(int _rowId) {
+        this.rowId = _rowId;
+    }
 
+    public void setStoreName(String _storeName) {
+        this.storeName = _storeName;
+    }
 
+    public void setStoreStation(String _stationNumber) {
+        this.stationNumber = _stationNumber;
+    }
 
+    public void setStoreLatitude(String _storeLatitude) {
+        this.storeLatitude = _storeLatitude;
+    }
 
+    public void setStoreLongitude(String _storeLongitude) {
+        this.storeLongitude = _storeLongitude;
+    }
 
+    public void setStoreAddress(String _storeAddress) {
+        this.placeAddress = _storeAddress;
+    }
 
+    public void setStoreColumn(String _storeColumn) {
+        this.storeColumn = _storeColumn;
+    }
 
+    public void setStorePhoneNum(String _storePhoneNum) {
+        this.storePhoneNum = _storePhoneNum;
+    }
 
+    public void setStorePostNum(String _storePostNum) {
+        this.storePhoneNum = _storePostNum;
+    }
+
+    public void setStoreOpenTime(String _storeOpenTime) {
+        this.storeOpenTime = _storeOpenTime;
+    }
+
+    public void setStoreCloseTime(String _storeCloseTime) {
+        this.storeCloseTime = _storeCloseTime;
+    }
+
+    public void setStoreGenre(int _storeGenre) {
+        this.storeGenre = _storeGenre;
+    }
 
 
 }

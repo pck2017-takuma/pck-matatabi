@@ -22,7 +22,7 @@ import su.heartlove.matatabi.R;
 public class fragment_schedule_create_adapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
-    ArrayList<fragment_schedule_create_item>mItems;
+    ArrayList<fragment_schedule_create_item> mItems;
     private int mResourceId;
 
     static class ViewHolder {
@@ -30,32 +30,32 @@ public class fragment_schedule_create_adapter extends BaseAdapter {
         ImageButton deleteButton;
     }
 
-    public fragment_schedule_create_adapter(Context context, int resource, ArrayList<fragment_schedule_create_item> items){
+    public fragment_schedule_create_adapter(Context context, int resource, ArrayList<fragment_schedule_create_item> items) {
         this.mResourceId = resource;
-        this.mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mItems = items;
     }
 
     @Override
-    public View getView(final int position, View convertView, final ViewGroup parent){
+    public View getView(final int position, View convertView, final ViewGroup parent) {
         ViewHolder holder;
-        if(convertView == null){
-            convertView = mInflater.inflate(mResourceId,parent,false);
+        if (convertView == null) {
+            convertView = mInflater.inflate(mResourceId, parent, false);
             holder = new ViewHolder();
             holder.deleteButton = convertView.findViewById(R.id.delete_button);
             holder.textView = convertView.findViewById(R.id.place_name);
-        }else{
-            holder = (ViewHolder)convertView.getTag();
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
 
         //リストのアイテムデータ取得
         holder.textView.setText(mItems.get(position).getPlaceName());
 
         //ボタンのリスナー
-        holder.deleteButton.setOnClickListener(new View.OnClickListener(){
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
-                ((ListView)parent).performItemClick(view,position,R.id.delete_button);
+            public void onClick(View view) {
+                ((ListView) parent).performItemClick(view, position, R.id.delete_button);
             }
         });
         return convertView;
@@ -76,9 +76,6 @@ public class fragment_schedule_create_adapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
-
-
-
 
 
 }

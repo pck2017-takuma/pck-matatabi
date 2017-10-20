@@ -9,7 +9,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:padding="3dp"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
             android:gravity="center_vertical"
             android:maxLines="1"
             android:layout_marginBottom="5dp"
-            android:text="Sample Text"/>
+            android:text="Sample Text" />
 
         <TextView
             android:id="@+id/nakami"
@@ -57,6 +57,6 @@
         android:layout_marginTop="15dp"
         android:layout_marginStart="10dp"
         android:text="08:10"
-        android:textColor="#222222"/>
+        android:textColor="#222222" />
 
 </LinearLayout>

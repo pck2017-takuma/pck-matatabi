@@ -36,12 +36,12 @@ public class fragmnet_travelcreate_list extends Fragment {
     private fragment_travelcreate tcf = new fragment_travelcreate();
 
 
-    public static  final String listKey = "placeList";
+    public static final String listKey = "placeList";
     public static final String addPlace = "addPlace";
 
 
     //決定した行先
-    private ArrayList<placeInfomation>decidePlace = new ArrayList<>();
+    private ArrayList<placeInfomation> decidePlace = new ArrayList<>();
 
 
     //バンドルされる追加された行先
@@ -49,25 +49,25 @@ public class fragmnet_travelcreate_list extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        super.onCreateView(inflater,container,savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
 
         //これまでに保存したデータが存在するか
         Bundle addBundle = getArguments();
 
-        if(addBundle != null && addBundle.containsKey(listKey)){
+        if (addBundle != null && addBundle.containsKey(listKey)) {
             Bundle tmpBundle = addBundle.getBundle(listKey);
-            decidePlace = (ArrayList<placeInfomation>)tmpBundle.getSerializable(listKey);
+            decidePlace = (ArrayList<placeInfomation>) tmpBundle.getSerializable(listKey);
         }
 
         //詳細フラグメントからのデータが存在するかどうか
-        if(addBundle!= null && addBundle.containsKey(addPlace)){
+        if (addBundle != null && addBundle.containsKey(addPlace)) {
             Bundle tmpBundle = addBundle.getBundle(addPlace);
-            AddPlace = (placeInfomation)tmpBundle.getSerializable(addPlace);
+            AddPlace = (placeInfomation) tmpBundle.getSerializable(addPlace);
             decidePlace.add(AddPlace);
         }
 
-        return inflater.inflate(R.layout.search_2, container,false);
+        return inflater.inflate(R.layout.search_2, container, false);
 
 
     }
@@ -76,10 +76,7 @@ public class fragmnet_travelcreate_list extends Fragment {
     public void onViewCreated(View view, final Bundle saveInstanceState) {
 
 
-
         super.onViewCreated(view, saveInstanceState);
-
-
 
 
     }
@@ -90,18 +87,18 @@ public class fragmnet_travelcreate_list extends Fragment {
         yyy = new ArrayList<>();
 
         super.onStart();
-        Button searchButton = (Button)getActivity().findViewById(R.id.search_button4);
+        Button searchButton = (Button) getActivity().findViewById(R.id.search_button4);
 
-        Button acceptButton = (Button)getActivity().findViewById((R.id.accept_button));
+        Button acceptButton = (Button) getActivity().findViewById((R.id.accept_button));
 
         // レイアウトからリストビューを取得
         ListView listView = (ListView) getActivity().findViewById(R.id.travel_listview);
         ListView listView2 = (ListView) getActivity().findViewById(R.id.decide_list);
 
         Bundle intent = getArguments();
-        placeInfomation test = (placeInfomation)intent.getSerializable("test");
+        placeInfomation test = (placeInfomation) intent.getSerializable("test");
         xxx = new placeInfoDao(tcf.getContext());
-        if(test != null)
+        if (test != null)
             yyy.add(test);
 
 
@@ -109,11 +106,11 @@ public class fragmnet_travelcreate_list extends Fragment {
         ArrayList<SampleListItem> listItems = new ArrayList<>();
         ArrayList<SampleListItem> listItems2 = new ArrayList<>();
 
-        if(yyy.size() == 0){
+        if (yyy.size() == 0) {
             Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);  // 今回はサンプルなのでデフォルトのAndroid Iconを利用
-            SampleListItem item = new SampleListItem(bmp,"検索候補がありません", "データがありません");
+            SampleListItem item = new SampleListItem(bmp, "検索候補がありません", "データがありません");
 
-        }else {
+        } else {
             for (int i = 0; i < yyy.size(); i++) {
                 Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);  // 今回はサンプルなのでデフォルトのAndroid Iconを利用
                 SampleListItem item = new SampleListItem(bmp, yyy.get(i).getPlaceName(), yyy.get(i).getPlacePostNumber());
@@ -121,10 +118,10 @@ public class fragmnet_travelcreate_list extends Fragment {
             }
         }
 
-        if(decidePlace.isEmpty()){
+        if (decidePlace.isEmpty()) {
             Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);  // 今回はサンプルなのでデフォルトのAndroid Iconを利用
-            SampleListItem item = new SampleListItem(bmp,"検索候補がありません", "データがありません");
-        }else {
+            SampleListItem item = new SampleListItem(bmp, "検索候補がありません", "データがありません");
+        } else {
             for (int i = 0; i < decidePlace.size(); i++) {
                 Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);  // 今回はサンプルなのでデフォルトのAndroid Iconを利用
                 SampleListItem item = new SampleListItem(bmp, decidePlace.get(i).getPlaceName(), decidePlace.get(i).getPlacePostNumber());
@@ -147,17 +144,17 @@ public class fragmnet_travelcreate_list extends Fragment {
                 mposition = position;
 
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("place",yyy.get(mposition));
+                bundle.putSerializable("place", yyy.get(mposition));
 
                 Bundle placeBundle = new Bundle();
-                placeBundle.putSerializable(listKey,decidePlace);
-                bundle.putBundle(listKey,placeBundle);
+                placeBundle.putSerializable(listKey, decidePlace);
+                bundle.putBundle(listKey, placeBundle);
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragment_travelcreate_detail intent = new fragment_travelcreate_detail();
 
                 intent.setArguments(bundle);
-                fragmentTransaction.replace(R.id.my_recycler_view,intent);
+                fragmentTransaction.replace(R.id.my_recycler_view, intent);
                 fragmentTransaction.commit();
 
             }
@@ -169,17 +166,15 @@ public class fragmnet_travelcreate_list extends Fragment {
 
                 Bundle placeBundle = new Bundle();
                 Bundle bundle = new Bundle();
-                placeBundle.putSerializable(listKey,decidePlace);
-                bundle.putBundle(listKey,placeBundle);
+                placeBundle.putSerializable(listKey, decidePlace);
+                bundle.putBundle(listKey, placeBundle);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragment_travelcreate intent = new fragment_travelcreate();
                 intent.setArguments(bundle);
-                fragmentTransaction.replace(R.id.my_recycler_view,intent);
+                fragmentTransaction.replace(R.id.my_recycler_view, intent);
                 fragmentTransaction.commit();
-
-
 
 
             }
@@ -187,9 +182,9 @@ public class fragmnet_travelcreate_list extends Fragment {
 
         //スケジュールの確定処理
 
-        acceptButton.setOnClickListener(new View.OnClickListener(){
+        acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 //スケジュールデータの確定処理
                 dataWrite();
 
@@ -199,7 +194,7 @@ public class fragmnet_travelcreate_list extends Fragment {
                 FragmentManager manager = getFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
                 main_fragment mainFragmnet = new main_fragment();
-                transaction.replace(R.id.frame_layout,mainFragmnet);
+                transaction.replace(R.id.frame_layout, mainFragmnet);
                 transaction.commit();
             }
         });
@@ -210,7 +205,7 @@ public class fragmnet_travelcreate_list extends Fragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(listKey,decidePlace);
+        outState.putSerializable(listKey, decidePlace);
         super.onSaveInstanceState(outState);
 
     }
@@ -233,7 +228,7 @@ public class fragmnet_travelcreate_list extends Fragment {
 
         travelSchedule bbb = new travelSchedule();
         int i = 0;
-        for(placeInfomation x:decidePlace){
+        for (placeInfomation x : decidePlace) {
 
             bbb.setPlaceName(x.getPlaceName());
             bbb.setRouteNum(i);
@@ -245,11 +240,7 @@ public class fragmnet_travelcreate_list extends Fragment {
         }
 
 
-
-
     }
-
-
 
 
     public placeInfomation infomation() {

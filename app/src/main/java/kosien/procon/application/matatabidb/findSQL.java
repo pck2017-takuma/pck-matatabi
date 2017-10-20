@@ -4,10 +4,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
-import android.widget.ArrayAdapter;;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
-import kosien.procon.application.matatabidb.Matatabi;
+
 import kosien.procon.application.matatabidb.mydatabase.stationInfoDBOpenHelper;
+
+;
 
 /**
  * Created by procon-kyougi on 2017/09/14.
@@ -25,10 +27,10 @@ abstract public class findSQL {
     public ArrayAdapter<String> toSQL(String search_data, String column_name) {
 
         //データベースオープン
-        try{
+        try {
             db = stationInfoDB.getReadableDatabase();
-        }catch(SQLiteException e){
-            Toast.makeText(Matatabi.getInstance(),"ンアッー！データベース開けない",Toast.LENGTH_LONG).show();
+        } catch (SQLiteException e) {
+            Toast.makeText(Matatabi.getInstance(), "ンアッー！データベース開けない", Toast.LENGTH_LONG).show();
 
             //ここのエラー処理が未実装
         }
@@ -40,15 +42,15 @@ abstract public class findSQL {
 
         //データの取得
 
-        try{
+        try {
             //SQL文生成
-            String sql = "select " + column_name + "from " + DB_NAME + "while " + column_name + " == " +search_data;
+            String sql = "select " + column_name + "from " + DB_NAME + "while " + column_name + " == " + search_data;
             //カーソル代入
-            cursor = db.rawQuery(sql,null);
+            cursor = db.rawQuery(sql, null);
             //カーソルの行数を取得
             int count = cursor.getCount();
             //カーソルの行数だけループ
-            for(int i = 0; i < count;i++){
+            for (int i = 0; i < count; i++) {
                 //データベースから取得した情報がカーソルに入っている
                 String data = cursor.getString(0) + "\n";
                 //アダプターにこの情報を追加
@@ -56,17 +58,17 @@ abstract public class findSQL {
                 //カーソルを次に移動
                 cursor.moveToNext();
             }
-        }catch(Exception e){
-            Log.e("SQL Error",e.toString());
-            Toast.makeText(Matatabi.getInstance(),"もうこれわかんねぇな",Toast.LENGTH_LONG).show();
-        }finally{
+        } catch (Exception e) {
+            Log.e("SQL Error", e.toString());
+            Toast.makeText(Matatabi.getInstance(), "もうこれわかんねぇな", Toast.LENGTH_LONG).show();
+        } finally {
             //カーソルを閉じる
-            if(cursor != null){
+            if (cursor != null) {
                 cursor.close();
             }
         }
         //デバックメッセージ
-        Toast.makeText(Matatabi.getInstance(),"データベースからデータの取得が完了",Toast.LENGTH_LONG).show();
+        Toast.makeText(Matatabi.getInstance(), "データベースからデータの取得が完了", Toast.LENGTH_LONG).show();
         //アダプターの内容を返す
         return adapter;
 

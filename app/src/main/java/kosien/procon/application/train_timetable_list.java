@@ -14,38 +14,37 @@ public class train_timetable_list {
 
 
     //セッター
-    public void setArriveTime(String _arriveTime){
+    public void setArriveTime(String _arriveTime) {
         this.arriveTime = _arriveTime;
     }
 
-    public void setDepartTime(String _departTime){
+    public void setDepartTime(String _departTime) {
         this.departTime = _departTime;
     }
 
-    public void setStationName(String _stationName){
+    public void setStationName(String _stationName) {
         this.stationName = _stationName;
     }
 
-    public void setStationIcon(Bitmap _stationIcon){
+    public void setStationIcon(Bitmap _stationIcon) {
         this.stationIcon = _stationIcon;
     }
 
-    public String getArriveTime(){
+    public String getArriveTime() {
         return this.arriveTime;
     }
 
-    public String getDepartTime(){
+    public String getDepartTime() {
         return this.departTime;
     }
 
-    public String getStationName(){
+    public String getStationName() {
         return this.stationName;
     }
 
-    public Bitmap getStationIcon(){
+    public Bitmap getStationIcon() {
         return this.stationIcon;
     }
-
 
 
 }

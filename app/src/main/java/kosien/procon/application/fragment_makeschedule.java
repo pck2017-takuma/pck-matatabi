@@ -15,6 +15,7 @@ public class fragment_makeschedule extends AppCompatActivity {
 
     /**
      * アクティビティ生成時に呼ばれる
+     *
      * @param savedInstanceState
      */
     @Override
@@ -27,16 +28,16 @@ public class fragment_makeschedule extends AppCompatActivity {
         ArrayList<RouteInfo> routeInfo = new ArrayList<RouteInfo>();
 
         // レイアウトからリストビューを取得
-        ListView listView = (ListView)findViewById(R.id.sample_listview);
+        ListView listView = (ListView) findViewById(R.id.sample_listview);
 
         // リストビューに表示する要素を設定
         ArrayList<makeScheduleListItem> listItems = new ArrayList<>();
 
-        for(RouteInfo x:routeInfo){
-        //for (int i = 0; i < 3; i++) {
+        for (RouteInfo x : routeInfo) {
+            //for (int i = 0; i < 3; i++) {
             Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);  // 今回はサンプルなのでデフォルトのAndroid Iconを利用
             //タイトル、中身、時間
-            makeScheduleListItem item = new makeScheduleListItem(bmp,x.getRouteTrain(),x.getRouteDeparture(),x.getrouteDepttime());
+            makeScheduleListItem item = new makeScheduleListItem(bmp, x.getRouteTrain(), x.getRouteDeparture(), x.getrouteDepttime());
             listItems.add(item);
         }
 

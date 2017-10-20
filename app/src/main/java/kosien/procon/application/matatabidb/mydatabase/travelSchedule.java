@@ -66,7 +66,12 @@ public class travelSchedule implements Serializable {
         this.placeName = _placeName;
     }
 
-    public int getFlag(){return this.flag;}
-    public void setFlag(int _flag){this.flag = _flag;}
+    public int getFlag() {
+        return this.flag;
+    }
+
+    public void setFlag(int _flag) {
+        this.flag = _flag;
+    }
 
 }

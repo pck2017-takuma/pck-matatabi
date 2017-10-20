@@ -9,12 +9,14 @@ import android.app.Application;
 
 public class Matatabi extends Application {
     private static Matatabi instance = null;
+
     @Override
     public void onCreate() {
         super.onCreate();
 
         instance = this;
     }
+
     public static Matatabi getInstance() {
         return instance;
     }
