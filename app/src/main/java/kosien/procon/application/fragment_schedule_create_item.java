@@ -6,7 +6,13 @@ package kosien.procon.application;
 
 public class fragment_schedule_create_item {
     //観光地名
-    private String placeName = null;
+    private String placeName;
+
+
+    public fragment_schedule_create_item(String _placeName){
+        this.placeName = _placeName;
+    }
+
 
     public void setPlaceName(String _placeName) {
         this.placeName = placeName;

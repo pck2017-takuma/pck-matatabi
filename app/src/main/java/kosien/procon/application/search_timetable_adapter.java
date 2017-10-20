@@ -57,8 +57,8 @@ public class search_timetable_adapter extends ArrayAdapter<search_timetable_list
         trainDetailView.setText(item.getTrainDetail());
 
         //列車行き先
-        TextView trainDepatureView = (TextView) view.findViewById(R.id.train_depature);
-        trainDepatureView.setText(item.getTrainDepature() + "　行");
+       // TextView trainDepatureView = (TextView) view.findViewById(R.id.train_depature);
+        //trainDepatureView.setText(item.getTrainDepature() + "　行");
 
 
         return view;

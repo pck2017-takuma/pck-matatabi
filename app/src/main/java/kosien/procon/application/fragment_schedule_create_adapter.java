@@ -27,7 +27,8 @@ public class fragment_schedule_create_adapter extends BaseAdapter {
 
     static class ViewHolder {
         TextView textView;
-        ImageButton deleteButton;
+       // ImageButton deleteButton;
+        Button deleteButton;
     }
 
     public fragment_schedule_create_adapter(Context context, int resource, ArrayList<fragment_schedule_create_item> items) {
@@ -40,10 +41,11 @@ public class fragment_schedule_create_adapter extends BaseAdapter {
     public View getView(final int position, View convertView, final ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = mInflater.inflate(mResourceId, parent, false);
+            convertView = mInflater.inflate(R.layout.fragment_schedule_create_list, parent, false);
             holder = new ViewHolder();
-            holder.deleteButton = convertView.findViewById(R.id.delete_button);
-            holder.textView = convertView.findViewById(R.id.place_name);
+            holder.deleteButton = (Button)convertView.findViewById(R.id.delete_button);
+            holder.textView = (TextView)convertView.findViewById(R.id.place_name);
+            convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
@@ -59,6 +61,12 @@ public class fragment_schedule_create_adapter extends BaseAdapter {
             }
         });
         return convertView;
+
+    }
+
+    public void refleshItemList(ArrayList<fragment_schedule_create_item>itemList){
+        mItems.clear();
+        mItems = new ArrayList<fragment_schedule_create_item>(itemList);
 
     }
 

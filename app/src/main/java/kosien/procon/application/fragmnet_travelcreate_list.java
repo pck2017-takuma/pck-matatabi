@@ -12,7 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -34,10 +36,11 @@ public class fragmnet_travelcreate_list extends Fragment {
     private ArrayList<placeInfomation> yyy = new ArrayList<>();
     private placeInfoDao xxx;
     private fragment_travelcreate tcf = new fragment_travelcreate();
-
+    private ListView listView;
 
     public static final String listKey = "placeList";
     public static final String addPlace = "addPlace";
+    ArrayList<fragment_schedule_create_item> listItems = new ArrayList<>();
 
 
     //決定した行先
@@ -46,6 +49,9 @@ public class fragmnet_travelcreate_list extends Fragment {
 
     //バンドルされる追加された行先
     private placeInfomation AddPlace = new placeInfomation();
+
+
+    //表示リスト一覧
 
 
     @Override
@@ -87,98 +93,60 @@ public class fragmnet_travelcreate_list extends Fragment {
         yyy = new ArrayList<>();
 
         super.onStart();
-        Button searchButton = (Button) getActivity().findViewById(R.id.search_button4);
 
         Button acceptButton = (Button) getActivity().findViewById((R.id.accept_button));
 
         // レイアウトからリストビューを取得
-        ListView listView = (ListView) getActivity().findViewById(R.id.travel_listview);
-        ListView listView2 = (ListView) getActivity().findViewById(R.id.decide_list);
+       listView = (ListView) getActivity().findViewById(R.id.travel_listview);
 
         Bundle intent = getArguments();
         placeInfomation test = (placeInfomation) intent.getSerializable("test");
+
+
+
         xxx = new placeInfoDao(tcf.getContext());
         if (test != null)
             yyy.add(test);
 
 
         // リストビューに表示する要素を設定
-        ArrayList<SampleListItem> listItems = new ArrayList<>();
-        ArrayList<SampleListItem> listItems2 = new ArrayList<>();
 
         if (yyy.size() == 0) {
-            Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);  // 今回はサンプルなのでデフォルトのAndroid Iconを利用
-            SampleListItem item = new SampleListItem(bmp, "検索候補がありません", "データがありません");
+            fragment_schedule_create_item item = new fragment_schedule_create_item("検索候補がありません");
+            listItems.add(item);
 
         } else {
             for (int i = 0; i < yyy.size(); i++) {
-                Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);  // 今回はサンプルなのでデフォルトのAndroid Iconを利用
-                SampleListItem item = new SampleListItem(bmp, yyy.get(i).getPlaceName(), yyy.get(i).getPlacePostNumber());
+                fragment_schedule_create_item item = new fragment_schedule_create_item(yyy.get(i).getPlaceName());
                 listItems.add(item);
             }
         }
 
-        if (decidePlace.isEmpty()) {
-            Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);  // 今回はサンプルなのでデフォルトのAndroid Iconを利用
-            SampleListItem item = new SampleListItem(bmp, "検索候補がありません", "データがありません");
-        } else {
-            for (int i = 0; i < decidePlace.size(); i++) {
-                Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);  // 今回はサンプルなのでデフォルトのAndroid Iconを利用
-                SampleListItem item = new SampleListItem(bmp, decidePlace.get(i).getPlaceName(), decidePlace.get(i).getPlacePostNumber());
-                listItems2.add(item);
-            }
-        }
+
 
         // 出力結果をリストビューに表示
-        SetRecordListAdapter adapter = new SetRecordListAdapter(getContext(), R.layout.samplelist_item, listItems);
+        final fragment_schedule_create_adapter adapter = new fragment_schedule_create_adapter(getContext(), R.layout.fragment_schedule_create_list, listItems);
         listView.setAdapter(adapter);
 
-        SetRecordListAdapter adapter2 = new SetRecordListAdapter(getContext(), R.layout.samplelist_item, listItems2);
-        listView2.setAdapter(adapter2);
 
-
-        // ListViewアイテムを選択した場合の動作
+        //リストビューの削除ボタンを実装する
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mposition = position;
-
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("place", yyy.get(mposition));
-
-                Bundle placeBundle = new Bundle();
-                placeBundle.putSerializable(listKey, decidePlace);
-                bundle.putBundle(listKey, placeBundle);
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragment_travelcreate_detail intent = new fragment_travelcreate_detail();
-
-                intent.setArguments(bundle);
-                fragmentTransaction.replace(R.id.my_recycler_view, intent);
-                fragmentTransaction.commit();
-
+                switch (view.getId()) {
+                    case R.id.delete_button:
+                        //ボタンを押したら該当リストビューを削除する
+                        listItems.remove(position);
+                        adapter.notifyDataSetChanged();
+                        break;
+                }
             }
         });
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Bundle placeBundle = new Bundle();
-                Bundle bundle = new Bundle();
-                placeBundle.putSerializable(listKey, decidePlace);
-                bundle.putBundle(listKey, placeBundle);
-
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragment_travelcreate intent = new fragment_travelcreate();
-                intent.setArguments(bundle);
-                fragmentTransaction.replace(R.id.my_recycler_view, intent);
-                fragmentTransaction.commit();
 
 
-            }
-        });
+
+
 
         //スケジュールの確定処理
 
@@ -201,6 +169,9 @@ public class fragmnet_travelcreate_list extends Fragment {
 
 
     }
+
+
+
 
 
     @Override

@@ -30,7 +30,7 @@ public class fragment_travelcreate_detail extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         super.onCreateView(inflater, container, saveInstanceState);
-        return inflater.inflate(R.layout.travel_create_detailed, container, false);
+        return inflater.inflate(R.layout.place_info_detail, container, false);
     }
 
 
@@ -43,16 +43,21 @@ public class fragment_travelcreate_detail extends Fragment {
             placeBundle = intent.getBundle(fragmnet_travelcreate_list.listKey);
         }
 
-        ImageView image = (ImageView) view.findViewById(R.id.image_veiw);
-        TextView text1 = (TextView) view.findViewById(R.id.text_view1);
-        TextView text2 = (TextView) view.findViewById(R.id.text_view2);
-        TextView text3 = (TextView) view.findViewById(R.id.text_view3);
+
+        ImageView placeImage = (ImageView) view.findViewById(R.id.place_image);
+        ImageView image = (ImageView) view.findViewById(R.id.image);
+        TextView placeTitle = (TextView) view.findViewById(R.id.place_title);
+        TextView placeEat = (TextView) view.findViewById(R.id.place_eat);
+        TextView placeColumn = (TextView) view.findViewById(R.id.place_column);
+        TextView actionText = (TextView)view.findViewById(R.id.place_action);
         Button button = (Button) view.findViewById(R.id.button);
         bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         image.setImageBitmap(bmp);
-        text1.setText(info.getPlaceName());
-        text2.setText(info.getPlaceAddress());
-        text3.setText(info.getPlaceColumn());
+        placeTitle.setText(info.getPlaceName());
+        placeEat.setText(info.getPlaceAddress());
+        placeColumn.setText(info.getPlaceColumn());
+
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,46 +10,30 @@
     <ListView
         android:id="@+id/travel_listview"
         android:layout_width="match_parent"
-        android:layout_weight="6"
-        android:layout_height="0dp">
-
-    </ListView>
+        android:layout_height="0dp"
+        android:layout_weight="9"></ListView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="0dp"
+            android:layout_width="352dp"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:text="決定した行先"
-            android:textSize="20dp"
-            android:textColor="#000000" />
+            android:layout_weight="6" />
 
-        <Button
-            android:id="@+id/search_button4"
-            android:layout_width="0dp"
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Button" />
+            android:layout_gravity="right"
+            android:layout_weight="0"
+            android:clickable="true"
+            app:srcCompat="@android:drawable/ic_input_add" />
 
     </LinearLayout>
-
-    <ListView
-        android:id="@+id/decide_list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="6"
-
-        >
-
-    </ListView>
 
     <Button
         android:id="@+id/accept_button"

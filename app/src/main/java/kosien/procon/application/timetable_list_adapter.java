@@ -49,20 +49,20 @@ public class timetable_list_adapter extends ArrayAdapter<timetable_list_item> {
         timetable_list_item item = mItems.get(position);
 
         //発駅時刻生成
-        TextView timeStart = view.findViewById(R.id.time_start);
-        timeStart.setText(item.getStartTime());
-        //発駅情報生成
-        TextView startStation = view.findViewById(R.id.time_start_station);
-        startStation.setText(item.getStartStation());
-        //着駅時刻生成
-        TextView timeEnd = view.findViewById(R.id.time_end);
-        timeEnd.setText(item.getEndTime());
-        //着駅情報生成
-        TextView endStation = view.findViewById(R.id.time_end_station);
-        endStation.setText(item.getEndStation());
-        //列車情報
-        TextView trainInfo = view.findViewById(R.id.train_column);
-        trainInfo.setText(item.getTrainInfo());
+//        TextView timeStart = view.findViewById(R.id.time_start);
+//        timeStart.setText(item.getStartTime());
+//        //発駅情報生成
+//        TextView startStation = view.findViewById(R.id.time_start_station);
+//        startStation.setText(item.getStartStation());
+//        //着駅時刻生成
+//        TextView timeEnd = view.findViewById(R.id.time_end);
+//        timeEnd.setText(item.getEndTime());
+//        //着駅情報生成
+//        TextView endStation = view.findViewById(R.id.time_end_station);
+//        endStation.setText(item.getEndStation());
+//        //列車情報
+//        TextView trainInfo = view.findViewById(R.id.train_column);
+//        trainInfo.setText(item.getTrainInfo());
 
         return view;
 

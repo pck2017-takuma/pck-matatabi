@@ -42,18 +42,18 @@ public class train_timetable_adapter extends ArrayAdapter<train_timetable_list> 
         train_timetable_list item = mItems.get(position);
 
         //こ↑こ↓からレイアウト割り当て
-        //到着時刻
-        TextView arriveTimeView = (TextView) view.findViewById(R.id.arrive_time);
-        arriveTimeView.setText(item.getArriveTime());
-        //発車時刻
-        TextView departTime = (TextView) view.findViewById(R.id.depart_time);
-        departTime.setText(item.getDepartTime());
-        //駅名
-        TextView stationName = (TextView) view.findViewById(R.id.station_name);
-        stationName.setText(item.getStationName());
-        //アイコン
-        ImageView thumbnail = view.findViewById(R.id.station_icon);
-        thumbnail.setImageBitmap(item.getStationIcon());
+//        //到着時刻
+//        TextView arriveTimeView = (TextView) view.findViewById(R.id.arrive_time);
+//        arriveTimeView.setText(item.getArriveTime());
+//        //発車時刻
+//        TextView departTime = (TextView) view.findViewById(R.id.depart_time);
+//        departTime.setText(item.getDepartTime());
+//        //駅名
+//        TextView stationName = (TextView) view.findViewById(R.id.station_name);
+//        stationName.setText(item.getStationName());
+//        //アイコン
+//        ImageView thumbnail = view.findViewById(R.id.station_icon);
+//        thumbnail.setImageBitmap(item.getStationIcon());
 
         return view;
     }

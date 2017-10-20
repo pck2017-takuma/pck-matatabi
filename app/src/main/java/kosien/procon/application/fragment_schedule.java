@@ -69,8 +69,6 @@ public class fragment_schedule extends Fragment {
 
         // ボタンを生成
         super.onViewCreated(view, saveInstanceState);
-
-
         Button accept_button = (Button) view.findViewById(R.id.edit_buttonn);
 
 
@@ -81,15 +79,13 @@ public class fragment_schedule extends Fragment {
             accept_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //_idが１のやつを旅行中に、現在の選択項目もアクティブにする（デバック中は一回一回アンインストールしないと不具合が生じる）
+
                     getData.setTravelFlag(1);
 
                     travelSchedule start = getList.get(0);
                     //アクティブにする
                     start.setFlag(1);
-
                     //データベース登録
-
                     travelDB.save_time(getData);
                     scheduleDB.sava_diary(start);
 

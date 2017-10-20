@@ -31,13 +31,12 @@ public class fragment_schedule_detail extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
-        super.onCreateView(inflater, container, saveInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         return inflater.inflate(R.layout.fragment_detail_schedule, container, false);
     }
 
     //ビューを生成し終わった後に呼ばれるメソッド
-
 
     @Override
     public void onViewCreated(final View view, Bundle saveInstanceState) {
