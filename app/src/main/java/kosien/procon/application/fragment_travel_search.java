@@ -33,8 +33,6 @@ import static kosien.procon.application.MainActivity.br;
 
 public class fragment_travel_search extends Fragment {
 
-
-
     //スイッチ
     private final int placeListNum = 0;
     private final int storeListNum = 1;
@@ -57,6 +55,11 @@ public class fragment_travel_search extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         super.onCreateView(inflater,container,savedInstanceState);
 
+
+        //データベースオープン
+        placeHelper = new placeInfoDao(getContext());
+        storeHelper = new storeInfoDao(getContext());
+
         //アクティビティのtoolbarにサーチビューを持ってくる
         Toolbar toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.menu_search);
@@ -74,7 +77,9 @@ public class fragment_travel_search extends Fragment {
                  * データベース更新後にここを実装する
                  *
                  */
-
+                if(placeHelper.findPlaceInfo(query)){
+                    placeList = placeHelper.getSearchResult();
+                }
 
 
 
@@ -93,6 +98,9 @@ public class fragment_travel_search extends Fragment {
                  *
                  */
 
+                if(storeHelper.findStoreInfo(newText)){
+                    storeList = storeHelper.getSearchResult();
+                }
                 return false;
 
             }
@@ -110,9 +118,7 @@ public class fragment_travel_search extends Fragment {
         placeList = new ArrayList<>();
         storeList = new ArrayList<>();
 
-        //データベースオープン
-        placeHelper = new placeInfoDao(getContext());
-        storeHelper = new storeInfoDao(getContext());
+
 
         //リストビュー
         listView = (ListView)view.findViewById(R.id.place_search_list);
@@ -150,11 +156,10 @@ public class fragment_travel_search extends Fragment {
             place_detail_item tmp = new place_detail_item();
 
             //お店のジャンル取得
-            String storeGenre = new String();
             Bitmap storeImage;
             tmp.setPlaceTitle(x.getStoreName());
             tmp.setPlaceColumn(x.getStoreOpenTime() + br + x.getStoreCloseTime());
-            tmp.setPlaceCategory(storeGenre);
+            tmp.setPlaceCategory(x.getStoreGenreName());
             tmp.setPlaceImage(storeImage);
 
             tmpList.add(new Pair<Integer,Integer>(storeListNum,cnt));
@@ -190,9 +195,7 @@ public class fragment_travel_search extends Fragment {
                                 break;
                             case storeListNum:
                                 //カテゴリー取得
-                                String genre = null;
                                 bundle.putSerializable("storeBundle",storeList.get(tmp.second));
-                                bundle.putString("Genre",genre);
                                 break;
                         }
 

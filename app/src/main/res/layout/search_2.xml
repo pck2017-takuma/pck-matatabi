@@ -31,7 +31,9 @@
             android:layout_gravity="right"
             android:layout_weight="0"
             android:clickable="true"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            app:srcCompat="@android:drawable/ic_input_add"
+            android:id="@+id/search_button"
+            />
 
     </LinearLayout>
 

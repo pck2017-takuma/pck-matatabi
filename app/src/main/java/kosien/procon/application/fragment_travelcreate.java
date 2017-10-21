@@ -1,6 +1,7 @@
 package kosien.procon.application;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +17,8 @@ import kosien.procon.application.matatabidb.mydatabase.placeInfoDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfomation;
 import su.heartlove.matatabi.R;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by procon-kyougi on 2017/09/29.
  */
@@ -26,6 +29,8 @@ public class fragment_travelcreate extends Fragment {
     private placeInfoDao xxx;
 
     Bundle placeBundle = null;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {

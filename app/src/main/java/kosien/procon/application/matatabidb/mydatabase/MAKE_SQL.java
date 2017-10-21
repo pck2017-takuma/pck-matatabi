@@ -286,7 +286,7 @@ public class MAKE_SQL {
         return createSql;
     }
 
-    static StringBuilder crateStoreGenre() {
+    static StringBuilder createStoreGenre() {
         StringBuilder createSql = new StringBuilder();
         createSql.append("create table if not exists " + storeGenre.TABLE_NAME + " (");
         createSql.append(storeGenre.COLUMN_ID + " integer primary key autoincrement not null, ");

@@ -2,6 +2,8 @@ package kosien.procon.application;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,31 +68,69 @@ public class fragment_place_introduce extends Fragment {
             //リストビュー
 
 
+            //actionViewにリスナーを持たせる
+            placeActionView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
 
+                    //スケジュールバンドル処理
+                    Bundle insertBundle = new Bundle();
+
+                    Bundle bundle = new Bundle();
+                    //travelCreate呼び出し
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmnet_travelcreate_list intent = new fragmnet_travelcreate_list();
+
+
+
+                    bundle.putSerializable(fragmnet_travelcreate_list.addPlace, placeInfo);
+                    insertBundle.putBundle(fragmnet_travelcreate_list.addPlace, bundle);
+
+                    intent.setArguments(insertBundle);
+
+                }
+            });
 
         }else if(bundle != null && bundle.containsKey("storeBundle")){
             storeInfo = (storeInfoTable)bundle.getSerializable("storeBundle");
             //表示処理
-            String genre = bundle.getString("Genre");
 
             placeNameView.setText(storeInfo.getStoreName());
             //ジャンル取得
-            placeCategoryView.setText(genre);
+            placeCategoryView.setText(storeInfo.getStoreGenreName());
 
             //リストビュー表示
+
+
+
+            //actionViewにリスナーを持たせる
+            placeActionView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
+
+                    //スケジュールバンドル処理
+                    Bundle insertBundle = new Bundle();
+
+                    Bundle bundle = new Bundle();
+                    //travelCreate呼び出し
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmnet_travelcreate_list intent = new fragmnet_travelcreate_list();
+
+
+                    bundle.putSerializable(fragmnet_travelcreate_list.addStore, storeInfo);
+                    insertBundle.putBundle(fragmnet_travelcreate_list.addStore, bundle);
+
+                    intent.setArguments(insertBundle);
+
+                }
+            });
+
         }
 
 
-        //actionViewにリスナーを持たせる
-        placeActionView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
 
-                //スケジュールバンドル処理
-
-
-            }
-        });
 
 
 

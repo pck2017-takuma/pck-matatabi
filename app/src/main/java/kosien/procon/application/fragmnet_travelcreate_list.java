@@ -1,5 +1,7 @@
 package kosien.procon.application;
 
+import android.content.SharedPreferences;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -16,15 +18,21 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.util.ArrayList;
 
 import kosien.procon.application.matatabidb.mydatabase.infoTravel;
 import kosien.procon.application.matatabidb.mydatabase.infoTravelDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfoDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfomation;
+import kosien.procon.application.matatabidb.mydatabase.storeInfoTable;
 import kosien.procon.application.matatabidb.mydatabase.travelSchedule;
 import kosien.procon.application.matatabidb.mydatabase.travelScheduleDao;
 import su.heartlove.matatabi.R;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by procon-kyougi1 on 2017/10/02.
@@ -33,22 +41,32 @@ import su.heartlove.matatabi.R;
 public class fragmnet_travelcreate_list extends Fragment {
 
     private int mposition = 0;
-    private ArrayList<placeInfomation> yyy = new ArrayList<>();
+
     private placeInfoDao xxx;
     private fragment_travelcreate tcf = new fragment_travelcreate();
     private ListView listView;
 
     public static final String listKey = "placeList";
     public static final String addPlace = "addPlace";
+    public static final String addStore = "addStore";
+
     ArrayList<fragment_schedule_create_item> listItems = new ArrayList<>();
 
+    //一時保存
+    SharedPreferences pref;
+    //セーブキー
+    private final String PLACE_SAVE_KEY = "place_save_key";
+    private final String STORE_SAVE_KEY = "store_save_key";
 
     //決定した行先
     private ArrayList<placeInfomation> decidePlace = new ArrayList<>();
 
+    private ArrayList<storeInfoTable> decideStore = new ArrayList<>();
+
 
     //バンドルされる追加された行先
     private placeInfomation AddPlace = new placeInfomation();
+    private storeInfoTable AddStore = new storeInfoTable();
 
 
     //表示リスト一覧
@@ -61,9 +79,32 @@ public class fragmnet_travelcreate_list extends Fragment {
         //これまでに保存したデータが存在するか
         Bundle addBundle = getArguments();
 
-        if (addBundle != null && addBundle.containsKey(listKey)) {
-            Bundle tmpBundle = addBundle.getBundle(listKey);
-            decidePlace = (ArrayList<placeInfomation>) tmpBundle.getSerializable(listKey);
+//        if (addBundle != null && addBundle.containsKey(listKey)) {
+//            Bundle tmpBundle = addBundle.getBundle(listKey);
+//            decidePlace = (ArrayList<placeInfomation>) tmpBundle.getSerializable(listKey);
+//        }
+
+        //プリファレンスからスケジュールの作成途中のデータを取得する
+
+        pref = getActivity().getSharedPreferences("pref",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String placeJson = pref.getString(STORE_SAVE_KEY,"");
+        if(placeJson.equals("[]")){
+            //空の時
+
+        }else{
+            //空でないとき復元
+            decidePlace = gson.fromJson(placeJson,new TypeToken<ArrayList<placeInfomation>>(){}.getType());
+
+        }
+        String storeJson = pref.getString(STORE_SAVE_KEY,"");
+        if(storeJson.equals("[]")){
+            //空の時
+
+        }else{
+            //空でないとき復元
+            decideStore = gson.fromJson(storeJson,new TypeToken<ArrayList<storeInfoTable>>(){}.getType());
+
         }
 
         //詳細フラグメントからのデータが存在するかどうか
@@ -71,8 +112,11 @@ public class fragmnet_travelcreate_list extends Fragment {
             Bundle tmpBundle = addBundle.getBundle(addPlace);
             AddPlace = (placeInfomation) tmpBundle.getSerializable(addPlace);
             decidePlace.add(AddPlace);
+        }else if (addBundle != null && addBundle.containsKey(addStore)) {
+            Bundle tmpBundle = addBundle.getBundle(addStore);
+            AddStore = (storeInfoTable) tmpBundle.getSerializable(addStore);
+            decideStore.add(AddStore);
         }
-
         return inflater.inflate(R.layout.search_2, container, false);
 
 
@@ -83,14 +127,48 @@ public class fragmnet_travelcreate_list extends Fragment {
 
 
         super.onViewCreated(view, saveInstanceState);
+        FloatingActionButton actionButton = (FloatingActionButton)view.findViewById(R.id.setting_button);
 
+        //ボタンのリスナーを生成
+
+        actionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //decidePlaceが空かどうか？
+                if(!decidePlace.isEmpty()){
+                    //既存のpreferenceを削除
+                    pref.edit().remove(PLACE_SAVE_KEY);
+
+                    Gson gson = new Gson();
+                    pref.edit().putString(PLACE_SAVE_KEY,gson.toJson(decidePlace)).apply();
+
+                    //フラグメント
+                    fragment_travel_search searchFragment = new fragment_travel_search();
+
+                    getFragmentManager().beginTransaction().replace(R.id.travel_list,searchFragment).commit();
+
+                }
+                //decideStoreが空かどうか
+                if(!decideStore.isEmpty()){
+                    //既存のpreferenceを削除
+                    pref.edit().remove(STORE_SAVE_KEY);
+                    Gson gson = new Gson();
+                    pref.edit().putString(STORE_SAVE_KEY,gson.toJson(decideStore)).apply();
+                    //フラグメント
+                    fragment_travel_search searchFragment = new fragment_travel_search();
+                    getFragmentManager().beginTransaction().replace(R.id.travel_list,searchFragment).commit();
+
+                }
+
+            }
+        });
 
     }
 
 
     @Override
     public void onStart() {
-        yyy = new ArrayList<>();
 
         super.onStart();
 
@@ -106,18 +184,18 @@ public class fragmnet_travelcreate_list extends Fragment {
 
         xxx = new placeInfoDao(tcf.getContext());
         if (test != null)
-            yyy.add(test);
+            decidePlace.add(test);
 
 
         // リストビューに表示する要素を設定
 
-        if (yyy.size() == 0) {
-            fragment_schedule_create_item item = new fragment_schedule_create_item("検索候補がありません");
+        if (decidePlace.size() == 0) {
+            fragment_schedule_create_item item = new fragment_schedule_create_item("スケジュールがまだ何も決まっていません");
             listItems.add(item);
 
         } else {
-            for (int i = 0; i < yyy.size(); i++) {
-                fragment_schedule_create_item item = new fragment_schedule_create_item(yyy.get(i).getPlaceName());
+            for (int i = 0; i < decidePlace.size(); i++) {
+                fragment_schedule_create_item item = new fragment_schedule_create_item(decidePlace.get(i).getPlaceName());
                 listItems.add(item);
             }
         }
@@ -168,11 +246,9 @@ public class fragmnet_travelcreate_list extends Fragment {
         });
 
 
+
+
     }
-
-
-
-
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -184,7 +260,7 @@ public class fragmnet_travelcreate_list extends Fragment {
     private void dataWrite() {
 
         infoTravelDao xxx = new infoTravelDao(getContext());
-        travelScheduleDao yyy = new travelScheduleDao(getContext());
+        travelScheduleDao decidePlaceDB = new travelScheduleDao(getContext());
         infoTravel zzz = new infoTravel();
 
         //旅行のタイトルをとりあえず勝手に設定する（旅行名＋現在時刻）
@@ -200,13 +276,12 @@ public class fragmnet_travelcreate_list extends Fragment {
         travelSchedule bbb = new travelSchedule();
         int i = 0;
         for (placeInfomation x : decidePlace) {
-
             bbb.setPlaceName(x.getPlaceName());
             bbb.setRouteNum(i);
             bbb.setTravelNum(aaa);
             bbb.setFlag(0);
             //スケジュール情報をデータベースに登録
-            yyy.sava_diary(bbb);
+            decidePlaceDB.sava_diary(bbb);
             ++i;
         }
 
@@ -214,7 +289,4 @@ public class fragmnet_travelcreate_list extends Fragment {
     }
 
 
-    public placeInfomation infomation() {
-        return yyy.get(mposition);
-    }
 }

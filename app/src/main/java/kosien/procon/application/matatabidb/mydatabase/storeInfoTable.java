@@ -10,6 +10,22 @@ import java.io.Serializable;
 //飲食店情報管理データベース
 public class storeInfoTable implements Serializable {
 
+    //ここからデータベースに入れないデータ
+
+    private String storeGenreName = null;
+
+    public void setStoreGenreName(String _storeGenre){
+        this.storeGenreName = _storeGenre;
+
+    }
+    public String getStoreGenreName(){
+        return this.storeGenreName;
+    }
+
+    //ここまでデータベースに入れないデータ
+
+
+
     //テーブル名
     public static final String TABLE_NAME = "store_table";
 
