@@ -3,16 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/list_image"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
-        android:background="#AAAAAA"/>
-
     <TextView
         android:id="@+id/list_colum"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="80dp" />
+
+    <ImageView
+        android:id="@+id/list_image"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:background="#AAAAAA" />
 
 </FrameLayout>

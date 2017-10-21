@@ -13,11 +13,6 @@ import su.heartlove.matatabi.R;
 
 public class fragment_makeschedule extends AppCompatActivity {
 
-    /**
-     * アクティビティ生成時に呼ばれる
-     *
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

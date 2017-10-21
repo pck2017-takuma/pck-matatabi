@@ -28,9 +28,10 @@ public class MainActivity extends AppCompatActivity {
      * @param savedInstanceState
      */
 
+    //改行
+    public static final String br = "\n";
 
     //二種類のフラグメントマネージャーが混在しているので取り扱いには要注意
-
 
     private Integer nowItem = null;
 
