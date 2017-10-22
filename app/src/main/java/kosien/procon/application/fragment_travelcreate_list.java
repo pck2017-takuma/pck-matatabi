@@ -44,7 +44,7 @@ public class fragment_travelcreate_list extends Fragment {
     //行先決定リストの中身がstoreかplaceか判別
     public static final String STORE_KEY = "store_key";
     public static final String PLACE_KEY = "place_key";
-
+    public static final String VISIT_KIND = "visit_kind";
 
     private int mposition = 0;
 
@@ -104,16 +104,9 @@ public class fragment_travelcreate_list extends Fragment {
             //空でないとき復元
             for (int i = 0; i < cnt; i++) {
                 String placeJson = pref.getString(VISIT_SAVE_KEY + i, "");
+                String gsonKind = pref.getString(VISIT_KIND+i,"");
                 Object gsonSaves = gson.fromJson(placeJson, new TypeToken<Object>() {}.getType());
-                if (gsonSaves instanceof placeInfomation) {
-                    decideList.add(new Pair<Object, String>(gsonSaves, PLACE_KEY));
-
-                } else if (gsonSaves instanceof storeInfoTable) {
-                    decideList.add(new Pair<Object, String>(gsonSaves, STORE_KEY));
-                }else{
-                    System.out.println("Error!");
-                }
-
+                decideList.add(new Pair<Object,String>(gsonSaves,gsonKind));
 
             }
         }
@@ -234,10 +227,15 @@ public class fragment_travelcreate_list extends Fragment {
                     Gson gson = new Gson();
                     pref.edit().remove(VISIT_SAVE_KEY);
                     pref.edit().remove(VISIT_COUNT);
+                    pref.edit().remove(VISIT_KIND);
 
-                    pref.edit().putInt(VISIT_COUNT,decideList.size());
+                    pref.edit().putInt(VISIT_COUNT,decideList.size()).apply();
                     for(int i = 0; i < decideList.size();i++) {
-                        pref.edit().putString(VISIT_SAVE_KEY + i, gson.toJson(decideList.get(i).first)).apply();
+                        Pair<Object,String> tmp= decideList.get(i);
+                        Object object = tmp.first;
+                        String string = tmp.second;
+                        pref.edit().putString(VISIT_SAVE_KEY + i, gson.toJson(object)).apply();
+                        pref.edit().putString(VISIT_KIND + i,gson.toJson(string)).apply();
                     }
 
                     //フラグメント
