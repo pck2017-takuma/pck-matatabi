@@ -1,7 +1,6 @@
 package kosien.procon.application;
 
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,8 +15,6 @@ import android.widget.Toast;
 import kosien.procon.application.matatabidb.mydatabase.placeInfoDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfomation;
 import su.heartlove.matatabi.R;
-
-import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by procon-kyougi on 2017/09/29.
@@ -43,8 +40,8 @@ public class fragment_travelcreate extends Fragment {
         super.onViewCreated(view, saveInstanceState);
 
         Bundle tmp = getArguments();
-        if (tmp != null && tmp.containsKey(fragmnet_travelcreate_list.listKey)) {
-            placeBundle = tmp.getBundle(fragmnet_travelcreate_list.listKey);
+        if (tmp != null && tmp.containsKey(fragment_travelcreate_list.listKey)) {
+            placeBundle = tmp.getBundle(fragment_travelcreate_list.listKey);
         }
 
     }
@@ -70,12 +67,12 @@ public class fragment_travelcreate extends Fragment {
                     bundle.putSerializable("test", tmp);
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmnet_travelcreate_list recordFragment = new fragmnet_travelcreate_list();
+                    fragment_travelcreate_list recordFragment = new fragment_travelcreate_list();
 
                     recordFragment.setArguments(bundle);
 
                     if (placeBundle != null) {
-                        bundle.putBundle(fragmnet_travelcreate_list.listKey, placeBundle);
+                        bundle.putBundle(fragment_travelcreate_list.listKey, placeBundle);
                     }
 
                     fragmentTransaction.replace(R.id.my_recycler_view, recordFragment);

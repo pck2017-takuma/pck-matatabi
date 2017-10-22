@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,12 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by procon-kyougi1 on 2017/10/02.
  */
 
-public class fragmnet_travelcreate_list extends Fragment {
+public class fragment_travelcreate_list extends Fragment {
+
+    //行先決定リストの中身がstoreかplaceか判別
+    public static final String STORE_KEY = "store_key";
+    public static final String PLACE_KEY = "place_key";
+
 
     private int mposition = 0;
 
@@ -55,18 +61,14 @@ public class fragmnet_travelcreate_list extends Fragment {
     //一時保存
     SharedPreferences pref;
     //セーブキー
-    private final String PLACE_SAVE_KEY = "place_save_key";
-    private final String STORE_SAVE_KEY = "store_save_key";
+    private final String VISIT_SAVE_KEY = "place_save_key";
 
     //決定した行先
-    private ArrayList<placeInfomation> decidePlace = new ArrayList<>();
-
-    private ArrayList<storeInfoTable> decideStore = new ArrayList<>();
+    private ArrayList<Pair<Object,String>>decideList = new ArrayList<>();
 
 
     //バンドルされる追加された行先
-    private placeInfomation AddPlace = new placeInfomation();
-    private storeInfoTable AddStore = new storeInfoTable();
+    private placeInfomation AddVisitPlace = new placeInfomation();
 
 
     //表示リスト一覧
@@ -88,34 +90,26 @@ public class fragmnet_travelcreate_list extends Fragment {
 
         pref = getActivity().getSharedPreferences("pref",MODE_PRIVATE);
         Gson gson = new Gson();
-        String placeJson = pref.getString(STORE_SAVE_KEY,"");
+        String placeJson = pref.getString(VISIT_SAVE_KEY,"");
         if(placeJson.equals("[]")){
             //空の時
-
         }else{
             //空でないとき復元
-            decidePlace = gson.fromJson(placeJson,new TypeToken<ArrayList<placeInfomation>>(){}.getType());
-
+            decideList = gson.fromJson(placeJson,new TypeToken<ArrayList<Pair<Object,String>>>(){}.getType());
         }
-        String storeJson = pref.getString(STORE_SAVE_KEY,"");
-        if(storeJson.equals("[]")){
-            //空の時
 
-        }else{
-            //空でないとき復元
-            decideStore = gson.fromJson(storeJson,new TypeToken<ArrayList<storeInfoTable>>(){}.getType());
-
-        }
 
         //詳細フラグメントからのデータが存在するかどうか
         if (addBundle != null && addBundle.containsKey(addPlace)) {
             Bundle tmpBundle = addBundle.getBundle(addPlace);
-            AddPlace = (placeInfomation) tmpBundle.getSerializable(addPlace);
-            decidePlace.add(AddPlace);
+            placeInfomation AddPlace = (placeInfomation) tmpBundle.getSerializable(addPlace);
+            decideList.add(new Pair<Object,String>(AddPlace,PLACE_KEY));
         }else if (addBundle != null && addBundle.containsKey(addStore)) {
+
             Bundle tmpBundle = addBundle.getBundle(addStore);
-            AddStore = (storeInfoTable) tmpBundle.getSerializable(addStore);
-            decideStore.add(AddStore);
+            storeInfoTable AddStore = (storeInfoTable) tmpBundle.getSerializable(addStore);
+            decideList.add(new Pair<Object,String>(addStore,STORE_KEY));
+
         }
         return inflater.inflate(R.layout.search_2, container, false);
 
@@ -127,7 +121,7 @@ public class fragmnet_travelcreate_list extends Fragment {
 
 
         super.onViewCreated(view, saveInstanceState);
-        FloatingActionButton actionButton = (FloatingActionButton)view.findViewById(R.id.setting_button);
+        FloatingActionButton actionButton = (FloatingActionButton)view.findViewById(R.id.search_button);
 
         //ボタンのリスナーを生成
 
@@ -136,25 +130,12 @@ public class fragmnet_travelcreate_list extends Fragment {
             public void onClick(View v) {
 
                 //decidePlaceが空かどうか？
-                if(!decidePlace.isEmpty()){
+                if(decideList != null && !decideList.isEmpty()){
                     //既存のpreferenceを削除
-                    pref.edit().remove(PLACE_SAVE_KEY);
+                    pref.edit().remove(VISIT_SAVE_KEY);
 
                     Gson gson = new Gson();
-                    pref.edit().putString(PLACE_SAVE_KEY,gson.toJson(decidePlace)).apply();
-
-                    //フラグメント
-                    fragment_travel_search searchFragment = new fragment_travel_search();
-
-                    getFragmentManager().beginTransaction().replace(R.id.travel_list,searchFragment).commit();
-
-                }
-                //decideStoreが空かどうか
-                if(!decideStore.isEmpty()){
-                    //既存のpreferenceを削除
-                    pref.edit().remove(STORE_SAVE_KEY);
-                    Gson gson = new Gson();
-                    pref.edit().putString(STORE_SAVE_KEY,gson.toJson(decideStore)).apply();
+                    pref.edit().putString(VISIT_SAVE_KEY,gson.toJson(decideList)).apply();
                     //フラグメント
                     fragment_travel_search searchFragment = new fragment_travel_search();
                     getFragmentManager().beginTransaction().replace(R.id.travel_list,searchFragment).commit();
@@ -175,29 +156,40 @@ public class fragmnet_travelcreate_list extends Fragment {
         Button acceptButton = (Button) getActivity().findViewById((R.id.accept_button));
 
         // レイアウトからリストビューを取得
-       listView = (ListView) getActivity().findViewById(R.id.travel_listview);
-
-        Bundle intent = getArguments();
-        placeInfomation test = (placeInfomation) intent.getSerializable("test");
+        listView = (ListView) getActivity().findViewById(R.id.travel_listview);
 
 
 
-        xxx = new placeInfoDao(tcf.getContext());
-        if (test != null)
-            decidePlace.add(test);
+
+
 
 
         // リストビューに表示する要素を設定
-
-        if (decidePlace.size() == 0) {
+        if(decideList != null){
+        if (decideList.size() == 0) {
             fragment_schedule_create_item item = new fragment_schedule_create_item("スケジュールがまだ何も決まっていません");
             listItems.add(item);
 
         } else {
-            for (int i = 0; i < decidePlace.size(); i++) {
-                fragment_schedule_create_item item = new fragment_schedule_create_item(decidePlace.get(i).getPlaceName());
-                listItems.add(item);
+            for (Pair<Object, String> x : decideList) {
+                //decideListの方によって条件分岐
+                switch (x.second) {
+                    case PLACE_KEY:
+                        placeInfomation tmpPlace = (placeInfomation) x.first;
+                        fragment_schedule_create_item item = new fragment_schedule_create_item(tmpPlace.getPlaceName());
+                        listItems.add(item);
+                        break;
+                    case STORE_KEY:
+                        storeInfoTable tmpStore = (storeInfoTable) x.first;
+                        fragment_schedule_create_item item2 = new fragment_schedule_create_item(tmpStore.getStoreName());
+                        listItems.add(item2);
+                        break;
+                }
             }
+        }
+        }else{
+            fragment_schedule_create_item item = new fragment_schedule_create_item("スケジュールがまだ何も決まっていません");
+            listItems.add(item);
         }
 
 
@@ -250,12 +242,13 @@ public class fragmnet_travelcreate_list extends Fragment {
 
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(listKey, decidePlace);
-        super.onSaveInstanceState(outState);
-
-    }
+    //
+//    @Override
+//    public void onSaveInstanceState(Bundle outState) {
+//        outState.putSerializable(listKey, decideList);
+//        super.onSaveInstanceState(outState);
+//
+//    }
 
     private void dataWrite() {
 
@@ -275,15 +268,15 @@ public class fragmnet_travelcreate_list extends Fragment {
 
         travelSchedule bbb = new travelSchedule();
         int i = 0;
-        for (placeInfomation x : decidePlace) {
-            bbb.setPlaceName(x.getPlaceName());
-            bbb.setRouteNum(i);
-            bbb.setTravelNum(aaa);
-            bbb.setFlag(0);
-            //スケジュール情報をデータベースに登録
-            decidePlaceDB.sava_diary(bbb);
-            ++i;
-        }
+//        for (placeInfomation x : decidePlace) {
+//            bbb.setPlaceName(x.getPlaceName());
+//            bbb.setRouteNum(i);
+//            bbb.setTravelNum(aaa);
+//            bbb.setFlag(0);
+//            //スケジュール情報をデータベースに登録
+//            decidePlaceDB.sava_diary(bbb);
+//            ++i;
+//        }
 
 
     }

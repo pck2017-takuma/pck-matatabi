@@ -80,12 +80,12 @@ public class fragment_place_introduce extends Fragment {
                     //travelCreate呼び出し
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmnet_travelcreate_list intent = new fragmnet_travelcreate_list();
+                    fragment_travelcreate_list intent = new fragment_travelcreate_list();
 
 
 
-                    bundle.putSerializable(fragmnet_travelcreate_list.addPlace, placeInfo);
-                    insertBundle.putBundle(fragmnet_travelcreate_list.addPlace, bundle);
+                    bundle.putSerializable(fragment_travelcreate_list.addPlace, placeInfo);
+                    insertBundle.putBundle(fragment_travelcreate_list.addPlace, bundle);
 
                     intent.setArguments(insertBundle);
 
@@ -116,11 +116,11 @@ public class fragment_place_introduce extends Fragment {
                     //travelCreate呼び出し
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmnet_travelcreate_list intent = new fragmnet_travelcreate_list();
+                    fragment_travelcreate_list intent = new fragment_travelcreate_list();
 
 
-                    bundle.putSerializable(fragmnet_travelcreate_list.addStore, storeInfo);
-                    insertBundle.putBundle(fragmnet_travelcreate_list.addStore, bundle);
+                    bundle.putSerializable(fragment_travelcreate_list.addStore, storeInfo);
+                    insertBundle.putBundle(fragment_travelcreate_list.addStore, bundle);
 
                     intent.setArguments(insertBundle);
 

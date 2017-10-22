@@ -2,6 +2,7 @@ package kosien.procon.application;
 
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -137,7 +138,7 @@ public class fragment_travel_search extends Fragment {
             place_detail_item tmp = new place_detail_item();
 
             //画像データを引っ張ってくる
-            Bitmap bitmap;
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);;
 
             tmp.setPlaceTitle(x.getPlaceName());
             tmp.setPlaceCategory("観光地");
@@ -156,7 +157,7 @@ public class fragment_travel_search extends Fragment {
             place_detail_item tmp = new place_detail_item();
 
             //お店のジャンル取得
-            Bitmap storeImage;
+            Bitmap storeImage = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);;
             tmp.setPlaceTitle(x.getStoreName());
             tmp.setPlaceColumn(x.getStoreOpenTime() + br + x.getStoreCloseTime());
             tmp.setPlaceCategory(x.getStoreGenreName());

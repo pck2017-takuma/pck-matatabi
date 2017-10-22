@@ -57,9 +57,9 @@ public class main_fragment extends Fragment {
 
             if (first) {
             } else {
-                android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragment_travelcreate recordFragment = new fragment_travelcreate();
+                fragment_travelcreate_list recordFragment = new fragment_travelcreate_list();
                 fragmentTransaction.replace(R.id.my_recycler_view, recordFragment);
                 fragmentTransaction.commit();
 

@@ -39,8 +39,8 @@ public class fragment_travelcreate_detail extends Fragment {
         Bundle intent = getArguments();
         info = (placeInfomation) intent.getSerializable("place");
 
-        if (intent != null && intent.containsKey(fragmnet_travelcreate_list.listKey)) {
-            placeBundle = intent.getBundle(fragmnet_travelcreate_list.listKey);
+        if (intent != null && intent.containsKey(fragment_travelcreate_list.listKey)) {
+            placeBundle = intent.getBundle(fragment_travelcreate_list.listKey);
         }
 
 
@@ -68,17 +68,17 @@ public class fragment_travelcreate_detail extends Fragment {
                 //travelCreate呼び出し
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmnet_travelcreate_list intent = new fragmnet_travelcreate_list();
+                fragment_travelcreate_list intent = new fragment_travelcreate_list();
 
-                bundle.putSerializable(fragmnet_travelcreate_list.addPlace, info);
+                bundle.putSerializable(fragment_travelcreate_list.addPlace, info);
 
 
                 if (placeBundle != null) {
 
-                    insertBundle.putBundle(fragmnet_travelcreate_list.listKey, placeBundle);
+                    insertBundle.putBundle(fragment_travelcreate_list.listKey, placeBundle);
                 }
 
-                insertBundle.putBundle(fragmnet_travelcreate_list.addPlace, bundle);
+                insertBundle.putBundle(fragment_travelcreate_list.addPlace, bundle);
 
                 intent.setArguments(insertBundle);
 
