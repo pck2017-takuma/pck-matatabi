@@ -4,16 +4,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/travel_list"
-    >
-
+    android:id="@+id/travel_list">
 
     <ListView
         android:id="@+id/travel_listview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9">
-
     </ListView>
 
     <LinearLayout
@@ -29,16 +26,16 @@
             android:layout_weight="6" />
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/search_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="right"
             android:layout_weight="0"
             android:clickable="true"
-            app:srcCompat="@android:drawable/ic_input_add"
-            android:id="@+id/search_button"
-            />
+            app:srcCompat="@android:drawable/ic_input_add" />
 
     </LinearLayout>
+
     <Button
         android:id="@+id/accept_button"
         android:layout_width="match_parent"

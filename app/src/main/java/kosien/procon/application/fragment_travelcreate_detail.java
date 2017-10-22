@@ -47,7 +47,7 @@ public class fragment_travelcreate_detail extends Fragment {
         ImageView placeImage = (ImageView) view.findViewById(R.id.place_image);
         ImageView image = (ImageView) view.findViewById(R.id.image);
         TextView placeTitle = (TextView) view.findViewById(R.id.place_title);
-        TextView placeEat = (TextView) view.findViewById(R.id.place_eat);
+        TextView placeEat = (TextView) view.findViewById(R.id.place_cat);
         TextView placeColumn = (TextView) view.findViewById(R.id.place_column);
         TextView actionText = (TextView)view.findViewById(R.id.place_action);
         Button button = (Button) view.findViewById(R.id.button);

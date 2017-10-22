@@ -51,6 +51,8 @@ public class fragment_travelcreate_list extends Fragment {
     private placeInfoDao xxx;
     private fragment_travelcreate tcf = new fragment_travelcreate();
     private ListView listView;
+    FloatingActionButton actionButton;
+    Button acceptButton;
 
     public static final String listKey = "placeList";
     public static final String addPlace = "addPlace";
@@ -62,10 +64,11 @@ public class fragment_travelcreate_list extends Fragment {
     SharedPreferences pref;
     //セーブキー
     private final String VISIT_SAVE_KEY = "place_save_key";
+    //セーブ数
+    private final String VISIT_COUNT = "visit_count";
 
     //決定した行先
     private ArrayList<Pair<Object,String>>decideList = new ArrayList<>();
-
 
     //バンドルされる追加された行先
     private placeInfomation AddVisitPlace = new placeInfomation();
@@ -87,28 +90,51 @@ public class fragment_travelcreate_list extends Fragment {
 //        }
 
         //プリファレンスからスケジュールの作成途中のデータを取得する
+        decideList = new ArrayList<>();
 
         pref = getActivity().getSharedPreferences("pref",MODE_PRIVATE);
+//        pref.edit().remove(VISIT_SAVE_KEY);
+//        pref.edit().remove(VISIT_COUNT);
         Gson gson = new Gson();
-        String placeJson = pref.getString(VISIT_SAVE_KEY,"");
-        if(placeJson.equals("[]")){
-            //空の時
-        }else{
-            //空でないとき復元
-            decideList = gson.fromJson(placeJson,new TypeToken<ArrayList<Pair<Object,String>>>(){}.getType());
-        }
+        int cnt = pref.getInt(VISIT_COUNT,0);
 
+        if(cnt == 0){
+            //空の時
+        }else {
+            //空でないとき復元
+            for (int i = 0; i < cnt; i++) {
+                String placeJson = pref.getString(VISIT_SAVE_KEY + i, "");
+                Object gsonSaves = gson.fromJson(placeJson, new TypeToken<Object>() {}.getType());
+                if (gsonSaves instanceof placeInfomation) {
+                    decideList.add(new Pair<Object, String>(gsonSaves, PLACE_KEY));
+
+                } else if (gsonSaves instanceof storeInfoTable) {
+                    decideList.add(new Pair<Object, String>(gsonSaves, STORE_KEY));
+                }else{
+                    System.out.println("Error!");
+                }
+
+
+            }
+        }
 
         //詳細フラグメントからのデータが存在するかどうか
         if (addBundle != null && addBundle.containsKey(addPlace)) {
             Bundle tmpBundle = addBundle.getBundle(addPlace);
             placeInfomation AddPlace = (placeInfomation) tmpBundle.getSerializable(addPlace);
-            decideList.add(new Pair<Object,String>(AddPlace,PLACE_KEY));
+            Pair<Object,String>data = new Pair<Object,String>(AddPlace,PLACE_KEY);
+            if(decideList == null){
+             //   decideList = new ArrayList<>();
+            }
+            decideList.add(data);
         }else if (addBundle != null && addBundle.containsKey(addStore)) {
 
             Bundle tmpBundle = addBundle.getBundle(addStore);
+            if(decideList == null){
+                //decideList = new ArrayList<>();
+            }
             storeInfoTable AddStore = (storeInfoTable) tmpBundle.getSerializable(addStore);
-            decideList.add(new Pair<Object,String>(addStore,STORE_KEY));
+            decideList.add(new Pair<Object,String>(AddStore,STORE_KEY));
 
         }
         return inflater.inflate(R.layout.search_2, container, false);
@@ -121,41 +147,11 @@ public class fragment_travelcreate_list extends Fragment {
 
 
         super.onViewCreated(view, saveInstanceState);
-        FloatingActionButton actionButton = (FloatingActionButton)view.findViewById(R.id.search_button);
-        Button acceptButton = (Button) getActivity().findViewById((R.id.accept_button));
-
-        //ボタンのリスナーを生成
-
-        actionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //decidePlaceが空かどうか？
-                if(decideList != null && !decideList.isEmpty()){
-                    //既存のpreferenceを削除
-                    pref.edit().remove(VISIT_SAVE_KEY);
-
-                    Gson gson = new Gson();
-                    pref.edit().putString(VISIT_SAVE_KEY,gson.toJson(decideList)).apply();
-                    //フラグメント
-                    fragment_travel_search searchFragment = new fragment_travel_search();
-                    getFragmentManager().beginTransaction().replace(R.id.travel_list,searchFragment).commit();
-
-                }else{
-                    fragment_travel_search searchFragment = new fragment_travel_search();
-                    getFragmentManager().beginTransaction().replace(R.id.travel_list,searchFragment).commit();
-
-                }
-
-            }
-        });
-
 
         // レイアウトからリストビューを取得
-        listView = (ListView) getActivity().findViewById(R.id.travel_listview);
-
-
-
+        listView = (ListView) view.findViewById(R.id.travel_listview);
+        actionButton = (FloatingActionButton)view.findViewById(R.id.search_button);
+        acceptButton = (Button)view.findViewById((R.id.accept_button));
 
         // リストビューに表示する要素を設定
         if(decideList != null){
@@ -165,10 +161,10 @@ public class fragment_travelcreate_list extends Fragment {
 
             } else {
                 for (Pair<Object, String> x : decideList) {
-                    //decideListの方によって条件分岐
                     switch (x.second) {
                         case PLACE_KEY:
-                            placeInfomation tmpPlace = (placeInfomation) x.first;
+                            Object TmpPlace = x.first;
+                            placeInfomation tmpPlace = placeInfomation.class.cast(TmpPlace);
                             fragment_schedule_create_item item = new fragment_schedule_create_item(tmpPlace.getPlaceName());
                             listItems.add(item);
                             break;
@@ -207,12 +203,7 @@ public class fragment_travelcreate_list extends Fragment {
         });
 
 
-
-
-
-
         //スケジュールの確定処理
-
         acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -231,6 +222,49 @@ public class fragment_travelcreate_list extends Fragment {
         });
 
 
+        //ボタンのリスナーを生成
+        actionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //decidePlaceが空かどうか？
+                if(decideList != null && !decideList.isEmpty()){
+                    //既存のpreferenceを削除
+
+                    Gson gson = new Gson();
+                    pref.edit().remove(VISIT_SAVE_KEY);
+                    pref.edit().remove(VISIT_COUNT);
+
+                    pref.edit().putInt(VISIT_COUNT,decideList.size());
+                    for(int i = 0; i < decideList.size();i++) {
+                        pref.edit().putString(VISIT_SAVE_KEY + i, gson.toJson(decideList.get(i).first)).apply();
+                    }
+
+                    //フラグメント
+                    fragment_travel_search searchFragment = new fragment_travel_search();
+                    //getFragmentManager().beginTransaction().replace(R.id.travel_list,searchFragment).commit();
+                    FragmentManager manager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                    fragmentTransaction.replace(R.id.frame_layout,searchFragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+
+
+
+                }else{
+                    fragment_travel_search searchFragment = new fragment_travel_search();
+                    //getFragmentManager().beginTransaction().replace(R.id.travel_list,searchFragment).commit();
+                    FragmentManager manager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                    fragmentTransaction.replace(R.id.frame_layout,searchFragment);
+                    fragmentTransaction.addToBackStack(null);
+
+                    fragmentTransaction.commit();
+
+                }
+
+            }
+        });
     }
 
 //

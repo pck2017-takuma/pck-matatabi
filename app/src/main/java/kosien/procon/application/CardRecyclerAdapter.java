@@ -1,10 +1,12 @@
 package kosien.procon.application;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -23,7 +25,7 @@ import su.heartlove.matatabi.R;
 public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapter.ViewHolder>{
     private ArrayList<place_detail_item>listItem;
     private Context context;
-
+    private AdapterView.OnItemClickListener mListener;
     public CardRecyclerAdapter(Context context,ArrayList<place_detail_item> data) {
         super();
         this.listItem = data;
@@ -52,9 +54,17 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
     public CardRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View v = layoutInflater.inflate(R.layout.place_info_detail, parent, false);
-        ViewHolder viewHolder = new ViewHolder(v);
+        final ViewHolder viewHolder = new ViewHolder(v);
 
-
+        // onCreateViewHolder でリスナーをセット
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final int position = viewHolder.getAdapterPosition();
+                final place_detail_item version = listItem.get(position);
+                onVersionClicked(version,position);
+            }
+        });
 
         return viewHolder;
     }
@@ -78,4 +88,11 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
 
         }
     }
+    // タップされたときに呼び出されるメソッドを定義
+    protected void onVersionClicked(@NonNull place_detail_item version,@NonNull int position) {
+
+    }
+
+
+
 }

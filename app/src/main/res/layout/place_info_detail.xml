@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -17,6 +16,7 @@
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
@@ -38,7 +38,7 @@
             app:layout_constraintTop_toBottomOf="@+id/place_image" />
 
         <TextView
-            android:id="@+id/place_eat"
+            android:id="@+id/place_cat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -71,7 +71,7 @@
             android:layout_marginTop="8dp"
             android:background="#CCCCCC"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/place_eat" />
+            app:layout_constraintTop_toBottomOf="@+id/place_cat" />
 
         <ImageView
             android:id="@+id/image"
@@ -92,7 +92,7 @@
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/place_image"
-            app:layout_constraintTop_toBottomOf="@+id/place_eat" />
+            app:layout_constraintTop_toBottomOf="@+id/place_cat" />
 
         <!--android:text="魅惑のラビリンス"-->
 

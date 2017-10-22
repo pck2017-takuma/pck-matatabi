@@ -41,20 +41,20 @@ public class fragment_place_introduce extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         super.onCreateView(inflater, container, saveInstanceState);
-
+//        container.removeAllViews();
         return inflater.inflate(R.layout.fragment_place_detail, container, false);
 
-    }
+}
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         //リソース割り当て
-        placeNameView = (TextView)view.findViewById(R.id.place_name);
-        placeCategoryView = (TextView)view.findViewById(R.id.place_cat);
-        placeActionView = (TextView)view.findViewById(R.id.place_action);
-        placeDetailList = (ListView)view.findViewById(R.id.place_list);
+        placeNameView = (TextView)view.findViewById(R.id.place_name_detail);
+        placeCategoryView = (TextView)view.findViewById(R.id.place_cat_detail);
+        placeActionView = (TextView)view.findViewById(R.id.place_action_detail);
+        placeDetailList = (ListView)view.findViewById(R.id.place_list_detail);
 
         //バンドルデータげっと
         Bundle bundle = getArguments();
@@ -63,7 +63,7 @@ public class fragment_place_introduce extends Fragment {
             placeInfo = (placeInfomation)bundle.getSerializable("placeBundle");
             //表示処理
             placeNameView.setText(placeInfo.getPlaceName());
-            placeNameView.setText("観光地");
+            placeCategoryView.setText("観光地");
 
             //リストビュー
 
@@ -86,13 +86,16 @@ public class fragment_place_introduce extends Fragment {
 
                     bundle.putSerializable(fragment_travelcreate_list.addPlace, placeInfo);
                     insertBundle.putBundle(fragment_travelcreate_list.addPlace, bundle);
-
                     intent.setArguments(insertBundle);
-
+                    fragmentTransaction.replace(R.id.frame_layout,intent);
+                    fragmentTransaction.commit();
                 }
             });
 
         }else if(bundle != null && bundle.containsKey("storeBundle")){
+
+
+
             storeInfo = (storeInfoTable)bundle.getSerializable("storeBundle");
             //表示処理
 
@@ -123,7 +126,8 @@ public class fragment_place_introduce extends Fragment {
                     insertBundle.putBundle(fragment_travelcreate_list.addStore, bundle);
 
                     intent.setArguments(insertBundle);
-
+                    fragmentTransaction.replace(R.id.frame_layout,intent);
+                    fragmentTransaction.commit();
                 }
             });
 
