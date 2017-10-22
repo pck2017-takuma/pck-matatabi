@@ -122,6 +122,7 @@ public class fragment_travelcreate_list extends Fragment {
 
         super.onViewCreated(view, saveInstanceState);
         FloatingActionButton actionButton = (FloatingActionButton)view.findViewById(R.id.search_button);
+        Button acceptButton = (Button) getActivity().findViewById((R.id.accept_button));
 
         //ボタンのリスナーを生成
 
@@ -140,20 +141,15 @@ public class fragment_travelcreate_list extends Fragment {
                     fragment_travel_search searchFragment = new fragment_travel_search();
                     getFragmentManager().beginTransaction().replace(R.id.travel_list,searchFragment).commit();
 
+                }else{
+                    fragment_travel_search searchFragment = new fragment_travel_search();
+                    getFragmentManager().beginTransaction().replace(R.id.travel_list,searchFragment).commit();
+
                 }
 
             }
         });
 
-    }
-
-
-    @Override
-    public void onStart() {
-
-        super.onStart();
-
-        Button acceptButton = (Button) getActivity().findViewById((R.id.accept_button));
 
         // レイアウトからリストビューを取得
         listView = (ListView) getActivity().findViewById(R.id.travel_listview);
@@ -161,32 +157,29 @@ public class fragment_travelcreate_list extends Fragment {
 
 
 
-
-
-
         // リストビューに表示する要素を設定
         if(decideList != null){
-        if (decideList.size() == 0) {
-            fragment_schedule_create_item item = new fragment_schedule_create_item("スケジュールがまだ何も決まっていません");
-            listItems.add(item);
+            if (decideList.size() == 0) {
+                fragment_schedule_create_item item = new fragment_schedule_create_item("スケジュールがまだ何も決まっていません");
+                listItems.add(item);
 
-        } else {
-            for (Pair<Object, String> x : decideList) {
-                //decideListの方によって条件分岐
-                switch (x.second) {
-                    case PLACE_KEY:
-                        placeInfomation tmpPlace = (placeInfomation) x.first;
-                        fragment_schedule_create_item item = new fragment_schedule_create_item(tmpPlace.getPlaceName());
-                        listItems.add(item);
-                        break;
-                    case STORE_KEY:
-                        storeInfoTable tmpStore = (storeInfoTable) x.first;
-                        fragment_schedule_create_item item2 = new fragment_schedule_create_item(tmpStore.getStoreName());
-                        listItems.add(item2);
-                        break;
+            } else {
+                for (Pair<Object, String> x : decideList) {
+                    //decideListの方によって条件分岐
+                    switch (x.second) {
+                        case PLACE_KEY:
+                            placeInfomation tmpPlace = (placeInfomation) x.first;
+                            fragment_schedule_create_item item = new fragment_schedule_create_item(tmpPlace.getPlaceName());
+                            listItems.add(item);
+                            break;
+                        case STORE_KEY:
+                            storeInfoTable tmpStore = (storeInfoTable) x.first;
+                            fragment_schedule_create_item item2 = new fragment_schedule_create_item(tmpStore.getStoreName());
+                            listItems.add(item2);
+                            break;
+                    }
                 }
             }
-        }
         }else{
             fragment_schedule_create_item item = new fragment_schedule_create_item("スケジュールがまだ何も決まっていません");
             listItems.add(item);
@@ -238,9 +231,19 @@ public class fragment_travelcreate_list extends Fragment {
         });
 
 
-
-
     }
+
+//
+//    @Override
+//    public void onStart() {
+//
+//        super.onStart();
+//
+//
+//
+//
+//
+//    }
 
     //
 //    @Override

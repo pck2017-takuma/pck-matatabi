@@ -8,14 +8,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.Pair;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SearchView;
-import android.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.Queue;
@@ -35,8 +38,8 @@ import static kosien.procon.application.MainActivity.br;
 public class fragment_travel_search extends Fragment {
 
     //スイッチ
-    private final int placeListNum = 0;
-    private final int storeListNum = 1;
+    private final Integer placeListNum = 0;
+    private final Integer storeListNum = 1;
 
 
     //観光地データベース検索結果一覧
@@ -46,9 +49,8 @@ public class fragment_travel_search extends Fragment {
     //観光地データベース
     placeInfoDao placeHelper;
     storeInfoDao storeHelper;
-
-    //りすとびゅー
-    ListView listView;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerView mRecyclerView;
     //元データの位置確認（第1：place or store,第2：リストの配列番号）
     ArrayList<Pair<Integer,Integer>>tmpList;
 
@@ -60,10 +62,26 @@ public class fragment_travel_search extends Fragment {
         //データベースオープン
         placeHelper = new placeInfoDao(getContext());
         storeHelper = new storeInfoDao(getContext());
+        return inflater.inflate(R.layout.fragment_search,container,false);
 
+    }
+
+    @Override
+    public void onViewCreated(View view,Bundle savedInstanceState){
+        super.onViewCreated(view,savedInstanceState);
         //アクティビティのtoolbarにサーチビューを持ってくる
         Toolbar toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.menu_search);
+
+        mRecyclerView = (RecyclerView)view.findViewById(R.id.search_recycler_view);
+        // コンテンツの変化でRecyclerViewのサイズが変わらない場合は、
+        // パフォーマンスを向上させることができる
+        mRecyclerView.setHasFixedSize(true);
+
+        //リスト初期化
+        placeList = new ArrayList<>();
+        storeList = new ArrayList<>();
+
         SearchView searchView = (SearchView)toolbar.getMenu().findItem(R.id.search_menu_search_view).getActionView();
 
         //サーチビューの動作定義
@@ -80,9 +98,9 @@ public class fragment_travel_search extends Fragment {
                  */
                 if(placeHelper.findPlaceInfo(query)){
                     placeList = placeHelper.getSearchResult();
+                    onUpgradeList();
+
                 }
-
-
 
                 return false;
 
@@ -101,28 +119,16 @@ public class fragment_travel_search extends Fragment {
 
                 if(storeHelper.findStoreInfo(newText)){
                     storeList = storeHelper.getSearchResult();
+                    onUpgradeList();
+
                 }
+
                 return false;
 
             }
         });
 
-
-        return inflater.inflate(R.layout.place_info_detail,container,false);
-    }
-
-    @Override
-    public void onViewCreated(View view,Bundle savedInstanceState){
-        super.onViewCreated(view,savedInstanceState);
-
-        //リスト初期化
-        placeList = new ArrayList<>();
-        storeList = new ArrayList<>();
-
-
-
         //リストビュー
-        listView = (ListView)view.findViewById(R.id.place_search_list);
 
     }
 
@@ -130,10 +136,11 @@ public class fragment_travel_search extends Fragment {
     private void onUpgradeList(){
 
         final ArrayList<place_detail_item>listItems = new ArrayList<>();
+        tmpList = new ArrayList<>();
 
-
-        int cnt = 0;
+        Integer cnt = 0;
         //観光地データを検索結果に入れる
+        if(placeList!=null)
         for(placeInfomation x:placeList){
             place_detail_item tmp = new place_detail_item();
 
@@ -146,69 +153,74 @@ public class fragment_travel_search extends Fragment {
             tmp.setPlaceImage(bitmap);
 
             listItems.add(tmp);
-
-            tmpList.add(new Pair<Integer,Integer>(placeListNum,cnt));
+            Pair<Integer,Integer> pair = new Pair<>(placeListNum,cnt);
+            tmpList.add(pair);
             cnt++;
         }
 
         //周辺のお店情報の検索
         cnt = 0;
+        if(storeList != null)
         for(storeInfoTable x:storeList){
             place_detail_item tmp = new place_detail_item();
-
             //お店のジャンル取得
-            Bitmap storeImage = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);;
+            Bitmap storeImage = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
             tmp.setPlaceTitle(x.getStoreName());
             tmp.setPlaceColumn(x.getStoreOpenTime() + br + x.getStoreCloseTime());
             tmp.setPlaceCategory(x.getStoreGenreName());
             tmp.setPlaceImage(storeImage);
-
-            tmpList.add(new Pair<Integer,Integer>(storeListNum,cnt));
+            Pair<Integer,Integer> pair2 = new Pair<>(storeListNum,cnt);
+            tmpList.add(pair2);
             listItems.add(tmp);
             cnt++;
         }
 
         //アダプターにセット
-        place_search_adapter adapter = new place_search_adapter(getContext(), R.layout.fragment_schedule_create_list, listItems);
-        //アダプター更新
-        listView.setAdapter(adapter);
+        CardRecyclerAdapter adapter = new CardRecyclerAdapter(getContext(), listItems);
+        // LinearLayoutManagerを使用する
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(adapter);
 
-        //リストビューの削除ボタンを実装する
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (view.getId()) {
-                    case R.id.place_action:
-                        //このテキストを表示したら画面遷移
-                        FragmentManager manager = getFragmentManager();
-                        FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                        fragment_place_introduce introduce = new fragment_place_introduce();
-
-                        //バンドルデータ
-                        Bundle bundle = new Bundle();
-                        Pair<Integer,Integer> tmp = tmpList.get(position);
-
-                        //バンドルデータ
-                        switch(tmp.first){
-                            case placeListNum:
-                                bundle.putSerializable("placeBundle",placeList.get(tmp.second));
-
-                                break;
-                            case storeListNum:
-                                //カテゴリー取得
-                                bundle.putSerializable("storeBundle",storeList.get(tmp.second));
-                                break;
-                        }
-
-                        //バンドル
-                        introduce.setArguments(bundle);
-                        fragmentTransaction.replace(R.id.place_search_list, introduce);
-                        fragmentTransaction.commit();
-
-                        break;
-                }
-            }
-        });
+//        //アダプター更新
+//        listView.setAdapter(adapter);
+//
+//        //リストビューの削除ボタンを実装する
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                switch (view.getId()) {
+//                    case R.id.place_action:
+//                        //このテキストを表示したら画面遷移
+//                        FragmentManager manager = getFragmentManager();
+//                        FragmentTransaction fragmentTransaction = manager.beginTransaction();
+//                        fragment_place_introduce introduce = new fragment_place_introduce();
+//
+//                        //バンドルデータ
+//                        Bundle bundle = new Bundle();
+//                        Pair<Integer,Integer> tmp = tmpList.get(position);
+//
+//                        //バンドルデータ
+//                        switch(tmp.first){
+//                            case placeListNum:
+//                                bundle.putSerializable("placeBundle",placeList.get(tmp.second));
+//
+//                                break;
+//                            case storeListNum:
+//                                //カテゴリー取得
+//                                bundle.putSerializable("storeBundle",storeList.get(tmp.second));
+//                                break;
+//                        }
+//
+//                        //バンドル
+//                        introduce.setArguments(bundle);
+//                        fragmentTransaction.replace(R.id.place_search_list, introduce);
+//                        fragmentTransaction.commit();
+//
+//                        break;
+//                }
+//            }
+//        });
 
     }
 
