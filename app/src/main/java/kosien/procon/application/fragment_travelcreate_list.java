@@ -93,6 +93,8 @@ public class fragment_travelcreate_list extends Fragment {
         decideList = new ArrayList<>();
 
         pref = getActivity().getSharedPreferences("pref",MODE_PRIVATE);
+     //   pref.edit().clear().commit();
+
 //        pref.edit().remove(VISIT_SAVE_KEY);
 //        pref.edit().remove(VISIT_COUNT);
         Gson gson = new Gson();
@@ -103,10 +105,11 @@ public class fragment_travelcreate_list extends Fragment {
         }else {
             //空でないとき復元
             for (int i = 0; i < cnt; i++) {
-                String placeJson = pref.getString(VISIT_SAVE_KEY + i, "");
+                String placeJson = pref.getString(VISIT_SAVE_KEY + i,"");
                 String gsonKind = pref.getString(VISIT_KIND+i,"");
-                Object gsonSaves = gson.fromJson(placeJson, new TypeToken<Object>() {}.getType());
-                decideList.add(new Pair<Object,String>(gsonSaves,gsonKind));
+                Object gsonSaves = gson.fromJson(placeJson, new TypeToken<placeInfomation>() {}.getType());
+                Object object = gsonSaves;
+                decideList.add(new Pair<Object,String>(object,gsonKind));
 
             }
         }
@@ -225,17 +228,27 @@ public class fragment_travelcreate_list extends Fragment {
                     //既存のpreferenceを削除
 
                     Gson gson = new Gson();
-                    pref.edit().remove(VISIT_SAVE_KEY);
-                    pref.edit().remove(VISIT_COUNT);
-                    pref.edit().remove(VISIT_KIND);
 
-                    pref.edit().putInt(VISIT_COUNT,decideList.size()).apply();
+                    pref.edit().clear().commit();
+
+                    pref.edit().putInt(VISIT_COUNT,decideList.size()).commit();
                     for(int i = 0; i < decideList.size();i++) {
                         Pair<Object,String> tmp= decideList.get(i);
                         Object object = tmp.first;
                         String string = tmp.second;
-                        pref.edit().putString(VISIT_SAVE_KEY + i, gson.toJson(object)).apply();
-                        pref.edit().putString(VISIT_KIND + i,gson.toJson(string)).apply();
+                        switch (string) {
+                            case PLACE_KEY:
+                                placeInfomation tmpPlace = placeInfomation.class.cast(object);
+                                pref.edit().putString(VISIT_SAVE_KEY + i, gson.toJson(tmpPlace)).commit();
+                                pref.edit().putString(VISIT_KIND + i,string).commit();
+                                break;
+                            case STORE_KEY:
+                                storeInfoTable tmpStore = storeInfoTable.class.cast(object);
+                                pref.edit().putString(VISIT_SAVE_KEY + i, gson.toJson(tmpStore)).commit();
+                                pref.edit().putString(VISIT_KIND + i,string).commit();
+                                break;
+                        }
+
                     }
 
                     //フラグメント
