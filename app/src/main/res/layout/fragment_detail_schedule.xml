@@ -4,68 +4,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fragment_record">
+    <TextView
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#555555"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/schedule_map_detail" />
 
-    <ImageView
-        android:id="@+id/image_veiw"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="10dp"
+    <FrameLayout
+        android:id="@+id/schedule_map_detail"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_view1"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="10dp"
-        android:text="text sumple"
-        android:textSize="20sp"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_veiw" />
-
-    <TextView
-        android:id="@+id/text_view2"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
-        android:text="text sumple"
-        android:textSize="20sp"
-        android:textColor="#000000"
+        android:id="@+id/schedule_name_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="30dp"
+        android:text="おいしいステーキ"
+        android:textSize="25sp"
+        android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_veiw" />
+        app:layout_constraintTop_toBottomOf="@+id/schedule_map_detail" />
 
     <TextView
-        android:id="@+id/text_view3"
-        android:layout_width="250dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="50dp"
-        android:textColor="#000000"
-        android:text="text sumple"
+        android:id="@+id/schedule_cat_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="30dp"
+        android:text="ダイニング"
         android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/schedule_name_detail" />
+
+    <TextView
+        android:id="@+id/schedule_action_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="30dp"
+        android:text="こ↑こ↓に行く"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/schedule_list_detail"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ListView
+        android:id="@+id/schedule_list_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="250dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_veiw" />
+        app:layout_constraintTop_toBottomOf="@+id/back">
 
-    <Button
-        android:id="@+id/detail_button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="248dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view3" />
+    </ListView>
 
-    <Button
-        android:id="@+id/detail_button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view3" />
 
 </android.support.constraint.ConstraintLayout>

@@ -53,25 +53,22 @@ public class travelSchedule implements Serializable {
     public int getRouteNum() {
         return this.routeNum;
     }
-
     public void setRouteNum(int _routeNum) {
         this.routeNum = _routeNum;
     }
-
     public String getPlaceName() {
         return this.placeName;
     }
-
     public void setPlaceName(String _placeName) {
         this.placeName = _placeName;
     }
-
     public int getFlag() {
         return this.flag;
     }
-
     public void setFlag(int _flag) {
         this.flag = _flag;
     }
+
+
 
 }

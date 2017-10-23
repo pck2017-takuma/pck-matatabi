@@ -169,6 +169,55 @@ public class storeInfoDao {
 
     }
 
+    //or検索考慮
+    public boolean findStoreInfo(String searchData,String searchColumn) {
+
+        //検索カラムは住所、名前で探索を行う
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        //検索候補初期化
+        if (!returnData.isEmpty()) {
+            returnData.clear();
+        }
+
+        //名前カラムから検索を始める
+        try {
+            /*
+            １引数distinctには、trueを指定すると検索結果から重複する行を削除します。
+            ２引数tableには、テーブル名を指定します。
+            ３引数columnsには、検索結果に含める列名を指定します。nullを指定すると全列の値が含まれます。
+            ４引数selectionには、検索条件を指定します。
+            ５引数selectionArgsには、検索条件のパラメータ（？で指定）に置き換わる値を指定します。
+            ６引数groupByには、groupBy句を指定します。
+            ７引数havingには、having句を指定します。
+            ８引数orderByには、orderBy句を指定します。
+            ９引数limitには、検索結果の上限レコードを数を指定します。
+             */
+            Cursor cursor = db.query(storeInfoTable.TABLE_NAME,null, searchColumn + " like ? ",new String[]{"%" + searchData + "%"},null,null,null);
+            for (boolean next = cursor.moveToFirst(); next; next = cursor.moveToNext()) {
+                storeInfoTable tmp = getItem(cursor);
+                //ジャンル取得
+                String genreName = genreHelper.load_item(tmp.getStoreGenre()).getGenreName();
+                if(genreName != null){
+                    tmp.setStoreGenreName(genreName);
+                }else{
+                    tmp.setStoreGenreName("ジャンルの取得に失敗しました");
+                }
+                returnData.add(tmp);
+            }
+        }catch(SQLException e){
+
+        }
+
+        if (returnData.size() == 0) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+
     public ArrayList<storeInfoTable> getSearchResult() {
         return returnData;
     }
