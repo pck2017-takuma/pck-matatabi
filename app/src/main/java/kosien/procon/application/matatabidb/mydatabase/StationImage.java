@@ -17,7 +17,7 @@ public class StationImage implements Serializable {
     //カラムID
     public static final String COLUMN_ID = "_id";
     //駅番号
-    public static final String STATION_NUMBER = "_id";
+    public static final String STATION_NUM = "_id";
     //画像保存場所
     public static final String STATION_PICTURE = "station_picture";
 

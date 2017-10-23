@@ -294,24 +294,40 @@ public class fragment_travelcreate_list extends Fragment {
         //旅行のタイトルをとりあえず勝手に設定する（旅行名＋現在時刻）
 
         //現在時刻の取得
-
-
         zzz.setTravelTitle("テスト旅行" + getTimeListener.getNowDate());
         zzz.setTravelFlag(0);
         zzz = xxx.save_time(zzz);
         int aaa = zzz.getRowid();
-
         travelSchedule bbb = new travelSchedule();
         int i = 0;
-//        for (placeInfomation x : decidePlace) {
-//            bbb.setPlaceName(x.getPlaceName());
-//            bbb.setRouteNum(i);
-//            bbb.setTravelNum(aaa);
-//            bbb.setFlag(0);
-//            //スケジュール情報をデータベースに登録
-//            decidePlaceDB.sava_diary(bbb);
-//            ++i;
-//        }
+
+        for (Pair<Object,String> x : decideList) {
+            switch (x.second) {
+                case PLACE_KEY:
+                    Object TmpPlace = x.first;
+                    placeInfomation tmpPlace = placeInfomation.class.cast(TmpPlace);
+                    bbb.setPlaceName(tmpPlace.getPlaceName());
+                    bbb.setRouteNum(i);
+                    bbb.setTravelNum(aaa);
+                    bbb.setFlag(0);
+                    break;
+
+                case STORE_KEY:
+                    storeInfoTable tmpStore = (storeInfoTable) x.first;
+                    bbb.setPlaceName(tmpStore.getStoreName());
+                    bbb.setRouteNum(i);
+                    bbb.setTravelNum(aaa);
+                    bbb.setFlag(0);
+
+                    break;
+            }
+
+
+
+            //スケジュール情報をデータベースに登録
+            decidePlaceDB.sava_diary(bbb);
+            ++i;
+        }
 
 
     }

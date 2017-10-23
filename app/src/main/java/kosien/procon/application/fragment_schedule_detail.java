@@ -20,6 +20,7 @@ import kosien.procon.application.matatabidb.mydatabase.infoTravelDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfoDao;
 import kosien.procon.application.matatabidb.mydatabase.placeInfomation;
 import kosien.procon.application.matatabidb.mydatabase.storeInfoDao;
+import kosien.procon.application.matatabidb.mydatabase.storeInfoTable;
 import kosien.procon.application.matatabidb.mydatabase.travelSchedule;
 import su.heartlove.matatabi.R;
 
@@ -80,19 +81,37 @@ public class fragment_schedule_detail extends Fragment {
         placeCategoryView = (TextView)view.findViewById(R.id.schedule_cat_detail);
         placeActionView = (TextView)view.findViewById(R.id.schedule_action_detail);
 
-        
+
         //バンドルデータにより訪れたところの詳細なデータを取得する
         switch(viewData.getPlaceCategory()){
             case "観光地":
                 if(placeHelper.findPlaceInfo(viewData.getPlaceName(),placeInfomation.PLACE_NAME)) {
                     placeInfomation placeInfo = placeHelper.getSearchResult().get(0);
+                    placeNameView.setText(placeInfo.getPlaceName());
+                    placeCategoryView.setText("観光地");
+                    placeActionView.setText(placeInfo.getPlaceAddress());
 
                 }else{
+                    placeNameView.setText("データの取得に失敗しました");
+                    placeCategoryView.setText("デバック");
+                    placeActionView.setText("データの取得に失敗したよ～");
 
                 }
                 break;
             default:
                 //お店の場合はこちら
+                if(storeHelper.findStoreInfo(viewData.getPlaceName(), storeInfoTable.STORE_NAME)){
+                    storeInfoTable storeInfo = storeHelper.getSearchResult().get(0);
+                    placeNameView.setText(storeInfo.getStoreName());
+                    placeCategoryView.setText("観光地");
+                    placeActionView.setText(storeInfo.getPlaceAddress());
+
+                }else{
+                    placeNameView.setText("データの取得に失敗しました");
+                    placeCategoryView.setText("デバック");
+                    placeActionView.setText("データの取得に失敗したよ～");
+
+                }
 
         }
 
@@ -106,7 +125,7 @@ public class fragment_schedule_detail extends Fragment {
 
         //リストビューの表示内容の決定
 
-        ArrayList<place_detail_list_item> listItems = new ArrayList<>();
+        ArrayList<place_detail_list_item> listItem = new ArrayList<>();
         //表示内容
         final String firstColumn = "この目的地で記録した日記を見る";
         final String secondColumn = "この目的地での記録を作成する";
