@@ -37,13 +37,13 @@ public class travelFragmentPagerAdapter extends FragmentPagerAdapter {
                 fragment = new fragment_travel();
                 break;
             case 1:
-                fragment = new fragment_travel_map();
+                //fragment = new fragment_travel_map();
                 break;
             case 2:
-                fragment = new fragment_travel_recommand();
+                //fragment = new fragment_travel_recommand();
                 break;
             default:
-                fragment = new fragment_travel_schedule();
+                //fragment = new fragment_travel_schedulke();
 
         }
         return fragment;

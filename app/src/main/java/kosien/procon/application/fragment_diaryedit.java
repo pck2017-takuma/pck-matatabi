@@ -157,17 +157,18 @@ public class fragment_diaryedit extends Fragment {
             }
         });
 
+
+        //戻るボタンをクリック
+        btn_cancel.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+//                if(diary.getText().length() > 0){
 //
-//        //戻るボタンをクリック
-//        btn_cancel.setOnClickListener(new View.OnClickListener(){
-////            public void onClick(View v){
-////                if(diary.getText().length() > 0){
-////                    showDialog(0);
-////                }else{
-////                    finish();
-////                }
-////            }
-////        });
+//                }else{
+//
+//                }
+                
+            }
+        });
 
 
         //何も書かないとセーブさせないようにする

@@ -80,8 +80,7 @@ public class fragment_schedule_detail extends Fragment {
         placeNameView = (TextView)view.findViewById(R.id.schedule_name_detail);
         placeCategoryView = (TextView)view.findViewById(R.id.schedule_cat_detail);
         placeActionView = (TextView)view.findViewById(R.id.schedule_action_detail);
-
-
+        placeDetailList = (ListView)view.findViewById(R.id.schedule_list_detail);
         //バンドルデータにより訪れたところの詳細なデータを取得する
         switch(viewData.getPlaceCategory()){
             case "観光地":
@@ -167,9 +166,9 @@ public class fragment_schedule_detail extends Fragment {
                                 bundle.putInt("month", myRecord.getDiaryMon());
                                 bundle.putInt("day", myRecord.getDiaryDay());
                                 bundle.putString("diary", myRecord.getDiaryRecord());
-
                                 recordFragment.setArguments(bundle);
-                                fragmentTransaction.replace(R.id.fragment_record, recordFragment);
+                                fragmentTransaction.replace(R.id.frame_layout, recordFragment);
+                                fragmentTransaction.addToBackStack(null);
                                 fragmentTransaction.commit();
                                 break;
                         }
@@ -187,7 +186,8 @@ public class fragment_schedule_detail extends Fragment {
                                 bundle.putInt("schedule", viewData.getRowId());
                                 bundle.putInt("travel", viewData.getTravelNum());
                                 recordFragment.setArguments(bundle);
-                                fragmentTransaction.replace(R.id.fragment_record, recordFragment);
+                                fragmentTransaction.replace(R.id.frame_layout, recordFragment);
+                                fragmentTransaction.addToBackStack(null);
                                 fragmentTransaction.commit();
 
                         }
