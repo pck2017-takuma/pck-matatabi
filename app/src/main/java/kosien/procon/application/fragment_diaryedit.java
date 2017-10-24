@@ -166,7 +166,7 @@ public class fragment_diaryedit extends Fragment {
 //                }else{
 //
 //                }
-                
+
             }
         });
 
