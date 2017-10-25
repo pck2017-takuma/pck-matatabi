@@ -79,8 +79,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.Garbage:
                     //設定画面を開いたら色々情報が変わるのでバックスタックの内容をすべて消去（本当の理由は違う）
                     fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                    getFragmentManager().beginTransaction().replace(R.id.frame_layout, new PrefsFragment()).addToBackStack("setting").commit();
-
+                    myPreferenceFragment mypreferencefragment = new myPreferenceFragment();
+                    fragmentTransaction.replace(R.id.frame_layout,mypreferencefragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                     return true;
             }
             return false;
@@ -106,14 +108,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //Preferenceフラグメント
-    public static class PrefsFragment extends PreferenceFragment {
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.preference);
-        }
-    }
+//    //Preferenceフラグメント
+//    public static class PrefsFragment extends PreferenceFragment {
+//        @Override
+//        public void onCreate(Bundle savedInstanceState) {
+//            super.onCreate(savedInstanceState);
+//            addPreferencesFromResource(R.xml.preference);
+//        }
+//    }
 
 
 }

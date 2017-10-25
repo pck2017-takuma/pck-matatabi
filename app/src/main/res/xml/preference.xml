@@ -3,11 +3,28 @@
 
     <!--チェックスイッチ-->
 
+
+    <EditTextPreference
+        android:key="user_name"
+        android:title="お名前"
+        android:summary="あなたのお名前を教えてください"
+        android:dialogTitle="お名前" />
+    <EditTextPreference
+        android:key="user_name"
+        android:title="プロフィール"
+        android:summary="メールアドレス・アカウント名などを入れてください"
+        android:dialogTitle="お名前" />
+    <PreferenceScreen
+        android:key="my_key"
+        android:summary="オンラインに情報が登録されたらIDが表示されます"
+        android:title="ID情報">
+        <PreferenceCategory android:layout="@layout/setting_license"></PreferenceCategory>
+    </PreferenceScreen>
+
     <SwitchPreference
         android:key="setting_checkswitch_preference"
         android:title="通知機能"
         android:summary="通知機能をオンにしますか（消費電力が増える場合があります）"></SwitchPreference>
-
     <!--位置情報許可-->
     <SwitchPreference
         android:key="gps_checkswitch_preference"
