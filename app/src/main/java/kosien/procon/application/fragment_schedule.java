@@ -88,7 +88,7 @@ public class fragment_schedule extends Fragment {
         // ボタンを生成
         super.onViewCreated(view, saveInstanceState);
         Button accept_button = (Button) view.findViewById(R.id.edit_buttonn);
-
+        Button upload_button = (Button)view.findViewById(R.id.edit_buttonn2);
 
         //acceptボタンの割り当て
 
@@ -132,6 +132,17 @@ public class fragment_schedule extends Fragment {
                 }
             });
 
+            upload_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    //アップロード処理
+
+                    //旅行情報の登録処理から
+
+
+                }
+            });
 
         }
 
