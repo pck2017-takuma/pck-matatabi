@@ -12,6 +12,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import su.heartlove.matatabi.R;
 
@@ -28,6 +39,7 @@ public class myPreferenceFragment extends Fragment {
     public static final String KEY_MY_NAME = "user_name";
     public static final String KEY_MY_ADDRESS = "user_address";
     public static final String KEY_MY_ID = "my_key";
+    public static final String USE_ADD_LINK = "http://150.15.103.131/php/user_add.php";
 
 
     @Override
@@ -126,21 +138,52 @@ public class myPreferenceFragment extends Fragment {
             namePref = (EditTextPreference) findPreference(KEY_MY_NAME);
             String nameKey = namePref.getText();
 
+
+
             if(nameKey != null && addressKey != null){
-                //データベースアップロード処理
+                //こ↑こ↓からデータベースアップロード処理
+
+                //queue
+                RequestQueue getQueue=Volley.newRequestQueue(getContext());
+                //Volleyによる通信開始　（GETかPOST、サーバーのURL、受信メゾット、エラーメゾット）
+                JsonObjectRequest mRequest = new JsonObjectRequest(Request.Method.POST,USE_ADD_LINK,
+                        // 通信成功
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                //こ↑こ↓からJSON解析
+                                try{
+                                    final int user_id = response.getInt("user_id");
+                                    PreferenceScreen screen;
+                                    screen =  (PreferenceScreen)findPreference(KEY_MY_ID);
+
+                                    //デバック用にuser_idを表示する
+                                    Toast.makeText(getContext(),"登録されたID： " + String.valueOf(user_id),Toast.LENGTH_SHORT).show();
 
 
+                                    screen.setKey(String.valueOf(user_id));
+
+                                }catch(JSONException e){
+                                    Toast.makeText(getContext(),"IDの読み込みに失敗しました",Toast.LENGTH_SHORT).show();
+
+                                }
 
 
+                            }
+                        },
 
+                        // 通信失敗
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getContext(),"通信に失敗しました。",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                );
+
+                getQueue.add(mRequest);
 
             }
-
-
-
-
-
-
 
         }
 
