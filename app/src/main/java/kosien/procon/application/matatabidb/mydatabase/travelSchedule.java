@@ -31,25 +31,20 @@ public class travelSchedule implements Serializable {
     private int flag = 0;
 
     //ゲッター
-
     public int getRowid() {
         return this.rowid;
     }
-
     public void setRowid(int _rowid) {
         this.rowid = _rowid;
     }
-
     public int getTravelNum() {
         return this.travelNum;
     }
-
     public void setTravelNum(int _travelNum) {
         this.travelNum = _travelNum;
     }
 
     //セッター
-
     public int getRouteNum() {
         return this.routeNum;
     }
@@ -68,6 +63,7 @@ public class travelSchedule implements Serializable {
     public void setFlag(int _flag) {
         this.flag = _flag;
     }
+
 
 
 

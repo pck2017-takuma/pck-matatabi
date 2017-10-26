@@ -40,6 +40,7 @@ public class fragment_schedule_detail extends Fragment {
     //リソース
     TextView placeNameView;
     TextView placeCategoryView;
+    TextView placeUploadView;
     TextView placeActionView;
     ListView placeDetailList;
     /**
@@ -79,6 +80,7 @@ public class fragment_schedule_detail extends Fragment {
         //リソース割り当て
         placeNameView = (TextView)view.findViewById(R.id.schedule_name_detail);
         placeCategoryView = (TextView)view.findViewById(R.id.schedule_cat_detail);
+        placeUploadView = (TextView)
         placeActionView = (TextView)view.findViewById(R.id.schedule_action_detail);
         placeDetailList = (ListView)view.findViewById(R.id.schedule_list_detail);
         //バンドルデータにより訪れたところの詳細なデータを取得する

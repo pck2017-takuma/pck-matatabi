@@ -3,7 +3,6 @@
 
     <!--チェックスイッチ-->
 
-
     <EditTextPreference
         android:key="user_name"
         android:title="お名前"

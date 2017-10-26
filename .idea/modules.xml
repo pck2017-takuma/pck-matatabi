@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Application.iml" filepath="$PROJECT_DIR$/Application.iml" />
       <module fileurl="file://I:\Documents\pck-matatabi\Application.iml" filepath="I:\Documents\pck-matatabi\Application.iml" />
       <module fileurl="file://C:\Users\i15317\Documents\pck-matatabi\Application.iml" filepath="C:\Users\i15317\Documents\pck-matatabi\Application.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pck-matatabi.iml" filepath="$PROJECT_DIR$/pck-matatabi.iml" />
       <module fileurl="file://G:\Application\pck-matatabi.iml" filepath="G:\Application\pck-matatabi.iml" />
     </modules>
   </component>
