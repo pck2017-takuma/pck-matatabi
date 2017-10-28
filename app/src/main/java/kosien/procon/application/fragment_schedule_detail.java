@@ -81,6 +81,8 @@ public class fragment_schedule_detail extends Fragment {
         placeCategoryView = (TextView)view.findViewById(R.id.schedule_cat_detail);
         placeActionView = (TextView)view.findViewById(R.id.schedule_action_detail);
         placeDetailList = (ListView)view.findViewById(R.id.schedule_list_detail);
+
+
         //バンドルデータにより訪れたところの詳細なデータを取得する
         switch(viewData.getPlaceCategory()){
             case "観光地":

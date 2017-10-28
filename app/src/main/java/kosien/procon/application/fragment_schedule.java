@@ -56,9 +56,16 @@ public class fragment_schedule extends Fragment {
     ArrayList<travelSchedule> scheduleData = new ArrayList<>();
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView mRecyclerView;
+
+    schedule_online onlineUploadHeleper;
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         super.onCreateView(inflater, container, saveInstanceState);
+        //ヘルパークラス
+        onlineUploadHeleper = new schedule_online(getContext());
         return inflater.inflate(R.layout.fragment_schedule, container, false);
     }
 
@@ -88,7 +95,7 @@ public class fragment_schedule extends Fragment {
         // ボタンを生成
         super.onViewCreated(view, saveInstanceState);
         Button accept_button = (Button) view.findViewById(R.id.edit_buttonn);
-
+        Button upload_button = (Button)view.findViewById(R.id.edit_buttonn2);
 
         //acceptボタンの割り当て
 
@@ -132,6 +139,29 @@ public class fragment_schedule extends Fragment {
                 }
             });
 
+            upload_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    //アップロード処理
+                    onlineUploadHeleper.UpLoadTraverlInfo(getData);
+                    //一定時間スリープ
+                    try {
+                        //0.5秒待機
+                        Thread.sleep(5 * 100);
+
+                    }catch(InterruptedException e){
+                        //エラーは仕様です
+                    }
+
+                    for(travelSchedule x:getList){
+
+                        onlineUploadHeleper.UpLoadSchedule(x);
+                    }
+
+
+                }
+            });
 
         }
 
